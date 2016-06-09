@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMF.MessageBus.Core", "BMF.MessageBus.Core\BMF.MessageBus.Core.csproj", "{9972E660-C569-4A05-9B37-64C7AC4159B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMF.MessageBus.Core.Tests", "..\BMF.MessageBus.Core.Tests\BMF.MessageBus.Core.Tests.csproj", "{E71708DC-5342-41EC-8BAF-5D2AB034401E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{5319C55B-53AF-46ED-ADDB-2E377F3E8A60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMF.MessageBus.RabbitMq", "..\Implementations\BMF.MessageBus.RabbitMq\BMF.MessageBus.RabbitMq.csproj", "{B205FDC7-C708-4BA0-ACF5-EFA343089857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMF.MessageBus.NServiceBus", "..\Implementations\BMF.MessageBus.NServiceBus\BMF.MessageBus.NServiceBus.csproj", "{D1533FDB-343C-493F-8492-C130C40CAC95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMF.MessageBus.ActiveMq", "..\Implementations\BMF.MessageBus.ActiveMq\BMF.MessageBus.ActiveMq.csproj", "{AC289BC5-0F03-4303-9492-E195A7B842A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9972E660-C569-4A05-9B37-64C7AC4159B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9972E660-C569-4A05-9B37-64C7AC4159B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9972E660-C569-4A05-9B37-64C7AC4159B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9972E660-C569-4A05-9B37-64C7AC4159B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E71708DC-5342-41EC-8BAF-5D2AB034401E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E71708DC-5342-41EC-8BAF-5D2AB034401E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E71708DC-5342-41EC-8BAF-5D2AB034401E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E71708DC-5342-41EC-8BAF-5D2AB034401E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B205FDC7-C708-4BA0-ACF5-EFA343089857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B205FDC7-C708-4BA0-ACF5-EFA343089857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B205FDC7-C708-4BA0-ACF5-EFA343089857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B205FDC7-C708-4BA0-ACF5-EFA343089857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1533FDB-343C-493F-8492-C130C40CAC95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1533FDB-343C-493F-8492-C130C40CAC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1533FDB-343C-493F-8492-C130C40CAC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1533FDB-343C-493F-8492-C130C40CAC95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC289BC5-0F03-4303-9492-E195A7B842A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC289BC5-0F03-4303-9492-E195A7B842A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC289BC5-0F03-4303-9492-E195A7B842A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC289BC5-0F03-4303-9492-E195A7B842A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B205FDC7-C708-4BA0-ACF5-EFA343089857} = {5319C55B-53AF-46ED-ADDB-2E377F3E8A60}
+		{D1533FDB-343C-493F-8492-C130C40CAC95} = {5319C55B-53AF-46ED-ADDB-2E377F3E8A60}
+		{AC289BC5-0F03-4303-9492-E195A7B842A5} = {5319C55B-53AF-46ED-ADDB-2E377F3E8A60}
+	EndGlobalSection
+EndGlobal
