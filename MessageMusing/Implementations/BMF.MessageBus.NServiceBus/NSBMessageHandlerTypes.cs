@@ -3,6 +3,7 @@ using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,14 @@ namespace BMF.MessageBus.NServiceBus
         public NSBMessageHandlerTypes(IList<MessageMetadata> messageDefinitions)
         {
             var nsbHandlerType = typeof(NSBMessageHandler<,>);
-            var bmfHandlerType = typeof(IMessageHandler<>);
+            var bmfHandlerType = typeof(MessageHandler<>);
                         
-            _handlers = messageDefinitions.Select(md => nsbHandlerType.MakeGenericType(md.MessageType, bmfHandlerType.MakeGenericType(md.MessageType))).ToArray();
+            _handlers = messageDefinitions.Select(md =>
+            {
+                var bmfMessageHandlerType = bmfHandlerType.MakeGenericType(md.MessageType);
+                var nsbMessageHandlerType = nsbHandlerType.MakeGenericType(md.MessageType, bmfMessageHandlerType);
+                return nsbMessageHandlerType;
+            }).ToArray();
         }
 
         public IEnumerable<Type> Types { get { return _handlers; } }
@@ -35,11 +41,20 @@ namespace BMF.MessageBus.NServiceBus
                 andThenMethod.Invoke(firstForOurHandlers, null);
             }
 
-            var nsbBusConfigurationType = configuration.GetType();
-            var loadHandlersMethod = nsbBusConfigurationType.GetMethod("LoadMessageHandlers");
-            var loadOurHandlersMethod = loadHandlersMethod.MakeGenericMethod(nsbFirstForOurHandlersType);
+            var loadHanderExtensionsType = typeof(LoadMessageHandlersExtentions);
+            var busConfigurationType = typeof(BusConfiguration);
+            var loadHandlersMethod = loadHanderExtensionsType.GetMethods().FirstOrDefault(m => {
+                if (m.Name == "LoadMessageHandlers" && m.IsGenericMethod)
+                {
+                    var mthParams = m.GetParameters();
+                    return mthParams.Length == 2 && mthParams[0].ParameterType == busConfigurationType && mthParams[1].ParameterType.IsGenericType;
+                }
+                else return false;
+            });
 
-            loadOurHandlersMethod.Invoke(configuration, new object[] { firstForOurHandlers });
+            var loadOurHandlersMethod = loadHandlersMethod.MakeGenericMethod(_handlers[0]);
+
+            loadOurHandlersMethod.Invoke(null, new object[] { configuration, firstForOurHandlers });
         }
     }
 }

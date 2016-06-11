@@ -15,12 +15,40 @@ namespace TestClient
     {
         static void Main(string[] args)
         {
-            IMessageBusConfiguration configuration = new MessageBusConfiguration("client", new MessageMetadata<TestMessage>());
             IMessageBusSerialiser serialiser = new JsonSerialiser();
-
-            var bus = new NSBMessageBus(configuration, serialiser);
-
+            IMessageBusConfiguration configuration = new MessageBusConfiguration("client", serialiser,  new MessageMetadata<TestMessage>());
             
+            var bus = new NSBMessageBus(configuration);
+
+            bus.Start();
+
+            SendMessages(bus);
+        }
+
+        static void SendMessages(NSBMessageBus bus)
+        {
+            Console.WriteLine("Press enter to send a message");
+            Console.WriteLine("Press any key to exit");
+
+            while (true)
+            {
+                var key = Console.ReadKey();
+                Console.WriteLine();
+
+                if (key.Key != ConsoleKey.Enter)
+                    return;
+                
+                var id = Guid.NewGuid();
+
+                var message = new TestMessage
+                {
+                    Id = Guid.NewGuid(),
+                    Message = "Hello World"
+                };
+
+                bus.Publish(message);
+                Console.WriteLine($"Published a new Test message with id: {id.ToString("N")}");
+            }
         }
     }
 }

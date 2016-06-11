@@ -27,7 +27,7 @@ namespace BMF.MessageBus.NServiceBus
             _nsbConfiguration.EnableInstallers();
             _nsbConfiguration.UsePersistence<InMemoryPersistence>();
             _nsbConfiguration.LoadMessageHandlers(configuration.MessageDefinitions);
-
+            
             ConventionsBuilder builder = _nsbConfiguration.Conventions();
             builder.DefiningCommandsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Command) != null);
             builder.DefiningEventsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Event) != null);
