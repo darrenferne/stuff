@@ -26,9 +26,16 @@ namespace BMF.MessageBus.NServiceBus
             _nsbConfiguration.UseSerialization(typeof(NSBSerialiser));
             _nsbConfiguration.EnableInstallers();
             _nsbConfiguration.UsePersistence<InMemoryPersistence>();
+            _nsbConfiguration.LoadMessageHandlers(configuration.MessageDefinitions);
 
-            
+            ConventionsBuilder builder = _nsbConfiguration.Conventions();
+            builder.DefiningCommandsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Command) != null);
+            builder.DefiningEventsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Event) != null);
+            builder.DefiningMessagesAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Message) != null);
+            builder.DefiningExpressMessagesAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.ExpressMe == true) != null);
+
             _factory = Bus.Create(_nsbConfiguration);
+            _factory.Subscribe(configuration.MessageDefinitions);
         }
 
         
