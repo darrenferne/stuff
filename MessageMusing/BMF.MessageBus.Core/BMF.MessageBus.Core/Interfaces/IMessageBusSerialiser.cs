@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.Core.Interfaces
 {
-    public interface ISerialiser
+    public interface IMessageBusSerialiser
     {
         byte[] Serialise<T_message>(T_message message);
+        byte[] Serialise(object message);
+
         T_message Deserialise<T_message>(byte[] messageData);
+        object Deserialise(byte[] messageData);
     }
 }

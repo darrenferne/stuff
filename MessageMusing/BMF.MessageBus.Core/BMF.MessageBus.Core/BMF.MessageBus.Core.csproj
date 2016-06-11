@@ -52,12 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusStartedHandler.cs" />
+    <Compile Include="Messages\BusStarted.cs" />
+    <Compile Include="Interfaces\IMessageBusConfiguration.cs" />
     <Compile Include="Interfaces\IMessageHandler.cs" />
     <Compile Include="Interfaces\IMessageBus.cs" />
-    <Compile Include="Interfaces\ISerialiser.cs" />
+    <Compile Include="Interfaces\IMessageBusContainer.cs" />
+    <Compile Include="Interfaces\IMessageBusSerialiser.cs" />
+    <Compile Include="MessageBusConfiguration.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="MessageContext.cs" />
     <Compile Include="MessageMetadata.cs" />
+    <Compile Include="MessageAction.cs" />
+    <Compile Include="ObservableMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

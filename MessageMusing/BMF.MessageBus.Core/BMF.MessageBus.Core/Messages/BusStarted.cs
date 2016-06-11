@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BMF.MessageBus.NServiceBus
+namespace BMF.MessageBus.Core
 {
-    public class Class1
+    public class BusStarted
     {
+        public DateTime StartedAt { get; set; }
     }
 }

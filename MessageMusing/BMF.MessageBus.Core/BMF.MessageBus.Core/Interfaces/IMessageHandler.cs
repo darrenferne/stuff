@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.Core
 {
-    public interface IMessageHandler<T_message>
+    public interface IMessageHandler<T_message> : IMessageHandler
     {
         void HandleMessage(T_message message);
+    }
+
+    public interface IMessageHandler
+    {
+        Type MessageType { get; }
     }
 }

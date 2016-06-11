@@ -8,18 +8,23 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.RabbitMq
 {
-    public class RabbitMqMessageHandler<T_message> : MessageHandler<T_message>
+    public class RMQMessageHandler<T_message> : MessageHandler<T_message>
     {
-        RabbitMqBus _bus;
+        RMQMessageBus _bus;
         EventingBasicConsumer _consumer;
 
-        public RabbitMqMessageHandler(RabbitMqBus bus, string queueName)
+        public RMQMessageHandler(RMQMessageBus bus, string queueName)
         {
             _bus = bus;
             _consumer = new EventingBasicConsumer(_bus._model);
             _consumer.Received += internalHandler;
 
             _bus._model.BasicConsume(queueName, false, _consumer);
+        }
+
+        public override void HandleMessage(T_message message)
+        {
+            throw new NotImplementedException();
         }
 
         private void internalHandler(object sender, BasicDeliverEventArgs e)

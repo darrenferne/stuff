@@ -8,21 +8,12 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.Core
 {
-    public class MessageHandler<T_message> : IMessageHandler<T_message>
+    public abstract class MessageHandler<T_message> : IMessageHandler<T_message>
     {
-        private Subject<T_message> _messageSubject = new Subject<T_message>();
-                        
-        public IObservable<T_message> Messages
-        {
-            get
-            {
-                return _messageSubject.AsObservable();
-            }
-        }
+        private Type _messageType = typeof(T_message);
 
-        public virtual void HandleMessage(T_message message)
-        {
-            _messageSubject.OnNext(message);
-        }
+        public Type MessageType { get { return _messageType; } }
+
+        public abstract void HandleMessage(T_message message);
     }
 }

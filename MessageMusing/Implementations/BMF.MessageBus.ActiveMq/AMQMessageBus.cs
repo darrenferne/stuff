@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.ActiveMq
 {
-    public class ActiveMqBus : IMessageBus, IDisposable
+    public class AMQMessageBus : IMessageBus, IDisposable
     {
         private string _hostUrl = @"activemq:tcp://activemqhost:61616";
 
-        internal ISerialiser _serialiser;
+        internal IMessageBusSerialiser _serialiser;
         internal IConnectionFactory _factory;
         internal IConnection _connection;
         internal ISession _session;
@@ -21,7 +21,7 @@ namespace BMF.MessageBus.ActiveMq
 
         private bool _disposed;
 
-        public ActiveMqBus(ISerialiser serialiser)
+        public AMQMessageBus(IMessageBusSerialiser serialiser)
         {
             _serialiser = serialiser;
 
@@ -31,9 +31,35 @@ namespace BMF.MessageBus.ActiveMq
             _queues = new Dictionary<string, IMessageProducer>();
         }
 
-        private void CreateQueue(string name)
+        private void CreateQueue(string name, bool forTopic = false)
         {
-            var destination = SessionUtil.GetDestination(_session, "queue://" + name);
+            // Examples for getting a destination:
+            //
+            // Hard coded destinations:
+            //    IDestination destination = session.GetQueue("FOO.BAR");
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = session.GetTopic("FOO.BAR");
+            //    Debug.Assert(destination is ITopic);
+            //
+            // Embedded destination type in the name:
+            //    IDestination destination = SessionUtil.GetDestination(session, "queue://FOO.BAR");
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = SessionUtil.GetDestination(session, "topic://FOO.BAR");
+            //    Debug.Assert(destination is ITopic);
+            //
+            // Defaults to queue if type is not specified:
+            //    IDestination destination = SessionUtil.GetDestination(session, "FOO.BAR");
+            //    Debug.Assert(destination is IQueue);
+            //
+            // .NET 3.5 Supports Extension methods for a simplified syntax:
+            //    IDestination destination = session.GetDestination("queue://FOO.BAR");
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = session.GetDestination("topic://FOO.BAR");
+            //    Debug.Assert(destination is ITopic);
+
+            var destinationType = forTopic ? "topic://" : "queue://";
+            var destination = _session.GetDestination(destinationType + name);
+                        
             var producer = _session.CreateProducer(destination);
             producer.DeliveryMode = MsgDeliveryMode.Persistent;
             
@@ -68,6 +94,14 @@ namespace BMF.MessageBus.ActiveMq
             Dispose(true);
         }
 
+        public void Start()
+        {
+        }
+
+        public void Stop()
+        {
+        }
+
         public void Publish<T_message>(T_message message)
         {
             var body = _serialiser.Serialise(message);
@@ -75,24 +109,23 @@ namespace BMF.MessageBus.ActiveMq
 
             _queues.FirstOrDefault().Value.Send(msg);
         }
-            
-    
+
+        public void Subscribe(Type messageType)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Subscribe<T_message>()
         {
             throw new NotImplementedException();
         }
 
-        public int Subscribe<T_message>(Action<T_message> action)
+        public void Unsubscribe(Type messageType)
         {
             throw new NotImplementedException();
         }
 
         public void Unsubscribe<T_message>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unsubscribe<T_message>(int subscription)
         {
             throw new NotImplementedException();
         }

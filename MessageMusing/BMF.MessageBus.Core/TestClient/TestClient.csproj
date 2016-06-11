@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AC289BC5-0F03-4303-9492-E195A7B842A5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{76D58012-08FC-4E36-8F4C-11B4AE85DDA8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BMF.MessageBus.ActiveMq</RootNamespace>
-    <AssemblyName>BMF.MessageBus.ActiveMq</AssemblyName>
+    <RootNamespace>TestClient</RootNamespace>
+    <AssemblyName>TestClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,14 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apache.NMS, Version=1.7.1.3894, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
-      <HintPath>..\..\BMF.MessageBus.Core\packages\Apache.NMS.1.7.1\lib\net40\Apache.NMS.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Apache.NMS.ActiveMQ, Version=1.7.1.3924, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
-      <HintPath>..\..\BMF.MessageBus.Core\packages\Apache.NMS.ActiveMQ.1.7.1\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,17 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AMQMessageBus.cs" />
-    <Compile Include="AMQMessageHandler.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BMF.MessageBus.Core\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
+    <ProjectReference Include="..\..\BMF.MessageBus.JsonSerialiser\BMF.MessageBus.JsonSerialiser.csproj">
+      <Project>{1908835e-a09a-4e72-9b6e-83506f33334b}</Project>
+      <Name>BMF.MessageBus.JsonSerialiser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Implementations\BMF.MessageBus.NServiceBus\BMF.MessageBus.NServiceBus.csproj">
+      <Project>{d1533fdb-343c-493f-8492-c130c40cac95}</Project>
+      <Name>BMF.MessageBus.NServiceBus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
       <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
       <Name>BMF.MessageBus.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestDomain\TestDomain.csproj">
+      <Project>{c5c04f85-2060-4269-8b37-b7b9dc7d8bd6}</Project>
+      <Name>TestDomain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

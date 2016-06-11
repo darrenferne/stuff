@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.RabbitMq
 {
-    public class RabbitMqBus : IMessageBus, IDisposable
+    public class RMQMessageBus : IMessageBus, IDisposable
     {
-        internal ISerialiser _serialiser;
+        internal IMessageBusSerialiser _serialiser;
         internal ConnectionFactory _factory;
         internal IConnection _connection;
         internal IModel _model;
@@ -18,7 +18,7 @@ namespace BMF.MessageBus.RabbitMq
 
         private bool _disposed;
         
-        public RabbitMqBus(ISerialiser serialiser)
+        public RMQMessageBus(IMessageBusSerialiser serialiser)
         {
             _serialiser = serialiser;
             _factory = new ConnectionFactory() { HostName = "localhost" };
@@ -61,6 +61,14 @@ namespace BMF.MessageBus.RabbitMq
             Dispose(true);
         }
 
+        public void Start()
+        {
+        }
+
+        public void Stop()
+        {
+        }
+
         public void Publish<T_message>(T_message message)
         {
             var body = _serialiser.Serialise(message);
@@ -74,22 +82,22 @@ namespace BMF.MessageBus.RabbitMq
                                  body: body);
         }
 
+        public void Subscribe(Type messageType)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Subscribe<T_message>()
         {
             throw new NotImplementedException();
         }
 
-        public int Subscribe<T_message>(Action<T_message> action)
+        public void Unsubscribe(Type messageType)
         {
             throw new NotImplementedException();
         }
 
         public void Unsubscribe<T_message>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unsubscribe<T_message>(int subscription)
         {
             throw new NotImplementedException();
         }

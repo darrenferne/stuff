@@ -44,11 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="NSBContainer.cs" />
+    <Compile Include="NSBErrorQueueConfiguration.cs" />
+    <Compile Include="NSBExtensions.cs" />
+    <Compile Include="NSBMessageBus.cs" />
+    <Compile Include="NSBMessageHandlerTypes.cs" />
+    <Compile Include="NSBSerialiser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NSBMessageHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BMF.MessageBus.Core\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
+      <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
+      <Name>BMF.MessageBus.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
