@@ -12,11 +12,11 @@ namespace BMF.MessageBus.NServiceBus
     {
         private string _queueName;
 
-        public NSBErrorQueueConfiguration(string queueName)
+        public NSBErrorQueueConfiguration()
         {
-            _queueName = queueName;
+            _queueName = string.IsNullOrEmpty(NSBGlobalConfiguration.Config.ErrorQueue) ? "Errors" : NSBGlobalConfiguration.Config.ErrorQueue;
         }
-
+        
         public MessageForwardingInCaseOfFaultConfig GetConfiguration()
         {
             return new MessageForwardingInCaseOfFaultConfig

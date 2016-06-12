@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BMF.MessageBus.Core.Interfaces
+namespace TestSubscriber
 {
-    public interface IMessageBusContainer
+    public class Class1
     {
-        object NativeContainer { get; }
     }
 }

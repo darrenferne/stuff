@@ -13,6 +13,9 @@ namespace BMF.MessageBus.NServiceBus
     {
         IMessageBusSerialiser _serialiser;
 
+        //public NSBSerialiser()
+        //{ }
+
         public NSBSerialiser(IMessageBusSerialiser serialiser)
         {
             _serialiser = serialiser;
@@ -27,7 +30,7 @@ namespace BMF.MessageBus.NServiceBus
         {
             var buffer = new byte[stream.Length];
             stream.Read(buffer, 0, (int)stream.Length);
-            var message = _serialiser.Deserialise(buffer);
+            var message = _serialiser.Deserialise(messageTypes[0], buffer);
 
             return new object[] { message };
         }

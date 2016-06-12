@@ -12,6 +12,6 @@ namespace BMF.MessageBus.Core.Interfaces
         byte[] Serialise(object message);
 
         T_message Deserialise<T_message>(byte[] messageData);
-        object Deserialise(byte[] messageData);
+        object Deserialise(Type type, byte[] messageData);
     }
 }

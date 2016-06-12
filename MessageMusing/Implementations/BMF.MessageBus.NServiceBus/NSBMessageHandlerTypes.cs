@@ -1,4 +1,5 @@
 ﻿using BMF.MessageBus.Core;
+using BMF.MessageBus.Core.Interfaces;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.NServiceBus
 {
-    internal class NSBMessageHandlerTypes 
+    public class NSBMessageHandlerTypes //: ISpecifyMessageHandlerOrdering
     {
+        IMessageBusConfiguration _config;
         Type[] _handlers;
 
-        public NSBMessageHandlerTypes(IList<MessageMetadata> messageDefinitions)
+        public NSBMessageHandlerTypes(IMessageBusConfiguration config)
         {
+            _config = config;
+
             var nsbHandlerType = typeof(NSBMessageHandler<,>);
             var bmfHandlerType = typeof(MessageHandler<>);
                         
-            _handlers = messageDefinitions.Select(md =>
+            _handlers = _config.MessageDefinitions.Select(md =>
             {
                 var bmfMessageHandlerType = bmfHandlerType.MakeGenericType(md.MessageType);
                 var nsbMessageHandlerType = nsbHandlerType.MakeGenericType(md.MessageType, bmfMessageHandlerType);
@@ -55,6 +59,11 @@ namespace BMF.MessageBus.NServiceBus
             var loadOurHandlersMethod = loadHandlersMethod.MakeGenericMethod(_handlers[0]);
 
             loadOurHandlersMethod.Invoke(null, new object[] { configuration, firstForOurHandlers });
+        }
+
+        public void SpecifyOrder(Order order)
+        {
+            order.Specify(_handlers);
         }
     }
 }

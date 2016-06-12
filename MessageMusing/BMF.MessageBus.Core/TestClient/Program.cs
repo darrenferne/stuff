@@ -2,29 +2,36 @@
 using BMF.MessageBus.Core.Interfaces;
 using BMF.MessageBus.NServiceBus;
 using BMF.MessageBus.Serialisers;
+using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestDomain;
 
-namespace TestClient
+namespace TestService
 {
     class Program
     {
         static void Main(string[] args)
         {
-            IMessageBusSerialiser serialiser = new JsonSerialiser();
-            IMessageBusConfiguration configuration = new MessageBusConfiguration("client", serialiser,  new MessageMetadata<TestMessage>());
+            IKernel kernel = new StandardKernel();
+            IMessageBusConfiguration configuration = new MessageBusConfiguration("TestService", "ServiceErrors", new MessageMetadata<TestMessage>() { });
+
+            kernel.Bind<IMessageBusSerialiser>().To<JsonSerialiser>();
+            kernel.Bind<IMessageBusConfiguration>().ToConstant(configuration).InSingletonScope();
+
+            IMessageBusContainer container = new NinjectContainer(kernel);
             
-            var bus = new NSBMessageBus(configuration);
+            var bus = new NSBMessageBus(container, configuration);
 
             bus.Start();
 
             SendMessages(bus);
         }
-
+        
         static void SendMessages(NSBMessageBus bus)
         {
             Console.WriteLine("Press enter to send a message");
@@ -37,17 +44,23 @@ namespace TestClient
 
                 if (key.Key != ConsoleKey.Enter)
                     return;
-                
-                var id = Guid.NewGuid();
 
-                var message = new TestMessage
+                Console.WriteLine("Publishing 1000 new Test messages");
+                var sw = Stopwatch.StartNew();
+                for (int x = 0; x < 1000; x++)
                 {
-                    Id = Guid.NewGuid(),
-                    Message = "Hello World"
-                };
+                    var id = Guid.NewGuid();
+                    var message = new TestMessage
+                    {
+                        Id = Guid.NewGuid(),
+                        Message = "Hello World".PadRight(10000)+"Ha!"
+                    };
 
-                bus.Publish(message);
-                Console.WriteLine($"Published a new Test message with id: {id.ToString("N")}");
+                    bus.Publish(message);
+                    //Console.WriteLine($"Published a new Test message with id: {id.ToString("N")}");
+                }
+                sw.Stop();
+                Console.WriteLine($"Published 1000 new Test messages in {sw.ElapsedMilliseconds / 1000}s");
             }
         }
     }

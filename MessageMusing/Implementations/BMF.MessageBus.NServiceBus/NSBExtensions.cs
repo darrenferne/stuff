@@ -1,5 +1,9 @@
 ﻿using BMF.MessageBus.Core;
+using BMF.MessageBus.Core.Interfaces;
+using Microsoft.Practices.Unity;
+using Ninject;
 using NServiceBus;
+using NServiceBus.Container;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +19,10 @@ namespace BMF.MessageBus.NServiceBus
             handlers.LoadMessageHandlers(configuration);
         }
 
-        public static void LoadMessageHandlers(this BusConfiguration configuration, IList<MessageMetadata> messageDefinitions)
+        public static void LoadMessageHandlers(this BusConfiguration nsbConfiguration, IMessageBusConfiguration bmfConfiguration)
         {
-            var handlers = new NSBMessageHandlerTypes(messageDefinitions);
-            configuration.LoadMessageHandlers(handlers);
+            var handlers = new NSBMessageHandlerTypes(bmfConfiguration);
+            nsbConfiguration.LoadMessageHandlers(handlers);
         }
 
         public static void Subscribe(this IStartableBus factory, IList<MessageMetadata> messageDefinitions)
@@ -27,6 +31,18 @@ namespace BMF.MessageBus.NServiceBus
             {
                 factory.Subscribe(md.MessageType);
             }
+        }
+
+        public static void Configure(this ContainerCustomizations customizations, IMessageBusContainer container, IMessageBusConfiguration configuration)
+        {
+            customizations.Settings.Set("MessageBusContainer", container);
+            customizations.Settings.Set("MessageBusConfiguration", configuration);
+
+            var nativeContainer = container.NativeContainer;
+            if (nativeContainer is IKernel)
+                customizations.Settings.Set("ExistingKernel", nativeContainer);
+            else if (nativeContainer is IUnityContainer)
+                customizations.Settings.Set("ExistingContainer", nativeContainer);
         }
     }
 }

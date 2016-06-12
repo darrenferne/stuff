@@ -9,14 +9,16 @@ namespace BMF.MessageBus.Core
     public class MessageMetadata
     {
         private Type _messageType;
-
+        
         public MessageMetadata(Type messageType)
         {
             _messageType = messageType;
         }
 
         public Type MessageType { get { return _messageType; } }
+        public Type HandlerType { get; set; }
         public MessageAction MessageAction { get; set; }
+        public string QueueName { get; set; }
         public bool ExpressMe { get; set; }
         public TimeSpan Lifetime { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using BMF.MessageBus.Core.Interfaces;
 using NServiceBus;
+using NServiceBus.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,25 @@ namespace BMF.MessageBus.NServiceBus
 {
     public class NSBMessageBus : IMessageBus, IDisposable
     {
-        internal IMessageBusSerialiser _serialiser;
         internal BusConfiguration _nsbConfiguration;
         internal IStartableBus _factory;
         internal IBus _bus; 
 
         private bool _disposed;
 
-        public NSBMessageBus(IMessageBusConfiguration configuration)
+        public NSBMessageBus(IMessageBusContainer container, IMessageBusConfiguration configuration)
         {
-            _serialiser = configuration.Serialiser;
+            NSBGlobalConfiguration.Config = configuration;
 
             _nsbConfiguration = new BusConfiguration();
-            _nsbConfiguration.EndpointName(configuration.Host);
+            _nsbConfiguration.UseContainer<NSBContainer>(c => c.Configure(container, configuration));
             _nsbConfiguration.UseSerialization(typeof(NSBSerialiser));
+            _nsbConfiguration.EndpointName(configuration.Host);
             _nsbConfiguration.EnableInstallers();
+            _nsbConfiguration.DisableFeature<AutoSubscribe>();
             _nsbConfiguration.UsePersistence<InMemoryPersistence>();
-            _nsbConfiguration.LoadMessageHandlers(configuration.MessageDefinitions);
+            //_nsbConfiguration.LoadMessageHandlers(configuration);
+            _nsbConfiguration.CustomConfigurationSource(new NSBRouteConfiguration(configuration));
             
             ConventionsBuilder builder = _nsbConfiguration.Conventions();
             builder.DefiningCommandsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Command) != null);

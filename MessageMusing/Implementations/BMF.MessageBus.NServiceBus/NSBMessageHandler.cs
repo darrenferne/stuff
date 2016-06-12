@@ -12,6 +12,9 @@ namespace BMF.MessageBus.NServiceBus
     {
         NSBMessageBus _bus;
 
+        public NSBMessageHandler()
+        { }
+
         public NSBMessageHandler(NSBMessageBus bus, string queueName)
         {
             _bus = bus;

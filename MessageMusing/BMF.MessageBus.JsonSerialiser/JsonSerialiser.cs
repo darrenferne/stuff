@@ -24,10 +24,10 @@ namespace BMF.MessageBus.Serialisers
             _settings = settings;
         }
 
-        public object Deserialise(byte[] messageData)
+        public object Deserialise(Type type, byte[] messageData)
         {
             var messageAsString = Encoding.UTF8.GetString(messageData);
-            var result = JsonConvert.DeserializeObject(messageAsString, _settings);
+            var result = JsonConvert.DeserializeObject(messageAsString, type, _settings);
             return result;
         }
 

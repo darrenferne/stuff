@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,11 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BMF.MessageBus.JsonSerialiser\BMF.MessageBus.JsonSerialiser.csproj">
       <Project>{1908835e-a09a-4e72-9b6e-83506f33334b}</Project>
       <Name>BMF.MessageBus.JsonSerialiser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BMF.MessageBus.Ninject\BMF.MessageBus.Ninject.csproj">
+      <Project>{e0920a95-bd9d-4f21-8eca-f0185b4ba334}</Project>
+      <Name>BMF.MessageBus.Ninject</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Implementations\BMF.MessageBus.NServiceBus\BMF.MessageBus.NServiceBus.csproj">
       <Project>{d1533fdb-343c-493f-8492-c130c40cac95}</Project>

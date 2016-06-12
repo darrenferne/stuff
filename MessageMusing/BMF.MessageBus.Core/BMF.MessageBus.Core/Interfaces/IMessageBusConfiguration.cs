@@ -9,7 +9,7 @@ namespace BMF.MessageBus.Core.Interfaces
     public interface IMessageBusConfiguration
     {
         string Host { get; }
+        string ErrorQueue { get; }
         IList<MessageMetadata> MessageDefinitions { get; }
-        IMessageBusSerialiser Serialiser { get; }
     }
 }

@@ -10,26 +10,22 @@ namespace BMF.MessageBus.Core
     public class MessageBusConfiguration : IMessageBusConfiguration
     {
         private string _host;
+        private string _errorQueue;
         private List<MessageMetadata> _messageDefinitions;
-        private IMessageBusSerialiser _serialiser;
-
-        public MessageBusConfiguration(string host, IMessageBusSerialiser serialiser, params MessageMetadata[] definitions)
-            : this(host, serialiser, definitions as IEnumerable<MessageMetadata>)
+        
+        public MessageBusConfiguration(string host, string errorQueue, params MessageMetadata[] definitions)
+            : this(host, errorQueue, definitions as IEnumerable<MessageMetadata>)
         { }
 
-        public MessageBusConfiguration(string host, IMessageBusSerialiser serialiser, IEnumerable<MessageMetadata> definitions)
+        public MessageBusConfiguration(string host, string errorQueue, IEnumerable<MessageMetadata> definitions)
         {
             _host = host;
-            _serialiser = serialiser;
+            _errorQueue = errorQueue;
             _messageDefinitions = new List<MessageMetadata>(definitions);
         }
-
+        
         public string Host { get { return _host; } }
+        public string ErrorQueue { get { return _errorQueue; } }
         public IList<MessageMetadata> MessageDefinitions { get { return _messageDefinitions; } }
-        public IMessageBusSerialiser Serialiser
-        {
-            get { return _serialiser; }
-            set { _serialiser = value; }
-        }
     }
 }
