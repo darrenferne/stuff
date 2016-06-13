@@ -1,5 +1,4 @@
 ﻿using BMF.MessageBus.Core;
-using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace TestSubscriber
 
         public override void HandleMessage(TestMessage message)
         {
-            Console.WriteLine($"Recieved a new Test message with id: {message.Id.ToString("N")}: {message.Message}");
+            Console.WriteLine($"Recieved a new Test message with id: {message.Id.ToString("N")}");
         }
     }
 }

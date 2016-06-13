@@ -24,13 +24,14 @@ namespace BMF.MessageBus.NServiceBus
             _nsbConfiguration = new BusConfiguration();
             _nsbConfiguration.UseContainer<NSBContainer>(c => c.Configure(container, configuration));
             _nsbConfiguration.UseSerialization(typeof(NSBSerialiser));
-            _nsbConfiguration.EndpointName(configuration.Host);
+            _nsbConfiguration.EndpointName(configuration.EndpointName);
             _nsbConfiguration.EnableInstallers();
             _nsbConfiguration.DisableFeature<AutoSubscribe>();
             _nsbConfiguration.UsePersistence<InMemoryPersistence>();
             //_nsbConfiguration.LoadMessageHandlers(configuration);
             _nsbConfiguration.CustomConfigurationSource(new NSBRouteConfiguration(configuration));
-            
+            _nsbConfiguration.RegisterComponents(c => c.ConfigureComponents(this, configuration));
+
             ConventionsBuilder builder = _nsbConfiguration.Conventions();
             builder.DefiningCommandsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Command) != null);
             builder.DefiningEventsAs(t => configuration.MessageDefinitions.SingleOrDefault(md => md.MessageType == t && md.MessageAction == Core.MessageAction.Event) != null);
@@ -104,6 +105,16 @@ namespace BMF.MessageBus.NServiceBus
         public void Unsubscribe<T_message>()
         {
             _bus.Unsubscribe<T_message>();
+        }
+
+        public void Send<T_message>(string destination, T_message message)
+        {
+            _bus.Send(destination, message);
+        }
+
+        public void Reply<T_message>(T_message message)
+        {
+            _bus.Reply(message);
         }
     }
 }

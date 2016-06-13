@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BMF.MessageBus.Core
+namespace TestDomain
 {
-    public class BusStarted
+    public class TestRequest
     {
-        public DateTime StartedAt { get; set; }
+        public Guid Id { get; set; }
+        public int MessageCount { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BMF.MessageBus.Core;
 using BMF.MessageBus.Core.Interfaces;
 using BMF.MessageBus.NServiceBus;
+using BMF.MessageBus.RabbitMq;
 using BMF.MessageBus.Serialisers;
 using Ninject;
 using System;
@@ -18,24 +19,31 @@ namespace TestService
         static void Main(string[] args)
         {
             IKernel kernel = new StandardKernel();
-            IMessageBusConfiguration configuration = new MessageBusConfiguration("TestService", "ServiceErrors", new MessageMetadata<TestMessage>() { });
+            IMessageBusConfiguration configuration = new MessageBusConfiguration("", "TestService", "ServiceErrors", 
+                new MessageMetadata<TestMessage>() { MessageAction = MessageAction.Event, QueueName = "TestService" }, 
+                new MessageMetadata<TestRequest>() { MessageAction = MessageAction.Command, HandlerType = typeof(TestRequestHandler) });
 
             kernel.Bind<IMessageBusSerialiser>().To<JsonSerialiser>();
             kernel.Bind<IMessageBusConfiguration>().ToConstant(configuration).InSingletonScope();
 
             IMessageBusContainer container = new NinjectContainer(kernel);
             
-            var bus = new NSBMessageBus(container, configuration);
+            //var bus = new NSBMessageBus(container, configuration);
+            var bus = new RMQMessageBus(container, configuration);
+            //var bus = new AMQMessageBus(container, configuration);
 
             bus.Start();
 
-            SendMessages(bus);
+            Console.WriteLine("Press Enter to quit");
+            Console.ReadLine();
+
+            //SendMessages(bus);
         }
         
-        static void SendMessages(NSBMessageBus bus)
+        static void SendMessages(IMessageBus bus)
         {
-            Console.WriteLine("Press enter to send a message");
-            Console.WriteLine("Press any key to exit");
+            Console.WriteLine("Press Enter to send a message");
+            Console.WriteLine("Press any key to quit");
 
             while (true)
             {
@@ -53,7 +61,7 @@ namespace TestService
                     var message = new TestMessage
                     {
                         Id = Guid.NewGuid(),
-                        Message = "Hello World".PadRight(10000)+"Ha!"
+                        Message = "Hello World".PadRight(10000) + "Ha!"
                     };
 
                     bus.Publish(message);

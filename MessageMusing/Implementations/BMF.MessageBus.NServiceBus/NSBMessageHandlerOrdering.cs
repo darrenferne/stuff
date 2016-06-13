@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.NServiceBus
 {
-    public class Test : ISpecifyMessageHandlerOrdering
+    public class NSBMessageHandlerOrdering : ISpecifyMessageHandlerOrdering
     {
         Type[] _handlers;
 
-        public Test()
+        public NSBMessageHandlerOrdering()
         {
             var nsbHandlerType = typeof(NSBMessageHandler<,>);
             

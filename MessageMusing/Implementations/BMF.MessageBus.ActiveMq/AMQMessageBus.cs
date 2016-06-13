@@ -129,5 +129,15 @@ namespace BMF.MessageBus.ActiveMq
         {
             throw new NotImplementedException();
         }
+
+        public void Send<T_message>(string destination, T_message message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reply<T_message>(T_message message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

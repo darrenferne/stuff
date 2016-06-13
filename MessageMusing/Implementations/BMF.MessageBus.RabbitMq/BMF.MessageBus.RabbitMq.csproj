@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RabbitMQ.Client, Version=3.6.2.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\..\BMF.MessageBus.Core\packages\RabbitMQ.Client.3.6.2\lib\net45\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\..\..\packages\RabbitMQ.Client.3.6.2\lib\net45\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -52,7 +52,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BMF.MessageBus.Core\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
+    <ProjectReference Include="..\..\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
       <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
       <Name>BMF.MessageBus.Core</Name>
     </ProjectReference>

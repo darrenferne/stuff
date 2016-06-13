@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BMF.MessageBus.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace BMF.MessageBus.Core
 
     public interface IMessageHandler
     {
+        IMessageBus Bus { get; set; }
         Type MessageType { get; }
     }
 }

@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1908835E-A09A-4E72-9B6E-83506F33334B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2AB7ECAF-17C3-47BC-9767-9D94C5E90338}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BMF.MessageBus.JsonSerialiser</RootNamespace>
-    <AssemblyName>BMF.MessageBus.JsonSerialiser</AssemblyName>
+    <RootNamespace>TestClient</RootNamespace>
+    <AssemblyName>TestClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,6 +36,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,17 +50,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonSerialiser.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
       <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
       <Name>BMF.MessageBus.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\BMF.MessageBus.JsonSerialiser\BMF.MessageBus.JsonSerialiser.csproj">
+      <Project>{1908835e-a09a-4e72-9b6e-83506f33334b}</Project>
+      <Name>BMF.MessageBus.JsonSerialiser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BMF.MessageBus.Ninject\BMF.MessageBus.Ninject.csproj">
+      <Project>{e0920a95-bd9d-4f21-8eca-f0185b4ba334}</Project>
+      <Name>BMF.MessageBus.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Implementations\BMF.MessageBus.NServiceBus\BMF.MessageBus.NServiceBus.csproj">
+      <Project>{d1533fdb-343c-493f-8492-c130c40cac95}</Project>
+      <Name>BMF.MessageBus.NServiceBus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Implementations\BMF.MessageBus.RabbitMq\BMF.MessageBus.RabbitMq.csproj">
+      <Project>{b205fdc7-c708-4ba0-acf5-efa343089857}</Project>
+      <Name>BMF.MessageBus.RabbitMq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestDomain\TestDomain.csproj">
+      <Project>{c5c04f85-2060-4269-8b37-b7b9dc7d8bd6}</Project>
+      <Name>TestDomain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 ﻿using BMF.MessageBus.Core;
 using BMF.MessageBus.Core.Interfaces;
 using BMF.MessageBus.NServiceBus;
+using BMF.MessageBus.RabbitMq;
 using BMF.MessageBus.Serialisers;
 using Ninject;
 using System;
@@ -17,14 +18,17 @@ namespace TestSubscriber
         static void Main(string[] args)
         {
             IKernel kernel = new StandardKernel();
-            IMessageBusConfiguration configuration = new MessageBusConfiguration("TestSubScriber", "SubscriberErrors", new MessageMetadata<TestMessage>() { MessageAction = MessageAction.Event, QueueName = "TestService", HandlerType = typeof(TestMessageHandler) });
+            IMessageBusConfiguration configuration = new MessageBusConfiguration("", "TestSubScriber", "SubscriberErrors", 
+                new MessageMetadata<TestMessage>() { MessageAction = MessageAction.Event, QueueName = "TestService", HandlerType = typeof(TestMessageHandler) });
 
             kernel.Bind<IMessageBusSerialiser>().To<JsonSerialiser>();
             kernel.Bind<IMessageBusConfiguration>().ToConstant(configuration).InSingletonScope();
 
             IMessageBusContainer container = new NinjectContainer(kernel);
 
-            var bus = new NSBMessageBus(container, configuration);
+            //var bus = new NSBMessageBus(container, configuration);
+            var bus = new RMQMessageBus(container, configuration);
+            //var bus = new AMQMessageBus(container, configuration);
 
             bus.Start();
 

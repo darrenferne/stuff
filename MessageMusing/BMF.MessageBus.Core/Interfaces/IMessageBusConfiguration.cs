@@ -8,8 +8,9 @@ namespace BMF.MessageBus.Core.Interfaces
 {
     public interface IMessageBusConfiguration
     {
-        string Host { get; }
-        string ErrorQueue { get; }
+        string HostName { get; }
+        string EndpointName { get; }
+        string ErrorQueueName { get; }
         IList<MessageMetadata> MessageDefinitions { get; }
     }
 }

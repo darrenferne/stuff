@@ -12,6 +12,12 @@ namespace BMF.MessageBus.NServiceBus
     {
         NSBMessageBus _bus;
 
+        public NSBMessageBus Bus
+        {
+            get { return _bus; }
+            set { _bus = value; }
+        }
+
         public NSBMessageHandler()
         { }
 
@@ -23,7 +29,7 @@ namespace BMF.MessageBus.NServiceBus
         public void Handle(T_message message)
         {
             var handler = new T_handler();
-
+            handler.Bus = _bus;
             handler.HandleMessage(message);
         }
     }

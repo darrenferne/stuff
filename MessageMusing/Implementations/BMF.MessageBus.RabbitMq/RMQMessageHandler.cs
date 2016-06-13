@@ -1,4 +1,5 @@
 ﻿using BMF.MessageBus.Core;
+using BMF.MessageBus.Core.Interfaces;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
@@ -8,33 +9,63 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.RabbitMq
 {
-    public class RMQMessageHandler<T_message> : MessageHandler<T_message>
+    public class RMQMessageHandler<T_message, T_handler> : RMQMessageHandler where T_handler : MessageHandler<T_message>, new()
     {
-        RMQMessageBus _bus;
-        EventingBasicConsumer _consumer;
+        public RMQMessageHandler()
+        { }
 
-        public RMQMessageHandler(RMQMessageBus bus, string queueName)
-        {
-            _bus = bus;
-            _consumer = new EventingBasicConsumer(_bus._model);
-            _consumer.Received += internalHandler;
-
-            _bus._model.BasicConsume(queueName, false, _consumer);
-        }
-
-        public override void HandleMessage(T_message message)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void internalHandler(object sender, BasicDeliverEventArgs e)
+        public override void HandleMessage(object sender, BasicDeliverEventArgs e)
         {
             byte[] body = e.Body;
             T_message message = _bus._serialiser.Deserialise<T_message>(body);
 
-            this.HandleMessage(message);
+            var handler = _container.ResolveType<T_handler>();
+            handler.Bus = _bus;
+            handler.HandleMessage(message);
 
             _consumer.Model.BasicAck(e.DeliveryTag, false);
+        }
+    }
+
+    public abstract class RMQMessageHandler
+    {
+        protected IMessageBusContainer _container;
+        protected RMQMessageBus _bus;
+        protected EventingBasicConsumer _consumer;
+
+        public void Consume(RMQMessageBus bus, string queueName)
+        {
+            _bus = bus;
+            _consumer = new EventingBasicConsumer(bus._channel);
+            _consumer.Received += HandleMessage;
+
+            bus._channel.BasicConsume(queueName, false, _consumer);
+        }
+
+        public void Subscribe(RMQMessageBus bus, string exchangeName)
+        {
+            _bus = bus;
+
+            var queueName = _bus._channel.QueueDeclare().QueueName;
+            _bus._channel.QueueBind(queueName, exchangeName, string.Empty);
+
+            _consumer = new EventingBasicConsumer(bus._channel);
+            _consumer.Received += HandleMessage;
+            
+            _bus._channel.BasicConsume(queueName, true, _consumer);
+        }
+
+        public abstract void HandleMessage(object sender, BasicDeliverEventArgs e);
+
+        public static RMQMessageHandler Create(IMessageBusContainer container, MessageMetadata metadata)
+        {
+            var genericHandlerType = typeof(RMQMessageHandler<,>);
+            var specificHandlerType = genericHandlerType.MakeGenericType(metadata.MessageType, metadata.HandlerType);
+
+            var handler = (RMQMessageHandler)Activator.CreateInstance(specificHandlerType);
+            handler._container = container;
+
+            return handler;
         }
     }
 }

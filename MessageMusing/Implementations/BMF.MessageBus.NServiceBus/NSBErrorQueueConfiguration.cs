@@ -14,7 +14,7 @@ namespace BMF.MessageBus.NServiceBus
 
         public NSBErrorQueueConfiguration()
         {
-            _queueName = string.IsNullOrEmpty(NSBGlobalConfiguration.Config.ErrorQueue) ? "Errors" : NSBGlobalConfiguration.Config.ErrorQueue;
+            _queueName = string.IsNullOrEmpty(NSBGlobalConfiguration.Config.ErrorQueueName) ? "Errors" : NSBGlobalConfiguration.Config.ErrorQueueName;
         }
         
         public MessageForwardingInCaseOfFaultConfig GetConfiguration()
