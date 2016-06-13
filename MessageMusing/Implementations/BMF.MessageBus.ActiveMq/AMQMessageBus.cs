@@ -17,8 +17,7 @@ namespace BMF.MessageBus.ActiveMq
         internal IConnectionFactory _factory;
         internal IConnection _connection;
         internal ISession _session;
-        internal Dictionary<string, IMessageProducer> _queues;
-
+        
         private bool _disposed;
 
         public AMQMessageBus(IMessageBusSerialiser serialiser)
@@ -28,7 +27,6 @@ namespace BMF.MessageBus.ActiveMq
             _factory = new NMSConnectionFactory(_hostUrl);
             _connection = _factory.CreateConnection();
             _session = _connection.CreateSession();
-            _queues = new Dictionary<string, IMessageProducer>();
         }
 
         private void CreateQueue(string name, bool forTopic = false)
@@ -106,8 +104,7 @@ namespace BMF.MessageBus.ActiveMq
         {
             var body = _serialiser.Serialise(message);
             var msg = _session.CreateBytesMessage(body);
-
-            _queues.FirstOrDefault().Value.Send(msg);
+            
         }
 
         public void Subscribe(Type messageType)
@@ -132,7 +129,8 @@ namespace BMF.MessageBus.ActiveMq
 
         public void Send<T_message>(string destination, T_message message)
         {
-            throw new NotImplementedException();
+            var body = _serialiser.Serialise(message);
+            var msg = _session.CreateBytesMessage(body);
         }
 
         public void Reply<T_message>(T_message message)

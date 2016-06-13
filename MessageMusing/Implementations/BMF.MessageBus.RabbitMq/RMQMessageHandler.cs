@@ -23,7 +23,8 @@ namespace BMF.MessageBus.RabbitMq
             handler.Bus = _bus;
             handler.HandleMessage(message);
 
-            _consumer.Model.BasicAck(e.DeliveryTag, false);
+            if (_acknowledge)
+                _consumer.Model.BasicAck(e.DeliveryTag, false);
         }
     }
 
@@ -32,13 +33,14 @@ namespace BMF.MessageBus.RabbitMq
         protected IMessageBusContainer _container;
         protected RMQMessageBus _bus;
         protected EventingBasicConsumer _consumer;
+        protected bool _acknowledge;
 
         public void Consume(RMQMessageBus bus, string queueName)
         {
             _bus = bus;
             _consumer = new EventingBasicConsumer(bus._channel);
             _consumer.Received += HandleMessage;
-
+            _acknowledge = true;
             bus._channel.BasicConsume(queueName, false, _consumer);
         }
 
@@ -51,7 +53,7 @@ namespace BMF.MessageBus.RabbitMq
 
             _consumer = new EventingBasicConsumer(bus._channel);
             _consumer.Received += HandleMessage;
-            
+            _acknowledge = false;
             _bus._channel.BasicConsume(queueName, true, _consumer);
         }
 

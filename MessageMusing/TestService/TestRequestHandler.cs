@@ -35,7 +35,7 @@ namespace TestService
                     Console.WriteLine($"Published a new Test message with id: {id.ToString("N")}");
                 }
                 sw.Stop();
-                Console.WriteLine($"Published 1000 new Test messages in {sw.ElapsedMilliseconds / 1000}s");
+                Console.WriteLine($"Published {request.MessageCount} new Test messages in {sw.ElapsedMilliseconds}ms");
             }
         }
     }

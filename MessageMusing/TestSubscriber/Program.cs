@@ -32,7 +32,7 @@ namespace TestSubscriber
 
             bus.Start();
 
-            Console.Write("Press Enter to quit");
+            Console.WriteLine("Press Enter to quit");
             Console.ReadLine();
         }
     }
