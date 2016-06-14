@@ -1,4 +1,5 @@
-﻿using BMF.MessageBus.Core;
+﻿using BMF.MessageBus.ActiveMq;
+using BMF.MessageBus.Core;
 using BMF.MessageBus.Core.Interfaces;
 using BMF.MessageBus.NServiceBus;
 using BMF.MessageBus.RabbitMq;
@@ -29,8 +30,8 @@ namespace TestService
             IMessageBusContainer container = new NinjectContainer(kernel);
             
             //var bus = new NSBMessageBus(container, configuration);
-            var bus = new RMQMessageBus(container, configuration);
-            //var bus = new AMQMessageBus(container, configuration);
+            //var bus = new RMQMessageBus(container, configuration);
+            var bus = new AMQMessageBus(container, configuration);
 
             bus.Start();
 

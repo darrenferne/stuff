@@ -59,6 +59,10 @@
       <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
       <Name>BMF.MessageBus.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Implementations\BMF.MessageBus.ActiveMq\BMF.MessageBus.ActiveMq.csproj">
+      <Project>{ac289bc5-0f03-4303-9492-e195a7b842a5}</Project>
+      <Name>BMF.MessageBus.ActiveMq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Implementations\BMF.MessageBus.RabbitMq\BMF.MessageBus.RabbitMq.csproj">
       <Project>{b205fdc7-c708-4ba0-acf5-efa343089857}</Project>
       <Name>BMF.MessageBus.RabbitMq</Name>

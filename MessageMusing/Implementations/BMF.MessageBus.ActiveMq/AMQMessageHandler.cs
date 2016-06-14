@@ -1,6 +1,7 @@
 ﻿using Apache.NMS;
 using Apache.NMS.Util;
 using BMF.MessageBus.Core;
+using BMF.MessageBus.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,47 +10,103 @@ using System.Threading.Tasks;
 
 namespace BMF.MessageBus.ActiveMq
 {
-    public class AMQMessageHandler<T_message> : MessageHandler<T_message>
-    {
-        AMQMessageBus _bus;
-        IMessageConsumer _consumer;
+    //public class AMQMessageHandler<T_message> : MessageHandler<T_message>
+    //{
+    //    AMQMessageBus _bus;
+    //    IMessageConsumer _consumer;
 
-        public AMQMessageHandler(AMQMessageBus bus, string queueName)
+    //    public AMQMessageHandler(AMQMessageBus bus, string queueName)
+    //    {
+    //        _bus = bus;
+
+    //        var durable = false;
+    //        var selector = "2 > 1"; //SQL 92 syntax applied to msg header
+
+    //        //durable pub/sub
+    //        if (durable)
+    //        {
+    //            var consumerId = Guid.NewGuid().ToString();
+    //            var topic = _bus._session.GetTopic(queueName);
+    //            _consumer = bus._session.CreateDurableConsumer(topic, consumerId, selector, false);
+    //        }
+    //        else
+    //        {
+    //            //non durable recieve
+    //            var destination = SessionUtil.GetDestination(_bus._session, "queue://" + queueName);
+    //            _consumer = bus._session.CreateConsumer(destination);
+    //        }
+
+    //        _consumer.Listener += internalHandler; ;
+    //    }
+
+    //    public override void HandleMessage(T_message message)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    private void internalHandler(IMessage aqMsg)
+    //    {
+    //        byte[] body = ((IBytesMessage)aqMsg).Content;
+
+    //        T_message message = _bus._serialiser.Deserialise<T_message>(body);
+
+    //        this.HandleMessage(message);
+    //    }
+    //}
+    public class AMQMessageHandler<T_message, T_handler> : AMQMessageHandler where T_handler : MessageHandler<T_message>, new()
+    {
+        public AMQMessageHandler()
+        { }
+
+        public override void HandleMessage(IMessage aqMsg)
+        {
+            byte[] body = ((IBytesMessage)aqMsg).Content;
+            T_message message = _bus._serialiser.Deserialise<T_message>(body);
+
+            var handler = _container.ResolveType<T_handler>();
+            handler.Bus = _bus;
+            handler.HandleMessage(message);
+        }
+    }
+
+    public abstract class AMQMessageHandler
+    {
+        protected IMessageBusContainer _container;
+        protected AMQMessageBus _bus;
+        protected IMessageConsumer _consumer;
+
+        public void Consume(AMQMessageBus bus, string queueName)
         {
             _bus = bus;
 
-            var durable = false;
-            var selector = "2 > 1"; //SQL 92 syntax applied to msg header
+            var destination = _bus._session.GetDestination(queueName);
 
-            //durable pub/sub
-            if (durable)
-            {
-                var consumerId = Guid.NewGuid().ToString();
-                var topic = _bus._session.GetTopic(queueName);
-                _consumer = bus._session.CreateDurableConsumer(topic, consumerId, selector, false);
-            }
-            else
-            {
-                //non durable recieve
-                var destination = SessionUtil.GetDestination(_bus._session, "queue://" + queueName);
-                _consumer = bus._session.CreateConsumer(destination);
-            }
-
-            _consumer.Listener += internalHandler; ;
+            _consumer = _bus._session.CreateConsumer(destination);
+            _consumer.Listener += HandleMessage;
         }
 
-        public override void HandleMessage(T_message message)
+        public void Subscribe(AMQMessageBus bus, string endpointName, string topicName)
         {
-            throw new NotImplementedException();
+            _bus = bus;
+
+            var selector = "2 > 1"; //SQL 92 query syntax applied to msg header
+            var topic = _bus._session.GetTopic(topicName);
+
+            _consumer = bus._session.CreateDurableConsumer(topic, endpointName, selector, false);
+            _consumer.Listener += HandleMessage;
         }
 
-        private void internalHandler(IMessage aqMsg)
+        public abstract void HandleMessage(IMessage aqMsg);
+
+        public static AMQMessageHandler Create(IMessageBusContainer container, MessageMetadata metadata)
         {
-            byte[] body = ((IBytesMessage)aqMsg).Content;
+            var genericHandlerType = typeof(AMQMessageHandler<,>);
+            var specificHandlerType = genericHandlerType.MakeGenericType(metadata.MessageType, metadata.HandlerType);
 
-            T_message message = _bus._serialiser.Deserialise<T_message>(body);
+            var handler = (AMQMessageHandler)Activator.CreateInstance(specificHandlerType);
+            handler._container = container;
 
-            this.HandleMessage(message);
+            return handler;
         }
     }
 }

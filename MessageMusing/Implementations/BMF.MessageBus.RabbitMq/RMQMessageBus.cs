@@ -11,6 +11,8 @@ namespace BMF.MessageBus.RabbitMq
 {
     public class RMQMessageBus : IMessageBus, IDisposable
     {
+        private readonly string _defaultHost = "localhost";
+
         internal IMessageBusContainer _container;
         internal IMessageBusConfiguration _configuration;
         internal IMessageBusSerialiser _serialiser;
@@ -30,12 +32,12 @@ namespace BMF.MessageBus.RabbitMq
 
             _factory = new ConnectionFactory()
             {
-                HostName = string.IsNullOrEmpty(configuration.HostName) ? "localhost" : configuration.HostName
+                HostName = string.IsNullOrEmpty(configuration.HostName) ? _defaultHost : configuration.HostName
             };
-
+            
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
-
+            
             foreach (var exchange in _configuration.MessageDefinitions.Where(md => md.MessageAction == Core.MessageAction.Event).Select(md => md.QueueName).Distinct())
             {
                 _channel.ExchangeDeclare(exchange, "fanout", true);
@@ -129,12 +131,16 @@ namespace BMF.MessageBus.RabbitMq
             InitialiseQueues();
             InitialiseHandlers();
             AutoSubscribe();
+                        
         }
 
         public void Stop()
         {
             _channel.Dispose();
             _channel = null;
+
+            if (_connection.IsOpen)
+                _connection.Close();
         }
 
         public void Publish<T_message>(T_message message)
