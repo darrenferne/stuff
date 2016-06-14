@@ -53,10 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IMessageBusConfiguration.cs" />
+    <Compile Include="Interfaces\IMessageBusConfigurationExtension.cs" />
     <Compile Include="Interfaces\IMessageHandler.cs" />
     <Compile Include="Interfaces\IMessageBus.cs" />
     <Compile Include="Interfaces\IMessageBusContainer.cs" />
     <Compile Include="Interfaces\IMessageBusSerialiser.cs" />
+    <Compile Include="MessageBusConfigurationExtensions.cs" />
     <Compile Include="MessageBusConfiguration.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="MessageContext.cs" />

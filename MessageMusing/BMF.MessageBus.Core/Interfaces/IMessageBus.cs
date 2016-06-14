@@ -11,14 +11,13 @@ namespace BMF.MessageBus.Core.Interfaces
         void Start();
         void Stop();
 
+        void Send<T_message>(string destination, T_message message);
         void Publish<T_message>(T_message message);
+
         void Subscribe(Type messageType);
         void Subscribe<T_message>();
 
         void Unsubscribe(Type messageType);
         void Unsubscribe<T_message>();
-
-        void Send<T_message>(string destination, T_message message);
-        void Reply<T_message>(T_message message);
     }
 }

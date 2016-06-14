@@ -13,7 +13,8 @@ namespace BMF.MessageBus.ActiveMq
 {
     public class AMQMessageBus : IMessageBus, IDisposable
     {
-        private readonly string _defaultHost = @"activemq:tcp://localhost:61616/";
+        private readonly string _defaultHost = @"localhost";
+        private readonly string _brokerUriTemplate = @"activemq:tcp://{0}:61616/";
 
         internal IMessageBusContainer _container;
         internal IMessageBusConfiguration _configuration;
@@ -33,8 +34,9 @@ namespace BMF.MessageBus.ActiveMq
             _serialiser = container.ResolveType<IMessageBusSerialiser>();
 
             var hostName = string.IsNullOrEmpty(configuration.HostName) ? _defaultHost : configuration.HostName;
+            var brokerUri = string.Format(_brokerUriTemplate, hostName);
 
-            _factory = new ConnectionFactory(hostName);
+            _factory = new ConnectionFactory(brokerUri);
 
             _connection = _factory.CreateConnection();
             _connection.ClientId = _configuration.EndpointName;
@@ -217,11 +219,6 @@ namespace BMF.MessageBus.ActiveMq
                     producer.Send(messageBytes);
                 }
             }
-        }
-
-        public void Reply<T_message>(T_message message)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -4,6 +4,7 @@ using BMF.MessageBus.Core.Interfaces;
 using BMF.MessageBus.NServiceBus;
 using BMF.MessageBus.RabbitMq;
 using BMF.MessageBus.Serialisers;
+using BMF.MessageBus.WindowsServiceBus;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,12 @@ namespace TestClient
         static void Main(string[] args)
         {
             IKernel kernel = new StandardKernel();
-            IMessageBusConfiguration configuration = new MessageBusConfiguration("", "TestClient", "ClientErrors", 
-                new MessageMetadata<TestRequest>() { MessageAction = MessageAction.Command });
-
+            IMessageBusConfiguration configuration = 
+                MessageBusConfiguration.Create()
+                    .EndpointName("TestClient")
+                    .ErrorQueueName("ClientErrors")
+                    .AddMessageDefinition<TestRequest>(d => d.MessageAction = MessageAction.Command);
+                
             kernel.Bind<IMessageBusSerialiser>().To<JsonSerialiser>();
             kernel.Bind<IMessageBusConfiguration>().ToConstant(configuration).InSingletonScope();
 
@@ -29,7 +33,8 @@ namespace TestClient
 
             //var bus = new NSBMessageBus(container, configuration);
             //var bus = new RMQMessageBus(container, configuration);
-            var bus = new AMQMessageBus(container, configuration);
+            //var bus = new AMQMessageBus(container, configuration);
+            var bus = new WSBMessageBus(container, configuration.HostName("campc-df7.bradyplc.com").ServiceNamespace("TheMagicBus"));
 
             bus.Start();
 

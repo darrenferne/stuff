@@ -213,10 +213,5 @@ namespace BMF.MessageBus.RabbitMq
                 _channel.BasicPublish(string.Empty, destination, null, body);
             //}
         }
-
-        public void Reply<T_message>(T_message message)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

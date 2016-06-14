@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76D58012-08FC-4E36-8F4C-11B4AE85DDA8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{FC6CB35C-0653-40EE-B00E-C1A57C356F09}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestService</RootNamespace>
-    <AssemblyName>TestService</AssemblyName>
+    <RootNamespace>BMF.MessageBus.WindowsServiceBus</RootNamespace>
+    <AssemblyName>BMF.MessageBus.WindowsServiceBus</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Microsoft.ServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceBus.v1_1.1.0.6\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,46 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="WSBExtendedConfiguration.cs" />
+    <Compile Include="WSBConfigurationExtensions.cs" />
+    <Compile Include="WSBMessageExtensions.cs" />
+    <Compile Include="WSBMessageBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRequestHandler.cs" />
+    <Compile Include="WSBMessageHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BMF.MessageBus.JsonSerialiser\BMF.MessageBus.JsonSerialiser.csproj">
-      <Project>{1908835e-a09a-4e72-9b6e-83506f33334b}</Project>
-      <Name>BMF.MessageBus.JsonSerialiser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BMF.MessageBus.Ninject\BMF.MessageBus.Ninject.csproj">
-      <Project>{e0920a95-bd9d-4f21-8eca-f0185b4ba334}</Project>
-      <Name>BMF.MessageBus.Ninject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Brady.MessageBus.WindowsServiceBus\BMF.MessageBus.WindowsServiceBus.csproj">
-      <Project>{fc6cb35c-0653-40ee-b00e-c1a57c356f09}</Project>
-      <Name>BMF.MessageBus.WindowsServiceBus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Implementations\BMF.MessageBus.ActiveMq\BMF.MessageBus.ActiveMq.csproj">
-      <Project>{ac289bc5-0f03-4303-9492-e195a7b842a5}</Project>
-      <Name>BMF.MessageBus.ActiveMq</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Implementations\BMF.MessageBus.NServiceBus\BMF.MessageBus.NServiceBus.csproj">
-      <Project>{d1533fdb-343c-493f-8492-c130c40cac95}</Project>
-      <Name>BMF.MessageBus.NServiceBus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BMF.MessageBus.Core\BMF.MessageBus.Core.csproj">
       <Project>{9972e660-c569-4a05-9b37-64c7ac4159b0}</Project>
       <Name>BMF.MessageBus.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Implementations\BMF.MessageBus.RabbitMq\BMF.MessageBus.RabbitMq.csproj">
-      <Project>{b205fdc7-c708-4ba0-acf5-efa343089857}</Project>
-      <Name>BMF.MessageBus.RabbitMq</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestDomain\TestDomain.csproj">
-      <Project>{c5c04f85-2060-4269-8b37-b7b9dc7d8bd6}</Project>
-      <Name>TestDomain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

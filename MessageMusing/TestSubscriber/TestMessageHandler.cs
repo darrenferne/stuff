@@ -15,7 +15,10 @@ namespace TestSubscriber
 
         public override void HandleMessage(TestMessage message)
         {
-            Console.WriteLine($"Recieved a new Test message with id: {message.Id.ToString("N")}");
+            if (message == null)
+                Console.WriteLine($"Recieved a new Test message");
+            else
+                Console.WriteLine($"Recieved a new Test message with id: {message.Id.ToString("N")}");
         }
     }
 }

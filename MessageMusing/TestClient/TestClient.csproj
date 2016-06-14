@@ -70,6 +70,10 @@
       <Project>{e0920a95-bd9d-4f21-8eca-f0185b4ba334}</Project>
       <Name>BMF.MessageBus.Ninject</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Brady.MessageBus.WindowsServiceBus\BMF.MessageBus.WindowsServiceBus.csproj">
+      <Project>{fc6cb35c-0653-40ee-b00e-c1a57c356f09}</Project>
+      <Name>BMF.MessageBus.WindowsServiceBus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Implementations\BMF.MessageBus.ActiveMq\BMF.MessageBus.ActiveMq.csproj">
       <Project>{ac289bc5-0f03-4303-9492-e195a7b842a5}</Project>
       <Name>BMF.MessageBus.ActiveMq</Name>

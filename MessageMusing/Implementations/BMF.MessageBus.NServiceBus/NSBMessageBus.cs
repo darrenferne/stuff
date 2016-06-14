@@ -111,10 +111,5 @@ namespace BMF.MessageBus.NServiceBus
         {
             _bus.Send(destination, message);
         }
-
-        public void Reply<T_message>(T_message message)
-        {
-            _bus.Reply(message);
-        }
     }
 }

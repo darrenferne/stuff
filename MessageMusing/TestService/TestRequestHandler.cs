@@ -28,7 +28,7 @@ namespace TestService
                     var message = new TestMessage
                     {
                         Id = Guid.NewGuid(),
-                        Message = "Hello World".PadRight(10000) + "Ha!"
+                        Message = "Hello World".PadRight(1000) + "Ha!"
                     };
 
                     Bus.Publish(message);
