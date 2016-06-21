@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Brady.Trade.Models\Brady.Trade.Domain.csproj">
+    <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
       <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
       <Name>Brady.Trade.Domain</Name>
     </ProjectReference>

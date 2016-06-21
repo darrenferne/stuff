@@ -1,0 +1,13 @@
+﻿{
+  "text": "Market Data",
+  "link": "{{appSetting-ExplorerHostUrl}}",
+  "items": [
+    {
+      "text": "Trading",
+      "items": [
+        {
+          "text": "Trades",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/Trade"
+        }]
+    }]
+}

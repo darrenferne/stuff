@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FCD54874-B52B-45B9-9DAB-38BA78FF9F04}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{99098C50-C99A-4708-9EA3-B3F5886CBF79}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Brady.Trade.DataService</RootNamespace>
-    <AssemblyName>Brady.Trade.DataService</AssemblyName>
+    <RootNamespace>Brady.Trade.DataService.TestHost</RootNamespace>
+    <AssemblyName>Brady.Trade.DataService.TestHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -31,7 +31,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.48.4489.28432, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -96,6 +103,18 @@
       <HintPath>..\..\packages\bwf.enums.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BWF.Explorer.DataService, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.explorer.dataservice.2016.1.223\lib\net45\BWF.Explorer.DataService.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BWF.Explorer.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.explorer.domain.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Explorer.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BWF.Explorer.StartUp, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.explorer.startup.2016.1.223\lib\net45\BWF.Explorer.StartUp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="BWF.Globalisation, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\bwf.globalisation.2016.1.223\lib\net45\BWF.Globalisation.dll</HintPath>
       <Private>True</Private>
@@ -104,8 +123,24 @@
       <HintPath>..\..\packages\bwf.hosting.infrastructure.2016.1.223\lib\net45\BWF.Hosting.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BWF.Licensing.Adaptor, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.licensing.adaptor.2016.1.223\lib\net45\BWF.Licensing.Adaptor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BWF.Membership.Adaptor, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.membership.adaptor.2016.1.223\lib\net45\BWF.Membership.Adaptor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BWF.Membership.DataService, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.membership.dataservice.2016.1.223\lib\net45\BWF.Membership.DataService.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="BWF.Membership.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\bwf.membership.domain.2016.1.223\lib\net45\BWF.Membership.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BWF.Membership.Interfaces, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.membership.interfaces.2016.1.223\lib\net45\BWF.Membership.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ClosedXML, Version=0.69.1.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
@@ -118,6 +153,10 @@
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EcmaScript.NET, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\EcmaScript.NET.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentValidation, Version=4.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -136,8 +175,8 @@
       <HintPath>..\..\packages\FSharp.Collections.ParallelSeq.1.0.2\lib\net40\FSharp.Collections.ParallelSeq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ImpromptuInterface, Version=6.2.2.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
@@ -228,6 +267,10 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SquishIt.Framework, Version=0.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SquishIt.0.9.5\lib\SquishIt.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
@@ -281,56 +324,24 @@
       <HintPath>..\..\packages\Topshelf.3.2.0\lib\net40-full\Topshelf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ReadOnlyTradeRecordType.cs" />
-    <Compile Include="Interfaces\ITradeDataServiceRepository.cs" />
-    <Compile Include="Abstract\ChangeableTradeRecordType.cs" />
-    <Compile Include="Abstract\TradeValidatorBase.cs" />
-    <Compile Include="Interfaces\ITradeDataService.cs" />
+    <Compile Include="Config\Cultures.cs" />
+    <Compile Include="Config\Settings.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordTypes\CommodityForwardRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityAverageRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityAverageSwapRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityCarryRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityTAPORecordType.cs" />
-    <Compile Include="RecordTypes\CommodityOptionRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityFutureRecordType.cs" />
-    <Compile Include="RecordTypes\CommodityTradeRecordType.cs" />
-    <Compile Include="Validation\CommodityAverageSwapDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageSwapValidator.cs" />
-    <Compile Include="Validation\CommodityForwardDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityCarryDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityCarryValidator.cs" />
-    <Compile Include="Validation\CommodityTAPODeleteValidator.cs" />
-    <Compile Include="Validation\CommodityTAPOValidator.cs" />
-    <Compile Include="Validation\CommodityOptionDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityFutureDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityForwardValidator.cs" />
-    <Compile Include="Validation\CommodityAverageValidator.cs" />
-    <Compile Include="Validation\CommodityOptionValidator.cs" />
-    <Compile Include="Validation\CommodityTradeDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityFutureValidator.cs" />
-    <Compile Include="Validation\TradeDeleteValidator.cs" />
-    <Compile Include="RecordTypes\TradeRecordType.cs" />
-    <Compile Include="Validation\CommodityTradeValidator.cs" />
-    <Compile Include="Validation\TradeValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="Menu\menu.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Brady.Trade.Metadata\Brady.Trade.Metadata.csproj">
-      <Project>{b2989e5a-527b-4e96-91ba-bd5df226c093}</Project>
-      <Name>Brady.Trade.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
-      <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
-      <Name>Brady.Trade.Domain</Name>
-    </ProjectReference>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
