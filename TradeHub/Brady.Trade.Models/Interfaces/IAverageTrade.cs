@@ -1,7 +1,9 @@
-﻿namespace Brady.Trade.Domain
+﻿using Brady.Trade.Domain.BaseTypes;
+
+namespace Brady.Trade.Domain
 {
     public interface IAverageTrade
     {
-        IAverageDetails AverageDetails { get; set; }
+        AverageDetails AverageDetails { get; set; }
     }
 }

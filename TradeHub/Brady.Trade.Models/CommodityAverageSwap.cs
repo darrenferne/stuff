@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brady.Trade.Domain.BaseTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace Brady.Trade.Domain
 
         public double StrikePrice { get; set; }
         public double StrikeCurrencyAmount { get; set; }
-        public IAverageDetails AverageDetails { get; set; }
+        public AverageDetails AverageDetails { get; set; }
     }
 }

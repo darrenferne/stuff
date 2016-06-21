@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Domain", "Brady
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Metadata", "Brady.Trade.Metadata\Brady.Trade.Metadata.csproj", "{B2989E5A-527B-4E96-91BA-BD5DF226C093}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Repository", "Brady.Trade.Repository\Brady.Trade.Repository.csproj", "{58D6626F-1456-4D2F-91D0-5FA5608E0077}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B2989E5A-527B-4E96-91BA-BD5DF226C093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2989E5A-527B-4E96-91BA-BD5DF226C093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2989E5A-527B-4E96-91BA-BD5DF226C093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D6626F-1456-4D2F-91D0-5FA5608E0077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D6626F-1456-4D2F-91D0-5FA5608E0077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D6626F-1456-4D2F-91D0-5FA5608E0077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D6626F-1456-4D2F-91D0-5FA5608E0077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

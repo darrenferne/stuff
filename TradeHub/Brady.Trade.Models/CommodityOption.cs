@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brady.Trade.Domain.BaseTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Brady.Trade.Domain
             : base("CommodityOption")
         { }
 
-        public IOptionDetails OptionDetails { get; set; }
+        public OptionDetails OptionDetails { get; set; }
        
     }
 }

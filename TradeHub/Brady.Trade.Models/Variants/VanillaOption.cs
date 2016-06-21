@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brady.Trade.Domain.BaseTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Domain
 {
-    public class VanillaOption : IOptionDetails
+    public class VanillaOption : OptionDetails
     {
+        public VanillaOption()
+            : base("Vanilla")
+        { }
+
         public decimal? CurrencyAmount { get; set; }
         public string CP { get; set; }
         public decimal? StrikePrice { get; set; }

@@ -1,7 +1,9 @@
-﻿namespace Brady.Trade.Domain
+﻿using Brady.Trade.Domain.BaseTypes;
+
+namespace Brady.Trade.Domain
 {
     public interface IOptionTrade
     {
-        IOptionDetails OptionDetails { get; set; }
+        OptionDetails OptionDetails { get; set; }
     }
 }

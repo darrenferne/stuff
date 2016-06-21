@@ -478,7 +478,7 @@ GRANT SELECT ON [brady_trading].[trade] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commoditytrade](
-	[id] 				[bigint] 		NOT NULL,
+	[tradeid] 		    [bigint] 		NOT NULL,
 	[bs]				[nvarchar](4),
 	[term]				[nvarchar](64),
 	[deliverymonth]		[datetime],
@@ -491,13 +491,13 @@ GO
 
 ALTER TABLE [brady_trading].[commoditytrade]
    ADD CONSTRAINT [pk_commoditytrade]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commoditytrade]
    ADD CONSTRAINT [fk_commoditytrade_trade]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([tradeid])
          REFERENCES [brady_trading].[trade]([id])
             ON DELETE CASCADE
 GO
@@ -515,7 +515,7 @@ GRANT SELECT ON [brady_trading].[commoditytrade] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityfuture](
-	[id] 				[bigint] 		NOT NULL,
+	[tradeid] 			[bigint] 		NOT NULL,
 	[currencyamount]    [float],
 	[baseprice]   	    [float],
 	[price]   			[float],
@@ -525,14 +525,14 @@ GO
 
 ALTER TABLE [brady_trading].[commodityfuture]
    ADD CONSTRAINT [pk_commodityfuture]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityfuture]
    ADD CONSTRAINT [fk_commodityfuture_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
@@ -549,7 +549,7 @@ GRANT SELECT ON [brady_trading].[commodityfuture] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityforward](
-	[id] 				[bigint] 		NOT NULL,
+	[tradeid] 			[bigint] 		NOT NULL,
 	[currencyamount]    [float],
 	[baseprice]   	    [float],
 	[price]   			[float],
@@ -559,14 +559,14 @@ GO
 
 ALTER TABLE [brady_trading].[commodityforward]
    ADD CONSTRAINT [pk_commodityforward]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityforward]
    ADD CONSTRAINT [fk_commodityforward_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
@@ -609,7 +609,7 @@ GRANT SELECT ON [brady_trading].[averagedetails] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[vanillaaverage](
-	[id] 					[bigint] 		NOT NULL,
+	[averagedetailsid] 		[bigint] 		NOT NULL,
 	[fixingindex]	    	[nvarchar](64),
 	[startdate]		    	[datetime],
 	[enddate]		    	[datetime],
@@ -621,13 +621,13 @@ GO
 
 ALTER TABLE [brady_trading].[vanillaaverage]
    ADD CONSTRAINT [pk_vanillaaverage]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [averagedetailsid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[vanillaaverage]
    ADD CONSTRAINT [fk_vanillaaverage_averagedetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([averagedetailsid])
          REFERENCES [brady_trading].[averagedetails]([id])
             ON DELETE CASCADE
 GO
@@ -670,7 +670,7 @@ GRANT SELECT ON [brady_trading].[optiondetails] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[vanillaoption](
-	[id] 					[bigint] 		NOT NULL,
+	[optiondetailsid] 		[bigint] 		NOT NULL,
 	[cp]	    			[nvarchar](4),
 	[currencyamount]		[float],
 	[model]	    			[nvarchar](64),
@@ -686,13 +686,13 @@ GO
 
 ALTER TABLE [brady_trading].[vanillaoption]
    ADD CONSTRAINT [pk_vanillaoption]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [optiondetailsid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[vanillaoption]
    ADD CONSTRAINT [fk_vanillaoption_optiondetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([optiondetailsid])
          REFERENCES [brady_trading].[optiondetails]([id])
             ON DELETE CASCADE
 GO
@@ -710,27 +710,27 @@ GRANT SELECT ON [brady_trading].[vanillaoption] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityaverage](
-	[id] 				[bigint] NOT NULL,
+	[tradeid] 			[bigint] NOT NULL,
 	[averagedetailsid]  [bigint] NOT NULL
 ) ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityaverage]
    ADD CONSTRAINT [pk_commodityaverage]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityaverage]
    ADD CONSTRAINT [fk_commodityaverage_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
 ALTER TABLE [brady_trading].[commodityaverage]
    ADD CONSTRAINT [fk_commodityaverage_averagedetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([averagedetailsid])
          REFERENCES [brady_trading].[averagedetails]([id])
             ON DELETE CASCADE
 GO
@@ -748,7 +748,7 @@ GRANT SELECT ON [brady_trading].[commodityaverage] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityaverageswap](
-	[id] 					[bigint] NOT NULL,
+	[tradeid] 				[bigint] NOT NULL,
 	[averagedetailsid]  	[bigint] NOT NULL,
 	[strikeprice]			[float],
 	[strikecurrencyamount] 	[float]
@@ -757,20 +757,20 @@ GO
 
 ALTER TABLE [brady_trading].[commodityaverageswap]
    ADD CONSTRAINT [pk_commodityaverageswap]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityaverageswap]
    ADD CONSTRAINT [fk_commodityaverageswap_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
 ALTER TABLE [brady_trading].[commodityaverageswap]
    ADD CONSTRAINT [fk_commodityaverageswap_averagedetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([averagedetailsid])
          REFERENCES [brady_trading].[averagedetails]([id])
             ON DELETE CASCADE
 GO
@@ -788,27 +788,27 @@ GRANT SELECT ON [brady_trading].[commodityaverageswap] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityoption](
-	[id] 				[bigint] NOT NULL,
+	[tradeid]			[bigint] NOT NULL,
 	[optiondetailsid]   [bigint] NOT NULL
 ) ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityoption]
    ADD CONSTRAINT [pk_commodityoption]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commodityoption]
    ADD CONSTRAINT [fk_commodityoption_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
 ALTER TABLE [brady_trading].[commodityoption]
    ADD CONSTRAINT [fk_commodityoption_optiondetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([optiondetailsid])
          REFERENCES [brady_trading].[optiondetails]([id])
             ON DELETE CASCADE
 GO
@@ -826,7 +826,7 @@ GRANT SELECT ON [brady_trading].[commodityoption] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commoditytapo](
-	[id] 				[bigint] NOT NULL,
+	[tradeid] 			[bigint] NOT NULL,
 	[averagedetailsid]  [bigint] NOT NULL,
 	[optiondetailsid]   [bigint] NOT NULL
 ) ON [PRIMARY]
@@ -834,27 +834,27 @@ GO
 
 ALTER TABLE [brady_trading].[commoditytapo]
    ADD CONSTRAINT [pk_commoditytapo]
-      PRIMARY KEY CLUSTERED ( [id] ) 
+      PRIMARY KEY CLUSTERED ( [tradeid] ) 
          ON [PRIMARY]
 GO
 
 ALTER TABLE [brady_trading].[commoditytapo]
    ADD CONSTRAINT [fk_commoditytapo_commoditytrade]
-      FOREIGN KEY ([id])
-         REFERENCES [brady_trading].[commoditytrade]([id])
+      FOREIGN KEY ([tradeid])
+         REFERENCES [brady_trading].[commoditytrade]([tradeid])
             ON DELETE CASCADE
 GO
 
 ALTER TABLE [brady_trading].[commoditytapo]
    ADD CONSTRAINT [fk_commoditytapo_averagedetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([averagedetailsid])
          REFERENCES [brady_trading].[averagedetails]([id])
             ON DELETE CASCADE
 GO
 
 ALTER TABLE [brady_trading].[commoditytapo]
    ADD CONSTRAINT [fk_commoditytapo_optiondetails]
-      FOREIGN KEY ([id])
+      FOREIGN KEY ([optiondetailsid])
          REFERENCES [brady_trading].[optiondetails]([id])
             ON DELETE CASCADE
 GO
