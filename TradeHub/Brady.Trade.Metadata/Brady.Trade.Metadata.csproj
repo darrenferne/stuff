@@ -34,14 +34,6 @@
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.Metadata, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.metadata.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Enums, Version=2016.1.223.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.enums.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -56,25 +48,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommodityCarryMetadata.cs" />
-    <Compile Include="CommodityTAPOMetadata.cs" />
-    <Compile Include="CommodityAverageSwapMetadata.cs" />
-    <Compile Include="CommodityOptionMetadata.cs" />
-    <Compile Include="CommodityForwardMetadata.cs" />
+    <Compile Include="AverageDetailsMetadata.cs" />
     <Compile Include="CommodityAverageMetadata.cs" />
+    <Compile Include="CommodityAverageSwapMetadata.cs" />
+    <Compile Include="CommodityCarryMetadata.cs" />
+    <Compile Include="CommodityForwardMetadata.cs" />
     <Compile Include="CommodityFutureMetadata.cs" />
+    <Compile Include="CommodityOptionMetadata.cs" />
+    <Compile Include="CommodityTAPOMetadata.cs" />
     <Compile Include="CommodityTradeMetadata.cs" />
+    <Compile Include="OptionDetailsMetadata.cs" />
     <Compile Include="TradeMetadata.cs" />
     <Compile Include="TradeMetadataBundle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VanillaAverageDetailsMetadata.cs" />
+    <Compile Include="VanillaOptionDetailsMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Brady.Trade.DataService.Core\Brady.Trade.DataService.Core.csproj">
+      <Project>{5476079b-26e8-476d-891b-a1f985c113d9}</Project>
+      <Name>Brady.Trade.DataService.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
       <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
       <Name>Brady.Trade.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Common\BWF.Enums\BWF.Enums.csproj">
+      <Project>{C82E5EED-3D68-453A-AFA7-29165276FF7E}</Project>
+      <Name>BWF.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Metadata\BWF.DataServices.Metadata.csproj">
+      <Project>{DB4BB1F6-8206-4C73-9C8D-8713758EBBC1}</Project>
+      <Name>BWF.DataServices.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

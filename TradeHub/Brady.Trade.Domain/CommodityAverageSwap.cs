@@ -13,8 +13,8 @@ namespace Brady.Trade.Domain
             : base("CommodityAverageSwap")
         { }
 
-        public double StrikePrice { get; set; }
-        public double StrikeCurrencyAmount { get; set; }
-        public AverageDetails AverageDetails { get; set; }
+        public virtual double StrikePrice { get; set; }
+        public virtual double StrikeCurrencyAmount { get; set; }
+        public virtual AverageDetails AverageDetails { get; set; }
     }
 }

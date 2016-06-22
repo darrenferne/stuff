@@ -108,7 +108,7 @@ namespace Brady.Trade.Domain
         public static CommodityOption AsVanillaOption(this CommodityOption trade)
         {
             if (trade.OptionDetails == null)
-                trade.OptionDetails = new VanillaOption();
+                trade.OptionDetails = new VanillaOptionDetails();
 
             return trade;
         }
@@ -118,7 +118,7 @@ namespace Brady.Trade.Domain
         public static CommodityAverage AsVanillaAverage(this CommodityAverage trade)
         {
             if (trade.AverageDetails == null)
-                trade.AverageDetails = new VanillaAverage();
+                trade.AverageDetails = new VanillaAverageDetails();
 
             return trade;
         }
@@ -128,7 +128,7 @@ namespace Brady.Trade.Domain
         public static CommodityTAPO AsVanillaAverage(this CommodityTAPO trade)
         {
             if (trade.AverageDetails == null)
-                trade.AverageDetails = new VanillaAverage();
+                trade.AverageDetails = new VanillaAverageDetails();
 
             return trade;
         }
@@ -136,7 +136,7 @@ namespace Brady.Trade.Domain
         public static CommodityTAPO AsVanillaOption(this CommodityTAPO trade)
         {
             if (trade.OptionDetails == null)
-                trade.OptionDetails = new VanillaOption();
+                trade.OptionDetails = new VanillaOptionDetails();
 
             return trade;
         }
@@ -146,14 +146,14 @@ namespace Brady.Trade.Domain
         public static CommodityAverageSwap AsVanillaAverage(this CommodityAverageSwap trade)
         {
             if (trade.AverageDetails == null)
-                trade.AverageDetails = new VanillaAverage();
+                trade.AverageDetails = new VanillaAverageDetails();
 
             return trade;
         }
         #endregion
 
         #region Vanilla Option Extensions
-        public static VanillaOption CurrencyAmount(this VanillaOption option, decimal? currencyAmount)
+        public static VanillaOptionDetails CurrencyAmount(this VanillaOptionDetails option, decimal? currencyAmount)
         {
             option.CurrencyAmount = currencyAmount;
             return option;
@@ -161,15 +161,15 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade CurrencyAmount(this IOptionTrade option, decimal? currencyAmount)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).CurrencyAmount(currencyAmount);
+                ((VanillaOptionDetails)option.OptionDetails).CurrencyAmount(currencyAmount);
             }
 
             return option;
         }
 
-        public static VanillaOption CP(this VanillaOption option, string cp)
+        public static VanillaOptionDetails CP(this VanillaOptionDetails option, string cp)
         {
             option.CP = cp;
             return option;
@@ -178,14 +178,14 @@ namespace Brady.Trade.Domain
         public static IOptionTrade CP(this IOptionTrade option, string cp)
         {
 
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).CP(cp);
+                ((VanillaOptionDetails)option.OptionDetails).CP(cp);
             }
             return option;
         }
 
-        public static VanillaOption StrikePrice(this VanillaOption option, decimal? strikePrice)
+        public static VanillaOptionDetails StrikePrice(this VanillaOptionDetails option, decimal? strikePrice)
         {
             option.StrikePrice = strikePrice;
             return option;
@@ -193,14 +193,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade StrikePrice(this IOptionTrade option, decimal? strikePrice)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).StrikePrice(strikePrice);
+                ((VanillaOptionDetails)option.OptionDetails).StrikePrice(strikePrice);
             }
             return option;
         }
 
-        public static VanillaOption Model(this VanillaOption option, string model)
+        public static VanillaOptionDetails Model(this VanillaOptionDetails option, string model)
         {
             option.Model = model;
             return option;
@@ -208,14 +208,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade Model(this IOptionTrade option, string model)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).Model(model);
+                ((VanillaOptionDetails)option.OptionDetails).Model(model);
             }
             return option;
         }
 
-        public static VanillaOption ExpiryMonth(this VanillaOption option, DateTime expiryMonth)
+        public static VanillaOptionDetails ExpiryMonth(this VanillaOptionDetails option, DateTime expiryMonth)
         {
             option.ExpiryMonth = expiryMonth;
             return option;
@@ -223,14 +223,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade ExpiryMonth(this IOptionTrade option, DateTime expiryMonth)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).ExpiryMonth(expiryMonth);
+                ((VanillaOptionDetails)option.OptionDetails).ExpiryMonth(expiryMonth);
             }
             return option;
         }
 
-        public static VanillaOption ExpiryDate(this VanillaOption option, DateTime expiryDate)
+        public static VanillaOptionDetails ExpiryDate(this VanillaOptionDetails option, DateTime expiryDate)
         {
             option.ExpiryDate = expiryDate;
             return option;
@@ -238,14 +238,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade ExpiryDate(this IOptionTrade option, DateTime expiryDate)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).ExpiryDate(expiryDate);
+                ((VanillaOptionDetails)option.OptionDetails).ExpiryDate(expiryDate);
             }
             return option;
         }
 
-        public static VanillaOption PremiumDate(this VanillaOption option, DateTime premiumDate)
+        public static VanillaOptionDetails PremiumDate(this VanillaOptionDetails option, DateTime premiumDate)
         {
             option.PremiumDate = premiumDate;
             return option;
@@ -253,14 +253,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade PremiumDate(this IOptionTrade option, DateTime premiumDate)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).PremiumDate(premiumDate);
+                ((VanillaOptionDetails)option.OptionDetails).PremiumDate(premiumDate);
             }
             return option;
         }
 
-        public static VanillaOption PremiumCurrency(this VanillaOption option, string premiumCurrency)
+        public static VanillaOptionDetails PremiumCurrency(this VanillaOptionDetails option, string premiumCurrency)
         {
             option.PremiumCurrency = premiumCurrency;
             return option;
@@ -268,14 +268,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade PremiumCurrency(this IOptionTrade option, string premiumCurrency)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).PremiumCurrency(premiumCurrency);
+                ((VanillaOptionDetails)option.OptionDetails).PremiumCurrency(premiumCurrency);
             }
             return option;
         }
 
-        public static VanillaOption PremiumRate(this VanillaOption option, decimal? premiumRate)
+        public static VanillaOptionDetails PremiumRate(this VanillaOptionDetails option, decimal? premiumRate)
         {
             option.PremiumRate = premiumRate;
             return option;
@@ -283,14 +283,14 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade PremiumRate(this IOptionTrade option, decimal? premiumRate)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).PremiumRate(premiumRate);
+                ((VanillaOptionDetails)option.OptionDetails).PremiumRate(premiumRate);
             }
             return option;
         }
 
-        public static VanillaOption PremiumAmount(this VanillaOption option, decimal? premiumAmount)
+        public static VanillaOptionDetails PremiumAmount(this VanillaOptionDetails option, decimal? premiumAmount)
         {
             option.PremiumAmount = premiumAmount;
             return option;
@@ -298,16 +298,16 @@ namespace Brady.Trade.Domain
 
         public static IOptionTrade PremiumAmount(this IOptionTrade option, decimal? premiumAmount)
         {
-            if (option.OptionDetails is VanillaOption)
+            if (option.OptionDetails is VanillaOptionDetails)
             {
-                ((VanillaOption)option.OptionDetails).PremiumAmount(premiumAmount);
+                ((VanillaOptionDetails)option.OptionDetails).PremiumAmount(premiumAmount);
             }
             return option;
         }
         #endregion
 
         #region Vanilla Average Details
-        public static VanillaAverage StartDate(this VanillaAverage average, DateTime startDate)
+        public static VanillaAverageDetails StartDate(this VanillaAverageDetails average, DateTime startDate)
         {
             average.StartDate = startDate;
             return average;
@@ -315,14 +315,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade StartDate(this IAverageTrade average, DateTime startDate)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).StartDate(startDate);
+                ((VanillaAverageDetails)average.AverageDetails).StartDate(startDate);
             }
             return average;
         }
 
-        public static VanillaAverage EndDate(this VanillaAverage average, DateTime endDate)
+        public static VanillaAverageDetails EndDate(this VanillaAverageDetails average, DateTime endDate)
         {
             average.EndDate = endDate;
             return average;
@@ -330,14 +330,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade EndDate(this IAverageTrade average, DateTime endDate)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).EndDate(endDate);
+                ((VanillaAverageDetails)average.AverageDetails).EndDate(endDate);
             }
             return average;
         }
 
-        public static VanillaAverage FixingIndex(this VanillaAverage average, string fixingIndex)
+        public static VanillaAverageDetails FixingIndex(this VanillaAverageDetails average, string fixingIndex)
         {
             average.FixingIndex = fixingIndex;
             return average;
@@ -345,14 +345,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade FixingIndex(this IAverageTrade average, string fixingIndex)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).FixingIndex(fixingIndex);
+                ((VanillaAverageDetails)average.AverageDetails).FixingIndex(fixingIndex);
             }
             return average;
         }
 
-        public static VanillaAverage AdditivePremium(this VanillaAverage average, decimal additivePremium)
+        public static VanillaAverageDetails AdditivePremium(this VanillaAverageDetails average, decimal additivePremium)
         {
             average.AdditivePremium = additivePremium;
             return average;
@@ -360,14 +360,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade AdditivePremium(this IAverageTrade average, decimal additivePremium)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).AdditivePremium(additivePremium);
+                ((VanillaAverageDetails)average.AverageDetails).AdditivePremium(additivePremium);
             }
             return average;
         }
 
-        public static VanillaAverage AdditivePremiumUnits(this VanillaAverage average, string additivePremiumUnits)
+        public static VanillaAverageDetails AdditivePremiumUnits(this VanillaAverageDetails average, string additivePremiumUnits)
         {
             average.AdditivePremiumUnits = additivePremiumUnits;
             return average;
@@ -375,14 +375,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade AdditivePremiumUnits(this IAverageTrade average, string additivePremiumUnits)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).AdditivePremiumUnits(additivePremiumUnits);
+                ((VanillaAverageDetails)average.AverageDetails).AdditivePremiumUnits(additivePremiumUnits);
             }
             return average;
         }
 
-        public static VanillaAverage PercentagePremium(this VanillaAverage average, decimal percentagePremium)
+        public static VanillaAverageDetails PercentagePremium(this VanillaAverageDetails average, decimal percentagePremium)
         {
             average.PercentagePremium = percentagePremium;
             return average;
@@ -390,14 +390,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade PercentagePremium(this IAverageTrade average, decimal percentagePremium)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).PercentagePremium(percentagePremium);
+                ((VanillaAverageDetails)average.AverageDetails).PercentagePremium(percentagePremium);
             }
             return average;
         }
 
-        public static VanillaAverage IsFixedPrice(this VanillaAverage average, bool isFixedPrice)
+        public static VanillaAverageDetails IsFixedPrice(this VanillaAverageDetails average, bool isFixedPrice)
         {
             average.IsFixedPrice = isFixedPrice;
             return average;
@@ -405,14 +405,14 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade IsFixedPrice(this IAverageTrade average, bool isFixedPrice)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).IsFixedPrice(isFixedPrice);
+                ((VanillaAverageDetails)average.AverageDetails).IsFixedPrice(isFixedPrice);
             }
             return average;
         }
 
-        public static VanillaAverage FixedPrice(this VanillaAverage average, decimal fixedPrice)
+        public static VanillaAverageDetails FixedPrice(this VanillaAverageDetails average, decimal fixedPrice)
         {
             average.FixedPrice = fixedPrice;
             return average;
@@ -420,9 +420,9 @@ namespace Brady.Trade.Domain
 
         public static IAverageTrade FixedPrice(this IAverageTrade average, decimal fixedPrice)
         {
-            if (average.AverageDetails is VanillaAverage)
+            if (average.AverageDetails is VanillaAverageDetails)
             {
-                ((VanillaAverage)average.AverageDetails).FixedPrice(fixedPrice);
+                ((VanillaAverageDetails)average.AverageDetails).FixedPrice(fixedPrice);
             }
             return average;
         }

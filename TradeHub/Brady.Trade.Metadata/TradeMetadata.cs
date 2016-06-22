@@ -14,6 +14,10 @@ namespace Brady.Trade.Metadata
                 .Property(x => x.SystemCode)
                 .Property(x => x.SystemId);
 
+            IntegerProperty(x => x.RepositoryId)
+                .IsId()
+                .IsHidden();
+
             StringProperty(x => x.TradeType)
                 .DisplayName("Trade Type")
                 .IsHiddenInEditor();
@@ -25,12 +29,12 @@ namespace Brady.Trade.Metadata
                 .DisplayName("Market Code");
 
             StringProperty(x => x.SystemCode)
-                .DisplayName("System Code")
-                .IsId();
+                .DisplayName("System Code");
+                //.IsId();
 
             StringProperty(x => x.SystemId)
-                .DisplayName("System Id")
-                .IsId();
+                .DisplayName("System Id");
+                //.IsId();
 
             BooleanProperty(x => x.IsLive)
                 .DisplayName("IsLive?");
@@ -66,7 +70,6 @@ namespace Brady.Trade.Metadata
                 .DisplayName("Effective Date");
 
             ViewDefaults()
-                .Property(x => x.Id)
                 .Property(x => x.TradeType)
                 .Property(x => x.ContractCode)
                 .Property(x => x.MarketCode)

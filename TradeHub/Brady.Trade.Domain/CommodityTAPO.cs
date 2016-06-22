@@ -13,7 +13,7 @@ namespace Brady.Trade.Domain
             : base("CommodityTAPO")
         { }
 
-        public AverageDetails AverageDetails { get; set; }
-        public OptionDetails OptionDetails { get; set; }
+        public virtual AverageDetails AverageDetails { get; set; }
+        public virtual OptionDetails OptionDetails { get; set; }
     }
 }

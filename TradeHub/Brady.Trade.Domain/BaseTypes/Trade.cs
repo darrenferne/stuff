@@ -7,32 +7,46 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Domain
 {
-    public abstract class Trade : IHaveCompositeId
+    public class Trade : IHaveCompositeId
     {
-        public Trade(string tradeType)
+        public Trade()
+        { }
+
+        internal Trade(string tradeType)
         {
             TradeType = tradeType;
         }
 
-        public string Id { get; set; }
-        public string SystemCode { get; set; }
-        public string SystemId { get; set; }
-        public string TradeType { get; internal set; }
-        public string ContractCode { get; set; }
-        public string MarketCode { get; set; }
-        public bool? IsLive { get; set; }
-        public string Entity { get; set; }
-        public string Counterparty { get; set; }
-        public string Portfolio { get; set; }
-        public string TradedBy { get; set; }
-        public DateTime? TradedOn { get; set; }
-        public string EnteredBy { get; set; }
-        public DateTime? EnteredOn { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime? UpdateOn { get; set; }
-        public DateTime? EffectiveDate { get; set; }
+        public virtual long RepositoryId { get; set; }
+        public virtual string ExternalId { get; protected internal set; }
+        public virtual string SystemCode { get; set; }
+        public virtual string SystemId { get; set; }
+        public virtual string TradeType { get; protected internal set; }
+        public virtual string ContractCode { get; set; }
+        public virtual string MarketCode { get; set; }
+        public virtual bool? IsLive { get; set; }
+        public virtual string Entity { get; set; }
+        public virtual string Counterparty { get; set; }
+        public virtual string Portfolio { get; set; }
+        public virtual string TradedBy { get; set; }
+        public virtual DateTime? TradedOn { get; set; }
+        public virtual string EnteredBy { get; set; }
+        public virtual DateTime? EnteredOn { get; set; }
+        public virtual string UpdatedBy { get; set; }
+        public virtual DateTime? UpdateOn { get; set; }
+        public virtual DateTime? EffectiveDate { get; set; }
 
-        public Dictionary<string, object> ExtendedProperties { get; set; }
+        public virtual Dictionary<string, object> ExtendedProperties { get; set; }
+
+        string IHaveId<string>.Id
+        {
+            get { return ExternalId; }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Trade);
+        }
 
         public virtual bool Equals(Trade trade)
         {

@@ -8,16 +8,20 @@ namespace Brady.Trade.Domain
 {
     public abstract class CommodityTrade : Trade
     {
-        public CommodityTrade(string tradeType)
+        internal CommodityTrade()
+            : base("CommodityTrade")
+        { }
+
+        internal CommodityTrade(string tradeType)
             : base(tradeType)
         { }
 
-        public string BS { get; set; }
-        public string Term { get; set; }
-        public DateTime? DeliveryMonth { get; set; }
-        public DateTime? DeliveryDate { get; set; }
-        public decimal? Lots { get; set; }
-        public decimal? CommodityAmount { get; set; }
-        public string CommodityUnits { get; set; }
+        public virtual string BS { get; set; }
+        public virtual string Term { get; set; }
+        public virtual DateTime? DeliveryMonth { get; set; }
+        public virtual DateTime? DeliveryDate { get; set; }
+        public virtual decimal? Lots { get; set; }
+        public virtual decimal? CommodityAmount { get; set; }
+        public virtual string CommodityUnits { get; set; }
     }
 }

@@ -6,8 +6,41 @@
       "text": "Trading",
       "items": [
         {
-          "text": "Trades",
+          "text": "All Trades",
           "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/Trade"
-        }]
+        },
+        {
+          "text": "Commodity Trades",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityTrade"
+        },
+        {
+          "text": "Commodity Futures",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityFuture"
+        },
+        {
+          "text": "Commodity Forwards",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityForward"
+        },
+        {
+          "text": "Commodity Averages",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityAverage"
+        },
+        {
+          "text": "Commodity Average Swaps",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityAverageSwap"
+        },
+        {
+          "text": "Commodity Options",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityOption"
+        },
+        {
+          "text": "Commodity TAPOs",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityTAPO"
+        },
+        {
+          "text": "Commodity Carries",
+          "link": "{{appSetting-ExplorerHostUrl}}/view/#default/trading/CommodityCarry"
+        }
+      ]
     }]
 }

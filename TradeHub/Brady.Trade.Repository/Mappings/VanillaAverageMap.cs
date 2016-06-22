@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Repository.Mappings
 {
-    public class VanillaAverageMap : JoinedSubclassMapping<VanillaAverage>
+    public class VanillaAverageMap : JoinedSubclassMapping<VanillaAverageDetails>
     {
         public VanillaAverageMap()
         {

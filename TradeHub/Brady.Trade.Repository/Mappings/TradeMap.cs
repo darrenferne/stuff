@@ -12,7 +12,7 @@ namespace Brady.Trade.Repository.Mappings
     {
         public TradeMap()
         {
-            Id(t => t.Id);
+            Id(t => t.RepositoryId, m => m.Column("Id"));
 
             Property(t => t.ContractCode, m =>
             {

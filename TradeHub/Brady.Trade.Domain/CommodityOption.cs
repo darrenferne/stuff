@@ -13,7 +13,7 @@ namespace Brady.Trade.Domain
             : base("CommodityOption")
         { }
 
-        public OptionDetails OptionDetails { get; set; }
+        public virtual OptionDetails OptionDetails { get; set; }
        
     }
 }

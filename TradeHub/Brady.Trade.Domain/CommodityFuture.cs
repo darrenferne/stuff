@@ -12,9 +12,9 @@ namespace Brady.Trade.Domain
             : base("CommodityFuture")
         { }
 
-        public decimal? CurrencyAmount { get; set; }
-        public decimal? BasePrice { get; set; }
-        public decimal? Spread { get; set; }
-        public decimal? Price { get; set; }
+        public virtual decimal? CurrencyAmount { get; set; }
+        public virtual decimal? BasePrice { get; set; }
+        public virtual decimal? Spread { get; set; }
+        public virtual decimal? Price { get; set; }
     }
 }

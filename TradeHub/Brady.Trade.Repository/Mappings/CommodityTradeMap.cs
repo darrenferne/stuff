@@ -1,4 +1,5 @@
 ﻿using Brady.Trade.Domain;
+using Brady.Trade.Repository.CustomTypes;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using System;

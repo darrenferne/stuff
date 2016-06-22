@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Repository.Mappings
 {
-    public class VanillaOptionMap : JoinedSubclassMapping<VanillaOption>
+    public class VanillaOptionMap : JoinedSubclassMapping<VanillaOptionDetails>
     {
         public VanillaOptionMap()
         {

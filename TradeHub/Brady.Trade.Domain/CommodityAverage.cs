@@ -13,6 +13,6 @@ namespace Brady.Trade.Domain
             : base("CommodityAverage")
         { }
 
-        public AverageDetails AverageDetails { get; set; }
+        public virtual AverageDetails AverageDetails { get; set; }
     }
 }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Repository", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.TestHost", "Brady.Trade.DataService.TestHost\Brady.Trade.DataService.TestHost.csproj", "{99098C50-C99A-4708-9EA3-B3F5886CBF79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.Core", "Brady.Trade.DataService.Core\Brady.Trade.DataService.Core.csproj", "{5476079B-26E8-476D-891B-A1F985C113D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{99098C50-C99A-4708-9EA3-B3F5886CBF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99098C50-C99A-4708-9EA3-B3F5886CBF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99098C50-C99A-4708-9EA3-B3F5886CBF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5476079B-26E8-476D-891B-A1F985C113D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5476079B-26E8-476D-891B-A1F985C113D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5476079B-26E8-476D-891B-A1F985C113D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5476079B-26E8-476D-891B-A1F985C113D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

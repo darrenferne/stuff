@@ -16,6 +16,6 @@ namespace Brady.Trade.Domain
             _legs = new List<T_trade>();
         }
 
-        public IEnumerable<T_trade> Legs { get { return _legs; } }
+        public virtual IEnumerable<T_trade> Legs { get { return _legs; } }
     }
 }
