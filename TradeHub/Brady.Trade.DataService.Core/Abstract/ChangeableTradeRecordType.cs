@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Brady.Trade.DataService.Core.Abstract
 {
     public class ChangeableTradeRecordType<Titem, Tvalidator, TdeleteValidator>
-        : ChangeableRecordType<Titem, string, Tvalidator, TdeleteValidator>
+        : ChangeableRecordType<Titem, long, Tvalidator, TdeleteValidator>
         where Titem : Domain.Trade
         where Tvalidator : FluentValidation.AbstractValidator<Titem>, BWF.DataServices.Support.NHibernate.Interfaces.IRequireCrudingDataServiceRepository, new()
         where TdeleteValidator : FluentValidation.AbstractValidator<Titem>, BWF.DataServices.Support.NHibernate.Interfaces.IRequireCrudingDataServiceRepository, new()

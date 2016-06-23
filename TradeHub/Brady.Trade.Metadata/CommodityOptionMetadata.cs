@@ -17,7 +17,9 @@ namespace Brady.Trade.Metadata
             DisplayName("Commodity Option");
             
             TypeProperty(x => x.OptionDetails)
-                .DisplayName("Option Details");
+                .DisplayName("Option Details")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("Model");
         }
     }
 }

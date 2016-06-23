@@ -18,7 +18,7 @@ namespace Brady.Trade.Domain.BaseTypes
         }
 
         public virtual long Id { get; set; }
-        public virtual string AverageType { get; set; }
+        public virtual string AverageType { get; protected internal set; }
         public virtual bool? IsFixedPrice { get; set; }
         public virtual decimal? FixedPrice { get; set; }
     }

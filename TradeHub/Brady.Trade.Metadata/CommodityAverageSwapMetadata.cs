@@ -23,7 +23,9 @@ namespace Brady.Trade.Metadata
                 .DisplayName("Strike Amount");
 
             TypeProperty(x => x.AverageDetails)
-                .DisplayName("Average Details");
+                .DisplayName("Average Details")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("FixingIndex");
 
             ViewDefaults()
                 .Property(x => x.StrikePrice)

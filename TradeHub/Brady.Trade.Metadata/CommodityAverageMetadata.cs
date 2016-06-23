@@ -17,7 +17,10 @@ namespace Brady.Trade.Metadata
             DisplayName("Commodity Average");
             
             TypeProperty(x => x.AverageDetails)
-                .DisplayName("Average Details");
+                .DisplayName("Average Details")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("FixingIndex");
+
         }
     }
 }

@@ -17,10 +17,14 @@ namespace Brady.Trade.Metadata
             DisplayName("Commodity TAPO");
             
             TypeProperty(x => x.AverageDetails)
-                .DisplayName("Average Details");
+                .DisplayName("Average Details")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("FixingIndex");
 
             TypeProperty(x => x.OptionDetails)
-                .DisplayName("Option Details");
+                .DisplayName("Option Details")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("Model");
         }
     }
 }

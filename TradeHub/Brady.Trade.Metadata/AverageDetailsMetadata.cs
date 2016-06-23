@@ -22,7 +22,7 @@ namespace Brady.Trade.Metadata
             IntegerProperty(x => x.Id)
                 .DisplayName("Id")
                 .IsId()
-                .IsHidden();
+                .IsHiddenInEditor();
 
             BooleanProperty(x => x.IsFixedPrice)
                 .DisplayName("Is Fixed?");

@@ -17,7 +17,7 @@ namespace Brady.Trade.Metadata
             DisplayName("Commodity Trade");
 
             StringProperty(x => x.BS)
-                .DisplayName("BS");
+                .DisplayName("Buy/Sell");
 
             StringProperty(x => x.Term)
                 .DisplayName("Term");

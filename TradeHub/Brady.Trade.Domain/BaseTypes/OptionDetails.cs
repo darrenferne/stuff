@@ -18,7 +18,7 @@ namespace Brady.Trade.Domain.BaseTypes
         }
 
         public virtual long Id { get; set; }
-        public virtual string OptionType { get; set; }
+        public virtual string OptionType { get; protected internal set; }
         public virtual string OptionStatus { get; set; }
     }
 }

@@ -9,9 +9,28 @@ using BWF.DataServices.Core.Interfaces;
 using BWF.DataServices.Support.NHibernate.Abstract;
 using AutoMapper;
 using BWF.DataServices.Metadata.Interfaces;
+using BWF.DataServices.Metadata.Attributes.Actions;
+using Brady.Trade.Domain.BaseTypes;
+using Brady.Trade.Domain;
 
 namespace Brady.Trade.DataService.RecordTypes
 {
+    [CreateAction("Option Details", IncludeSubTypes = new string[] { "VanillaOptionDetails" },
+                                    SubTypeDisplayNames = new string[] { "Vanilla Opton" })]
+    [EditAction("Option Details")]
+    public class OptionDetailsRecordType : OptionDetailsRecordType<OptionDetails>
+    {
+        public OptionDetailsRecordType(IMetadataProvider metadataProvider)
+            : base(metadataProvider)
+        { }
+        
+        public override void ConfigureMapper()
+        {
+            Mapper.CreateMap<OptionDetails, OptionDetails>()
+                .Include<VanillaOptionDetails, VanillaOptionDetails>();
+        }
+    }
+
     public class OptionDetailsRecordType<T> : ChangeableRecordType<T, long, OptionDetailsValidator<T>, OptionDetailsDeleteValidator<T>>
         where T : class, IHaveId<long>
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Domain
 {
-    public class Trade : IHaveCompositeId
+    public class Trade : IHaveId<long>
     {
         public Trade()
         { }
@@ -17,6 +17,11 @@ namespace Brady.Trade.Domain
             TradeType = tradeType;
         }
 
+        public virtual long Id
+        {
+            get { return RepositoryId; }
+            set { RepositoryId = value; }
+        }
         public virtual long RepositoryId { get; set; }
         public virtual string ExternalId { get; protected internal set; }
         public virtual string SystemCode { get; set; }
@@ -37,38 +42,5 @@ namespace Brady.Trade.Domain
         public virtual DateTime? EffectiveDate { get; set; }
 
         public virtual Dictionary<string, object> ExtendedProperties { get; set; }
-
-        string IHaveId<string>.Id
-        {
-            get { return ExternalId; }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return this.Equals(obj as Trade);
-        }
-
-        public virtual bool Equals(Trade trade)
-        {
-            if (ReferenceEquals(trade, null))
-                return false;
-
-            if (ReferenceEquals(this, trade))
-                return true;
-
-            return string.Compare(this.SystemCode, trade.SystemCode) == 0 &&
-                    string.Compare(this.SystemId, trade.SystemId) == 0;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int result = 17;
-                result = result * 23 + ((this.SystemCode != null) ? this.SystemCode.GetHashCode() : 0);
-                result = result * 23 + ((this.SystemId != null) ? this.SystemId.GetHashCode() : 0);
-                return result;
-            }
-        }
     }
 }

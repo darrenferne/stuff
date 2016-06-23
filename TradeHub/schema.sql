@@ -41,16 +41,16 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_tradi
    DROP TABLE [brady_trading].[nexthigh]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[vanillaaverage]') AND type in (N'U'))
-   DROP TABLE [brady_trading].[vanillaaverage]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[vanillaaveragedetails]') AND type in (N'U'))
+   DROP TABLE [brady_trading].[vanillaaveragedetails]
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[averagedetails]') AND type in (N'U'))
    DROP TABLE [brady_trading].[averagedetails]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[vanillaoption]') AND type in (N'U'))
-   DROP TABLE [brady_trading].[vanillaoption]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[vanillaoptiondetails]') AND type in (N'U'))
+   DROP TABLE [brady_trading].[vanillaoptiondetails]
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[brady_trading].[optiondetails]') AND type in (N'U'))
@@ -608,7 +608,7 @@ GO
 GRANT SELECT ON [brady_trading].[averagedetails] TO [brady_trading_select]
 GO
 
-CREATE TABLE [brady_trading].[vanillaaverage](
+CREATE TABLE [brady_trading].[vanillaaveragedetails](
 	[averagedetailsid] 		[bigint] 		NOT NULL,
 	[fixingindex]	    	[nvarchar](64),
 	[startdate]		    	[datetime],
@@ -619,29 +619,29 @@ CREATE TABLE [brady_trading].[vanillaaverage](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [brady_trading].[vanillaaverage]
-   ADD CONSTRAINT [pk_vanillaaverage]
+ALTER TABLE [brady_trading].[vanillaaveragedetails]
+   ADD CONSTRAINT [pk_vanillaaveragedetails]
       PRIMARY KEY CLUSTERED ( [averagedetailsid] ) 
          ON [PRIMARY]
 GO
 
-ALTER TABLE [brady_trading].[vanillaaverage]
-   ADD CONSTRAINT [fk_vanillaaverage_averagedetails]
+ALTER TABLE [brady_trading].[vanillaaveragedetails]
+   ADD CONSTRAINT [fk_vanillaaveragedetails_averagedetails]
       FOREIGN KEY ([averagedetailsid])
          REFERENCES [brady_trading].[averagedetails]([id])
             ON DELETE CASCADE
 GO
 
-GRANT INSERT ON [brady_trading].[vanillaaverage] TO [brady_trading_insert]
+GRANT INSERT ON [brady_trading].[vanillaaveragedetails] TO [brady_trading_insert]
 GO
 
-GRANT UPDATE ON [brady_trading].[vanillaaverage] TO [brady_trading_update]
+GRANT UPDATE ON [brady_trading].[vanillaaveragedetails] TO [brady_trading_update]
 GO
 
-GRANT DELETE ON [brady_trading].[vanillaaverage] TO [brady_trading_delete]
+GRANT DELETE ON [brady_trading].[vanillaaveragedetails] TO [brady_trading_delete]
 GO
 
-GRANT SELECT ON [brady_trading].[vanillaaverage] TO [brady_trading_select]
+GRANT SELECT ON [brady_trading].[vanillaaveragedetails] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[optiondetails](
@@ -669,7 +669,7 @@ GO
 GRANT SELECT ON [brady_trading].[optiondetails] TO [brady_trading_select]
 GO
 
-CREATE TABLE [brady_trading].[vanillaoption](
+CREATE TABLE [brady_trading].[vanillaoptiondetails](
 	[optiondetailsid] 		[bigint] 		NOT NULL,
 	[cp]	    			[nvarchar](4),
 	[currencyamount]		[float],
@@ -684,29 +684,29 @@ CREATE TABLE [brady_trading].[vanillaoption](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [brady_trading].[vanillaoption]
-   ADD CONSTRAINT [pk_vanillaoption]
+ALTER TABLE [brady_trading].[vanillaoptiondetails]
+   ADD CONSTRAINT [pk_vanillaoptiondetails]
       PRIMARY KEY CLUSTERED ( [optiondetailsid] ) 
          ON [PRIMARY]
 GO
 
-ALTER TABLE [brady_trading].[vanillaoption]
-   ADD CONSTRAINT [fk_vanillaoption_optiondetails]
+ALTER TABLE [brady_trading].[vanillaoptiondetails]
+   ADD CONSTRAINT [fk_vanillaoptiondetails_optiondetails]
       FOREIGN KEY ([optiondetailsid])
          REFERENCES [brady_trading].[optiondetails]([id])
             ON DELETE CASCADE
 GO
 
-GRANT INSERT ON [brady_trading].[vanillaoption] TO [brady_trading_insert]
+GRANT INSERT ON [brady_trading].[vanillaoptiondetails] TO [brady_trading_insert]
 GO
 
-GRANT UPDATE ON [brady_trading].[vanillaoption] TO [brady_trading_update]
+GRANT UPDATE ON [brady_trading].[vanillaoptiondetails] TO [brady_trading_update]
 GO
 
-GRANT DELETE ON [brady_trading].[vanillaoption] TO [brady_trading_delete]
+GRANT DELETE ON [brady_trading].[vanillaoptiondetails] TO [brady_trading_delete]
 GO
 
-GRANT SELECT ON [brady_trading].[vanillaoption] TO [brady_trading_select]
+GRANT SELECT ON [brady_trading].[vanillaoptiondetails] TO [brady_trading_select]
 GO
 
 CREATE TABLE [brady_trading].[commodityaverage](
@@ -869,6 +869,18 @@ GRANT DELETE ON [brady_trading].[commoditytapo] TO [brady_trading_delete]
 GO
 
 GRANT SELECT ON [brady_trading].[commoditytapo] TO [brady_trading_select]
+GO
+
+INSERT INTO [brady_trading].[nexthigh] ([NextHigh], [EntityName])
+   VALUES (0, 'trade')
+GO
+
+INSERT INTO [brady_trading].[nexthigh] ([NextHigh], [EntityName])
+   VALUES (0, 'averagedetails')
+GO
+
+INSERT INTO [brady_trading].[nexthigh] ([NextHigh], [EntityName])
+   VALUES (0, 'optiondetails')
 GO
 
 [brady_trading].[prc_updateversion] 2016, 2, 0, 1

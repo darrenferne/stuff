@@ -16,6 +16,24 @@ namespace Brady.Trade.Metadata
             Extends<AverageDetailsMetadata, AverageDetails>();
 
             DisplayName("Vanilla Average");
+
+            DateProperty(ad => ad.StartDate)
+                .DisplayName("Start Date");
+
+            DateProperty(ad => ad.EndDate)
+                .DisplayName("End Date");
+
+            StringProperty(ad => ad.FixingIndex)
+                .DisplayName("Fixing Index");
+
+            NumericProperty(ad => ad.AdditivePremium)
+                .DisplayName("Additive Premium");
+
+            StringProperty(ad => ad.AdditivePremiumUnits)
+                .DisplayName("Additive Premium Units");
+
+            NumericProperty(ad => ad.PercentagePremium)
+                .DisplayName("Percentage Premium");
         }
     }
 }
