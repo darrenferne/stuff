@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{58D6626F-1456-4D2F-91D0-5FA5608E0077}</ProjectGuid>
+    <ProjectGuid>{1638BE85-4D04-4E49-B0E5-FD9DFB3B375B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Brady.Trade.Repository</RootNamespace>
-    <AssemblyName>Brady.Trade.Repository</AssemblyName>
+    <RootNamespace>Brady.Trade.DataService.InMemory</RootNamespace>
+    <AssemblyName>Brady.Trade.DataService.InMemory</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,8 +42,8 @@
       <HintPath>..\..\packages\bwf.dataservices.domain.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.FilterConverters.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.filterconverters.nhibernate.2016.1.223\lib\net45\BWF.DataServices.FilterConverters.NHibernate.dll</HintPath>
+    <Reference Include="BWF.DataServices.FilterConverters.DynamicLinq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.dataservices.filterconverters.dynamiclinq.2016.1.223\lib\net45\BWF.DataServices.FilterConverters.DynamicLinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BWF.DataServices.Live.Notification, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -64,20 +62,12 @@
       <HintPath>..\..\packages\bwf.dataservices.parser.2016.1.223\lib\net45\BWF.DataServices.Parser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.PortableClients, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.portableclients.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.PortableClients.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="BWF.DataServices.Query, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\bwf.dataservices.query.2016.1.223\lib\net45\BWF.DataServices.Query.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.QueryConverters.NHibernate, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.queryconverters.nhibernate.2016.1.223\lib\net45\BWF.DataServices.QueryConverters.NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Support.NHibernate, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.support.nhibernate.2016.1.223\lib\net45\BWF.DataServices.Support.NHibernate.dll</HintPath>
+    <Reference Include="BWF.DataServices.QueryConverters.InMemory, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\bwf.dataservices.queryconverters.inmemory.2016.1.223\lib\net45\BWF.DataServices.QueryConverters.InMemory.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BWF.Enums, Version=2016.1.223.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
@@ -86,18 +76,6 @@
     </Reference>
     <Reference Include="BWF.Globalisation, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\bwf.globalisation.2016.1.223\lib\net45\BWF.Globalisation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Hosting.Infrastructure, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.hosting.infrastructure.2016.1.223\lib\net45\BWF.Hosting.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Git\bwf\src\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentValidation, Version=4.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.4.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FParsec, Version=1.0.0.0, Culture=neutral, PublicKeyToken=40ccfc0a09edbb5d, processorArchitecture=MSIL">
@@ -120,28 +98,12 @@
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf-signalr-client.2016.1.0.7\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>C:\Git\bwf\src\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf-ninject.2016.1.0.7\lib\net45\Ninject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject.Extensions.ChildKernel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf-ninject.2016.1.0.7\lib\net45\Ninject.Extensions.ChildKernel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject.Extensions.Conventions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf-ninject.2016.1.0.7\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
+      <HintPath>..\..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
@@ -150,15 +112,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Linq.Dynamic.1.0.0\lib\net40\System.Linq.Dynamic.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Reactive.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rx-Core.2.2.2\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -183,45 +140,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomTypes\NumericTrueFalse.cs" />
-    <Compile Include="Concrete\TradeDatabaseDataServiceRepository.cs" />
-    <Compile Include="Mappings\AverageDetailsMap.cs" />
-    <Compile Include="Mappings\CommodityAverageMap.cs" />
-    <Compile Include="Mappings\CommodityAverageSwapMap.cs" />
-    <Compile Include="Mappings\CommodityForwardMap.cs" />
-    <Compile Include="Mappings\CommodityFutureMap.cs" />
-    <Compile Include="Mappings\CommodityOptionMap.cs" />
-    <Compile Include="Mappings\CommodityTAPOMap.cs" />
-    <Compile Include="Mappings\CommodityTradeMap.cs" />
-    <Compile Include="Mappings\OptionDetailsMap.cs" />
-    <Compile Include="Mappings\TradeMap.cs" />
-    <Compile Include="Mappings\VanillaAverageMap.cs" />
-    <Compile Include="Mappings\VanillaOptionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Brady.Trade.DataService.Core\Brady.Trade.DataService.Core.csproj">
-      <Project>{5476079b-26e8-476d-891b-a1f985c113d9}</Project>
-      <Name>Brady.Trade.DataService.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
-      <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
-      <Name>Brady.Trade.Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

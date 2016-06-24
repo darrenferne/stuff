@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5476079B-26E8-476D-891B-A1F985C113D9}</ProjectGuid>
+    <ProjectGuid>{7565CF6B-A07E-4EDE-ADFD-3B46985B00BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Brady.Trade.DataService.Core</RootNamespace>
-    <AssemblyName>Brady.Trade.DataService.Core</AssemblyName>
+    <RootNamespace>Brady.Trade.DataService.RecordTypes</RootNamespace>
+    <AssemblyName>Brady.Trade.DataService.RecordTypes.Crudding</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -92,18 +92,6 @@
       <HintPath>..\..\packages\bwf.hosting.infrastructure.2016.1.223\lib\net45\BWF.Hosting.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.69.1.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ClosedXML.0.69.2\lib\net40-client\ClosedXML.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Deedle, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf-deedle.2016.1.0.7\lib\net45\Deedle.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FluentValidation, Version=4.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentValidation.4.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -116,20 +104,8 @@
       <HintPath>..\..\packages\FParsec.1.0.2\lib\net40-client\FParsecCS.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Collections.ParallelSeq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FSharp.Collections.ParallelSeq.1.0.2\lib\net40\FSharp.Collections.ParallelSeq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ImpromptuInterface, Version=6.2.2.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ImpromptuInterface.FSharp, Version=1.2.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ImpromptuInterface.FSharp.1.2.13\lib\net40\ImpromptuInterface.FSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=1.7.3.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
@@ -142,46 +118,6 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\bwf-signalr-client.2016.1.0.7\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Hosting, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nancy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.1.3.0\lib\net40\Nancy.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nancy.Authentication.Stateless, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.Authentication.Stateless.1.3.0\lib\net40\Nancy.Authentication.Stateless.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nancy.Owin, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.Owin.1.3.0\lib\net40\Nancy.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.Serialization.JsonNet.1.3.0\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -208,22 +144,10 @@
       <HintPath>..\..\packages\odp.net.x86.112.3.20\lib\net40\Oracle.DataAccess.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -243,14 +167,6 @@
       <HintPath>..\..\packages\Rx-Linq.2.2.2\lib\net45\System.Reactive.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rx-PlatformServices.2.2.2\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -261,57 +177,36 @@
       <HintPath>..\..\packages\bwf-telerik-reporting.2016.1.0.7\lib\net45\Telerik.Reporting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Topshelf, Version=3.2.150.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Topshelf.3.2.0\lib\net40-full\Topshelf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ReadOnlyTradeRecordType.cs" />
-    <Compile Include="Interfaces\ITradeDataServiceRepository.cs" />
-    <Compile Include="Abstract\ChangeableTradeRecordType.cs" />
-    <Compile Include="Abstract\TradeDataServiceValidatorBase.cs" />
-    <Compile Include="Interfaces\ITradeDataService.cs" />
-    <Compile Include="Interfaces\ITradeDataServiceSettings.cs" />
+    <Compile Include="Base\AverageDetailsRecordType.cs" />
+    <Compile Include="CommodityAverageRecordType.cs" />
+    <Compile Include="CommodityAverageSwapRecordType.cs" />
+    <Compile Include="CommodityCarryRecordType.cs" />
+    <Compile Include="CommodityForwardRecordType.cs" />
+    <Compile Include="CommodityFutureRecordType.cs" />
+    <Compile Include="CommodityOptionRecordType.cs" />
+    <Compile Include="CommodityTAPORecordType.cs" />
+    <Compile Include="Base\CommodityTradeRecordType.cs" />
+    <Compile Include="Base\OptionDetailsRecordType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Concrete\TradeDataServiceSettings.cs" />
-    <Compile Include="Validation\AverageDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\AverageDetailsValidator.cs" />
-    <Compile Include="Validation\CommodityAverageDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageSwapDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageSwapValidator.cs" />
-    <Compile Include="Validation\CommodityAverageValidator.cs" />
-    <Compile Include="Validation\CommodityCarryDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityCarryValidator.cs" />
-    <Compile Include="Validation\CommodityForwardDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityForwardValidator.cs" />
-    <Compile Include="Validation\CommodityFutureDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityFutureValidator.cs" />
-    <Compile Include="Validation\CommodityOptionDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityOptionValidator.cs" />
-    <Compile Include="Validation\CommodityTAPODeleteValidator.cs" />
-    <Compile Include="Validation\CommodityTAPOValidator.cs" />
-    <Compile Include="Validation\CommodityTradeDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityTradeValidator.cs" />
-    <Compile Include="Validation\OptionDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\OptionDetailsValidator.cs" />
-    <Compile Include="Validation\TradeDeleteValidator.cs" />
-    <Compile Include="Validation\TradeValidator.cs" />
-    <Compile Include="Validation\VanillaAverageDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\VanillaAverageDetailsValidator.cs" />
-    <Compile Include="Validation\VanillaOptionDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\VanillaOptionDetailsValidator.cs" />
+    <Compile Include="Base\TradeRecordType.cs" />
+    <Compile Include="VanillaAverageDetailsRecordType.cs" />
+    <Compile Include="VanillaOptionDetailsRecordType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
+    <ProjectReference Include="..\Brady.Trade.DataService.Core\Brady.Trade.DataService.Core.csproj">
+      <Project>{5476079b-26e8-476d-891b-a1f985c113d9}</Project>
+      <Name>Brady.Trade.DataService.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
       <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
       <Name>Brady.Trade.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
