@@ -34,50 +34,6 @@
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.Core, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.core.2016.1.223\lib\net45\BWF.DataServices.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.domain.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Domain.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.FilterConverters.DynamicLinq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.filterconverters.dynamiclinq.2016.1.223\lib\net45\BWF.DataServices.FilterConverters.DynamicLinq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Live.Notification, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.live.notification.2016.1.223\lib\net45\BWF.DataServices.Live.Notification.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Metadata, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.metadata.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Notification, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.notification.2016.1.223\lib\net45\BWF.DataServices.Notification.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Parser, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.parser.2016.1.223\lib\net45\BWF.DataServices.Parser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Query, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.query.2016.1.223\lib\net45\BWF.DataServices.Query.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.QueryConverters.InMemory, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.queryconverters.inmemory.2016.1.223\lib\net45\BWF.DataServices.QueryConverters.InMemory.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Enums, Version=2016.1.223.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.enums.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Globalisation, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.globalisation.2016.1.223\lib\net45\BWF.Globalisation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FParsec, Version=1.0.0.0, Culture=neutral, PublicKeyToken=40ccfc0a09edbb5d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FParsec.1.0.2\lib\net40-client\FParsec.dll</HintPath>
       <Private>True</Private>
@@ -144,6 +100,52 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Git\bwf\src\Common\BWF.Enums\BWF.Enums.csproj">
+      <Project>{C82E5EED-3D68-453A-AFA7-29165276FF7E}</Project>
+      <Name>BWF.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Core\BWF.DataServices.Core.csproj">
+      <Project>{A164209F-9EE4-4083-8D72-822555B41557}</Project>
+      <Name>BWF.DataServices.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Domain\BWF.DataServices.Domain.csproj">
+      <Project>{37518D63-D1CB-4327-99A6-3A4065311080}</Project>
+      <Name>BWF.DataServices.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.FilterConverters.DynamicLinq\BWF.DataServices.FilterConverters.DynamicLinq.fsproj">
+      <Project>{12826847-A7B7-45D4-831A-2B501553B627}</Project>
+      <Name>BWF.DataServices.FilterConverters.DynamicLinq</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Live.Notification\BWF.DataServices.Live.Notification.fsproj">
+      <Project>{DAE5B14C-EB5C-4FD2-A025-0177C8338123}</Project>
+      <Name>BWF.DataServices.Live.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Metadata\BWF.DataServices.Metadata.csproj">
+      <Project>{DB4BB1F6-8206-4C73-9C8D-8713758EBBC1}</Project>
+      <Name>BWF.DataServices.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Notification\BWF.DataServices.Notification.csproj">
+      <Project>{123C2652-B1D8-43EA-94D8-A92F9C01C31A}</Project>
+      <Name>BWF.DataServices.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Parser\BWF.DataServices.Parser.fsproj">
+      <Project>{0544108A-D0FB-4D70-BA09-737894793983}</Project>
+      <Name>BWF.DataServices.Parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.QueryConverters.InMemory\BWF.DataServices.QueryConverters.InMemory.csproj">
+      <Project>{96427435-10FE-43B0-AB64-1BEC2946776B}</Project>
+      <Name>BWF.DataServices.QueryConverters.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Query\BWF.DataServices.Query.csproj">
+      <Project>{AF0CCC76-4BF4-4A36-8B11-A00D9B1A2371}</Project>
+      <Name>BWF.DataServices.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Globalisation\BWF.Globalisation\BWF.Globalisation.csproj">
+      <Project>{70CBAC46-774B-4328-9E2A-AF9CF06200C1}</Project>
+      <Name>BWF.Globalisation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

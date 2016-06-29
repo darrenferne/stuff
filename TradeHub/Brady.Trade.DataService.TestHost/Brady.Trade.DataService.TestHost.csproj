@@ -43,106 +43,6 @@
       <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BWF.DataServices.Combined, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.combined.2016.1.223\lib\net45\BWF.DataServices.Combined.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Core, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.core.2016.1.223\lib\net45\BWF.DataServices.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.domain.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Domain.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.FilterConverters.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.filterconverters.nhibernate.2016.1.223\lib\net45\BWF.DataServices.FilterConverters.NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Live, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.live.2016.1.223\lib\net45\BWF.DataServices.Live.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Live.Notification, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.live.notification.2016.1.223\lib\net45\BWF.DataServices.Live.Notification.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Metadata, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.metadata.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Notification, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.notification.2016.1.223\lib\net45\BWF.DataServices.Notification.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Parser, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.parser.2016.1.223\lib\net45\BWF.DataServices.Parser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.PortableClients, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.portableclients.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.PortableClients.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Query, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.query.2016.1.223\lib\net45\BWF.DataServices.Query.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.QueryConverters.NHibernate, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.queryconverters.nhibernate.2016.1.223\lib\net45\BWF.DataServices.QueryConverters.NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.StartUp, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.startup.2016.1.223\lib\net45\BWF.DataServices.StartUp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.DataServices.Support.NHibernate, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.dataservices.support.nhibernate.2016.1.223\lib\net45\BWF.DataServices.Support.NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Enums, Version=2016.1.223.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.enums.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Explorer.DataService, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.explorer.dataservice.2016.1.223\lib\net45\BWF.Explorer.DataService.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Explorer.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.explorer.domain.2016.1.223\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Explorer.Domain.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Explorer.StartUp, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.explorer.startup.2016.1.223\lib\net45\BWF.Explorer.StartUp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Globalisation, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.globalisation.2016.1.223\lib\net45\BWF.Globalisation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Hosting.Infrastructure, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.hosting.infrastructure.2016.1.223\lib\net45\BWF.Hosting.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Licensing.Adaptor, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.licensing.adaptor.2016.1.223\lib\net45\BWF.Licensing.Adaptor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Membership.Adaptor, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.membership.adaptor.2016.1.223\lib\net45\BWF.Membership.Adaptor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Membership.DataService, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.membership.dataservice.2016.1.223\lib\net45\BWF.Membership.DataService.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Membership.Domain, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.membership.domain.2016.1.223\lib\net45\BWF.Membership.Domain.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BWF.Membership.Interfaces, Version=2016.1.223.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\bwf.membership.interfaces.2016.1.223\lib\net45\BWF.Membership.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ClosedXML, Version=0.69.1.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ClosedXML.0.69.2\lib\net40-client\ClosedXML.dll</HintPath>
       <Private>True</Private>
@@ -363,6 +263,106 @@
     <ProjectReference Include="..\Brady.Trade.Repository\Brady.Trade.Repository.csproj">
       <Project>{58d6626f-1456-4d2f-91d0-5fa5608e0077}</Project>
       <Name>Brady.Trade.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Common\BWF.Enums\BWF.Enums.csproj">
+      <Project>{C82E5EED-3D68-453A-AFA7-29165276FF7E}</Project>
+      <Name>BWF.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Combined\BWF.DataServices.Combined.fsproj">
+      <Project>{258AD5DD-FFF1-4A11-9002-765491BC8EAB}</Project>
+      <Name>BWF.DataServices.Combined</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Core\BWF.DataServices.Core.csproj">
+      <Project>{A164209F-9EE4-4083-8D72-822555B41557}</Project>
+      <Name>BWF.DataServices.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Domain\BWF.DataServices.Domain.csproj">
+      <Project>{37518D63-D1CB-4327-99A6-3A4065311080}</Project>
+      <Name>BWF.DataServices.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.FilterConverters.NHibernate\BWF.DataServices.FilterConverters.NHibernate.fsproj">
+      <Project>{58FCB9D5-4319-489A-83E7-3E2CB4516471}</Project>
+      <Name>BWF.DataServices.FilterConverters.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Live.Notification\BWF.DataServices.Live.Notification.fsproj">
+      <Project>{DAE5B14C-EB5C-4FD2-A025-0177C8338123}</Project>
+      <Name>BWF.DataServices.Live.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Live\BWF.DataServices.Live.fsproj">
+      <Project>{7F92E177-6927-4C24-B718-803AC6329474}</Project>
+      <Name>BWF.DataServices.Live</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Metadata\BWF.DataServices.Metadata.csproj">
+      <Project>{DB4BB1F6-8206-4C73-9C8D-8713758EBBC1}</Project>
+      <Name>BWF.DataServices.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Notification\BWF.DataServices.Notification.csproj">
+      <Project>{123C2652-B1D8-43EA-94D8-A92F9C01C31A}</Project>
+      <Name>BWF.DataServices.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Parser\BWF.DataServices.Parser.fsproj">
+      <Project>{0544108A-D0FB-4D70-BA09-737894793983}</Project>
+      <Name>BWF.DataServices.Parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.PortableClients\BWF.DataServices.PortableClients.csproj">
+      <Project>{28F2C6CF-F1A7-41E4-B268-E975969C9003}</Project>
+      <Name>BWF.DataServices.PortableClients</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.QueryConverters.NHibernate\BWF.DataServices.QueryConverters.NHibernate.csproj">
+      <Project>{794ADA60-DC12-403A-9453-B6BFB40F146D}</Project>
+      <Name>BWF.DataServices.QueryConverters.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Query\BWF.DataServices.Query.csproj">
+      <Project>{AF0CCC76-4BF4-4A36-8B11-A00D9B1A2371}</Project>
+      <Name>BWF.DataServices.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.StartUp\BWF.DataServices.StartUp.csproj">
+      <Project>{D2F04EFB-ED08-49AB-8708-006CE2D5651C}</Project>
+      <Name>BWF.DataServices.StartUp</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\DataServices\BWF.DataServices.Support.NHibernate\BWF.DataServices.Support.NHibernate.csproj">
+      <Project>{E03EEAB5-6F15-4EF5-A3E3-4815D6836602}</Project>
+      <Name>BWF.DataServices.Support.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Explorer\BWF.Explorer.DataService\BWF.Explorer.DataService.csproj">
+      <Project>{9C4E734A-5C3D-4924-B1B4-54180688DFC8}</Project>
+      <Name>BWF.Explorer.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Explorer\BWF.Explorer.Domain\BWF.Explorer.Domain.csproj">
+      <Project>{49409984-2300-450A-A33A-29F8EBD1101B}</Project>
+      <Name>BWF.Explorer.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Explorer\BWF.Explorer.StartUp\BWF.Explorer.StartUp.csproj">
+      <Project>{05D846C6-5B6F-43A3-A00A-143D91C7A737}</Project>
+      <Name>BWF.Explorer.StartUp</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Globalisation\BWF.Globalisation\BWF.Globalisation.csproj">
+      <Project>{70CBAC46-774B-4328-9E2A-AF9CF06200C1}</Project>
+      <Name>BWF.Globalisation</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Hosting\BWF.Hosting.Infrastructure\BWF.Hosting.Infrastructure.csproj">
+      <Project>{71C6DF42-61B9-4E34-8EB7-1713CF799934}</Project>
+      <Name>BWF.Hosting.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Licensing\BWF.Licensing.Adaptor\BWF.Licensing.Adaptor.csproj">
+      <Project>{79FDCB8F-F18A-452A-A7C9-B61A9CB35419}</Project>
+      <Name>BWF.Licensing.Adaptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Membership\BWF.Membership.Adaptor\BWF.Membership.Adaptor.csproj">
+      <Project>{8697DE64-E169-486D-987A-E3C8F2D33B12}</Project>
+      <Name>BWF.Membership.Adaptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Membership\BWF.Membership.DataService\BWF.Membership.DataService.csproj">
+      <Project>{1074A8E1-EF44-4F90-820C-F6D6B4E55615}</Project>
+      <Name>BWF.Membership.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Membership\BWF.Membership.Domain\BWF.Membership.Domain.csproj">
+      <Project>{B038D1E2-9170-4526-9AF0-A5F6EEAFA4D6}</Project>
+      <Name>BWF.Membership.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Git\bwf\src\Membership\BWF.Membership.Interfaces\BWF.Membership.Interfaces.csproj">
+      <Project>{00CE4A62-CB7A-4E6A-819F-787D5F644EAA}</Project>
+      <Name>BWF.Membership.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
