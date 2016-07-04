@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.Crudding", "Brady.Trade.DataService.Crudding\Brady.Trade.DataService.Crudding.csproj", "{FCD54874-B52B-45B9-9DAB-38BA78FF9F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.Database", "Brady.Trade.DataService.Crudding\Brady.Trade.DataService.Database.csproj", "{FCD54874-B52B-45B9-9DAB-38BA78FF9F04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Domain", "Brady.Trade.Domain\Brady.Trade.Domain.csproj", "{BE02CCD0-15CE-42C4-A9A4-E55132D44E93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Metadata", "Brady.Trade.Metadata\Brady.Trade.Metadata.csproj", "{B2989E5A-527B-4E96-91BA-BD5DF226C093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Repository", "Brady.Trade.Repository\Brady.Trade.Repository.csproj", "{58D6626F-1456-4D2F-91D0-5FA5608E0077}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Repository.Database", "Brady.Trade.Repository\Brady.Trade.Repository.Database.csproj", "{58D6626F-1456-4D2F-91D0-5FA5608E0077}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.TestHost", "Brady.Trade.DataService.TestHost\Brady.Trade.DataService.TestHost.csproj", "{99098C50-C99A-4708-9EA3-B3F5886CBF79}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.InMemory", "Brady.Trade.DataService.InMemory\Brady.Trade.DataService.InMemory.csproj", "{1638BE85-4D04-4E49-B0E5-FD9DFB3B375B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.RecordTypes.Crudding", "Brady.Trade.DataService.RecordTypes.Crudding\Brady.Trade.DataService.RecordTypes.Crudding.csproj", "{7565CF6B-A07E-4EDE-ADFD-3B46985B00BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.Repository.InMemory", "Brady.Trade.Repository.InMemory\Brady.Trade.Repository.InMemory.csproj", "{C58DBE64-43C5-4938-B20A-D8AFF0E944AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Trade.DataService.RecordTypes.InMemory", "Brady.Trade.DataService.RecordTypes.InMemory\Brady.Trade.DataService.RecordTypes.InMemory.csproj", "{A6347410-8B24-4142-9399-6FFB321DE8E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{7565CF6B-A07E-4EDE-ADFD-3B46985B00BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7565CF6B-A07E-4EDE-ADFD-3B46985B00BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7565CF6B-A07E-4EDE-ADFD-3B46985B00BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58DBE64-43C5-4938-B20A-D8AFF0E944AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58DBE64-43C5-4938-B20A-D8AFF0E944AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58DBE64-43C5-4938-B20A-D8AFF0E944AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58DBE64-43C5-4938-B20A-D8AFF0E944AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6347410-8B24-4142-9399-6FFB321DE8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6347410-8B24-4142-9399-6FFB321DE8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6347410-8B24-4142-9399-6FFB321DE8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6347410-8B24-4142-9399-6FFB321DE8E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -147,6 +147,10 @@
       <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
       <Name>Brady.Trade.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Brady.Trade.Repository\Brady.Trade.Repository.Database.csproj">
+      <Project>{58d6626f-1456-4d2f-91d0-5fa5608e0077}</Project>
+      <Name>Brady.Trade.Repository.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Git\bwf\src\Common\BWF.Enums\BWF.Enums.csproj">
       <Project>{C82E5EED-3D68-453A-AFA7-29165276FF7E}</Project>
       <Name>BWF.Enums</Name>

@@ -214,37 +214,10 @@
     <Compile Include="Abstract\ReadOnlyTradeRecordType.cs" />
     <Compile Include="Interfaces\ITradeDataServiceRepository.cs" />
     <Compile Include="Abstract\ChangeableTradeRecordType.cs" />
-    <Compile Include="Abstract\TradeDataServiceValidatorBase.cs" />
     <Compile Include="Interfaces\ITradeDataService.cs" />
     <Compile Include="Interfaces\ITradeDataServiceSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Concrete\TradeDataServiceSettings.cs" />
-    <Compile Include="Validation\AverageDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\AverageDetailsValidator.cs" />
-    <Compile Include="Validation\CommodityAverageDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageSwapDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityAverageSwapValidator.cs" />
-    <Compile Include="Validation\CommodityAverageValidator.cs" />
-    <Compile Include="Validation\CommodityCarryDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityCarryValidator.cs" />
-    <Compile Include="Validation\CommodityForwardDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityForwardValidator.cs" />
-    <Compile Include="Validation\CommodityFutureDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityFutureValidator.cs" />
-    <Compile Include="Validation\CommodityOptionDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityOptionValidator.cs" />
-    <Compile Include="Validation\CommodityTAPODeleteValidator.cs" />
-    <Compile Include="Validation\CommodityTAPOValidator.cs" />
-    <Compile Include="Validation\CommodityTradeDeleteValidator.cs" />
-    <Compile Include="Validation\CommodityTradeValidator.cs" />
-    <Compile Include="Validation\OptionDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\OptionDetailsValidator.cs" />
-    <Compile Include="Validation\TradeDeleteValidator.cs" />
-    <Compile Include="Validation\TradeValidator.cs" />
-    <Compile Include="Validation\VanillaAverageDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\VanillaAverageDetailsValidator.cs" />
-    <Compile Include="Validation\VanillaOptionDetailsDeleteValidator.cs" />
-    <Compile Include="Validation\VanillaOptionDetailsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

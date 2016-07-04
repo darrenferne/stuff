@@ -16,7 +16,7 @@ using Brady.Trade.Repository.Mappings;
 
 namespace Brady.Trade.Repository.Concrete
 {
-    public class TradeDatabaseDataServiceRepository : ConventionalDatabaseDataServiceRepository, ITradeDataServiceRepository
+    public class TradeDatabaseDataServiceRepository : ConventionalDatabaseDataServiceRepository, ICruddingTradeDataServiceRepository
     {
         //private string _databaseType;
 

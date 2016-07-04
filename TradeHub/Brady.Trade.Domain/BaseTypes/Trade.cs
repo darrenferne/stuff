@@ -1,4 +1,5 @@
-﻿using BWF.DataServices.Metadata.Interfaces;
+﻿using Brady.Trade.Domain.Interfaces;
+using BWF.DataServices.Metadata.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Domain
 {
-    public class Trade : IHaveId<long>
+    public class Trade : IHaveAssignableId<long>
     {
         public Trade()
         { }

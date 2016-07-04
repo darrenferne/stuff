@@ -244,13 +244,13 @@
       <Project>{5476079B-26E8-476D-891B-A1F985C113D9}</Project>
       <Name>Brady.Trade.DataService.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Brady.Trade.DataService.Crudding\Brady.Trade.DataService.Crudding.csproj">
-      <Project>{fcd54874-b52b-45b9-9dab-38ba78ff9f04}</Project>
-      <Name>Brady.Trade.DataService.Crudding</Name>
+    <ProjectReference Include="..\Brady.Trade.DataService.InMemory\Brady.Trade.DataService.InMemory.csproj">
+      <Project>{1638be85-4d04-4e49-b0e5-fd9dfb3b375b}</Project>
+      <Name>Brady.Trade.DataService.InMemory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Brady.Trade.DataService.RecordTypes.Crudding\Brady.Trade.DataService.RecordTypes.Crudding.csproj">
-      <Project>{7565cf6b-a07e-4ede-adfd-3b46985b00bf}</Project>
-      <Name>Brady.Trade.DataService.RecordTypes.Crudding</Name>
+    <ProjectReference Include="..\Brady.Trade.DataService.RecordTypes.InMemory\Brady.Trade.DataService.RecordTypes.InMemory.csproj">
+      <Project>{a6347410-8b24-4142-9399-6ffb321de8e6}</Project>
+      <Name>Brady.Trade.DataService.RecordTypes.InMemory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Brady.Trade.Domain\Brady.Trade.Domain.csproj">
       <Project>{be02ccd0-15ce-42c4-a9a4-e55132d44e93}</Project>
@@ -260,9 +260,9 @@
       <Project>{b2989e5a-527b-4e96-91ba-bd5df226c093}</Project>
       <Name>Brady.Trade.Metadata</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Brady.Trade.Repository\Brady.Trade.Repository.csproj">
-      <Project>{58d6626f-1456-4d2f-91d0-5fa5608e0077}</Project>
-      <Name>Brady.Trade.Repository</Name>
+    <ProjectReference Include="..\Brady.Trade.Repository.InMemory\Brady.Trade.Repository.InMemory.csproj">
+      <Project>{c58dbe64-43c5-4938-b20a-d8aff0e944ab}</Project>
+      <Name>Brady.Trade.Repository.InMemory</Name>
     </ProjectReference>
     <ProjectReference Include="C:\Git\bwf\src\Common\BWF.Enums\BWF.Enums.csproj">
       <Project>{C82E5EED-3D68-453A-AFA7-29165276FF7E}</Project>

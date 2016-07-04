@@ -1,4 +1,5 @@
-﻿using BWF.DataServices.Metadata.Interfaces;
+﻿using Brady.Trade.Domain.Interfaces;
+using BWF.DataServices.Metadata.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Trade.Domain.BaseTypes
 {
-    public abstract class OptionDetails : IHaveId<long>
+    public abstract class OptionDetails : IHaveAssignableId<long>
     {
         public OptionDetails()
         { }

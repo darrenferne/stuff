@@ -61,6 +61,7 @@
     <Compile Include="CommodityTAPO.cs" />
     <Compile Include="Extensions\CommodityTradeExtensions.cs" />
     <Compile Include="Interfaces\IAverageTrade.cs" />
+    <Compile Include="Interfaces\IHaveAssignableId.cs" />
     <Compile Include="Interfaces\IOptionTrade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseTypes\Strip.cs" />

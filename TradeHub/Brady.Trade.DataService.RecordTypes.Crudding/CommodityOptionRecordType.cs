@@ -1,5 +1,5 @@
 ﻿using Brady.Trade.DataService.Core.Abstract;
-using Brady.Trade.DataService.Core.Validators;
+using Brady.Trade.DataService.Database.Validation;
 using Brady.Trade.Domain;
 using BWF.DataServices.Core.Interfaces;
 using System;
