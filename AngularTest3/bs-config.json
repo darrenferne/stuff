@@ -1,0 +1,8 @@
+{
+  "server": {
+    "baseDir": "angulartest3",
+    "routes": {
+      "/node_modules": "node_modules"
+    }
+  }
+}

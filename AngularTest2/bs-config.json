@@ -1,0 +1,8 @@
+{
+  "server": {
+    "baseDir": "AngularTest2",
+    "routes": {
+      "/node_modules": "node_modules"
+    }
+  }
+}
