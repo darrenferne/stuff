@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>Live Query Testing</title>
+    <link href="@Path['~/Content/bootstrap.css']" rel="stylesheet" />
+</head>
+<body>
+
+    <h1>Live Query Testing</h1>
+
+    <div class="well well-small">
+        <h2>Query</h2>
+        <div class="input-group">
+            <input class="input-xxlarge" type="text" data-bind="value: query" placeholder="Type query to test here..." />
+            <button type="submit" class="btn btn-primary" data-bind="click: applyQuery">Apply</button>
+        </div>
+    </div>
+    <div class="well well-small">
+        <h2>Subsequent Updates</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Change</th><th>Changed Properties</th><th>Id</th><th>Position</th><th>Record Data</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: subsequentUpdates, as: 'change' }">
+                <tr>
+                    <td data-bind="text: change.ResultType" />
+                    <td data-bind="text: JSON.stringify(change.ChangedProperties)" />
+                    <td data-bind="text: change.Record.Id" />
+                    <td data-bind="text: change.Record.Position" />
+                    <td data-bind="text: JSON.stringify(change.Record.Data)" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="well well-small">
+        <h2>Initial Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th><th>Position</th><th>Record Data</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: initialResults, as: 'record' }">
+                <tr>
+                    <td data-bind="text: record.Id" /><td data-bind="text: record.Position" /><td data-bind="text: JSON.stringify(record.Data)" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="@Path['~/Scripts/jquery-2.0.3.min.js']"></script>
+    <script type="text/javascript" src="@Path['~/Scripts/jquery.signalR-2.2.0.min.js']"></script>
+    <script type="text/javascript" src="@Path['~/Scripts/knockout-3.4.2.js']"></script>
+    <script type="text/javascript" src="@Path['~/signalr/hubs']"></script>
+
+    <script type="text/javascript">
+
+        function generateGuid() {
+            var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            return guid;
+        };
+
+        function LiveQueryViewModel(hub) {
+            var self = this;
+
+            self.hub = hub;
+            self.query = ko.observable('Explorer/Views?$top=10&$orderby=Name&$expand=Selection,Presentation,GridPresentation');
+            self.initialResults = ko.observableArray([]);
+            self.subsequentUpdates = ko.observableArray([]);
+
+            self.updatesPushed = function (updates) {
+                ko.utils.arrayPushAll(self.subsequentUpdates(), updates);
+                self.subsequentUpdates.valueHasMutated();
+            };
+
+            self.applyQuery = function () {
+                try {
+                    var query = self.query();
+                    var firstSlash = query.indexOf('/');
+                    var dataService = query.substring(0, firstSlash);
+                    var remainingQuery = query.substring(firstSlash + 1);
+
+                    self.hub.server.LiveQuery(generateGuid(), dataService, remainingQuery).done(function (result) {
+                        self.initialResults(result.Records);
+                    }).fail(function (error) {
+                        console.log('Invocation of liveQuery failed. Error: ' + error);
+                    });
+                } catch (err) {
+                    alert(err);
+                };
+            };
+        };
+
+        $(document).ready(function () {
+
+            function getHub(url) {
+                var dfd = $.Deferred();
+
+                $.connection.hub.url = url;
+
+                var hub = $.connection.DataServiceHub;
+
+                if (hub == undefined) {
+                    dfd.reject("Could not connect to hub at " + url + ".");
+                } else {
+                    dfd.resolve(hub);
+                }
+
+                return dfd.promise();
+            }
+
+            $.when(
+                getHub("@Path['~/signalr']")
+            ).fail(
+                function (msg) {
+                    alert(msg);
+                }
+            ).done(
+                function (hub) {
+
+                    var viewModel = new LiveQueryViewModel(hub);
+
+                    hub.client.PushDataUpdates = function (updates) {
+                        viewModel.updatesPushed(updates);
+                    };
+
+                    $.connection.hub.start({ jsonp: true }, function () {
+                        ko.applyBindings(viewModel);
+                    });
+                }
+            );
+        });
+    </script>
+</body>
+</html>

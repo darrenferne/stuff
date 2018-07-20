@@ -1,0 +1,38 @@
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div class="bwf-panel-body">        
+        <div class="margin-bottom-xs">
+            <div><label data-bind="text: lockQuestion"></label></div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-xs btn-primary"
+                        data-bind="enable: canRemove, click: removeSelected">
+                    <i class="fa fa-times fa-white"></i>
+                    <span data-bind="text: resources['bwf_remove']"></span>
+                </button>
+            </div>
+            <div class="panel-box no-border">
+                <!-- ko if: gridVisible() -->
+                <div id="panel-delete-grid" class="flex-box max-height embedded-grid"
+                     data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration }">
+                </div>
+                <!-- /ko -->
+                <div class="margin-top">
+                    <label data-bind="text: lockReasonLabel"></label>
+                    <input class="opal-input max-width" type="text" data-bind="textInput: lockReason, css: { 'has-error': lockReason.isValid() === false }" />
+                </div>
+                <div class="text-danger" data-bind="visible: lockReason.isValid() === false, text: lockReason.validationMessage"></div>
+                <div class="text-danger" data-bind="foreach: errorMessages">
+                    <div data-bind="text: $data"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-danger btn-xs" data-bind="enable: lockReason.isValid() && !disableSave(), click: confirmLock, text: resources['yes']"></button>
+            <button class="btn btn-primary btn-xs" data-bind="click: cancel, text: resources['no']"></button>
+        </div>
+    </div>
+</form>

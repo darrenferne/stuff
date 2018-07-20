@@ -1,0 +1,57 @@
+<div>
+    <div data-bind="visible: notificationsExist(), css: divCss">
+        <div style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
+            <button type="button" class="btn btn-xs" data-bind="click: clearAll">
+                <i class="fa fa-close" data-bind="click: clearAll"></i>
+            </button>
+            <button type="button" class="btn btn-xs" data-bind="click: errorsClick, css: { 'btn-danger': errorsTotal() > 0, 'active': isErrorsOpen() }">
+                <span>Errors: <span data-bind="text: errorsTotal"></span></span>
+            </button>
+            <button type="button" class="btn btn-xs" data-bind="click: warningsClick, css: { 'btn-warning': warningsTotal() > 0, 'active': isWarningsOpen() }">
+                <span>Warnings: <span data-bind="text: warningsTotal"></span></span>
+            </button>
+            <button type="button" class="btn btn-xs" data-bind="click: infosClick, css: { 'btn-info': infosTotal() > 0, 'active': isInfosOpen() }">
+                <span>Information: <span data-bind="text: infosTotal"></span></span>
+            </button>
+            <span>
+                <i class="fa fa-exclamation-circle text-danger" data-bind="visible: lastNotification().level === 'Error'"></i>
+                <i class="fa fa-exclamation-triangle text-warning" data-bind="visible: lastNotification().level === 'Warning'"></i>
+                <i class="fa fa-info-circle text-info" data-bind="visible: lastNotification().level === 'Info'"></i>
+                <span data-bind="text: lastNotification().message, visible: lastNotification().message !== '', css: { 'text-danger': lastNotification().level === 'Error', 'text-warning': lastNotification().level === 'Warning', 'text-info': lastNotification().level === 'Info' }"></span>
+            </span>
+        </div>
+    </div>
+
+    <div id="errorsWindow" data-bind="kendoWindow: { isOpen: isErrorsOpen, visible: false, actions: ['Maximize', 'Close'], title: 'Errors', width: '480px', height: '240px' }">
+        <div data-bind="kendoGrid: {
+    data: errors, scrollable: false, sortable: true, toolbar: errorsToolbarTemplate,
+    columns: [
+        { command: { text: 'Remove', click: errorsClearRow }, width: '80px' },
+        { title: 'Received', field: 'received', format: '{0:HH:mm:ss}', width: '60px', attributes: { style: 'text-align:right;' } },
+        { title: 'Message', field: 'message' }]
+}">
+        </div>
+    </div>
+
+    <div data-bind="kendoWindow: { isOpen: isWarningsOpen, visible: false, actions: ['Maximize', 'Close'], title: 'Warnings', width: '480px', height: '240px' }">
+        <div data-bind="kendoGrid: {
+    data: warnings, scrollable: false, sortable: true, toolbar: warningsToolbarTemplate,
+    columns: [
+        { command: { text: 'Remove', click: warningsClearRow }, width: '80px' },
+        { title: 'Received', field: 'received', format: '{0:HH:mm:ss}', width: '60px', attributes: { style: 'text-align:right;' } },
+        { title: 'Message', field: 'message' }]
+}">
+        </div>
+    </div>
+
+    <div data-bind="kendoWindow: { isOpen: isInfosOpen, visible: false, actions: ['Maximize', 'Close'], title: 'Information', width: '480px', height: '240px' }">
+        <div data-bind="kendoGrid: {
+    data: infos, scrollable: false, sortable: true, toolbar: infosToolbarTemplate,
+    columns: [
+        { command: { text: 'Remove', click: infosClearRow }, width: '80px' },
+        { title: 'Received', field: 'received', format: '{0:HH:mm:ss}', width: '60px', attributes: { style: 'text-align:right;' } },
+        { title: 'Message', field: 'message' }]
+}">
+        </div>
+    </div>
+</div>

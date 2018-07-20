@@ -1,0 +1,16 @@
+<td data-bind="highlightUpdates: value, css: cssClasses">
+    <div class="editable-image-cell">
+        <div class="remove-button-container">
+            <label class="btn btn-primary btn-xs" data-bind="attr: { for: inputUniqueId }">
+                <span class="fa fa-picture-o"></span>
+                <span data-bind="visible: !hasImageSet()">Select an image...</span>
+            </label>
+            <input type="file" accept="image/*" class="file-uploader"
+                   data-bind="event: { change: fileUpload }, value: inputValue, attr: { id: inputUniqueId }" />
+            <button class="btn btn-danger btn-xs" data-bind="click: removeImage, visible: hasImageSet">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <img data-bind="visible: hasImageSet, attr: { src: value }" height="80">
+    </div>
+</td>

@@ -1,0 +1,24 @@
+<div class="powerbi-tile-content" data-bind="style: { width: widthString, height: heightString }">
+    <a class="btn btn-link btn-xs powerbi-tile-dashboard-button" title="Open Dashboard" target="_blank" 
+       data-bind="attr: { href: redirectToDashboardUrl }, style: { right: tileConfig.tileContentMarginSize + 'px' }, visible: showLinkButton">
+        <i class="fa fa-external-link"></i>
+    </a>
+    <!-- ko if: readyToRender -->
+    <div data-bind="component: { name: 'bwf-powerBiTileRenderer', params: { 
+        accessToken: accessToken(), 
+        embedUrl: embedUrl(), 
+        autoRefreshTime: autoRefreshTime(),
+        width: width, 
+        height: height } 
+     }"></div>
+    <!-- /ko -->
+    <!-- ko if: hasErrored -->
+    <div class="processing-overlay">
+        <i class="fa fa-exclamation-circle fa-2x"></i>
+        <div class="smaller-overlay-message">
+            <h4 class="text-center">Error Loading Power BI Tile</h4>
+            <p data-bind="text: errorMessage"></p>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

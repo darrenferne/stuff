@@ -1,0 +1,35 @@
+<div class="custom-panel-control selected-permissions-custom-panel-control">
+    <div class="processing-overlay" data-bind="visible: showProcessingOverlay">
+        <i class="fa fa-pulse fa-spinner fa-3x"></i>
+    </div>
+    <div class="panel-side-by-side" data-bind="style: { maxWidth: formDisabled() ? '100%' : '49%' }">
+        <div class="panel-no-shrink" data-bind="visible: !formDisabled()">
+            <div class="btn-group">
+                <button type="button" class="btn btn-xs btn-primary"
+                        data-bind="enable: enableSelectionRemove, click: removeSelectedPermissions">
+                    <i class="fa fa-times fa-white"></i>
+                    <span data-bind="text: r['bwf_delete']"></span>
+                </button>
+            </div>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-xs btn-danger"
+                        data-bind="enable: enableClear, click: clearSelectedPermissions">
+                    <i class="fa fa-times fa-white"></i>
+                    <span data-bind="text: r['bwf_clear']"></span>
+                </button>
+            </div>
+        </div>
+        <div class="panel-box no-border">
+            <div class="max-height flex-box embedded-grid"
+                 data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration() }">
+            </div>
+        </div>
+    </div>
+    <div class="panel-center-spacer" data-bind="visible: !formDisabled()"></div>
+    <div class="panel-side-by-side" data-bind="if: loaded, visible: !formDisabled()">
+        <div class="max-height"
+             data-bind="component: { name: 'ds-membership-cc-availablePermissions', params: availablePermissionsParams() }">
+        </div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

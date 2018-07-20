@@ -1,0 +1,26 @@
+<!-- ko if: !formDisabled() || avatarTypeProperty() === "image" -->
+<div class="opal-input">
+    <!-- ko if: !formDisabled()-->
+    <div>
+        <input type="radio" name="userAvatar" value="none" data-bind="checked: avatarTypeProperty" /><span data-bind="text: getAvatarTypeLabel('none')"></span>
+    </div>
+    <div>
+        <input type="radio" name="userAvatar" value="gravatar" data-bind="checked: avatarTypeProperty" /><span data-bind="text: getAvatarTypeLabel('gravatar')"></span>
+    </div>
+    <div>
+        <input type="radio" name="userAvatar" value="image" data-bind="checked: avatarTypeProperty" /><span data-bind="text: getAvatarTypeLabel('image')"></span>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: avatarTypeProperty() === "image" -->
+    <div class="user-avatar-image-container">
+        <div data-bind="component: { name: 'bwf-fileUpload', params: fileUploadComponentParams() }"></div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- ko if: formDisabled() && avatarTypeProperty() !== "image" -->
+<div>
+    <input class="max-width opal-input" data-bind="textInput: avatarTypeDisplayString" readonly />
+</div>
+<!-- /ko -->
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

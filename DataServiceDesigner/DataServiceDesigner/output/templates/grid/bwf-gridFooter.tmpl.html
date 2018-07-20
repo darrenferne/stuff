@@ -1,0 +1,59 @@
+<form class="no-margin form-inline pull-left">
+    <a class="btn btn-xs btn-primary"
+            data-bind="anchorClick: clearOrderBy, visible: showClearOrderButton, css: { 'disabled': disableClearOrderButton, 'btn-xs': isTouchModeDisabled }, text: r['bwf_clear_ordering']"></a>
+    <a class="btn btn-xs btn-info" data-bind="visible: help.showHelp,
+                anchorClick: help.openHelp.bind($data, 'explorer', 'grid', 'order_by'), css: { 'btn-xs': isTouchModeDisabled }">
+        <i class="fa fa-question fa-white"></i>
+    </a>
+</form>
+<form class="no-margin form-inline pull-right">
+    <label class="smaller-text" data-bind="text: paging.description"></label>
+    <!-- ko if: paging.hasManyPages -->
+        <div class="btn-group" data-bind="visible: notInEditMode, css: { 'btn-group-xs': isTouchModeDisabled }">
+            <a class="btn btn-primary" data-bind="css: { 'disabled': !paging.canGoBackward() }, anchorClick: paging.firstPage">
+                &laquo;
+            </a>
+            <a class="btn btn-primary" data-bind="css: { 'disabled': !paging.canGoBackward() }, anchorClick: paging.previousPage">
+                &lsaquo;
+            </a>
+            <a class="btn btn-primary" data-bind="css: { 'disabled': !paging.canGoForward() }, anchorClick: paging.nextPage">
+                &rsaquo;
+            </a>
+            <a class="btn btn-primary" data-bind="css: { 'disabled': !paging.canGoForward() }, anchorClick: paging.lastPage">
+                &raquo;
+            </a>
+        </div>
+    <!-- /ko -->
+    <div class="btn-group" data-bind="visible: notInEditMode && config.isView, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-primary" 
+            data-bind="anchorClick: config.exportToExcel, css: { 'disabled': !config.exportToExcelEnabled() }">
+            <i class="fa fa-file-excel-o fa-white"></i>
+            <span data-bind="text: r['bwf_excel'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-primary" data-bind="anchorClick: editCurrentView, 
+                visible: config.canEditCurrentView, css: { 'disabled': !config.canEditCurrentView() }">
+            <i class="fa fa-edit fa-white"></i>
+            <span data-bind="text: r['bwf_edit_view'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-primary" data-bind="anchorClick: openPowerBiPane,
+                visible: config.canOpenPowerBiPane, css: { 'disabled': !config.canOpenPowerBiPane() }">
+            <i class="fa fa-area-chart fa-white"></i>
+            <span data-bind="text: r['bwf_power_bi'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-primary" data-bind="anchorClick: toggleAutomaticUpdates">
+            <!-- ko if: (config.autoUpdatesEnabled()) -->
+            <i class="fa fa-pause fa-white"></i>
+            <!-- /ko -->
+            <!-- ko if: (!config.autoUpdatesEnabled()) -->
+            <i class="fa fa-play fa-white"></i>
+            <!-- /ko -->
+            <span data-bind="text: toggleUpdatesText, visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+    <div class="btn-group" data-bind="css: { 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-primary" data-bind="anchorClick: help.toggleHelp">
+            <i class="fa fa-info fa-white"></i>
+            <span data-bind="text: help.toggleHelpText, visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+</form>

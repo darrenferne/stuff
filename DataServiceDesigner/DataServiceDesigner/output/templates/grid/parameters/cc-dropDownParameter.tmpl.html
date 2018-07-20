@@ -1,0 +1,15 @@
+<span class="parameter-selector-container" data-bind="click: focus">
+    <span class="parameter-selector">
+        <label data-bind="text: title, attr: { for: controlId }"></label>
+        <input class="bwf-dropdown" data-bind="attr: { id: controlId, name: controlId }, kendoDropDownList: {
+                        data: values,
+                        value: selectedValue,
+                        dataTextField: 'text',
+                        dataValueField: 'value',
+                        optionLabel: { text:'[any]', value: null },
+                        animation: false,
+                        enabled: inEditMode
+                    }" />
+    </span>
+</span>
+<div data-bind="template: { afterRender: function() { postRender() } }"></div>

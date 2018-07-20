@@ -1,0 +1,39 @@
+<form enctype="multipart/form-data" class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div class="bwf-panel-body form-group-horizontal">
+        <div class="file-import-choice-container">
+            <div class="form-group upload-file-group">
+                <label for="file-type">Type of file to import</label>
+                <input id="file-type" data-bind="kendoComboBox: { enabled: importNotInProgress, data: availableFileTypes, dataTextField: 'DisplayName', dataValueField: 'DisplayName', value: selectedFileTypeValue }" />
+            </div>
+            <div class="fileUpload-container">
+                <a class='fileUpload btn btn-primary' data-bind="css: { 'disabled': importInProgress }">
+                    <span data-bind="text: resources['bwf_choose_file']"></span>
+                    <input class="upload" data-bind="enable: importNotInProgress, attr: { id: uploadId }, value: selectedFile, event: { change: onFileUpload }" type="file" name="file">
+                </a>
+                <span data-bind="text: selectedFileName"></span>
+            </div>
+            <div>
+                <div class="form-group upload-file-group" data-bind="visible: showFileBaseTypeSingle">
+                    <label for="file-base-type-single">Type to import</label>
+                    <input id="file-base-type-single" data-bind="kendoComboBox: { enabled: importNotInProgress,  data: availableBaseTypes, dataTextField: 'DisplayName', dataValueField: 'DisplayName', value: selectedBaseTypes }" />
+                </div>
+            </div>
+        </div>
+        <div class="max-width import-in-progress-indicator" data-bind="visible: importInProgress">
+            <i class="fa fa-spinner fa-pulse fa-4x" aria-hidden="true"></i>
+            <h3>Import in progress...</h3>
+        </div>
+        <div data-bind="visible: importNotInProgress, foreach: errorMessages">
+            <span class="import-export-error-message text-danger" data-bind="text: $data"></span>
+        </div>
+    </div>
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-primary btn-xs" data-bind="click: importData, enable: canImport, text: resources['bwf_import']"></button>
+            <button class="btn btn-warning btn-xs" data-bind="click: cancel, text: resources['bwf_cancel']"></button>
+        </div>
+    </div>
+</form>

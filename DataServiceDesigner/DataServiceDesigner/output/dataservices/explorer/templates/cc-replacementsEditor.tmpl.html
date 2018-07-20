@@ -1,0 +1,30 @@
+<div class="bwf-panel-container">
+    <div data-bind="ifnot: formDisabled">
+        <div class="btn-group margin-bottom-xs">
+            <button type="button" class="btn btn-xs btn-primary"
+                    data-bind="enable: canAdd, click: add">
+                <i class="fa fa-plus fa-white"></i>
+                <span data-bind="text: r['bwf_insert_row']"></span>
+            </button>
+            <button type="button" class="btn btn-xs btn-primary"
+                    data-bind="enable: canDelete, click: onDelete">
+                <i class="fa fa-times fa-white"></i>
+                <span data-bind="text: r['bwf_delete']"></span>
+            </button>
+        </div>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-xs btn-danger"
+                    data-bind="enable: canDelete, click: clearReplacements">
+                <i class="fa fa-times fa-white"></i>
+                <span data-bind="text: r['bwf_clear']"></span>
+            </button>
+        </div>
+    </div>
+    <!-- ko if:loaded -->
+    <div class="flex-box grow-one"
+         data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration }">
+    </div>
+    <!-- /ko -->
+</div>
+
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

@@ -1,0 +1,40 @@
+@Master['master.html']
+
+@Section['Content']
+    <div data-bind="component: { name: 'bwf-transient-notification' }"></div>
+    <div>
+        <form style="overflow: auto; margin-bottom: 0" role="form">
+            <div class="form-group">
+                <fieldset>
+                    <legend data-bind="text: r['bwf_synchronise_membership']"></legend>
+
+                    <div class="alert alert-warning">
+                        <p>Manual synchronisation of user and role configuration does the following:</p>
+                        <ul>
+                            <li>Updates the user and role configuration to match that of the external provider.</li>
+                            <li>Updates configured permissions in the individual data services where required.</li>
+                        </ul>
+                        <br />
+                        <p>It should be used when users, roles or assignment of roles are changed in an external provider that does not automatically propagate changes to this system.</p>
+                        <br />
+                        <strong>Synchronising the user and role configuration from the configured provider may take a significant amount of time.</strong>
+                        <div class="checkbox">
+                            <label>
+                                <input id="confirmSync" type="checkbox" data-bind="checked: confirmSync"><span>I understand and wish to proceed.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="form-group" data-bind="foreach: errorMessages">
+                <span style="display: block; margin-bottom: 10px" class="text-danger" data-bind="text: $data" />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" data-bind="click: doSync, enable: canSync, text: r['bwf_synchronise_configuration']"></button>
+            </div>
+        </form>
+    </div>
+@EndSection

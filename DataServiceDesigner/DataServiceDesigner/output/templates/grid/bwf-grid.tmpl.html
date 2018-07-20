@@ -1,0 +1,50 @@
+<div class="bwf-grid-container max-width" data-bind="attr: { id: element }">
+    <div data-bind="if: headerVisible, css: { 'margin-top-sm': !embedded }">
+        <div data-bind="component: { name: header.name, params: header.config }"></div>
+    </div>
+    <div class="bwf-grid-wrapper" data-bind="css: { 'embedded': embedded, 'disable-selection': disableTextSelectionInGrid }">
+        <textarea class="copy-paste-focusable" data-bind="readonly: notInEditMode"/>
+        <table class="bwf-grid max-width">
+            <thead>
+            <tr class="disable-selection">
+                <!-- ko ifnot: disabled -->
+                    <!-- ko if: (inEditMode() || showValidationInDisplayMode) -->
+                    <th class="validation-heading" title="Validation"></th>
+                    <!-- /ko-->
+                <!-- /ko-->
+                <!-- ko foreach: { data: columns, as: 'column' }-->
+                <th data-bind="attr: { title: column.hoverTitleContent }">
+                    <span class="flex-spread-out">
+                        <span class="bwf-header-text" data-bind="text: column.displayName, css: column.displayClasses"></span>
+                        <span data-bind="if: $component.displaySorting(column)" >
+                            <i class="fa margin-left-sm" data-bind="css: $component.sortingIconClass(column)"></i>
+                            <span data-bind="text: $component.sortingIndex(column)"></span>
+                        </span>
+                    </span>
+                </th>
+                <!-- /ko -->
+                <th class="max-width"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <!-- ko if: showAggregatesAtTop() && notInEditMode() -->
+                    <!-- ko component: { name: 'grid/bwf-gridAggregates', params: $component.aggregateConfig() } -->
+                    <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko foreach: { data: rows, as: 'record' }-->
+                    <!-- ko component: { name: $component.rowComponent($data), params: $component.rowConfig($data) } -->
+                    <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: showAggregatesAtBottom() && notInEditMode() -->
+                    <!-- ko component: { name: 'grid/bwf-gridAggregates', params: $component.aggregateConfig() } -->
+                    <!-- /ko -->
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bwf-grid-footer" data-bind="if: footerVisible">
+        <div data-bind="component: { name: footer.name, params: footer.config }"></div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { postRender() } }"></div>

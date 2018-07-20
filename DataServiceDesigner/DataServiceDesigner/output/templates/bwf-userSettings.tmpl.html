@@ -1,0 +1,56 @@
+<div>
+    <div data-bind="component: { name: 'bwf-transient-notification' }"></div>
+    <form>
+        <div>
+            <fieldset>
+                <legend data-bind="text: r['bwf_user_settings']"></legend>
+                <div class="form-group-horizontal">
+                    <div class="form-group">
+                        <label for="availableFormattings" data-bind="text: r['bwf_formatting_culture']"></label>
+                        <input style="width: 300px" id="availableFormattings" name="availableFormattings" data-bind="kendoComboBox: { data: availableFormattingCultures, value: formattingCulture, dataTextField: 'DisplayName', dataValueField: 'Name' }" />
+                    </div>
+                    <div class="form-group">
+                        <label for="availableTimezones" data-bind="text: r['bwf_timezone']"></label>
+                        <input style="width: 450px" id="availableTimezones" name="timezones" data-bind="kendoComboBox: { data: availableTimezones, value: timezone, dataTextField: 'DisplayName', dataValueField: 'Id' }" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dateTimeFormats" data-bind="text: r['bwf_timestamp_display_format']"></label>
+                        <input style="width: 300px" id="dateTimeFormats" name="dateTimeFormats" data-bind="kendoComboBox: { data: availableDateTimeFormats, value: dateTimeDisplayFormat }" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dateFormats" data-bind="text: r['bwf_date_display_format']"></label>
+                        <input style="width: 300px" id="dateFormats" name="dateFormats" data-bind="kendoComboBox: { data: availableDateFormats, value: dateDisplayFormat }" />
+                    </div>
+                </div>
+                <div class="form-group-horizontal">
+                    <div class="form-group">
+                        <label for="availableLanguages" data-bind="text: r['bwf_language_culture']"></label>
+                        <input style="width: 300px" id="availableLanguages" name="availableLanguages" data-bind="kendoComboBox: { data: availableLanguageCultures, value: languageCulture, dataTextField: 'DisplayName', dataValueField: 'Name' }" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="radio" name="avatar" value="none" data-bind="checked: userImageType" /> No avatar
+                    </div>
+                    <div>
+                        <input type="radio" name="avatar" value="gravatar" data-bind="checked: userImageType" /> Gravatar
+                    </div>
+                    <div>
+                        <input type="radio" name="avatar" value="image" data-bind="checked: userImageType" /> Image
+                    </div>
+                </div>
+                <div class="image-settings fileUpload btn btn-primary" data-bind="visible: userImageType() === 'image'">
+                    Upload Image <input id="user-picture-upload" class="upload" type="file" name="picture" accept="image/*"
+                                        data-bind="event: { change: fileUpload }" />
+                </div>
+                <div class="user-image-display" data-bind="visible: userImageVisible">
+                    <img class="user-image" data-bind="attr: { src: userPictureUrl }" />
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group" id="save-button-container">
+            <button class="btn btn-primary" data-bind="click: saveSettings, text: r['bwf_save'], enable: canSave">Save</button>
+        </div>
+    </form>
+</div>

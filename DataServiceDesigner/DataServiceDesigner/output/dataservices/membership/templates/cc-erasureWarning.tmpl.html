@@ -1,0 +1,79 @@
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: r['bwf_erase_personal_data']"></h3>
+    </div>
+    <div class="bwf-panel-body">
+        <p>
+            The purpose of this utility is to delete, or pseudonymise to the extent deletion is not applicable in the circumstances,
+            Personal Data, as defined in the 2015 EU General Data Protection Regulation (GDPR), that is stored in your Brady licensed
+            product(s). Personal Data includes any information relating to an identified or identifiable natural person including
+            data or information where a person can be identified, directly or indirectly.&nbsp;&nbsp; Deletion includes a complete
+            erasure of direct identifiers and in some cases, certain indirect identifiers that could combine to reveal a person’s
+            identity. Pseudonymisation involves obscuring, direct identifiers and in some cases, certain indirect identifiers that
+            could combine to reveal a person’s identity.&nbsp; &nbsp;
+        </p>
+        <p>
+            <strong>WARNING:</strong>
+            <strong>
+                Using the Brady utility potentially has profound implications on Reporting obligations as the utility creates a permanent,
+                unrecoverable change to the underlying Personal Data contained in your Brady product.&nbsp;&nbsp; Once employed the
+                action cannot be undone because the targeted Personal Data is erased or changed so that the underlying information
+                can no longer identify the specified Data Subject.&nbsp; This prevents the targeted Personal Data from being obtained
+                and identified by any party in all subsequent requests.&nbsp; All Brady system reports including those reports that
+                comply with legal and regulatory requirements and which previously contained the targeted Personal Data will be directly
+                and irreversibly impacted.&nbsp; Brady is not liable for any loss suffered by you or any third party that may result
+                from the use of this utility.&nbsp; &nbsp;
+            </strong>
+        </p>
+        <p>
+            By selecting "Accept" you confirm and agree that:
+            <ul>
+                <li>
+                    you are a Data Controller or Data Processor lawfully authorised to erase or pseudonymise the targeted Personal Data;
+                </li>
+                <li>
+                    the targeted Personal Data will be permanently erased and/or modified and no longer capable of re-identifying the relevant
+                    Data Subject to which the targeted Personal Data applies;
+                </li>
+                <li>
+                    Brady is not liable for any loss suffered by you or any third party for the deletion or pseudonymisation of the targeted
+                    Personal Data;
+                </li>
+                <li>
+                    you assume the onus of responsibility and all liability for permanently deleting or pseudonymising the targeted Personal
+                    Data;
+                </li>
+                <li>
+                    permanently deleting or pseudonymising the targeted Personal Data will not result in a breach of any other data regulation,
+                    legal requirement, or agreement with a government agency, regulator or other third party; and
+                </li>
+                <li>
+                    you have obtained or have elected to waive your right to obtain independent legal advice prior to deleting or pseudonymising
+                    any such Personal Data.”
+                </li>
+            </ul>
+        </p>
+        <div class="checkbox">
+            <label>
+                <input id="confirmDelete" type="checkbox" data-bind="checked: confirmDelete"><span>I understand and wish to proceed.</span>
+            </label>
+        </div>
+        <span>
+            <label data-bind="text: r['bwf_selected_data'] +':'"></label>
+        </span>
+        <div class="flex-box bwf-readOnlyCollection-panel-control"
+             data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration() }">
+        </div>
+        <div class="form-group">
+            <span style="display: block; margin-bottom: 10px" class="text-danger" data-bind="text: errorMessage" />
+        </div>
+    </div>
+
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-primary btn-xs" data-bind="click: confirm, text: r['bwf_accept'], enable: enableAccept"></button>
+            <button class="btn btn-warning btn-xs" data-bind="click: cancel, text: r['bwf_cancel']"></button>
+        </div>
+    </div>
+</form>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

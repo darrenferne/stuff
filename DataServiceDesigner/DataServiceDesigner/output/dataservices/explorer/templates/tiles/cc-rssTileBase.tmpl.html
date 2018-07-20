@@ -1,0 +1,23 @@
+<style>
+    .news-heading {
+        font-size: 15px;
+        margin-top: 0px;
+        margin-bottom: 4px;
+    }
+    .news-item {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+    .news-info {
+        font-size: 9px;
+        margin-bottom: 8px;
+        color: #787878;
+    }
+</style>
+<div data-bind="foreach: items">
+    <h3 class="news-heading">
+        <a data-bind="text: title, attr: { href: link }" target="_blank" />
+    </h3>
+    <p class="news-item" data-bind="text: description" />
+    <p class="news-info" data-bind="text: pubDate" />
+</div>

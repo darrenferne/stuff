@@ -1,0 +1,24 @@
+<div class="flex-tall-column" style="height:100%">
+    <div class="flex-no-shrink">
+        <ol style="margin: 0px" class="breadcrumb" data-bind="foreach: { data: breadCrumbs, as: 'item' }">
+            <!-- ko if: $parent.breadCrumbs().length !== item.depth -->
+            <li>
+                <a href="#" data-bind="click: $parent.breadCrumbClicked"><span data-bind="text: item.displayName"></span></a>
+            </li>
+            <!-- /ko -->
+            <!-- ko if: $parent.breadCrumbs().length === item.depth -->
+            <li class="active">
+                <span data-bind="text: item.displayName"></span>
+            </li>
+            <!-- /ko -->
+        </ol>
+    </div>
+    <div class="panel-box" data-bind="foreach: propertySet">
+        <div class="flex-content">
+            <button class="btn btn-link btn-sm" type="button" data-bind="disable: $parent.formDisabled, click: $parent.propertyClicked, attr: { title: title }">
+                <span data-bind="text: displayNameWithIndicator"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

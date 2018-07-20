@@ -1,0 +1,24 @@
+<span class="parameter-selector-container" data-bind="click: focus">
+    <span class="parameter-selector">
+        <label data-bind="text: title, attr: { for: controlId }"></label>
+        <span class="pull-right include-null" data-bind="if: allowNullOrEmpty">
+            <label data-bind="attr: { for: controlId + '-cb' }, text: includeEmptyText"></label>
+            <input type="checkbox" value="true"
+                   data-bind="checked: includeEmpty, enable: inEditMode, attr: { id: controlId + '-cb' }, clickBubble: false" />
+            <!-- ko ifnot: inEditMode -->
+            <span class="readOnlyOverlay" data-bind="click: toggleIncludeEmpty"></span>
+            <!-- /ko-->
+        </span>
+        <select data-placeholder="[any]"
+               data-bind="attr: { id: controlId, name: controlId }, kendoMultiSelect: {
+                        data: values,
+                        value: selectedValues,
+                        dataTextField: 'text',
+                        dataValueField: 'value',
+                        animation: false,
+                        enabled: inEditMode,
+                        maxSelectedItems: capacity
+                    }" />
+    </span>
+</span>
+<div data-bind="template: { afterRender: function() { postRender() } }"></div>

@@ -1,0 +1,5 @@
+<td class="editable-cell" data-bind="css: cssClasses">
+    <input data-bind="textInput: value().Text, hasFocus: isFocused, readonly: !isEditable() || gridDisabled()"
+           type="text" autocomplete="off" autocorrect="off" readonly="readonly"/>
+    <div data-bind="template: { afterRender: function() { onRendered() } }"></div>
+</td>

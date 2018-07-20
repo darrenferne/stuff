@@ -1,0 +1,10 @@
+@Master['master.html']
+
+@Section['Content']
+    <div id="userSettings" data-bind="component: { name: 'bwf-userSettings' }"></div>
+@EndSection
+
+@Section['AdditionalOptions']
+    imageType: "@Model.ImageType",
+    timezone: "@Model.Timezone"
+@EndSection

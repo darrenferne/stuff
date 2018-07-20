@@ -1,0 +1,11 @@
+<!-- ko foreach: { data: iterations, as: 'index' } -->
+<tr class="bwf-aggregate-row" data-bind="attr: { class: $component.aggregateRowClasses(index) }">
+    <!-- ko foreach: { data: $component.columns, as: 'column' } -->
+        <td data-bind="if: $component.hasAggregation(column, index)">
+            <span class="bwf-aggregate-value" data-bind="text: $component.getAggregateValue(column, index)"></span>
+            <span class="bwf-aggregate-label" data-bind="text: $component.getAggregateLabel(column, index)"></span>
+        </td>
+    <!-- /ko -->
+    <td></td>
+</tr>
+<!-- /ko -->

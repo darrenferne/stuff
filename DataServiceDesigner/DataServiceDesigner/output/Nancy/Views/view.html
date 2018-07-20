@@ -1,0 +1,16 @@
+@Master['master.html']
+
+@Section['Content']
+    <div id="viewGrid" data-bind="component: { name: 'grid/bwf-viewGrid', params: { 
+        gridRendered: viewGridModuleRendered, 
+        viewGridId: viewGridId, 
+        explorerHostUrl: explorerHostUrl, 
+        isEmbedded: false, 
+        aggregatesAtTop: false, 
+        disableParamsBar: false } 
+    }"></div>
+@EndSection
+
+@Section['AdditionalOptions']
+    userCanEditViews: '@Model.UserCanEditViews' === 'True'
+@EndSection

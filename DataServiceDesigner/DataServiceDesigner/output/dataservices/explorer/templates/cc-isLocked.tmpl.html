@@ -1,0 +1,5 @@
+<div data-bind="visible: IsLocked, css: {'alert-warning': HasIgnoreLock() }" class="alert alert-info" role="alert">
+    <strong data-bind="text: lockHeader"></strong>
+    <span data-bind="visible: HasIgnoreLock, text: lockWarning"></span>
+</div>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

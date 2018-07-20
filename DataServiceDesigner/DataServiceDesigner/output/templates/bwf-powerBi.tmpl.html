@@ -1,0 +1,54 @@
+<div class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div class="bwf-panel-body">
+        <div>
+            <fieldset>
+                <div>
+                    <div>
+                        <button tabindex="-1" class="btn btn-primary btn-sm" data-bind="click: generateKey">
+                            <i class="fa fa-plus fa-white"></i>
+                            <span data-bind="text: resources['bwf_generate_api_key']"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="margin-top">
+                    <div class="max-width panel-type-selector">
+                        <div class="flex-content">
+                            <div class="btn-group">
+                                <button tabindex="-1" class="btn btn-primary btn-sm" 
+                                        data-bind="disable: disableButtons, clipboardButton: dynamicQuery">
+                                    <i class="fa fa-copy fa-white"></i>
+                                    <span data-bind="text: copyDynamicQueryText"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top">
+                    <div class="max-width panel-type-selector">
+                        <div class="flex-content">
+                            <div class="btn-group">
+                                <button tabindex="-1" class="btn btn-primary btn-sm" 
+                                        data-bind="disable: disableButtons, clipboardButton: staticQuery">
+                                    <i class="fa fa-copy fa-white"></i>
+                                    <span data-bind="text: copyStaticQueryText"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+        <div class="text-danger" data-bind="foreach: errorMessages">
+            <div data-bind="text: $data"></div>
+        </div>
+    </div>
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-primary btn-xs" data-bind="click: close, text: resources['bwf_close']"></button>
+        </div>
+    </div>
+</div>

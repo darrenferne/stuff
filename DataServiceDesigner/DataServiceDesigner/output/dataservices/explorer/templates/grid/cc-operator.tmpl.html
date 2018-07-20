@@ -1,0 +1,10 @@
+<td class="editable-cell" data-bind="css: cssClasses">
+    <span class="bwf-invisible-td-spacer" data-bind="text: selectedText"></span>
+    <select class="cc-operator-select display-cancel-box-select"
+            data-bind="disable: gridDisabled,
+                hasFocus: isFocused, 
+                options: operatorOptions,
+                optionsText: 'DisplayName',
+                optionsValue: 'Value',
+                value: value"></select>
+</td>

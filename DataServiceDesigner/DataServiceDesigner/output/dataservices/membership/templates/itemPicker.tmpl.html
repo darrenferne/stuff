@@ -1,0 +1,22 @@
+<div>
+    <form style="overflow: auto; margin-bottom: 0" role="form">
+        <fieldset>
+            <legend data-bind="text: title"></legend>
+            <div class="form-group" data-bind="foreach: items">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-bind="checked: isPicked"><span data-bind="text: name"></span>
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-group" data-bind="foreach: errorMessages">
+            <span style="display: block; margin-bottom: 10px" class="text-danger" data-bind="text: $data" />
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" data-bind="click: save, enable: canSave, text: saveText"></button>
+        </div>
+    </form>
+</div>

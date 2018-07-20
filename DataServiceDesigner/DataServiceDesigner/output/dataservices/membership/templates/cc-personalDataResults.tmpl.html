@@ -1,0 +1,16 @@
+<div class="flex-box" style="justify-content: space-between; margin-bottom: 5px;">
+    <span></span>
+    <div class="float-right">
+        <button data-bind="click: downloadData, enable: enableButtons,  text: r['bwf_download_data']"
+                class="btn btn-primary btn-xs"></button>
+        <button data-bind="click: requestErasure, visible: eraseVisible, enable: enableButtons,  text: r['bwf_erase']"
+                class="btn btn-danger btn-xs"></button>
+        <button data-bind="click: retryErasure, visible: retryVisible,  text: r['bwf_retry_erase']"
+                class="btn btn-danger btn-xs"></button>
+    </div>
+</div>
+<div class="flex-box bwf-readOnlyCollection-panel-control"
+        data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration() }">
+</div>
+
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

@@ -1,0 +1,7 @@
+<td class="editable-cell bwf-propertySelect-cell" data-bind="css: propertyCellCssClasses">
+    <span class="bwf-invisible-td-spacer" data-bind="text: value"></span>
+    <button type="button" data-toggle="popover" data-bind="attr: { id: popoverId }, visible: isPropertyEditable, hasFocus: isFocused">
+        <div><span data-bind="text: displayValue"></span><span><span class="caret"></span></span></div>
+    </button>
+    <div data-bind="template: { afterRender: function() { onRenderedTemplate() } }"></div>
+</td>

@@ -1,0 +1,71 @@
+<div class="dashboard force-into-layer" draggable="false" data-bind="attr: { id: elementId }, css: { 'wide-panel': isPanelWide  }">
+    <!-- ko if: showOverlay -->
+    <div class="processing-overlay" draggable="false">
+        <i class="fa fa-spinner fa-pulse fa-4x"></i>
+        <div class="overlay-message" data-bind="text: overlayMessage"></div>
+    </div>
+    <!-- /ko -->
+    <div class="dashboard-header-container">
+        <!-- ko if: showCombinedViewHeaders -->
+        <div class="combined-headers flex-basic flex-spread-out" draggable="false" data-bind="visible: !inEditMode()">
+            <div data-bind="component: 'grid/bwf-combinedHeader'" />
+        </div>
+        <!-- /ko -->
+        <div class="dashboard-header flex-basic flex-justify-end">
+            <!-- ko if: inEditMode -->
+            <div class="btn-group edit-mode-buttons" data-bind="css: { 'btn-group-xs': isTouchModeDisabled, 'touch-mode': isTouchModeEnabled }">
+                <button class="btn btn-danger" data-bind="click: editModeCancel,
+                    attr: { 'aria-label': resources['bwf_cancel'], 'title': resources['bwf_cancel'] }">
+                    <i class="fa fa-times"></i>
+                    <span data-bind="text: resources['bwf_cancel'], visible: isTouchModeDisabled"></span>
+                </button>
+                <button class="btn btn-success" data-bind="click: editModeSave,
+                    attr: { 'aria-label': resources['bwf_save'], 'title': resources['bwf_save'] }">
+                    <i class="fa fa-check"></i>
+                    <span data-bind="text: resources['bwf_save'], visible: isTouchModeDisabled"></span>
+                </button>
+            </div>
+            <div class="btn-group edit-mode-buttons" data-bind="css: { 'btn-group-xs': isTouchModeDisabled }">
+                <button class="btn btn-primary" data-bind="click: addTile,
+                    attr: { 'aria-label': addTileText, 'title': addTileText }">
+                    <i class="fa fa-plus"></i>
+                    <span data-bind="text: addTileText, visible: isTouchModeDisabled"></span>
+                </button>
+            </div>
+            <!-- /ko -->
+            <div class="btn-group" data-bind="foreach: { data: actionsButtons, as: 'action' }, css: { 'btn-group-xs': isTouchModeDisabled }">
+                <!-- ko if: action.Visible -->
+                <a class="btn btn-primary" data-bind="anchorClick: action.OnClick,
+                    attr: { 'aria-label': action.DisplayName, 'title': action.Explanation }">
+                    <i data-bind="attr: { class: action.Icon }" aria-hidden="true"></i>
+                    <span data-bind="text: action.DisplayName, visible: action.Visible"></span>
+                </a>
+                <!-- /ko -->
+            </div>
+            <!-- ko ifnot: isLoading -->
+            <div class="lock-notification" data-bind="visible: inEditMode, component: { name: 'ds-explorer-cc-isLocked', params: getIsLockedParams() }"></div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="dashboard-body" draggable="false" data-bind="css: { editing: inEditMode }">
+        <div class="dashboard-tile-container max-height" draggable="false">
+            <!-- ko if: inEditMode-->
+            <div class="dashboard-space-maker" ondragstart="return false;" data-bind="style: backgroundStyles" draggable="false"></div>
+            <!-- /ko -->
+            <!-- ko foreach: { data: tiles, as: 'tile' } -->
+            <!-- ko component: { name: 'ds-explorer-cc-tile',
+                params: { config: $parent.tileConfig,
+                tile: tile,
+                dashboardElementId: $parent.elementId,
+                dashboardInEditMode: $parent.inEditMode,
+                tileType: $parent.getTileTypeFromTile(tile) } }-->
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="dashboard-footer" draggable="false" data-bind="visible: !inEditMode()">
+        <div data-bind="component: 'grid/bwf-combinedFooter'" />
+    </div>
+</div>
+<div class="dashboard-panel" data-bind="visible: panelVisible, component: { name: 'bwf-panel', params: elementId }, attr: { id: elementId + '-bwf-dashboard-panel' }">
+</div>

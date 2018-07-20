@@ -1,0 +1,9 @@
+<style>
+    .panel-colour-picker .k-colorpicker .k-selected-color{
+        height: 2.1em;
+    }
+</style>
+<label data-bind="text: label"></label>
+<div class="panel-colour-picker" data-bind="kendoColorPicker: { value: value, enabled: !formDisabled() }, attr: { id: elementId }">
+</div>
+<div data-bind="template: { afterRender: function() { afterRender() } }"></div>

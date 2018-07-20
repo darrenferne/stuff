@@ -1,0 +1,52 @@
+<div data-bind="if: flags.loadTransientNotificationsModule">
+    <div data-bind="component: 'bwf-transient-notification'"></div>
+</div>
+<div class="bwf-view-grid force-into-layer" data-bind="attr: { id: viewGridId + '-bwf-viewGrid' },
+      style: { height: viewGridHeight, width: viewGridWidth }">
+
+    <!-- ko if: errorMessage.isVisible -->
+    <div class="processing-overlay">
+        <i class="fa fa-exclamation-circle fa-4x"></i>
+        <div class="overlay-message">
+            <h3 class="text-center" data-bind="text: errorMessage.heading"></h3>
+            <p data-bind="text: errorMessage.body"></p>
+        </div>
+    </div>
+    <!-- /ko-->
+
+    <!-- ko if: (overlayVisible() && !errorMessage.isVisible()) -->
+        <div class="processing-overlay">
+            <i class="fa fa-spinner fa-pulse fa-4x"></i>
+            <div class="overlay-message" data-bind="text: overlayMessage"></div>
+        </div>
+    <!-- /ko -->
+
+    <div class="flex-box max-height" data-bind="ifnot: flags.loadingView()">
+        <div data-bind="attr: { id: viewGridId + '-bwf-grid-row', class: viewGridClass() }"
+              class="bwf-viewGrid-grid-wrapper">
+            <!-- ko if: enableParameters -->
+            <div class="bwf-parameter-bar-wrapper" data-bind="attr: { id: viewGridId + '-bwf-paramsBar-row' }, visible: showParameters() && ready()">
+                <div class="max-width" data-bind="visible: !flags.inEditMode()">
+                    <div data-bind="component: { name: 'grid/parameters/bwf-parameterBar', params: parameterBarConfiguration() }"></div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: ready() -->
+            <!-- ko if: inGroupingMode -->
+            <div class="margin-top-sm" data-bind="component: { name: 'bwf-breadcrumbs', params: breadcrumbConfiguration }"></div>
+            <!-- /ko -->
+            <div class="bwf-grid-component" 
+                 data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration }">
+            </div>
+            <!-- /ko -->
+            
+        </div>
+
+        <div data-bind="component: { name: 'bwf-panel', params: viewGridId },
+             style: { height: viewGridDimensions.height() + 'px' },
+             visible: flags.panelVisible, attr: { id: viewGridId + '-bwf-panel-row' }"
+             class="bwf-viewGrid-panel">
+        </div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { flags.rendered(true) } }"></div>

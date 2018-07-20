@@ -1,0 +1,51 @@
+<div class="tile" draggable="false" data-bind="style: tileStyles, attr: { 'data-tileid': tileObject().Id, 'data-height': height(), 'data-width': width() }, 
+     css: { 'editing': dashboardInEditMode, 'small-tile': isSmall, 'very-small-tile': isVerySmall }">
+    <!-- ko if: showHeader -->
+    <div class="tile-header">
+        <!-- ko if: showTitle()-->
+        <h3 class="title" data-bind="text: title"></h3>
+        <!-- /ko -->
+        <!-- ko if: showSubtitle() -->
+        <h4 class="subtitle" data-bind="text: subTitle"></h4>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+    <!-- ko if: dashboardInEditMode -->
+    <div class="btn-group edit-mode-buttons" data-bind="css: { 'touch-mode': isTouchModeEnabled, 'btn-group-xs': isTouchModeDisabled }">
+        <button class="btn btn-primary" data-bind="click: editTile, event: { mousedown: cancelMouseDownEvent }" title="Edit tile">
+            <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-danger" data-bind="click: deleteTile, event: { mousedown: cancelMouseDownEvent }" title="Remove tile">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: dashboardInEditMode -->
+    <div class="tile-content-editing-overlay" ondragstart="return false;">
+        <div class="tile-header" data-bind="style: { 'width': 'calc(100% - '+ tileContentMarginSizeString() +')' }">
+            <h3 class="title" data-bind="text: title"></h3>
+            <h4 class="subtitle" data-bind="text: subTitle"></h4>
+        </div>
+        <h3 class="overlay-message" data-bind="text: r['bwf_edit_mode']"></h3>
+    </div>
+    <!-- /ko -->
+    <div class="tile-content">
+        <!-- ko if: loadContentComponent -->
+        <div data-bind="component: { name: tileContentComponent, params: tileContentParams() },
+            style: { margin: tileContentMarginSizeString }, visible: isContentVisible">
+        </div>
+        <!-- /ko -->
+        <!-- ko if: loadFailure -->
+        <div class="processing-overlay">
+            <i class="fa fa-exclamation-circle fa-4x"></i>
+            <div class="overlay-message">
+                <p data-bind="text: loadErrorMessage"></p>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div ondragstart="return false;" data-bind="visible: showResizeHandle, css: { 'big-resize-handle': isTouchModeEnabled }" class="resize-handle">
+        <div></div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { finishedRender() } }"></div>

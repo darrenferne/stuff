@@ -1,0 +1,27 @@
+<div class="view-tile-content" data-bind="css: {'touch-mode': inTouchMode}">
+    <!-- ko if: canLoadView() && viewQueryCompleted() -->
+    <div id="viewGrid" data-bind="component: { name: 'grid/bwf-viewGrid', params: {
+         loadTransientNotificationsModule: false,
+         gridRendered: tileViewGridRendered,
+         viewGridId: viewGridId(),
+         explorerHostUrl: options.explorerHostUrl,
+         isEmbedded: true,
+         aggregatesAtTop: false,
+         disableParamsBar: !enableParameterBar,
+         showParamsBar: showParameterBar,
+         viewGridHeight: availableHeight,
+         viewGridWidth: availableWidth }
+    }"></div>
+    <!-- /ko -->
+    <!-- ko if: !canLoadView() && viewQueryCompleted() -->
+    <div class="processing-overlay">
+        <i class="fa fa-exclamation-circle fa-2x"></i>
+        <div class="smaller-overlay-message">
+            <h3 class="text-center">Error Loading View</h3>
+            <p>
+                This may be because it doesn't exist, or you do not have the required permissions to open it.
+            </p>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

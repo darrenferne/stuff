@@ -1,0 +1,9 @@
+<!-- ko if: type() == 'Text' -->
+    <textarea rows="6" class="max-width opal-input" data-bind="readonly: formDisabled, textInput: value"></textarea>
+<!-- /ko -->
+<!-- ko if: type() != 'Text' -->
+    <div data-bind="component: { name: editorControl, params: editorConfig() }">
+
+    </div>
+<!-- /ko -->
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

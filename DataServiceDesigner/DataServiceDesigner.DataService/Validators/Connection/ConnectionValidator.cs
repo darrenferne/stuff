@@ -1,0 +1,36 @@
+﻿using BWF.DataServices.Support.NHibernate.Abstract;
+using DataServiceDesigner.Domain;
+using FluentValidation;
+
+namespace DataServiceDesigner.DataService
+{
+    public class ConnectionValidator : Validator<DesignerConnection>
+    {
+        public ConnectionValidator()
+        {
+            RuleFor(x => x.Id)
+                .GreaterThanOrEqualTo(0L);
+
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .Length(1, 64);
+
+            RuleFor(x => x.DataSource)
+                .NotEmpty()
+                .Length(1, 64);
+
+            RuleFor(x => x.InitialCatalog)
+                .Length(0, 64);
+
+            RuleFor(x => x.Username)
+                .Length(0, 64);
+
+            RuleFor(x => x.Password)
+                .Length(0, 64);
+
+            RuleFor(x => x.ConnectionString)
+                .NotEmpty()
+                .Length(1, 256);
+        }
+    }
+}

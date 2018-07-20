@@ -1,0 +1,23 @@
+<div class="powerbi-tile-content" data-bind="style: { width: widthString, height: heightString }">
+    <!-- ko if: readyToRender -->
+    <a class="btn btn-link btn-xs powerbi-tile-dashboard-button" title="Open Report in Power BI" target="_blank"
+       data-bind="attr: { href: redirectToReportUrl }, style: { right: paddingRightForButton() + 'px' }">
+        <i class="fa fa-external-link"></i>
+    </a>
+    <div data-bind="component: { name: 'bwf-powerBiReportRenderer', params: {
+        accessToken: accessToken(),
+        embedUrl: embedUrl(),
+        width: width,
+        height: height }
+     }"></div>
+    <!-- /ko -->
+    <!-- ko if: hasErrored -->
+    <div class="processing-overlay">
+        <i class="fa fa-exclamation-circle fa-2x"></i>
+        <div class="smaller-overlay-message">
+            <h4 class="text-center">Error Loading Power BI Report</h4>
+            <p data-bind="text: errorMessage"></p>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

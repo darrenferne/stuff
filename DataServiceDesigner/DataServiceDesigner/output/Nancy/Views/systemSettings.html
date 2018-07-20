@@ -1,0 +1,25 @@
+@Master['master.html']
+
+@Section['Content']
+    <div id="systemSettings" data-bind="component: { name: 'bwf-systemSettings' }"></div>
+@EndSection
+
+@Section['AdditionalOptions']
+    sessionTimeout: @Model.SessionTimeout,
+    sessionTimeoutEnabled: "@Model.SessionTimeoutEnabled" === "True",
+    isPasswordResetEnabled: '@Model.IsPasswordResetEnabled' === "True",
+    passwordResetTimeout: @Model.PasswordResetTimeout,
+    onlyAllowDefaultViewsForAdministrators: '@Model.OnlyAllowDefaultViewsForAdministrators' === "True",
+    smtpFromAddress: '@Model.SmtpSettings.FromEmail',
+    smtpHostUri: '@Model.SmtpSettings.Uri',
+    smtpUseSSL: '@Model.SmtpSettings.UseSSL' === "True",
+    smtpAuthenticationRequired: '@Model.SmtpSettings.AuthenticationRequired' === "True",
+    smtpHostUsername: '@Model.SmtpSettings.Username',
+    smtpHostPassword: '@Model.SmtpSettings.Password',
+    smtpHostPort: @Model.SmtpSettings.Port,
+    smsProviders: '@Model.SmsProviders',
+    smsProvider: '@Model.SmsSettings.Provider',
+    smsUsername: '@Model.SmsSettings.Username',
+    smsPassword: '@Model.SmsSettings.Password', 
+    timezone : '@Model.Timezone'
+@EndSection

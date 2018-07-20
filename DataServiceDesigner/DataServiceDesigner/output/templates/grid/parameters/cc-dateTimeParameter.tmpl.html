@@ -1,0 +1,49 @@
+<div class="parameter-selector-container" data-bind="click: focus">
+    <label data-bind="text: title, attr: { for: controlId }"></label>
+    <span class="pull-right include-null" data-bind="if: allowNullOrEmpty">
+        <label data-bind="attr: { for: controlId + '-cb' }, text: includeEmptyText"></label>
+        <input type="checkbox" value="true" 
+               data-bind="checked: includeEmpty, enable: inEditMode, attr: { id: controlId + '-cb' }, clickBubble: false" />
+        <!-- ko ifnot: inEditMode -->
+        <span class="readOnlyOverlay" data-bind="click: toggleIncludeEmpty"></span>
+        <!-- /ko-->
+    </span>
+    <span data-bind="visible: pickerIsVisible">
+        <!-- ko if: isTime -->
+        <span class="bwf-date-picker">
+            <input data-bind="attr: { id: pickerControlId, name: pickerControlId },
+                   kendoDateTimePicker: { value: dateTimeValue, format: format, enabled: inEditMode,
+              dataTextField: 'text', dataValueField: 'value', parseFormats: dateTimePatterns }" />
+            <button type="button" class="btn btn-xs btn-primary" 
+                    data-bind="visible: !isSingle, enable: isValid, click: addDateTime">
+                <i class="fa fa-plus fa-white"></i>
+            </button>
+        </span>
+        <!-- /ko-->
+        <!-- ko ifnot: isTime -->
+        <span class="bwf-date-picker">
+            <input data-bind="attr: { id: pickerControlId, name: pickerControlId },
+                   kendoDatePicker: { value: dateTimeValue, format: format, enabled: inEditMode,
+            dataTextField: 'text', dataValueField: 'value', parseFormats: datePatterns }" />
+            <button type="button" class="btn btn-xs btn-primary" 
+                    data-bind="visible: !isSingle, enable: isValid, click: addDateTime">
+                <i class="fa fa-plus fa-white"></i>
+            </button>
+        </span>
+        <!-- /ko-->
+    </span>
+    <!-- ko ifnot: isSingle -->
+    <span class="parameter-selector">
+        <select data-placeholder="[any]"
+                data-bind="attr: { id: controlId, name: controlId }, kendoMultiSelect: {
+                    data: values,
+                    value: selectedValues,
+                    dataTextField: 'text',
+                    dataValueField: 'value',
+                    animation: false,
+                    enabled: inEditMode
+                }" />
+    </span>
+    <!-- /ko -->
+</div>
+<div data-bind="template: { afterRender: function() { postRender() } }"></div>

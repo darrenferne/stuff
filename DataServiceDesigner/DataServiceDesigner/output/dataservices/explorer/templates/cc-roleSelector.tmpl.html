@@ -1,0 +1,24 @@
+<div class="margin-bottom-sm" data-bind="if: hasVisibilityToRoles">
+    <label data-bind="text: resources['bwf_visible_to_roles']"></label>
+    <div>
+        <select multiple="multiple" data-bind="options: availableRoles, optionsValue: 'Name', optionsText: 'Name', 
+                selectedOptions: visibilityRoles, multiselect: { buttonClass: 'btn btn-default btn-sm', 
+                numberDisplayed: 5, nonSelectedText: resources['bwf_none_selected'],
+                templates: { button: button }, buttonWidth: '100%' }"></select>
+    </div>
+    <span class="text-danger" data-bind="text: visibilityValidation"></span>
+</div>
+
+<div class="margin-bottom-sm" data-bind="if: hasEditabilityToRoles">
+    <label data-bind="text: resources['bwf_editable_by_roles']"></label>
+    <div>
+        <select multiple="multiple" data-bind="options: availableRoles, optionsValue: 'Name', 
+                optionsText: 'Name', selectedOptions: editabilityRoles, 
+                multiselect: { buttonClass: 'btn btn-default btn-sm', numberDisplayed: 5,
+                 nonSelectedText: resources['bwf_none_selected'],
+                 templates: { button: button }, buttonWidth: '100%' }"></select>
+    </div>
+    <span class="text-danger" data-bind="text: editabilityValidation"></span>
+</div>
+
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

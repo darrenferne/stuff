@@ -1,0 +1,14 @@
+@Master['master.html']
+
+@Section['Content']
+<link href="@Path['~/content/tracker.css']" rel="stylesheet" />
+<div>
+    <h1>Tracker</h1>
+
+    <p>@Model.Name.</p>
+</div>
+
+
+<div data-bind="component: { name: 'cc-trackerMap' }" />
+
+@EndSection

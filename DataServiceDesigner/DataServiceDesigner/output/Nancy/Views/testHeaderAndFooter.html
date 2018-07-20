@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <title>Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="@Path['~/content/explorerStyles']" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="customerHeader"></div>
+    <div id="header"></div>
+
+    <div id="content">
+        <div id="wrapper">
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <div id="customerFooter"></div>
+
+    <script type="text/javascript" src="@Path['~/Scripts/require.js']"></script>
+    <script>
+
+        requirejs.onError = function (err) {
+            if (err.requireType === 'timeout') {
+                console.log('modules: ' + err.requireModules);
+            }
+
+            console.log(err);
+        };
+
+        require.config({
+            waitSeconds: 0,
+            baseUrl: "@Path['~/Scripts']",
+            paths: {
+                'modules': '../modules',
+                'bootstrap': 'bootstrap.min',
+                'jquery': 'kendo/jquery.min',
+                'loglevel': 'loglevel.min'
+            },
+            shim: {
+                'bootstrap': {
+                    'deps': [
+                        'jquery'
+                    ]
+                }
+            }
+        });
+
+        define('options', function () {
+            return {
+                explorerHostUrl: ''
+            };
+        });
+
+        require(['modules/bwf-headersAndFooters', 'jquery', 'bootstrap'], function (headersAndFooters) {
+
+            headersAndFooters.load();
+
+        });
+    </script>
+</body>
+</html>

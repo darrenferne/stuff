@@ -1,0 +1,54 @@
+<div class="max-height" data-bind="if: metadata() !== null">
+    <form class="bwf-panel-container">
+        <div class="bwf-panel-header">
+            <h3 data-bind="text: title"></h3>
+        </div>
+
+        <div data-bind="visible: !rendered()" class="bwf-panel-spinner">
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+
+        <div class="bwf-panel-body" data-bind="style: { visibility: rendered() ? 'visible' : 'hidden' }">
+            <fieldset>
+                <div data-bind="if: isLockable() && !isCreate() && !isBeingViewed()">
+                    <div data-bind="component: { name: 'ds-explorer-cc-isLocked', params: { model: current, typeMetadata: metadata(), permissions: typePermissions() } }"></div>
+                </div>
+                <div data-bind="if: current.state.isCreate">
+                    <div data-bind="component: { name: 'ds-explorer-cc-roleSelector',
+                        params: { model: current, typeMetadata: metadata() } }">
+                    </div>
+                </div>
+                <div data-bind="foreach: { data: properties, as: 'property' }">
+                    <div class="margin-bottom-sm" data-bind="attr: { id: $parent.grid + '-' + name + '-bwf-property-control' }">
+                        <span data-bind="if: useCustomControl">
+                            <label data-bind="text: editingName"></label>
+                        </span>
+                        <div class="panel-edit-input" data-bind="component: { name: $parent.getComponentName(property),
+                            params: { metadata: property, errorMessages: $parent.errorMessages, model: $parent.current, typeMetadata: $parent.metadata(), grid: $parent.grid, permissions: $parent.typePermissions() } },
+                            style: { height: (!useCustomControl || isCustomControlHeightAuto) ? 'auto' : customControlHeight + 'px' } ">
+                        </div>
+                        <div data-bind="component: { name: 'ds-explorer-cc-validationDisplay',
+                        params: { metadata: property, model: $parent.current, typeMetadata: $parent.metadata(), grid: $parent.grid } }">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div data-bind="foreach: persistentWarningMessages">
+                <span class="text-warning" data-bind="text: $data"></span><br />
+            </div>
+            <div data-bind="foreach: errorMessages">
+                <span class="text-danger" data-bind="text: $data"></span><br />
+            </div> 
+        </div>
+
+        <div class="bwf-panel-footer">
+            <div class="pull-right">
+                <button class="btn btn-primary btn-xs" type="submit" 
+                        data-bind="visible: saveVisible, click: saveClick, text: resources['bwf_save'], 
+                        disable: saveDisabled, attr: { disabled: saveDisabled }, css: { 'btn-xs': notInTouchMode }"></button>
+                <button class="btn btn-warning btn-xs" data-bind="click: close, text: resources['bwf_cancel'], css: { 'btn-xs': notInTouchMode }"></button>
+            </div>
+        </div>
+    </form>
+</div>

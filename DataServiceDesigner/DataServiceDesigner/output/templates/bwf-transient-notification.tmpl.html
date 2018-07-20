@@ -1,0 +1,17 @@
+<div id="bwf-transient-notification-container" class="bwf-transient-notification modal slide fade" data-bind="css: { 'in': transientNotification.isVisible }, visible: transientNotification.isVisible">
+    <div class="flex-spacer"></div>
+    <div class="modal-dialog">
+        <div id="bwf-transient-notification" class="alert" data-bind="css: transientNotification.styleClass">
+            <div class="modal-body">
+                <button type="button" class="close" data-bind="visible: transientNotification.requireDismissal, click: dismiss">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <div class="bwf-transient-notification-message">
+                    <h4 data-bind="text: transientNotification.title"></h4>
+                    <p data-bind="text: transientNotification.message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-spacer"></div>
+</div>

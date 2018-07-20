@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75F8E5EB-0592-488F-BB66-E20C7ED94E82}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchemaBrowser.Domain</RootNamespace>
+    <AssemblyName>SchemaBrowser.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BWF.DataServices.Domain, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\DataServiceDesigner\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Metadata, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\DataServiceDesigner\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Enums, Version=2046.1.80.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
+      <HintPath>..\DataServiceDesigner\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\DataServiceDesigner\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Enums\DbConnectionStatus.cs" />
+    <Compile Include="Enums\DbType.cs" />
+    <Compile Include="Enums\DbObjectType.cs" />
+    <Compile Include="Interfaces\IHaveAssignableId.cs" />
+    <Compile Include="Metadata\DbConnectionMetadata.cs" />
+    <Compile Include="Metadata\DbObjectMetadata.cs" />
+    <Compile Include="Metadata\DbObjectPropertyMetadata.cs" />
+    <Compile Include="Metadata\MetadataBundle.cs" />
+    <Compile Include="Metadata\DbSchemaMetadata.cs" />
+    <Compile Include="Models\DbConnection.cs" />
+    <Compile Include="Models\DbObject.cs" />
+    <Compile Include="Models\DbObjectProperty.cs" />
+    <Compile Include="Models\DbSchema.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,52 @@
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div class="bwf-panel-body">
+        <fieldset>
+            <div data-bind="visible: anyLocked() || checkingLockStatus(), css: { 'alert-warning': hasIgnoreLockPermission() }" class="alert alert-info" role="alert">
+                <div data-bind="visible: checkingLockStatus">
+                    <span data-bind="text: lockChecking"></span>
+                    <i class="fa fa-pulse fa-spinner"></i>
+                </div>
+                <div>
+                    <strong data-bind="visible: anyLocked(), text: lockedPlural"></strong>
+                    <span data-bind="visible: anyLocked() && hasIgnoreLockPermission(), text: lockDeletionWarning"></span>
+                </div>
+            </div>
+        </fieldset>
+        <div class="margin-bottom-xs">
+            <div class="panel-box no-border">
+                <div data-bind="visible: !checkRecordLocksCompleted()" class="bwf-panel-spinner">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                </div>
+            </div>
+            <div><label data-bind="visible: checkRecordLocksCompleted(), text: deleteConfirmation"></label></div>
+            <div class="btn-group" data-bind="visible: checkRecordLocksCompleted()">
+                <button type="button" class="btn btn-xs btn-primary"
+                        data-bind="enable: canDelete, click: removeSelected">
+                    <i class="fa fa-times fa-white"></i>
+                    <span data-bind="text: resources['bwf_deselect']"></span>
+                </button>
+            </div>
+            <div class="panel-box no-border">
+                <!-- ko if: gridVisible() -->
+                <div id="panel-delete-grid" class="flex-box max-height embedded-grid"
+                     data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration }">
+                </div>
+                <!-- /ko -->
+
+                <div data-bind="foreach: errorMessages">
+                    <span class="text-danger" data-bind="text: $data"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-danger btn-xs" data-bind="disable: disableSave, click: confirmDelete, text: resources['bwf_delete']"></button>
+            <button class="btn btn-primary btn-xs" data-bind="click: cancel, text: resources['bwf_cancel']"></button>
+        </div>
+    </div>
+</form>

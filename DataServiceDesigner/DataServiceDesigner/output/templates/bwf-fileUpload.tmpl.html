@@ -1,0 +1,31 @@
+<div class="file-upload-component">
+    <div class="upload-box" data-bind="css: { 'opal-input': showBorder }">
+        <div class="bwf-file-upload max-height">
+            <div class="uploaded-file-container">
+                <div class="button-container">
+                    <div>
+                        <!-- ko if: !disable() -->
+                        <label class="btn btn-primary btn-xs" data-bind="attr: { for: inputId }, text: resources['bwf_select_image']">
+                            <span class="fa fa-picture-o"></span>
+                        </label>
+                        <button class="btn btn-danger btn-xs" data-bind="click: removeItem, visible: showImage, text: resources['bwf_remove']" style="text-indent: 0px">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <!-- /ko -->
+                    </div>
+                    <span class="upload-file-size" data-bind="visible: !imageError(), text: uploadedFileSize">
+                    </span>
+                </div>
+                <div class="image-preview-container" data-bind="css: { 'errored': imageError }">
+                    <i class="fa fa-exclamation-circle fa-3x" data-bind="visible: imageError"></i>
+                    <img data-bind="visible: showImage, attr: { src: showImage() ? uploadedFile().renderedImage : '' }">
+                </div>
+                <span class="error-message text-danger" data-bind="text: imageError, visible: imageError">
+                </span>
+            </div>
+            <br />
+            <input class="file-uploader" type="file" data-bind="event: { change: fileUpload },
+                   value: inputValue, attr: { accept: acceptFileTypes, id: inputId }" />
+        </div>
+    </div>
+</div>

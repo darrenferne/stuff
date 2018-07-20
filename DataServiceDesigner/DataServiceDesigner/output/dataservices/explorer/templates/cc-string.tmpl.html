@@ -1,0 +1,8 @@
+<label data-bind="text: label"></label>
+<!-- ko if: height > 1 -->
+<textarea class="max-width opal-input" data-bind="readonly: formDisabled, textInput: property, attr: { rows: height }"></textarea>
+<!-- /ko -->
+<!-- ko if: height == 1 -->
+<input class="max-width opal-input" data-bind="readonly: formDisabled, textInput: property" />
+<!-- /ko -->
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

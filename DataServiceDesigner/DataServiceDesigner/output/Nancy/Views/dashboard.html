@@ -1,0 +1,15 @@
+@Master['master.html']
+@Section['Content']
+<div data-bind="component: 'bwf-transient-notification'"></div>
+<div class="dashboard-page max-height" data-bind="component: { 
+     name: 'ds-explorer-cc-dashboard', params: dashboardConfiguration()
+}">
+</div>
+@EndSection
+
+@Section['AdditionalOptions']
+    userCanCreateDashboards: '@Model.UserCanCreateDashboards' === 'True',
+    userCanEditDashboards: '@Model.UserCanEditDashboards' === 'True',
+    isAzureMembershipActive : '@Model.IsAzureMembershipActive' === 'True',
+    areAzureADSettingsPresentInConfig: '@Model.AreAzureADSettingsPresentInConfig' === 'True',
+@EndSection

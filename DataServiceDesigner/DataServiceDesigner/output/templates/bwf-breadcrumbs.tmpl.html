@@ -1,0 +1,17 @@
+<ol class="breadcrumb no-margin" data-bind="foreach: { data: breadcrumbs, as: 'item' }">
+    <!-- ko ifnot: item.active || $component.disabled() -->
+    <li>        
+        <!-- ko if: item.onClick -->
+        <a data-bind="click: item.onClick, attr: $parent.getAttributes(item)"><span data-bind="text: item.displayName, attr: { title: item.description }"></span></a>
+        <!-- /ko -->
+        <!-- ko ifnot: item.onClick -->
+        <a data-bind="attr: $parent.getAttributes(item)"><span data-bind="text: item.displayName, attr: { title: item.description }"></span></a>
+        <!-- /ko -->
+    </li>
+    <!-- /ko -->
+    <!-- ko if: item.active || $component.disabled() -->
+    <li class="active">
+        <span data-bind="text: item.displayName, attr: { title: item.description }"></span>
+    </li>
+    <!-- /ko -->
+</ol>

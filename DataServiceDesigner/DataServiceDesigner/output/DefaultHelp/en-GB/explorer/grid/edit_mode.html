@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>Order By</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <style>
+        .key {
+            padding: 0.1em 0.6em;
+            border: 1px solid #ccc;
+            font-size: 11px;
+            background-color: #f7f7f7;
+            color: #333;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0 0.1em;
+            text-shadow: 0 1px 0 #fff;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+        td {
+            border: 1px solid #a9a9a9;
+            border-collapse: collapse;
+            padding: 0.5em;
+        }
+        th {
+            text-align: center;
+            padding: 0.2em 0;
+            border-collapse: collapse;
+        }
+        p {
+            margin: 0;
+        }
+        h5 {
+            margin: 0;
+            font-style: italic;
+        }
+        .modified{
+            background-color: #fff59f;
+            font-weight: 600;
+        }
+        .added{
+            background-color: #8ef790;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h3>Edit Mode</h3>
+    <p>Edit mode allows you to modify data directly in the grid.</p>
+    <p>The change tracking allows you to see what has been added or modified in the grid.</p>
+    <p><span class="modified">Yellow highlight</span> indicates modified data cells.</p>
+    <p><span class="added">Green highlight</span> indicates inserted rows.</p>
+    <hr style="margin: 5px auto"/>
+    <h4>Keyboard Shortcuts</h4>
+    <table>
+        <tr>
+            <th>Key/Key Combination</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Ctrl</span> + <span class="key">A</span>
+            </td>
+            <td>
+                Select all
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Ctrl</span> + <span class="key">C</span>
+            </td>
+            <td>
+                Copy (when rows or cells are selected)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Ctrl</span> + <span class="key">X</span>
+            </td>
+            <td>
+                Cut (will only copy and not remove uneditable cells)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Ctrl</span> + <span class="key">V</span>
+            </td>
+            <td>
+                Paste (will not replace uneditable cells)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Alt</span> + <span class="key">I</span>
+            </td>
+            <td>
+                Insert Row (when available)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Alt</span> + <span class="key">R</span>
+            </td>
+            <td>
+                Remove Row (when available)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">←</span>/<span class="key">↑</span>/<span class="key">→</span>/<span class="key">↓</span>
+            </td>
+            <td>
+                Move selection
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p><span class="key">Ctrl</span> + <span class="key">Z</span></p>
+            </td>
+            <td>
+                Undo changes (single cell only)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Esc</span>
+            </td>
+            <td>
+                Unselect all
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Tab</span>
+            </td>
+            <td>
+                Select next cell
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="key">Enter</span>
+            </td>
+            <td>
+                Select cell below or create new row (when in bottom row)
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

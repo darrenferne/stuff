@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link href="/content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/content/fontawesome/font-awesome.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="@Path['~/content/brady/favicon.ico']">
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="page-header">
+                <img id="brandImage" src="@Model.LogoPath" />
+            </div>
+            <fieldset>
+                <legend>Sign In</legend>
+                <div class="col-md-3">
+                    <form autocomplete="off" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label" style="font-weight:500;">Username</label>
+                            <input class="form-control" id="username" type="text" data-bind="value: username, hasFocus: true, enable: allowUserInteraction" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" style="font-weight:500;">Password</label>
+                            <input class="form-control" id="password" type="password" data-bind="value: password, enable: allowUserInteraction" />
+                        </div>
+                        <div class="form-group">
+                            <span id="error" style="display: block; margin-bottom: 10px" class="text-danger" data-bind="text: loginError"></span>
+                        </div>
+                        <div class="form-group">
+                            <button id="signin" class="btn btn-primary btn-xs" data-bind="click: login, enable: allowUserInteraction">Sign In</button>
+                            <i class="fa fa-spinner fa-pulse" data-bind="visible: showSpinner"></i>
+                        </div>
+                        <div class="form-group">
+                            <button id="forgotpassword" class="btn btn-xs btn-link" 
+                                    style="margin-left:0; padding-left:0"
+                                    data-bind="visible: allowedToReset(), click: forgotPassword, enable: allowUserInteraction">Reset Password</button>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <script type="text/javascript" src="@Path['~/Scripts/jquery-2.0.3.min.js']"></script>
+    <script type="text/javascript" src="@Path['~/Scripts/knockout-3.4.2.js']"></script>
+
+    <script type="text/javascript">
+        function LoginViewModel() {
+            var self = this;
+
+            self.loginError = ko.observable('');
+            self.username = ko.observable('');
+            self.password = ko.observable('');
+            self.allowedToReset = ko.observable('@Model.IsPasswordResetEnabled' === 'True');
+            self.allowUserInteraction = ko.observable(true);
+            self.showSpinner = ko.pureComputed(function () {
+                return !self.allowUserInteraction();
+            });
+
+            self.login = function () {
+                self.allowUserInteraction(false);
+                var usernameAndPassword = JSON.stringify({ Username: self.username(), Password: self.password() });
+
+                var jqxhr = $.ajax({
+                    url: '/authentication/login',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: usernameAndPassword
+                }).done(function (result) {
+                    if (result.token === null) {
+                        self.loginError(result.error);
+                        self.allowUserInteraction(true);
+                    } else {
+                        self.loginError('');
+                        var defaultRedirectUrl = '@Model.DefaultRedirectUrl';
+                        var useDefaultRedirectUrl = window.location.search === '';
+                        var redirectUrl = useDefaultRedirectUrl ? defaultRedirectUrl : window.location.search.split('?returnUrl=')[1] + window.location.hash;
+                        window.location = decodeURIComponent(redirectUrl);
+                    };
+                }).fail(function (message) {
+                    alert('Error logging in:' + message.responseText);
+                    self.allowUserInteraction(true);
+                });
+            };
+
+            self.forgotPassword = function () {
+                window.location = location.protocol + '//' + location.host + "/ext/membership/forgotpassword/";
+            };
+        };
+        $(document).ready(function () {
+            var viewModel = new LoginViewModel();
+
+            ko.applyBindings(viewModel);
+        });
+    </script>
+</body>
+</html>

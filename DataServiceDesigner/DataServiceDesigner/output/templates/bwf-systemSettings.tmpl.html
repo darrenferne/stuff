@@ -1,0 +1,147 @@
+<div>
+    <div data-bind="component: { name: 'bwf-transient-notification' }"></div>
+    <form class="form-horizontal" style="margin-bottom:20px">
+        <div>
+            <fieldset>
+                <legend data-bind="text: r['bwf_system_settings']"></legend>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" id="sessionTimeoutEnabled" name="sessionTimeoutEnabled" type="checkbox" data-bind="checked: sessionTimeoutEnabled" />
+                        <label class="control-label" for="sessionTimeoutEnabled" data-bind="text: r['bwf_session_timeout_enabled']"></label>
+                    </div>
+                </div>
+
+                <label class="control-label" for="sessionTimeout" data-bind="text: r['bwf_session_timeout']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content" type="number" id="sessionTimeout" name="sessionTimeout"
+                               data-bind="kendoNumericTextBox: { value: sessionTimeout, decimals: 0, min: 1, spinners: false, format: 'n0', enabled: sessionTimeoutEnabled }" />
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span id="sessionTimeoutValidation" style="display: block; margin-bottom: 10px" class="text-danger"
+                              data-bind="value: sessionTimeoutValidation"></span>
+                    </div>
+                </div>
+
+                <label class="control-label" for="passwordResetTimeout" data-bind="text: r['bwf_reset_password_timeout']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content" type="number" id="passwordResetTimeout" name="passwordResetTimeout"
+                               data-bind="kendoNumericTextBox: { value: passwordResetTimeout, decimals: 0, min: 1, spinners: false, format: 'n0' }" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="availableTimezones" data-bind="text: r['bwf_timezone']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input style="width: 450px" id="availableTimezones" name="timezones"
+                               data-bind="kendoComboBox: { data: availableTimezones, value: timezone, dataTextField: 'DisplayName', dataValueField: 'Id' }" />
+                    </div>
+
+                    <div class="col-sm-12">
+                        <span id="timezoneValidation" style="display: block; margin-bottom: 10px" class="text-danger"
+                              data-bind="value: timezoneValidation"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" id="onlyAllowDefaultViewsForAdministrators" name="onlyAllowDefaultViewsForAdministrators" type="checkbox" data-bind="checked: onlyAllowDefaultViewsForAdministrators" />
+                        <label class="control-label" for="onlyAllowDefaultViewsForAdministrators" data-bind="text: r['bwf_only_allow_default_views_for_administrators']"></label>
+                    </div>
+                </div>
+
+                <legend data-bind="text: r['bwf_smtp_settings_header']"></legend>
+
+                <!-- smtp settings -->
+                <label class="control-label" for="smtpFromAddress" data-bind="text: r['bwf_smtp_from_address']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="text" id="smtpFromAddress" name="smtpFromAddress"
+                               data-bind="value: smtpFromAddress" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="smtpHostUri" data-bind="text: r['bwf_smtp_host_uri']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="text" id="smtpHostUri" name="smtpHostUri"
+                               data-bind="value: smtpHostUri" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" id="smtpUseSSL" name="smtpUseSSL" type="checkbox" data-bind="checked: smtpUseSSL" />
+                        <label class="control-label" for="smtpUseSSL" data-bind="text: r['bwf_smtp_use_ssl']"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" id="smtpAuthenticationRequired" name="smtpAuthenticationRequired" type="checkbox" data-bind="checked: smtpAuthenticationRequired" />
+                        <label class="control-label" for="smtpAuthenticationRequired" data-bind="text: r['bwf_smtp_authentication_required']"></label>
+                    </div>
+                </div>
+
+                <label class="control-label" for="smtpHostUsername" data-bind="text: r['bwf_smtp_host_username']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="text" id="smtpHostUsername" name="smtpHostUsername"
+                               data-bind="value: smtpHostUsername, enable: smtpAuthenticationRequired" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="smtpHostPassword" data-bind="text: r['bwf_smtp_host_password']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="password" id="smtpHostPassword" name="smtpHostPassword"
+                               data-bind="value: smtpHostPassword, enable: smtpAuthenticationRequired" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="smtpHostPort" data-bind="text: r['bwf_smtp_host_port']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content" type="number" id="smtpHostPort" name="smtpHostPort"
+                               data-bind="kendoNumericTextBox: { value: smtpHostPort, decimals: 0, min: 1, spinners: false, format: 'n0' }" />
+                    </div>
+                </div>
+
+                <legend data-bind="text: r['bwf_sms_settings_header']"></legend>
+
+                <!-- sms settings -->
+                <label class="control-label" for="smsProvider" data-bind="text: r['bwf_sms_provider']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content" id="smsProvider" name="smsProvider" data-bind="kendoDropDownList: { data: smsProviders, value: smsSelectedProvider }" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="smsUsername" data-bind="text: r['bwf_sms_username']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="text" id="smsUsername" name="smsUsername"
+                               data-bind="value: smsUsername" />
+                    </div>
+                </div>
+
+                <label class="control-label" for="smsPassword" data-bind="text: r['bwf_sms_password']"></label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input class="form-content opal-input" type="password" id="smsPassword" name="smsPassword"
+                               data-bind="value: smsPassword" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button id="save" class="btn btn-primary" data-bind="click: save, enable: canSave">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

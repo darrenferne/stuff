@@ -1,0 +1,48 @@
+<label data-bind="text: label, attr: { title: propertyMetadata.description }"></label>
+<div class="max-width panel-type-selector">
+    <div class="flex-content">
+        <fieldset data-bind="enable: enabled">
+            <select data-bind="options: available, value: property, valueAllowUnset: true, optionsText: displayProperty, 
+                    optionsValue: valueProperty, optionsCaption: optionsCaption, 
+                    bootstrapSelect: { filterEnabled: true, disable: formDisabled, canSetNull: propertyMetadata.isNullable, mobile: isMobile }">
+            </select>
+        </fieldset>
+    </div>
+    <div class="flex-no-shrink" data-bind="if: showButtonGroup">
+        <div class="btn-group">
+            <!-- ko if: showAddButton -->
+                <!-- ko if: displayCreateAsMenu -->
+                    <div class="btn-group">
+                        <a class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" title="Create" aria-expanded="true">
+                            <i class="fa fa-plus fa-white"></i>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu pull-right" role="menu" data-bind="foreach: subTypes">
+                            <li data-bind="click: function() { $parent.createNew(value) }" role="presentation">
+                                <a role="menuitem" href="#">
+                                    <span data-bind="text: displayName"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <!-- /ko -->
+                <!-- ko ifnot: displayCreateAsMenu -->
+                    <button tabindex="-1" class="btn btn-primary btn-xs" data-bind="click: createNew">
+                        <i class="fa fa-plus fa-white"></i>
+                    </button>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: showEditButton -->
+                <button tabindex="-1" class="btn btn-primary btn-xs" data-bind="enable: canEdit, click: editSelected">
+                    <i class="fa fa-edit fa-white"></i>
+                </button>
+            <!-- /ko -->
+            <!-- ko if: viewButtonVisible -->
+                <button tabindex="-1" class="btn btn-primary btn-xs" data-bind="enable: canView, click: viewSelected">
+                    <i class="fa fa-eye fa-white"></i>
+                </button>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

@@ -1,0 +1,62 @@
+<div class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+
+    <div data-bind="visible: generatingKey" class="bwf-panel-spinner">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+
+    <div class="bwf-panel-body" data-bind="visible: (!generatingKey())">
+        <fieldset class="margin-top">
+            <div data-bind="visible: (!keyHasBeenGenerated()), if: ready">
+
+                <div data-bind="if: hasCreateAdministrative">
+
+                    <div class="flex-no-grow">
+                        <div data-bind="component: { name: 'ds-explorer-cc-roleSelector',
+                        params: current }">
+                        </div>
+                    </div>
+
+                    <div class="margin-bottom-sm">
+                        <label data-bind="text: r['bwf_user']" />
+                        <select data-bind="options: availableUsers, value: username,
+                            optionsText: 'Username', optionsValue: 'Username', valueAllowUnset: true,
+                            optionsCaption: r['bwf_none_selected'],
+                            bootstrapSelect: { filterEnabled: true, canSetNull: true, mobile: isMobile }" />
+                    </div>
+                </div>
+
+                <div class="margin-bottom-sm">
+                    <label data-bind="text: r['bwf_label']" />
+                    <input class="opal-input max-width" data-bind="textInput: keyLabel" />
+                </div>
+            </div>
+            <div data-bind="visible: keyHasBeenGenerated">
+                <div class="max-width panel-type-selector input-group">
+                    <input class="opal-input max-width" readonly="readonly" id="bwf-api-key" data-bind="value: apiKey" />
+                    <span class="input-group-button">
+                        <button id="copy-key" class="btn btn-primary" data-clipboard-target="#bwf-api-key">
+                            <i class="fa fa-copy fa-white"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+        <div class="text-danger" data-bind="foreach: errorMessages">
+            <div data-bind="text: $data"></div>
+        </div>
+    </div>
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <!--ko if: (!keyHasBeenGenerated()) -->
+            <button class="btn btn-primary btn-xs" data-bind="click: generate, text: r['bwf_generate']"></button>
+            <button class="btn btn-primary btn-xs" data-bind="click: close, text: r['bwf_cancel']"></button>
+            <!-- /ko -->
+            <!-- ko if: keyHasBeenGenerated-->
+            <button class="btn btn-primary btn-xs" data-bind="click: close, text: r['bwf_close']"></button>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

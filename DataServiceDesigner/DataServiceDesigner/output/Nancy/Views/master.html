@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="@Model.LanguageCulture" id="htmlTag" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title data-bind="text: pageTitle"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="@Path['~/content/explorerStyles']" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="@Path['~/content/brady/favicon.ico']">
+    @Section['Head']
+</head>
+<body>
+    <div id="customerHeader"></div>
+    <div id="header"></div>
+    <div id="content" style="min-height: 0%">
+        <div id="wrapper">
+            <div id="autoLogOut" data-bind="component: { name: 'bwf-autoLogOut' }"></div>
+            @Section['Content']
+        </div>
+    </div>
+    <div id="footer"></div>
+    <div id="customerFooter"></div>
+    <script type="text/javascript" src="@Path['~/Scripts/require.js']"></script>
+    <script>
+
+        requirejs.onError = function (err) {
+            if (err.requireType === 'timeout') {
+                console.log('modules: ' + err.requireModules);
+            }
+
+            console.log(err);
+        };
+
+        require.config({
+            waitSeconds: 0,
+            baseUrl: "@Path['~/Scripts/kendo']",
+            paths: {
+                'scripts': "@Path['~/Scripts']",
+                'modules': '../../modules',
+                'templates': '../../templates',
+                'bootstrap': '../bootstrap.min',
+                'bootstrap-multiselect': '../bootstrap-multiselect',
+                'bootstrap-submenu': '../bootstrap-submenu',
+                'clipboard': '../clipboard.min',
+                'jquery': '../jquery-2.0.3',
+                'knockout': '../knockout-3.4.2',
+                'knockout-amd-helpers': '../knockout-amd-helpers.min',
+                'knockout-postbox': '../knockout-postbox.min',
+                'knockout-kendo': '../knockout-kendo.min',
+                'sammy': '../sammy-0.7.4.min',
+                'text': '../text',
+                'linqjs': '../linq.min',
+                'loglevel': '../loglevel.min',
+                'cm': '../codemirror',
+                'sprintf': '../sprintf.min',
+                'markdown-it': '../markdown-it.min',
+                'bootstrapSelect': '../bootstrap-select',
+                'moment': '../moment',
+            },
+            shim: {
+                'knockout': {
+                    deps: ['jquery',]
+                },
+                'knockout-kendo': {
+                    'deps': [
+                        'knockout'
+                    ]
+                },
+                'bootstrap': {
+                    'deps': [
+                        'jquery'
+                    ]
+                },
+                'bootstrap-multiselect': {
+                    'deps': [
+                        'knockout',
+                        'bootstrap'
+                    ]
+                },
+                'bootstrap-submenu': {
+                    'deps': [
+                        'bootstrap'
+                    ]
+                },
+                'bootstrapSelect': {
+                    deps: [
+                        '../bootstrap-select-binding',
+                    ]
+                },
+                'filedownload': {
+                    'deps': [
+                        'jquery'
+                    ]
+                },
+                'codemirror': { exports: 'CodeMirror' }
+            }
+        });
+
+        define('options', function () {
+            return {
+                username: "@Model.Username",
+                languageCulture: "@Model.LanguageCulture",
+                languageCultures: @Model.LanguageCultures,
+                formattingCulture: "@Model.FormattingCulture",
+                formattingCultures: @Model.FormattingCultures,
+                dateTimeDisplayFormat: "@Model.DateTimeDisplayFormat",
+                dateDisplayFormat: "@Model.DateDisplayFormat",
+                derivedTimezone: "@Model.DerivedTimezone",
+                timezones: @Model.Timezones,
+                resources: @Model.Resources,
+                explorerHostUrl: "@Model.ExplorerHostUrl",
+                @Section['AdditionalOptions']
+            };
+        });
+        require(['jquery', 'knockout', 'options', 'modules/bwf-componentLoader', 'modules/bwf-bindingHandlers', 'kendo.all.min', 'cultures/kendo.culture.en-GB.min'], function ($, ko, options) {
+            window.ko = ko;
+
+            require(['modules/bwf-headersAndFooters', 'knockout-postbox', 'bootstrap', 'bootstrap-multiselect', 'cultures/kendo.culture.' + options.formattingCulture + '.min'],
+                function (headersAndFooters) {
+
+                headersAndFooters.load();
+
+                require(["@Path['~/modules/" + '@Model.Module' + ".js']"]);
+            });
+        });
+    </script>
+</body>
+</html>

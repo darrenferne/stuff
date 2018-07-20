@@ -1,0 +1,8 @@
+<td class="validation-cell bwf-grid-no-event disable-selection" data-bind="css: { 'bwf-unsaved-change': row.hasUnsavedChanges }">
+    <span class="label label-as-badge label-default label-danger"
+          data-bind="text: $component.validationErrors,
+            kendoTooltip: { content: renderedTemplate },
+            visible: visible, attr: { id: id }">
+    </span>
+    <div data-bind="template: { afterRender: function() { onRendered() } }"></div>
+</td>

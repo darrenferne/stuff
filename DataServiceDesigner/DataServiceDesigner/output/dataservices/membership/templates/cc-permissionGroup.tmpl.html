@@ -1,0 +1,44 @@
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div data-bind="visible: !ready()" class="bwf-panel-spinner">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div class="bwf-panel-body flex-tall-column apply-permission-group-panel" 
+         data-bind="style: { overflowY: ready() ? 'scroll' : 'hidden' }, if: loaded()">
+        <div class="panel-edit-input" data-bind="if: ready">
+            <h4 data-bind="text: permissionGroupsSelectLabelText"></h4>
+            <select multiple="multiple" data-bind="options: availablePermissionGroups, optionsValue: 'Name', optionsText: 'Name',
+                selectedOptions: selectedPermissionGroups, multiselect: { buttonClass: 'btn btn-default btn-sm',
+                numberDisplayed: 5, nonSelectedText: r['bwf_none_selected'],
+                templates: { button: roleSelectorButton }, buttonWidth: '100%' }"></select>
+        </div>
+        <div class="panel-edit-input" data-bind="if: ready">
+                <h4 data-bind="text: rolesExplainationText"></h4>
+                <select multiple="multiple" data-bind="options: availableRoles, optionsValue: 'Name', optionsText: 'Name',
+                selectedOptions: selectedRoles, multiselect: { buttonClass: 'btn btn-default btn-sm',
+                numberDisplayed: 5, nonSelectedText: r['bwf_none_selected'],
+                templates: { button: roleSelectorButton }, buttonWidth: '100%' }"></select>
+        </div>
+        <div class="margin-top-sm panel-edit-input permission-display-grids-container" data-bind="if: ready">
+            <h4 data-bind="text: permissionsExplainationText"></h4>
+            <span data-bind="text: dataLevelPermissionsComputed().length"></span> Data Level Permissions<br />
+            <span data-bind="text: serviceLevelPermissionsComputed().length"></span> Service Level Permissions<br />
+            <div data-bind="foreach: errorMessages">
+                <span class="text-danger" data-bind="text: $data"></span><br />
+            </div> 
+        </div>
+    </div>
+    <div class="bwf-panel-footer" data-bind="visible: loaded">
+        <div class="pull-right">
+            <span class="permission-group-action-notification" data-bind="visible: applyInProgress">
+                <span data-bind="text: applyingText"></span>
+                <i class="fa fa-pulse fa-spinner"></i>
+            </span>
+            <button class="btn btn-primary btn-xs" data-bind="disable: disableConfirm, click: confirm, text: confirmButtonText"></button>
+            <button class="btn btn-warning btn-xs" data-bind="click: cancel, text: r['bwf_cancel']"></button>
+        </div>
+    </div>
+</form>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

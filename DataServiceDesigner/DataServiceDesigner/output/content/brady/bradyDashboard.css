@@ -1,0 +1,390 @@
+.dashboard-page {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    display: flex;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100%;
+    -ms-flex: 2 1;
+    -webkit-flex: 2 1;
+    flex: 2 1;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    min-width: 66%;
+}
+
+    .dashboard.wide-panel {
+        -ms-flex: 1 1;
+        -webkit-flex: 1 1;
+        flex: 1 1;
+        min-width: 50%;
+    }
+
+/* We can't combine the selectors because browsers don't 
+    use the rule if any pseudo-selector fails */
+
+/* Chrome */
+.dashboard-page:-webkit-full-screen {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+:-webkit-full-screen .dashboard-panel{
+    padding-bottom: 10px;
+}
+
+/* IE11 */
+.dashboard-page:-ms-fullscreen {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+:-ms-fullscreen .dashboard-panel {
+    padding-bottom: 10px;
+}
+
+/* Edge + standard */
+.dashboard-page:fullscreen {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+:fullscreen .dashboard-panel {
+    padding-bottom: 10px;
+}
+
+.dashboard-header .btn-group {
+    margin-bottom: 12px;
+}
+
+.dashboard-header .lock-notification {
+    display: inline-block;
+}
+
+    .dashboard-header .lock-notification .alert {
+        margin: 0 2em;
+        padding: 7px;
+        display: inline-block;
+    }
+
+        .dashboard-header .lock-notification .alert .fa {
+            margin-right: 0.5em;
+        }
+
+/* Dashboard scrollbars are on .dashboard-body */
+.dashboard-body {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    overflow: auto;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+}
+
+    .dashboard-body.editing {
+        border: 1px dashed #808080;
+    }
+
+.dashboard-tile-container {
+    position: relative;
+}
+    .dashboard-tile-container .tile-drag-helper {
+        position: absolute;
+        background: rgba(125,125,125,.5);
+        -moz-transition: width 100ms, height 100ms, background-color 100ms, transform 100ms;
+        -o-transition: width 100ms, height 100ms, background-color 100ms, transform 100ms;
+        -webkit-transition: width 100ms, height 100ms, background-color 100ms, transform 100ms;
+        transition: width 100ms, height 100ms, background-color 100ms, transform 100ms;
+    }
+    .dashboard-tile-container .tile-drag-helper.invalid {
+        background: rgba(255, 79, 79, 0.50);
+    }
+
+.tile-creator {
+    display: flex;
+}
+
+.dashboard-panel {
+    display: flex;
+    -ms-flex: 1 0;
+    -webkit-flex: 1 0;
+    flex: 1 0;
+    min-width: 33%;
+    height: 100%;
+    margin-left: 15px;
+}
+
+    .dashboard-panel.wide-panel {
+        -ms-flex: 1 1;
+        -webkit-flex: 1 1;
+        flex: 1 1;
+        min-width: 50%;
+    }
+
+    .dashboard-panel .panel-border {
+        width: 100%;
+        height: 100%;
+    }
+
+.tile-creator .bwf-panel-body {
+    -ms-flex: 100;
+    -webkit-flex: 100;
+    flex: 100;
+}
+
+.dashboard-space-maker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4500px;
+    width: 8000px;
+}
+
+.delete-tile-message {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.tile-type-chooser {
+    -ms-flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+
+/* Tiles CSS */
+
+.tile {
+    border: 1px solid transparent;
+    position: absolute;
+    background: #fff;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    -moz-transition: width 100ms, height 100ms, transform 100ms;
+    -o-transition: width 100ms, height 100ms, transform 100ms;
+    -webkit-transition: width 100ms, height 100ms, transform 100ms;
+    transition: width 100ms, height 100ms, transform 100ms;
+}
+
+.tile .processing-overlay {
+    z-index: 99;
+}
+
+.tile-content {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    display: flex;
+}
+
+    .tile-content > div {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        display: flex;
+    }
+
+.tile-content-editing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+    .tile-content-editing-overlay .overlay-message {
+        cursor: default;
+        margin-top: 25px;
+        font-size: large;
+        color: rgba(0,0,0, 0.7);
+        z-index: 101;
+    }
+
+.tile.editing {
+    border: 1px solid #CECECE;
+
+    /* Text highlight on move is an issue on IE */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.tile-header {
+    border-bottom: 1px solid #d3d3d3;
+    margin: 0 6px;
+    max-height: 48px;
+}
+
+    .tile-header .title {
+        font-size: 14px;
+        margin: 6px 6px 5px 0;
+    }
+
+    .tile-header .subtitle {
+        font-size: 10px;
+        margin-top: 3px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
+
+    .tile-header .subtitle:empty {
+        margin: 0;
+    }
+
+    .tile-content-editing-overlay .tile-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+.resize-handle {
+    position: absolute;
+    cursor: se-resize;
+    z-index: 200;
+    display: inline-block;
+    padding: 0 4px 4px 0;
+    bottom: 0;
+    right: 0;
+
+    /* Disable text highlight - only really an issue in IE */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+    .resize-handle > div {
+        height: 10px;
+        width: 10px;
+        border: 2px solid rgba(125,125,125,.5);
+        border-left-width: 0;
+        border-top-width: 0;
+    }
+
+    .resize-handle.big-resize-handle > div {
+        height: 25px;
+        width: 25px;
+        border: 3px solid rgba(125, 125,125,.5);
+        border-left-width: 0;
+        border-top-width: 0;
+    }
+
+.tile .edit-mode-buttons {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    z-index: 200;
+}
+
+.dashboard .edit-mode-buttons.btn-group.touch-mode:not(.btn-group-xs)>button.btn {
+    border-radius: 4px;
+}
+    
+.dashboard .edit-mode-buttons.btn-group.touch-mode:not(.btn-group-xs)>button.btn:first-child {
+    margin-right: 0.35em;
+}
+
+/* Content CSS */
+
+.text-tile-content {
+    font-size: 11px;
+    overflow: auto;
+}
+
+.tile-content .view-tile-content .margin-top-sm {
+    margin-top: 0;
+}
+
+.view-tile-content {
+    -ms-flex: 1 1 0;
+    -webkit-flex: 1 1 0;
+    flex: 1 1 0;
+    display: flex;
+}
+
+    .view-tile-content .bwf-parameter-bar-wrapper {
+        max-height: none;
+        overflow: hidden;
+        margin-bottom: 6px;
+    }
+
+    .view-tile-content .bwf-parameter-bar-wrapper .parameter-form {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 250px;
+        margin-right: 0.5em;
+    }
+
+        .tile[data-height="2"] .view-tile-content .bwf-parameter-bar-wrapper .parameter-form {
+            max-height: 85px;
+        }
+        .tile[data-height="3"] .view-tile-content .bwf-parameter-bar-wrapper .parameter-form {
+            max-height: 130px;
+        }
+        .tile[data-height="4"] .view-tile-content .bwf-parameter-bar-wrapper .parameter-form {
+            max-height: 170px;
+        }
+        .tile[data-height="5"] .view-tile-content .bwf-parameter-bar-wrapper .parameter-form {
+            max-height: 220px;
+        }
+
+    .view-tile-content .bwf-parameter-bar-wrapper .parameter-selector-buttons {
+        display: none;
+    }
+
+    .view-tile-content .bwf-parameter-bar-wrapper .bwf-parameter-bar-form-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .view-tile-content .bwf-parameter-bar-wrapper .external-parameter-selector-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+.powerbi-tile-dashboard-button {
+    position: absolute;
+    font-size: 14px;
+    z-index: 100;
+}
+
+.dashboard-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-end;
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .dashboard-header-container {
+        flex-direction: column;
+    }
+}
+
+.tile-content .parameter-bar-tile {
+    overflow: auto;
+}

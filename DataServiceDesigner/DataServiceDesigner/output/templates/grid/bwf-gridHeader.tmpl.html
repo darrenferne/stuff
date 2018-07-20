@@ -1,0 +1,157 @@
+<form class="form-inline pull-left no-margin bwf-grid-header-form">
+    <label data-bind="text: config.title, visible: config.showTitle" class="margin-right-sm"></label>
+
+    <div data-bind="visible: config.editModeAvailable() && notInEditMode()" class="margin-right-sm btn-group">
+        <a class="btn btn-primary" data-bind="click: config.enterEditMode, 
+           css: { 'disabled': config.isEnteringEditMode(), 'btn-xs': isTouchModeDisabled }">
+            <i class="fa fa-edit fa-white" aria-hidden="true"></i>
+            <span data-bind="text: r['bwf_edit_mode'], visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+
+    <div class="margin-right-sm btn-group" data-bind="visible: config.inEditMode, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-danger" data-bind="anchorClick: config.cancelEditMode">
+            <i class="fa fa-remove fa-white" aria-hidden="true"></i>
+            <span data-bind="text: r['bwf_cancel'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-success" data-bind="anchorClick: config.applyChanges, css: { 'disabled': disableSave }">
+            <i class="fa fa-check fa-white" aria-hidden="true"></i>
+            <span data-bind="text: r['bwf_save'], visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+
+    <div class="btn-group" data-bind="css: { 'margin-right-sm': config.inEditMode, 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-primary" data-bind="anchorClick: selectAll" aria-label="Select All">
+            <i class="fa fa-white fa-bars" aria-hidden="true"></i>
+            <span data-bind="text: r['bwf_select_all'], visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+    <div class="grid-selection-mode-picker" data-bind="visible: notInEditMode, attr: { title: r['bwf_change_select_mode'] }">
+        <div class="custom-well">
+            <ul class="nav nav-pills">
+                <li role="presentation" data-bind="css: { active: cellSelect }">
+                    <a data-bind="text: r['bwf_cell'], anchorClick: setCellSelectMode, css: { 'touch-mode': isTouchModeEnabled }"></a>
+                </li>
+                <li role="presentation" data-bind="css: { active: !cellSelect() }">
+                    <a data-bind="text: r['bwf_row'], anchorClick: setRowSelectMode, css: { 'touch-mode': isTouchModeEnabled }"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="margin-right-sm btn-group" data-bind="visible: config.inEditMode, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-primary"
+                data-bind="anchorClick: config.deleteRow, visible: config.canDeleteRows, attr: { title: r['bwf_delete_row_tooltip'] }">
+            <i class="fa fa-minus"></i>
+            <span data-bind="text: r['bwf_delete_row'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-primary" data-bind="click: config.insertRow, visible: config.canInsertRows, 
+           css: { disabled: !(insertEnabled()) }, attr: { title: r['bwf_insert_above_tooltip'] }">
+            <i class="fa fa-plus"></i><i class="fa fa-arrow-up touch-mode-add-direction" data-bind="visible: isTouchModeEnabled"></i>
+            <span data-bind="text: r['bwf_insert_above'], visible: isTouchModeDisabled"></span>
+        </a>
+        <a class="btn btn-primary" data-bind="click: function() { config.insertRow(false) }, 
+           visible: config.canInsertRows, css: { disabled: !(insertEnabled()) }, attr: { title: r['bwf_insert_below_tooltip'] }">
+            <i class="fa fa-plus"></i><i class="fa fa-arrow-down touch-mode-add-direction" data-bind="visible: isTouchModeEnabled"></i>
+            <span data-bind="text: r['bwf_insert_below'], visible: isTouchModeDisabled"></span>
+        </a>
+    </div>
+
+    <a class="btn btn-info" data-bind="visible: showHelpAndSupportsEditMode, 
+       anchorClick: help.openHelp.bind($data, 'explorer', 'grid', 'edit_mode'), css: { 'btn-xs': isTouchModeDisabled }" aria-label="Edit Mode Help">
+        <i class="fa fa-question fa-white" aria-hidden="true"></i>
+    </a>
+
+    <div class="margin-right-sm btn-group" data-bind="foreach: { data: config.recordTypeActions, as: 'action' }, visible: showActionButtons, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <!--ko if: displayAsMenu -->
+        <div class="btn-group" data-bind="css: { 'btn-group-xs': $parent.isTouchModeDisabled }">
+            <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" aria-expanded="true"
+                    data-bind="attr: { title: Explanation }, visible: isVisible, css: { 'disabled': $component.config.inEditMode }">
+                <!-- ko if: isFontAwesomeIcon -->
+                <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+                <!-- /ko -->
+                <!-- ko if: isBootstrapGlyphIcon -->
+                <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+                <!-- /ko -->
+                <!-- ko if: isCustomIcon -->
+                <span>Not Supported</span> <!-- Not sure what we're going to have here yet - just an image tag or somehow get the url into a class def? -->
+                <!-- /ko -->
+                <span data-bind="text: DisplayName, visible: $parent.isTouchModeDisabled"></span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" data-bind="foreach: menuItems">
+                <li role="presentation" data-bind="click: action.actionClick, attr: { title: Explanation }">
+                    <a role="menuitem" tabindex="-1" href="#">
+                        <span data-bind="text: DisplayName"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: displayAsMenu -->
+            <a class="btn btn-primary" data-bind="attr: { 'href': ButtonHref, title: Explanation }, visible: isVisible, 
+                anchorClick: actionClick, css: { 'disabled': !enabled() } ">
+                <!-- ko if: isFontAwesomeIcon -->
+                <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+                <!-- /ko -->
+                <!-- ko if: isBootstrapGlyphIcon -->
+                <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+                <!-- /ko -->
+                <!-- ko if: isCustomIcon -->
+                <span>custom</span> <!-- Not sure what we're going to have here yet - just an image tag or somehow get the url into a class def? -->
+                <!-- /ko -->
+                <span data-bind="text: DisplayName, visible: $parent.isTouchModeDisabled"></span>
+            </a>
+        <!-- /ko -->
+    </div>
+
+    <a class="btn btn-info" data-bind="visible: showHelpAndNotInEditMode, 
+       anchorClick: help.openHelp.bind($data, 'explorer', 'grid', 'record_type_actions'), css: { 'btn-xs': isTouchModeDisabled }" aria-label="Record Type Actions Help">
+        <i class="fa fa-question fa-white" aria-hidden="true"></i>
+    </a>
+</form>
+
+<form class="form-inline pull-right no-margin bwf-grid-header-form">
+    <!-- custom buttons from external container -->
+    <div class="btn-group" data-bind="foreach: config.customButtons, visible: notInEditMode, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <!-- ko if: (!displayAsMenu && customButtonIsVisible()) -->
+        <a class="btn btn-primary" data-bind="attr: { title: Explanation }, anchorClick: actionClick, css: { 'disabled': !enabled() }">
+            <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+            <span data-bind="text: DisplayName, visible: $parent.notInEditMode"></span>
+        </a>
+        <!-- /ko -->
+        <!-- ko if: displayAsMenu && customButtonIsVisible() -->
+        <div class="btn-group" data-bind="css: { 'btn-group-xs': $parent.isTouchModeDisabled }">
+            <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" aria-expanded="true" 
+               data-bind="attr: { id: id, title: Explanation }, css: { 'disabled': !enabled() }">
+                <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+                <span data-bind="text: DisplayName, visible: $parent.isTouchModeDisabled"></span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" data-bind="attr: { 'aria-labelledby': id }, foreach: menuItems">
+                <li role="presentation" data-bind="click: $parent.actionClick"><a role="menuitem" tabindex="-1" href="#"><span data-bind="text: DisplayName"></span></a></li>
+            </ul>
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <!-- data service action buttons -->
+    <div class="btn-group" data-bind="foreach: config.dataServiceActions, visible: notInEditMode && config.dataServiceActions().length > 0, css: { 'btn-group-xs': isTouchModeDisabled }">
+        <a class="btn btn-primary" data-bind="attr: { title: Explanation }, visible: isVisible, anchorClick: actionClick, css: { 'disabled': !enabled() }">
+            <!-- ko if: isFontAwesomeIcon -->
+            <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+            <!-- /ko -->
+            <!-- ko if: isBootstrapGlyphIcon -->
+            <i data-bind="attr: { class: Icon + ' fa fa-white' }"></i>
+            <!-- /ko -->
+            <!-- ko if: isCustomIcon -->
+            <span>custom</span> <!-- Not sure what we're going to have here yet - just an image tag or somehow get the url into a class def? -->
+            <!-- /ko -->
+            <span data-bind="text: DisplayName, visible: $parent.isTouchModeDisabled"></span>
+        </a>
+    </div>
+    <a class="btn btn-info" data-bind="visible: showHelpAndNotInEditMode, 
+        anchorClick: help.openHelp.bind($data, 'explorer', 'grid', 'data_service_actions'), css: { 'btn-xs': isTouchModeDisabled }">
+        <i class="fa fa-question fa-white"></i>
+    </a>
+</form>

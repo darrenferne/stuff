@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAD4A5A3-8902-4D9C-A5B7-F608AFCE3099}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchemaBrowser.DataService</RootNamespace>
+    <AssemblyName>SchemaBrowser.DataService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Akka, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Akka.1.3.5\lib\net45\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Client, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Client.Repository, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-client-repository.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Client.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Combined, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Combined.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Core, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Domain, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.FilterConverters.DynamicLinq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.FilterConverters.DynamicLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.FilterConverters.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-nhibernate-dataservice.2046.1.80\lib\net461\BWF.DataServices.FilterConverters.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Live.Notification, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Live.Notification.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Mapping, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Mapping.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Metadata, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Nancy, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\combined-bwf-nancy-dataservice.2046.1.80\lib\net461\BWF.DataServices.Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Parser, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.PortableClients, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-client.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.DataServices.PortableClients.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Query, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.Query.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.QueryConverters.InMemory, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.DataServices.QueryConverters.InMemory.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.QueryConverters.NHibernate, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-nhibernate-dataservice.2046.1.80\lib\net461\BWF.DataServices.QueryConverters.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.QueryExecutors.NHibernate, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-nhibernate-dataservice.2046.1.80\lib\net461\BWF.DataServices.QueryExecutors.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Support.NHibernate, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-nhibernate-dataservice.2046.1.80\lib\net461\BWF.DataServices.Support.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.DataServices.Support.NHibernate.UserTypes, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-nhibernate-dataservice.2046.1.80\lib\net461\BWF.DataServices.Support.NHibernate.UserTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Enums, Version=2046.1.80.0, Culture=neutral, PublicKeyToken=3bc3db66488aec07, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-domain.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Enums.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Explorer.Domain, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-client.2046.1.80\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\BWF.Explorer.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Explorer.Utils, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.Explorer.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Globalisation, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.Globalisation.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Hosting.Infrastructure, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.Hosting.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Membership.Domain, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.Membership.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="BWF.Membership.Interfaces, Version=2046.1.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\combined-bwf-inmemory-dataservice.2046.1.80\lib\net461\BWF.Membership.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Deedle, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-deedle.2017.2.2\lib\net45\Deedle.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=2017.1.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-FastMember.2017.1.16\lib\net40\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=4.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\FluentValidation.4.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FParsec, Version=1.0.0.0, Culture=neutral, PublicKeyToken=40ccfc0a09edbb5d, processorArchitecture=MSIL">
+      <HintPath>..\\packages\FParsec.1.0.2\lib\net40-client\FParsec.dll</HintPath>
+    </Reference>
+    <Reference Include="FParsecCS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=40ccfc0a09edbb5d, processorArchitecture=MSIL">
+      <HintPath>..\\packages\FParsec.1.0.2\lib\net40-client\FParsecCS.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Collections.ParallelSeq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\FSharp.Collections.ParallelSeq.1.0.2\lib\net40\FSharp.Collections.ParallelSeq.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.9.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\\packages\CompareNETObjects.3.09.0.0\lib\net46\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig, Version=0.10.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Markdig.0.10.7\lib\net40\Markdig.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-signalr-client.2017.2.2\lib\portable-net45+win+wpa81+wp80+MonoAndroid60+Xamarin.iOS10+MonoTouch10\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-ninject.2017.2.2\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.ChildKernel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-ninject.2017.2.2\lib\net45\Ninject.Extensions.ChildKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-ninject.2017.2.2\lib\net45\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\\packages\System.Reactive.Core.3.0.0\lib\net46\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\\packages\System.Reactive.Interfaces.3.0.0\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\\packages\System.Reactive.Linq.3.0.0\lib\net46\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Reporting, Version=9.0.15.324, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\\packages\bwf-telerik-reporting.2017.2.2\lib\net45\Telerik.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="TimeZoneConverter, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeZoneConverter.1.1.1\lib\net45\TimeZoneConverter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Nancy\Modules\ApiModule.cs" />
+    <Compile Include="Validation\DbConnectionValidator.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Interfaces\ISchemaBrowserDataService.cs" />
+    <Compile Include="Interfaces\ISchemaBrowserRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordTypes\DbConnectionRecordType.cs" />
+    <Compile Include="RecordTypes\DbSchemaRecordType.cs" />
+    <Compile Include="RecordTypes\DbObjectPropertyRecordType.cs" />
+    <Compile Include="RecordTypes\DbObjectRecordType.cs" />
+    <Compile Include="SchemaBrowserDataService.cs" />
+    <Compile Include="SchemaBrowserRepository.cs" />
+    <Compile Include="SchemaBrowserUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppReadme\Compare-NET-Objects-Help.txt" />
+    <Content Include="modules\cc-connectionString.js" />
+    <Content Include="modules\cc-initialCatalog.js" />
+    <Content Include="modules\cc-password.js" />
+    <Content Include="modules\cc-username.js" />
+    <Content Include="templates\cc-connectionString.tmpl.html" />
+    <Content Include="templates\cc-initialcatalog.tmpl.html" />
+    <Content Include="templates\cc-password.tmpl.html" />
+    <Content Include="templates\cc-username.tmpl.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SchemaBrowser.Domain\SchemaBrowser.Domain.csproj">
+      <Project>{75f8e5eb-0592-488f-bb66-e20c7ed94e82}</Project>
+      <Name>SchemaBrowser.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
+  <Import Project="..\\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
+</Project>

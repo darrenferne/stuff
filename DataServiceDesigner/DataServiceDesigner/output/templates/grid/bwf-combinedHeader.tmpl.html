@@ -1,0 +1,5 @@
+<div class="max-width" data-bind="foreach: { data: grids, as: 'grid' }">
+    <div data-bind="if: $component.components[grid].enabled, visible: grid == $component.activeGrid()">
+        <div class="bwf-grid-footer" data-bind="component: { name: $component.components[grid].name, params: $component.components[grid].config } "></div>
+    </div>
+</div>

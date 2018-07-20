@@ -1,0 +1,62 @@
+<div class="bwf-parameter-bar-form-container" data-bind="attr: { id: viewGridId + '-parametersBar' }, if: loadedParameters && parameters().length > 0">
+    <form class="parameter-form" data-bind="if: loadedParameters">
+        <!-- ko foreach: { data: generateParameterModelConfigs } -->
+            <!-- ko component: { name: $data.component, params: $data } -->
+            <!-- /ko -->
+        <!-- /ko -->
+
+        <span class="parameter-selector-buttons">
+            <!-- ko if: inEditMode() -->
+            <button type="button" class="btn btn-danger btn-sm"
+                    data-bind="click: cancel, enable: inEditMode">
+                <i class="fa fa-times fa-white"></i>
+            </button>
+            <button type="submit" class="btn btn-success btn-sm"
+                    data-bind="click: applyButton, enable: inEditMode">
+                <i class="fa fa-check fa-white"></i>
+            </button>
+            <!-- /ko -->
+            <!-- ko if: (!inEditMode()) -->
+            <button type="submit" class="btn btn-primary btn-sm"
+                    data-bind="click: refresh, disable: inEditMode">
+                <i class="fa fa-refresh fa-white"></i>
+            </button>
+            <button type="submit" class="btn btn-primary btn-sm"
+                    data-bind="click: edit, disable: inEditMode">
+                <i class="fa fa-pencil fa-white"></i>
+            </button>
+            <!-- /ko -->
+            <button type="button" class="btn btn-sm btn-info" data-bind="visible: $parent.help.showHelp,
+                     click: $parent.help.openHelp.bind($data, 'explorer', 'parameters_bar', 'explanation')">
+                <i class="fa fa-question fa-white"></i>
+            </button>
+        </span>
+    </form>
+    <span class="external-parameter-selector-buttons">
+        <!-- ko if: inEditMode() -->
+        <button type="button" class="btn btn-danger btn-sm"
+                data-bind="click: cancel, enable: inEditMode">
+            <i class="fa fa-times fa-white"></i>
+        </button>
+        <button type="submit" class="btn btn-success btn-sm"
+                data-bind="click: applyButton, enable: inEditMode">
+            <i class="fa fa-check fa-white"></i>
+        </button>
+        <!-- /ko -->
+        <!-- ko if: (!inEditMode()) -->
+        <button type="submit" class="btn btn-primary btn-sm"
+                data-bind="click: refresh, disable: inEditMode">
+            <i class="fa fa-refresh fa-white"></i>
+        </button>
+        <button type="submit" class="btn btn-primary btn-sm"
+                data-bind="click: edit, disable: inEditMode">
+            <i class="fa fa-pencil fa-white"></i>
+        </button>
+        <!-- /ko -->
+        <button type="button" class="btn btn-sm btn-info" data-bind="visible: $parent.help.showHelp,
+                     click: $parent.help.openHelp.bind($data, 'explorer', 'parameters_bar', 'explanation')">
+            <i class="fa fa-question fa-white"></i>
+        </button>
+    </span>
+</div>
+

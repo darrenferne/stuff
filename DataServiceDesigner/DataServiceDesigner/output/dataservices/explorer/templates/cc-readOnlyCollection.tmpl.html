@@ -1,0 +1,7 @@
+<label data-bind="text: label"></label>
+<button data-bind="click: viewCollectionItem, enable: enableViewItemButton, visible: !isCopyAction()" 
+        class="btn btn-primary btn-xs float-right"><i class="fa fa-eye"></i></button>
+<div class="flex-box bwf-readOnlyCollection-panel-control"
+     data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration() }">
+</div>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

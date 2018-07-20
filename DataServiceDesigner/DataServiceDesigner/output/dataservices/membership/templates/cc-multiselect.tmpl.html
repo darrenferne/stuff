@@ -1,0 +1,13 @@
+<span data-bind="click: focus">
+    <select data-bind="attr: { id: elementId, name: elementId }, kendoMultiSelect: {
+                        data: values,
+                        value: selectedValues,
+                        dataTextField: 'text',
+                        dataValueField: 'value',
+                        animation: false,
+                        widget: control,
+                        enable: !formDisabled()
+                    }" >
+    </select>
+</span>
+<div data-bind="template: { afterRender: function() { postRender() } }"></div>

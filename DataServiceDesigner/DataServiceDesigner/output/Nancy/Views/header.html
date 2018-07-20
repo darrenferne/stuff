@@ -1,0 +1,58 @@
+<nav class="navbar navbar-static-top">
+    <div class="container-fluid">
+        <div>
+            <button id="toggle-responsive-button" type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#mobile-navbar" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Model.BrandLink">
+                <img src="@Model.LogoPath" class="brandImage-responsive" />
+            </a>
+        </div>
+        <div class="collapse navbar-collapse responsive-menu" id="mobile-navbar">
+            <ul class="nav navbar-nav" data-bind="component: 'bwf-menu'"></ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li id="userMenu" class="dropdown">
+                    @If.IsImageAvailable
+                    <a data-toggle="dropdown" class="dropdown-toggle withImage">
+                        <span data-bind="component: 'notifications/bwf-notificationBadge'"></span>
+                        <img id="user-img" data-bind="attr: { src: imageSource }" />
+                        <b class="caret"></b>
+                    </a>
+                    @EndIf
+                    @IfNot.IsImageAvailable
+                    <a data-toggle="dropdown" class="dropdown-toggle noImage">
+                        <span data-bind="component: 'notifications/bwf-notificationBadge'"></span>
+                        <span data-bind="text: username"></span>
+                        <b class="caret"></b>
+                    </a>
+                    @EndIf
+                    <ul class="dropdown-menu" id="user-dropdown-menu">
+                        <li><a id="changePasswordLink" href="@Model.ChangePasswordUrl">@Model.ChangePasswordText</a></li>
+                        <li><a id="userSettingsLink" href="@Model.UserSettingsUrl">@Model.UserSettingsText</a></li>
+                        <li>
+                            <a id="userNotifications" href="/view/#default/explorer/ToastMessage">
+                                <span>@Model.NotificationsText</span>
+                                <span data-bind="component: 'notifications/bwf-notificationBadge'"></span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider" tabindex="-1"></li>
+                        <li>
+                            <a id="touchModeToggle">
+                                <label for="touch-mode-toggle-checkbox">@Model.TouchEnabledText</label>
+                                <input id="touch-mode-toggle-checkbox" type="checkbox" data-bind="checked: inTouchMode" />
+                            </a>
+                        </li>
+                        <li role="separator" class="divider" tabindex="-1"></li>
+                        <li><a id="signOutLink" href="@Model.SignOutUrl">@Model.SignOutText</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        require(['modules/header']);
+    </script>
+</nav>

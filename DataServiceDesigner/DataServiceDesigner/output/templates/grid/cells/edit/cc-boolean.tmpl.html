@@ -1,0 +1,14 @@
+<td style="position: relative;" class="editable-cell" data-bind="css: cssClasses">
+    <div class="boolean-cell">
+        <!-- ko if: isEditable() -->
+        <input data-bind="checked: value, hasFocus: isFocused"
+               type="checkbox" value="true" />
+        <!-- /ko -->
+        <!-- ko if: !isEditable() || gridDisabled() -->
+        <div class="readOnlyOverlay"></div>
+        <input class="checkbox-readonly" data-bind="checked: value, hasFocus: isFocused" type="checkbox"
+               value="true" onclick="return false;" onkeydown="return false;" />
+        <!-- /ko -->
+    </div>
+    <div data-bind="template: { afterRender: function() { onRendered() } }"></div>
+</td>

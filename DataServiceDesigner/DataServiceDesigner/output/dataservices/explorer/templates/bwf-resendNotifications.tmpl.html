@@ -1,0 +1,25 @@
+<form class="bwf-panel-container">
+
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+
+    <div class="bwf-panel-body">
+        <fieldset>
+            <label data-bind="text: resources['bwf_resend_notification_confirmation']"></label>
+            <div data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration }"></div>
+        </fieldset>
+        <label style="margin-top: 10px" data-bind="visible: errorMessages().length > 0, text: errorsTitle"></label>
+        <div data-bind="foreach: errorMessages">
+            <div class="text-danger" data-bind="text: $data"></div>
+        </div>
+    </div>
+
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-danger btn-xs" data-bind="visible: showSaveButton, disable: disableSave, click: confirmResend, text: saveButtonCaption"></button>
+            <button class="btn btn-primary btn-xs" data-bind="click: cancel, text: cancelButtonCaption"></button>
+        </div>
+    </div>
+
+</form>

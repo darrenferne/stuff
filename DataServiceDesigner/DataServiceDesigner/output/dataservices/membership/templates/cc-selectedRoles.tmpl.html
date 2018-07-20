@@ -1,0 +1,81 @@
+
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div data-bind="visible: !ready()" class="bwf-panel-spinner">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div class="bwf-panel-body custom-panel-control">
+        <!-- ko if: showEditor -->
+        <div class="panel-edit-input max-width">
+            <div class="custom-panel-control" data-bind="if: ready">
+
+                <div class="panel-side-by-side">
+                    <div class="margin-bottom-xs" data-bind="ifnot: formDisabled">
+                        <h4 data-bind="text: resources['bwf_roles_assigned']"></h4>
+                        <div class="btn-group">
+                            <button data-bind="enable: canDelete, click: deleteSelected"
+                                    type="button" class="btn btn-xs btn-primary">
+                                <i class="fa fa-times fa-white"></i>
+                                <span data-bind="text: resources['bwf_remove']"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button data-bind="enable: canClear, click: clear"
+                                    type="button" class="btn btn-xs btn-danger">
+                                <i class="fa fa-times fa-white"></i>
+                                <span data-bind="text: resources['bwf_clear']"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-box grow-one max-height"
+                         data-bind="component: { name: 'grid/bwf-grid', params: selectedGrid }">
+                    </div>
+                </div>
+                <div class="panel-center-spacer"></div>
+                <div class="panel-side-by-side">
+                    <h4 data-bind="text: resources['bwf_roles_available']"></h4>
+                    <div class="btn-group margin-bottom-xs" data-bind="ifnot: formDisabled">
+                        <button data-bind="enable: canSelect, click: select"
+                                type="button" class="btn btn-xs btn-primary">
+                            <i class="fa fa-plus fa-white"></i>
+                            <span data-bind="text: resources['bwf_select']"></span>
+                        </button>
+                    </div>
+                    <div class="flex-box grow-one max-height"
+                         data-bind="component: { name: 'grid/bwf-grid', params: availableGrid }">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko ifnot: showEditor -->
+        <div class="bwf-panel-body">
+            <div class="alert alert-info">
+                <span data-bind="text: resources['bwf_roles_not_assignable']"></span>
+            </div>
+            <div class="flex-box grow-one"
+                 data-bind="component: { name: 'grid/bwf-grid', params: selectedGrid }">
+            </div>
+        </div>
+        <!-- /ko -->
+
+    </div>
+    
+    <div class="bwf-panel-footer" data-bind="visible: ready">
+        <div class="alert alert-danger" data-bind="visible: assignmentError">
+            <span data-bind="text: errorMessage"></span>
+        </div>
+        <div class="pull-right">
+            <span class="permission-group-action-notification" data-bind="visible: applyInProgress">
+                <span data-bind="text: assigningText"></span>
+                <i class="fa fa-pulse fa-spinner"></i>
+            </span>
+            <button class="btn btn-primary btn-xs" data-bind="visible: showEditor, click: assign, text: resources['bwf_assign']"></button>
+            <button class="btn btn-warning btn-xs" data-bind="click: cancel, text: resources['bwf_cancel']"></button>
+        </div>
+    </div>
+
+</form>

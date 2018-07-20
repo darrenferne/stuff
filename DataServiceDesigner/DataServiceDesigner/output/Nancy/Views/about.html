@@ -1,0 +1,324 @@
+@Master['master.html']
+@Section['Content']
+<style>
+    .about-table-wrapper {
+        overflow: auto;
+        margin-bottom: 2em;
+        display: table;
+        font-size: smaller;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0px;
+        margin-bottom: 10px;
+    }
+
+    table, th, td {
+        padding: 5px;
+        border: 1px solid black;
+    }
+</style>
+<div data-bind="component: 'bwf-transient-notification'"></div>
+<div class="about-table-wrapper">
+    <h1>
+        Brady Web Framework (BWF)
+    </h1>
+    <p>
+        The following table contains a list of all the known data services and their current status.
+    </p>
+    <div class="dateserviceTable" style="display: none" data-bind="visible: !showSpinner()">
+        <table>
+            <thead>
+                <tr>
+                    <th data-bind="text: resources['bwf_name']" />
+                    <th data-bind="text: resources['bwf_version']" />
+                    <th data-bind="text: resources['bwf_status']" />
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: availableDataservices, as: 'dataservice' }">
+                <tr>
+                    <td data-bind="text: dataservice.Name" />
+                    <td data-bind="text: dataservice.Version" />
+                    <td data-bind="text: dataservice.Status" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="processingSpinner">
+        <i class="fa fa-spinner fa-pulse fa-4x" style="margin: 20px" data-bind="visible: showSpinner"></i>
+    </div>
+    <p>
+        The following table lists all the third party dependencies that BWF utilises and provides links to details of their licensing.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Dependency</th>
+                <th>Version</th>
+                <th>License</th>
+            </tr>
+        </thead>
+        <tr>
+            <td><a href="http://ajaxmin.codeplex.com/">AjaxMin</a></td>
+            <td>4.48.4489.28432</td>
+            <td><a href="http://ajaxmin.codeplex.com/license">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://getakka.net/">Akka.NET</a></td>
+            <td>1.3.5</td>
+            <td><a href="https://github.com/akkadotnet/akka.net/blob/master/LICENSE">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/AkkaNetContrib/Akka.Logger.log4net">Akka.Logger.log4net</a></td>
+            <td>1.3.1</td>
+            <td><a href="https://github.com/AkkaNetContrib/Akka.Logger.log4net/blob/dev/LICENSE">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/antlr/antlrcs">Antlr</a></td>
+            <td>3.4.1.9004</td>
+            <td><a href="http://www.antlr3.org/license.html">BSD</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://automapper.org/">AutoMapper</a></td>
+            <td>4.1.1</td>
+            <td><a href="https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://getbootstrap.com/">Bootstrap</a></td>
+            <td>3.3.1</td>
+            <td><a href="https://github.com/twbs/bootstrap/blob/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/davidstutz/bootstrap-multiselect">Bootstrap Multiselect</a></td>
+            <td>0.9.13</td>
+            <td><a href="https://github.com/davidstutz/bootstrap-multiselect/blob/master/README.md">Apache, BSD</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/closedxml/closedxml">ClosedXML</a></td>
+            <td>0.69.2</td>
+            <td><a href="https://github.com/closedxml/closedxml/license">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/GregFinzer/Compare-Net-Objects">Compare .NET Objects</a></td>
+            <td>3.09.0</td>
+            <td><a href="https://github.com/GregFinzer/Compare-Net-Objects/wiki/Licensing">MS-PL</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/StackExchange/Dapper">Dapper</a></td>
+            <td>3.3.5</td>
+            <td><a href="https://github.com/StackExchange/Dapper/blob/master/License.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/dbup/dbup">DbUp</a></td>
+            <td>3.3.5</td>
+            <td><a href="https://github.com/DbUp/DbUp/blob/master/license.txt">Mit</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://bluemountaincapital.github.io/Deedle/">Deedle</a></td>
+            <td>1.0.7</td>
+            <td><a href="https://github.com/BlueMountainCapital/Deedle/blob/master/LICENSE.md">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/JeremySkinner/fluentvalidation">FluentValidation</a></td>
+            <td>5.0.0.1</td>
+            <td><a href="https://github.com/JeremySkinner/FluentValidation/blob/master/License.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://fontawesome.io/">FontAwesome</a></td>
+            <td>4.0.3</td>
+            <td><a href="http://fontawesome.io/license/">OFL</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://www.quanttec.com/fparsec/">FParsec</a></td>
+            <td>1.0.2</td>
+            <td><a href="http://www.quanttec.com/fparsec/license.html">Simplified BSD</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://fsprojects.github.io/FSharp.Collections.ParallelSeq/">Fsharp.Collections.ParallelSeq</a></td>
+            <td>1.0.2</td>
+            <td><a href="https://github.com/fsprojects/FSharp.Collections.ParallelSeq/blob/master/LICENSE.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/nhibernate/iesi.collections">Iesi.Collections</a></td>
+            <td>4.0.0.4000</td>
+            <td><a href="https://github.com/nhibernate/nhibernate-core/blob/master/lib/net/4.0/Iesi.Collections.license.txt">LGPL</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/ekonbenefits/impromptu-interface">ImpromptuInterface</a></td>
+            <td>6.2.2</td>
+            <td><a href="https://github.com/ekonbenefits/impromptu-interface/blob/master/License.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/ekonbenefits/impromptu-interface">ImpromptuInterface.FSharp</a></td>
+            <td>1.2.13</td>
+            <td><a href="https://github.com/ekonbenefits/impromptu-interface/blob/master/License.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://jquery.com/">jQuery</a></td>
+            <td>2.0.3</td>
+            <td><a href="https://jquery.org/license/">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://jqueryvalidation.org/">jQuery Validation</a></td>
+            <td>1.11.1</td>
+            <td><a href="https://github.com/jzaefferer/jquery-validation/blob/master/LICENSE.md">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://www.newtonsoft.com/json">Json.NET</a></td>
+            <td>10.0.1</td>
+            <td><a href="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/rniemeyer/knockout-amd-helpers">Knockout-AMD-Helper</a></td>
+            <td>0.7.3</td>
+            <td><a href="https://github.com/rniemeyer/knockout-amd-helpers/blob/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://knockoutjs.com/">Knockout</a></td>
+            <td>3.4.2</td>
+            <td><a href="https://github.com/knockout/knockout/blob/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://www.telerik.com/kendo-ui">Kendo UI Professional</a></td>
+            <td>2016.2.607</td>
+            <td><a href="http://www.telerik.com/purchase/license-agreement/kendo-ui-professional">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/rniemeyer/knockout-postbox">Knockout-Postbox</a></td>
+            <td>0.5.0</td>
+            <td><a href="https://github.com/rniemeyer/knockout-postbox/blob/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://linqjs.codeplex.com/">linq.js</a></td>
+            <td>2.2.0.2</td>
+            <td><a href="http://linqjs.codeplex.com/license">MS-PL</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://logging.apache.org/log4net/">log4net</a></td>
+            <td>2.0.8</td>
+            <td><a href="http://logging.apache.org/log4net/license.html">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/lunet-io/markdig">Markdig</a></td>
+            <td>0.10.7</td>
+            <td><a href="https://github.com/lunet-io/markdig/blob/master/license.txt">Simplified BSD</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/moment/moment">Moment.js</a></td>
+            <td>2.18.2</td>
+            <td><a href="https://raw.githubusercontent.com/timrwood/moment/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/moment/moment-timezone">Moment Timezone</a></td>
+            <td>0.5.13</td>
+            <td><a href="https://raw.githubusercontent.com/moment/moment-timezone/develop/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://nancyfx.org/">Nancy</a></td>
+            <td>1.4.3</td>
+            <td><a href="https://github.com/NancyFx/Nancy/blob/master/license.txt">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://nancyfx.org/">Nancy.Authentication.Stateless</a></td>
+            <td>1.4.1</td>
+            <td><a href="https://github.com/NancyFx/Nancy/blob/master/license.txt">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://nancyfx.org/">Nancy.Owin</a></td>
+            <td>1.4.1</td>
+            <td><a href="https://github.com/NancyFx/Nancy/blob/master/license.txt">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://nancyfx.org/">Nancy.Serialization.JsonNet</a></td>
+            <td>1.4.1</td>
+            <td><a href="https://github.com/NancyFx/Nancy/blob/master/license.txt">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://nhibernate.info/">NHibernate</a></td>
+            <td>4.0.1.4000</td>
+            <td><a href="https://raw.githubusercontent.com/nhibernate/nhibernate-core/master/lgpl.txt">LGPL</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://www.ninject.org/">ninject</a></td>
+            <td>3.0.2.37</td>
+            <td><a href="https://raw.githubusercontent.com/ninject/ninject/master/LICENSE.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/owin-contrib/owin-hosting/">Owin</a></td>
+            <td>1.0</td>
+            <td><a href="https://github.com/owin-contrib/owin-hosting/blob/master/LICENSE.txt">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/plioi/parsley">Parsley</a></td>
+            <td>0.0.6</td>
+            <td><a href="https://github.com/plioi/parsley/blob/master/LICENSE.txt">Mit</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://www.rabbitmq.com/dotnet.html">RabbitMQ .NET client</a></td>
+            <td>5.0.1</td>
+            <td><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache v2</a>, <a href="https://www.rabbitmq.com/mpl.html">Mozilla Public License v1.1</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/Reactive-Extensions/Rx.NET">Reactive Extensions</a></td>
+            <td>3.0.0</td>
+            <td><a href="https://github.com/Reactive-Extensions/Rx.NET/blob/master/LICENSE">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://requirejs.org/">RequireJS</a></td>
+            <td>2.1.8</td>
+            <td><a href="https://github.com/requirejs/requirejs/blob/master/LICENSE">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="http://sammyjs.org/">Sammy.js</a></td>
+            <td>0.7.4</td>
+            <td><a href="https://github.com/quirkey/sammy/blob/master/LICENSE">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/jetheredge/SquishIt">SquishIt</a></td>
+            <td>0.9.7</td>
+            <td><a href="https://github.com/jetheredge/SquishIt/blob/master/license.txt">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/StackExchange/StackExchange.Redis">StackExchange.Redis</a></td>
+            <td>1.0.488</td>
+            <td><a href="https://github.com/StackExchange/StackExchange.Redis/blob/master/LICENSE">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/kahanu/System.Linq.Dynamic">System.Linq.Dynamic</a></td>
+            <td>1.0.7</td>
+            <td><a href="https://opensource.org/licenses/ms-pl">MS-PL</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/requirejs/text">Text Plugin for RequireJS</a></td>
+            <td>2.0.7</td>
+            <td><a href="https://github.com/requirejs/text/blob/master/LICENSE">Product Specific</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/mj1856/TimeZoneConverter">TimeZoneConverter</a></td>
+            <td>1.1.1</td>
+            <td><a href="https://raw.githubusercontent.com/mj1856/TimeZoneConverter/master/LICENSE.txt">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/Topshelf/Topshelf">Topshelf</a></td>
+            <td>4.0.1</td>
+            <td><a href="https://github.com/Topshelf/Topshelf/blob/master/LICENSE">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/Topshelf/Topshelf">Topshelf.Log4Net</a></td>
+            <td>3.1.1</td>
+            <td><a href="https://github.com/Topshelf/Topshelf/blob/master/LICENSE">Apache</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/twilio/twilio-csharp">Twilio C#/.NET Helper Library</a></td>
+            <td>5.1.1</td>
+            <td><a href="https://github.com/twilio/twilio-csharp/blob/master/LICENSE.md">MIT</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/PureKrome/YUICompressor.NET">YUICompressor .NET</a></td>
+            <td>2.7.0.0</td>
+            <td><a href="https://github.com/YUICompressor-NET/YUICompressor.NET/blob/master/Build/New%20BSD%20License.txt">BSD</a></td>
+        </tr>
+    </table>
+</div>
+@EndSection

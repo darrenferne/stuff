@@ -1,0 +1,6 @@
+<div class="panel-edit-input">
+    <select data-bind="options: tileChoices, value: valueObservable, valueAllowUnset: true, 
+            optionsValue: 'Id', optionsText: 'Title', optionsCaption: r['bwf_none_selected'], 
+            bootstrapSelect: { filterEnabled: true, canSetNull: true, mobile: isMobile }"></select>
+</div>
+<div data-bind="template: { afterRender: function() { onRenderDone() } }"></div>

@@ -1,0 +1,20 @@
+{
+  "name": "Curves",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-util": "^3.0.8"
+  },
+  "dependencies": {
+    "@brady/bwf": "^2046.1.80"
+  },
+  "description": ""
+}

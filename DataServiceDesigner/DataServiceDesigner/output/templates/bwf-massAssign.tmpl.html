@@ -1,0 +1,26 @@
+<form class="bwf-panel-container">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: title"></h3>
+    </div>
+    <div class="bwf-panel-body flex-tall-column bwf-mass-assign" data-bind="if: loaded()">
+        <div class="flex-no-grow">
+            <h4 data-bind="text: resources['bwf_roles_to_assign']"></h4>
+            <div data-bind="component: { name: 'ds-explorer-cc-roleSelector',
+                    params: { model: data, typeMetadata: metadata() } }">
+            </div>
+        </div>
+
+        <h4 data-bind="text: resources['bwf_records_to_assign_permissions_to']"></h4>
+
+        <div id="panel-mass-assign-grid" class="bwf-mass-assign-grid-wrapper flex-box"
+                data-bind="component: { name: 'grid/bwf-grid', params: gridConfiguration() }">
+        </div>
+    </div>
+
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-danger btn-xs" data-bind="disable: performingAction, click: confirmAssign, text: resources['yes']"></button>
+            <button class="btn btn-primary btn-xs" data-bind="click: cancel, text: resources['no']"></button>
+        </div>
+    </div>
+</form>

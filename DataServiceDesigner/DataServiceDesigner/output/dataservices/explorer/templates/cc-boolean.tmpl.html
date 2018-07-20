@@ -1,0 +1,5 @@
+<label data-bind="attr: { for: id }">
+    <input type="checkbox" data-bind="checked: value, attr: { id: id }, disable: formDisabled" />
+    <span class="bool-property-label" data-bind="text: label"></span>
+</label>
+<div data-bind="template: { afterRender: function() { rendered(true) } }"></div>

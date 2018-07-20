@@ -1,0 +1,8 @@
+<div class="panel-border" data-bind="attr: { id: grid + '-bwf-panel-row' }">
+    <button data-bind="visible: !isResizeDisabled(), click: togglePanelWidth, attr: { title: (isPanelWide() ? 'Shrink pane' : 'Expand pane') }"
+            class="btn btn-link btn-no-outline panel-width-toggle" type="button" tabindex="999">
+        <i class="fa fa-caret-square-o-left" data-bind="visible: !isPanelWide()"></i>
+        <i class="fa fa-caret-square-o-right" data-bind="visible: isPanelWide()"></i>
+    </button>
+    <div class="max-height" data-bind="component: { name: component, params: (stack() ? stack()[0] : null) }"></div>
+</div>

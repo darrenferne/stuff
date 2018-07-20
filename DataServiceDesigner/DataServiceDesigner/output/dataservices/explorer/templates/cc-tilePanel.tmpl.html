@@ -1,0 +1,64 @@
+<div class="bwf-panel-container tile-creator max-height">
+    <div class="bwf-panel-header">
+        <h3 data-bind="text: panelTitle"></h3>
+    </div>
+    <!-- ko if: isCreate() && tileTypes() -->
+    <div class="margin-bottom-sm tile-type-chooser">
+        <label data-bind="text: r['bwf_tile_type']">Tile Type</label>
+        <select data-bind="options: tileTypes, value: selectedTileType, valueAllowUnset: true, optionsValue: 'typeName', 
+                optionsText: 'displayName', optionsCaption: r['bwf_none_selected'], bootstrapSelect: { filterEnabled: true, mobile: isMobile }">
+        </select>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: showMainPanelBody -->
+    <div data-bind="visible: !editingControlsRendered()" class="bwf-panel-spinner">
+        <i class="fa fa-spinner fa-pulse"></i>
+    </div>
+    <div class="bwf-panel-body" data-bind="style: { visibility: editingControlsRendered() ? 'visible' : 'hidden' }">
+        <!-- ko if: showEditingControls -->
+        <div data-bind="foreach: { data: properties, as: 'property' }">
+            <div class="margin-bottom-sm">
+                <span data-bind="if: useCustomControl">
+                    <label data-bind="text: property.editingName"></label>
+                </span>
+                <div class="panel-edit-input" data-bind="component: { name: $parent.getComponentName(property),
+                    params: { metadata: property, errorMessages: $parent.errorMessages, model: $parent.panelEntity,
+                    typeMetadata: $parent.dashboardMetadata, grid: $parent.dashboardElementId,
+                    permissions: $parent.typePermissions(), sendPowerBiTokenWithRequests: true } },
+                     style: { height: (!useCustomControl || isCustomControlHeightAuto) ? 'auto' : customControlHeight + 'px' } ">
+                </div>
+                <div data-bind="component: { name: 'ds-explorer-cc-validationDisplay',
+                    params: { metadata: property, model: $parent.panelEntity,
+                    typeMetadata: $parent.dashboardMetadata, grid: $parent.dashboardElementId } }">
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: needsAzureLogin -->
+        <h4 data-bind="text: r['bwf_tile_requires_power_bi']"></h4>
+        <div data-bind="visible: areAzureADSettingsPresentInConfig">
+            <button class="btn btn-primary btn-xs" data-bind="click: loginToAzure">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                <span data-bind="text: r['bwf_login_to_power_bi']"></span>
+            </button>
+        </div>
+        <div data-bind="visible: !areAzureADSettingsPresentInConfig">
+            <span data-bind="text: r['bwf_contact_admin_setup_power_bi']"></span>
+        </div>
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+    <!-- ko if: ready && isDelete -->
+    <p class="delete-tile-message">
+        Are you sure you want to delete tile '<span data-bind="text: data.Title"></span>'?
+    </p>
+    <!-- /ko -->
+    <div class="bwf-panel-footer">
+        <div class="pull-right">
+            <button class="btn btn-xs" data-bind="click: confirmClick, 
+                    text: confirmButtonText, enable: enableSaveButton,
+                    css: { 'btn-primary': isCreate() || isEdit(), 'btn-danger': isDelete, 'btn-xs': notInTouchMode }">Next</button>
+            <button class="btn btn-warning btn-xs" data-bind="click: closeEditor, css: { 'btn-xs': notInTouchMode }, text: r['bwf_cancel']"></button>
+        </div>
+    </div>
+</div>
