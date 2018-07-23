@@ -8,11 +8,12 @@ namespace DataServiceDesigner.DataService
     [CreateAction("Create")]
     [EditAction("Edit")]
     [DeleteAction("Delete")]
-    public class DomainObjectPropertyRecordType : ChangeableRecordType<DesignerDomainObjectProperty, long, DomainObjectPropertyBatchValidator>
+    public class DomainObjectPropertyRecordType : ChangeableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
     {
         public override void ConfigureMapper()
         {
-            Mapper.CreateMap<DesignerDomainObjectProperty, DesignerDomainObjectProperty>()
+            Mapper.CreateMap<DomainObjectProperty, DomainObjectProperty>()
+                .ForMember(x => x.DbProperty, m => m.Ignore())
                 .ForMember(x => x.DomainObject, m => m.Ignore());
         }
     }

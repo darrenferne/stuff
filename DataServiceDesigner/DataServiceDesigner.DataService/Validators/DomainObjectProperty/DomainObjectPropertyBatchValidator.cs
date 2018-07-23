@@ -5,12 +5,12 @@ using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DomainObjectPropertyBatchValidator : BatchValidator<long, DesignerDomainObjectProperty>
+    public class DomainObjectPropertyBatchValidator : BatchValidator<long, DomainObjectProperty>
     {
-        protected override void SetupValidators(ChangeSetItems<long, DesignerDomainObjectProperty> items)
+        protected override void SetupValidators(ChangeSetItems<long, DomainObjectProperty> items)
         {
             validator = new DomainObjectPropertyValidator();
-            deletionValidator = new EmptyValidator<DesignerDomainObjectProperty>();
+            deletionValidator = new EmptyValidator<DomainObjectProperty>();
         }
     }
 }

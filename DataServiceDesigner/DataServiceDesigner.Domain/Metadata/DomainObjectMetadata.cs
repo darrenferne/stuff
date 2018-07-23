@@ -2,7 +2,7 @@
 
 namespace DataServiceDesigner.Domain
 {
-    public class DomainObjectMetadata : TypeMetadataProvider<DesignerDomainObject>
+    public class DomainObjectMetadata : TypeMetadataProvider<DomainObject>
     {
         public DomainObjectMetadata()
         {
@@ -53,7 +53,7 @@ namespace DataServiceDesigner.Domain
                  .DisplayName("Pluralised Display Name")
                  .PositionInEditor(6);
             
-            CollectionProperty(x => x.Properties)
+            CollectionProperty(x => x.ObjectProperties)
                 .DisplayName("Object Properties")
                 .PositionInEditor(7);
 

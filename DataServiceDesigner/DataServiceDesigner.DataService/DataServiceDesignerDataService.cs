@@ -43,28 +43,28 @@ namespace DataServiceDesigner.DataService
                         {
                             Id = "Connection",
                             Text = "Connections",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DesignerConnection",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DataServiceConnection",
                             Position = 1
                         },
                         new MenuItem()
                         {
                             Id = "DataService",
                             Text = "Data Services",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DesignerDataService",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainDataService",
                             Position = 2
                         },
                         new MenuItem()
                         {
                             Id = "DomainObject",
                             Text = "Domain Objects",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DesignerDomainObject",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObject",
                             Position = 3
                         },
                         new MenuItem()
                         {
                             Id = "DomainObjectProperty",
                             Text = "Domain Object Properties",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DesignerDomainObjectProperty",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectProperty",
                             Position = 4
                         }
                     }

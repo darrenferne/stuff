@@ -6,10 +6,10 @@ namespace DataServiceDesigner.Domain
     {
         public MetadataBundle()
             : base("dataservicedesigner",
-                  new DataServiceMetadata(),
-                  //new ConnectionMetadata(),
-                  new DomainObjectMetadata(),
-                  new DomainObjectPropertyMetadata()
+                new DataServiceConnectionMetadata(), 
+                new DomainDataServiceMetadata(),
+                new DomainObjectMetadata(),
+                new DomainObjectPropertyMetadata()
                   //,new SchemaBrowserMetadata()
                   )
         { }

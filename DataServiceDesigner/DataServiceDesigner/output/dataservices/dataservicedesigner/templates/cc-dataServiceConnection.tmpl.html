@@ -1,0 +1,24 @@
+<!--<style>
+    .cc-customString > label {
+        display: none;
+    }
+</style>
+<div>
+    <div id="dataServiceConnection" style="width:90%" class="cc-customString" data-bind="component: { name: 'ds-explorer-cc-string', params: { metadata: data.metadata, errorMessages: data.errorMessages, model: data.model, typeMetadata: data.typeMetadata, grid: data.grid, permissions: data.permissions } }">
+    </div>
+    <div id="dataServiceConnectionMenu" class="btn-group" style="position: absolute; left: 91%; ">
+        <button class="btn btn-primary btn-xs" data-bind="visible: showEdit, enable: enableEdit, click: edit"><i class="fa fa-edit fa-white"></i></button>
+    </div>
+</div>
+
+<label data-bind="text: label, attr: { title: propertyMetadata.description }"></label>-->
+<div id="dataServiceConnection" class="max-width panel-type-selector">
+    <input class="max-width opal-input" data-bind="readonly: formDisabled, textInput: connectionString" />
+    <div class="flex-no-shrink">
+        <div class="btn-group">
+            <button tabindex="-1" class="btn btn-primary btn-xs" data-bind="enable: enableEdit, click: edit">
+                <i class="fa fa-edit fa-white"></i>
+            </button>
+        </div>
+    </div>
+</div>

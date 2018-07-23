@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DomainObjectPropertyValidator : Validator<DesignerDomainObjectProperty>
+    public class DomainObjectPropertyValidator : Validator<DomainObjectProperty>
     {
         public DomainObjectPropertyValidator()
         {

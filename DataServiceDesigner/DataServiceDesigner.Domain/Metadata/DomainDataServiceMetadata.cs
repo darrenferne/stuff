@@ -1,11 +1,12 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using SchemaBrowser.Domain;
 using SBD = SchemaBrowser.Domain;
 
 namespace DataServiceDesigner.Domain
 {
-    public class DataServiceMetadata : TypeMetadataProvider<DesignerDataService>
+    public class DomainDataServiceMetadata : TypeMetadataProvider<DomainDataService>
     {
-        public DataServiceMetadata()
+        public DomainDataServiceMetadata()
         {
             AutoUpdatesByDefault();
             SupportsEditMode();
@@ -20,13 +21,16 @@ namespace DataServiceDesigner.Domain
             StringProperty(x => x.Name)
                 .PositionInEditor(1);
 
-            TypeProperty(x => x.Connection)
-                .FromDataService(SBD.Constants.DataServiceName)
-                .JoinedOn("ConnectionId", "Id")
-                .DisplayName("Connection")
+            StringProperty(x => x.ConnectionString)
+                .DisplayName("Connection String")
                 .PositionInEditor(2)
-                .DisplayFieldInEditorChoice("Name")
-                .ValueFieldInEditorChoice("Id");
+                .CustomControl("cc-dataServiceConnection")
+                .CustomControlHeight(30);
+
+            TypeProperty(x => x.DbConnection)
+                .FromDataService(Constants.DataServiceName)
+                .IsHidden()
+                .IsHiddenInEditor();            
 
             StringProperty(x => x.DefaultSchema)
                 .DisplayName("Default Schema")

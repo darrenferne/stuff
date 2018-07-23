@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace DataServiceDesigner.DataService
 {
-    public class ConnectionValidator : Validator<DesignerConnection>
+    public class DataServiceConnectionValidator : Validator<DataServiceConnection>
     {
-        public ConnectionValidator()
+        public DataServiceConnectionValidator()
         {
             RuleFor(x => x.Id)
                 .GreaterThanOrEqualTo(0L);

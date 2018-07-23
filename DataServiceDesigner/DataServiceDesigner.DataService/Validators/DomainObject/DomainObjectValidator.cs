@@ -4,18 +4,18 @@ using FluentValidation;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DomainObjectValidator : Validator<DesignerDomainObject>
+    public class DomainObjectValidator : Validator<DomainObject>
     {
         public DomainObjectValidator()
         {
             RuleFor(x => x.Id)
                  .GreaterThanOrEqualTo(0L);
 
-            RuleFor(x => x.DbSchema)
+            RuleFor(x => x.DbSchemaName)
                 .NotEmpty()
                 .Length(1, 64);
 
-            RuleFor(x => x.DbObject)
+            RuleFor(x => x.DbObjectName)
                 .NotEmpty()
                 .Length(1, 64);
 

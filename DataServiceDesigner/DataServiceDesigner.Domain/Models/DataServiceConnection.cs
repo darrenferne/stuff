@@ -1,12 +1,13 @@
 ﻿using BWF.DataServices.Metadata.Interfaces;
+using SchemaBrowser.Domain;
 
 namespace DataServiceDesigner.Domain
 {
-    public class DesignerConnection : IHaveId<long>
+    public class DataServiceConnection : IHaveId<long>
     {
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
-        public virtual DesignerDatabaseType DatabaseType { get; set; }
+        public virtual DbType DatabaseType { get; set; }
         public virtual string DataSource { get; set; }
         public virtual string InitialCatalog { get; set; }
         public virtual string Username { get; set; }

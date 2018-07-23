@@ -2,9 +2,9 @@
 
 namespace DataServiceDesigner.Domain
 {
-    public class ConnectionMetadata : TypeMetadataProvider<DesignerConnection>
+    public class DataServiceConnectionMetadata : TypeMetadataProvider<DataServiceConnection>
     {
-        public ConnectionMetadata()
+        public DataServiceConnectionMetadata()
         {
             AutoUpdatesByDefault();
             SupportsEditMode();

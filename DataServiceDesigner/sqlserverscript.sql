@@ -140,9 +140,9 @@ ALTER TABLE [dataservicedesigner].[domainobjectproperty]
 GO 
 
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] ON
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (1, 1, N'designerdataservice')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (2, 1, N'designerconnection')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (3, 1, N'designerdomainobject')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'designerdomainobjectproperty')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (1, 1, N'domaindataservice')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (2, 1, N'dataserviceconnection')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (3, 1, N'domainobject')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'domainobjectproperty')
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] OFF
 GO

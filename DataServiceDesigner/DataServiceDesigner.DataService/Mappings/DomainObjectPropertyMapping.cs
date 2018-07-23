@@ -4,7 +4,7 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DomainObjectPropertyMap : ClassMapping<DesignerDomainObjectProperty>
+    public class DomainObjectPropertyMap : ClassMapping<DomainObjectProperty>
     {
         public DomainObjectPropertyMap()
         {

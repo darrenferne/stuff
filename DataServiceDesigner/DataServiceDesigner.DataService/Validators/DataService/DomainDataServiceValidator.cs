@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DataServiceValidator : Validator<DesignerDataService>
+    public class DomainDataServiceValidator : Validator<DomainDataService>
     {
-        public DataServiceValidator()
+        public DomainDataServiceValidator()
         {
             RuleFor(x => x.Id)
                 .GreaterThanOrEqualTo(0L);

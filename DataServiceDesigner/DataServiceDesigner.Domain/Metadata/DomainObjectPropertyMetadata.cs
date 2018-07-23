@@ -2,7 +2,7 @@
 
 namespace DataServiceDesigner.Domain
 {
-    public class DomainObjectPropertyMetadata : TypeMetadataProvider<DesignerDomainObjectProperty>
+    public class DomainObjectPropertyMetadata : TypeMetadataProvider<DomainObjectProperty>
     {
         public DomainObjectPropertyMetadata()
         {

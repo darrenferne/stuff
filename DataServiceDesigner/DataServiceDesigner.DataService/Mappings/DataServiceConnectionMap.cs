@@ -3,9 +3,9 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace DataServiceDesigner.DataService
 {
-    public class ConnectionMap : ClassMapping<DesignerConnection>
+    public class DataServiceConnectionMap : ClassMapping<DataServiceConnection>
     {
-        public ConnectionMap()
+        public DataServiceConnectionMap()
         {
             Table("connection");
 

@@ -4,7 +4,7 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DomainObjectMap : ClassMapping<DesignerDomainObject>
+    public class DomainObjectMap : ClassMapping<DomainObject>
     {
         public DomainObjectMap()
         {
@@ -12,8 +12,8 @@ namespace DataServiceDesigner.DataService
 
             Id(x => x.Id);
 
-            Property(x => x.DbSchema);
-            Property(x => x.DbObject, m => m.Column("DbName"));
+            Property(x => x.DbSchemaName, m => m.Column("DbSchema"));
+            Property(x => x.DbObjectName, m => m.Column("DbName"));
             Property(x => x.Name);
             Property(x => x.DisplayName);
             Property(x => x.PluralisedDisplayName);
@@ -26,7 +26,7 @@ namespace DataServiceDesigner.DataService
                 m.Fetch(FetchKind.Join);
             });
 
-            Bag(x => x.Properties,
+            Bag(x => x.ObjectProperties,
                 m =>
                 {
                     m.Key(k => k.Column("objectid"));

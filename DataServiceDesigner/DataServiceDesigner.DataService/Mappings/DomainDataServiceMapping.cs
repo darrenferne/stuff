@@ -4,23 +4,24 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace DataServiceDesigner.DataService
 {
-    public class DataServiceMap : ClassMapping<DesignerDataService>
+    public class DomainDataServiceMap : ClassMapping<DomainDataService>
     {
-        public DataServiceMap()
+        public DomainDataServiceMap()
         {
             Table("dataservice");
 
             Id(x => x.Id);
 
             Property(x => x.Name);
+            Property(x => x.DefaultSchema);
 
-            //ManyToOne(x => x.Connection, m =>
-            //{
-            //    m.Column("connectionid");
-            //    m.Cascade(Cascade.Persist);
-            //    m.Lazy(LazyRelation.NoLazy);
-            //    m.Fetch(FetchKind.Join);
-            //});
+            ManyToOne(x => x.Connection, m =>
+            {
+                m.Column("connectionid");
+                m.Cascade(Cascade.Persist);
+                m.Lazy(LazyRelation.NoLazy);
+                m.Fetch(FetchKind.Join);
+            });
 
             Bag(x => x.DomainObjects, 
                 m =>
