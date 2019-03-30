@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="combined-bwf-database-dataservice" Version="2046.3.17-telstar" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brady.Limits.ProvisionalContract.DataService\Brady.Limits.ProvisionalContract.DataService.csproj" />
+    <ProjectReference Include="..\Brady.Limits.ProvisionalContract.Domain\Brady.Limits.ProvisionalContract.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,46 @@
+﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+
+namespace Brady.Limits.ProvisionalContract.Domain.Metadata
+{
+    public class ProvisionalContractMetadata : TypeMetadataProvider<ProvisionalContract>
+    {
+        public ProvisionalContractMetadata()
+        {
+            AutoUpdatesByDefault();
+
+            IntegerProperty(p => p.Id)
+                .IsId();
+
+            StringProperty(p => p.ContractId)
+                .DisplayName("Contract Id");
+
+            StringProperty(p => p.ClientNumber)
+                .DisplayName("Client Number");
+
+            StringProperty(p => p.ClientName)
+                .DisplayName("Client Name");
+
+            StringProperty(p => p.Product)
+                .DisplayName("Product");
+
+            NumericProperty(p => p.Quantity)
+                .DisplayName("Quantity");
+
+            StringProperty(p => p.QuantityUnit)
+                .DisplayName("QuantityUnits");
+
+            NumericProperty(p => p.Premium)
+                .DisplayName("Premium");
+
+            ViewDefaults()
+                .Property(p => p.ContractId)
+                .Property(p => p.ClientNumber)
+                .Property(p => p.ClientName)
+                .Property(p => p.Product)
+                .Property(p => p.Quantity)
+                .Property(p => p.QuantityUnit)
+                .Property(p => p.Premium)
+                .OrderBy(p => p.ClientNumber);
+        }
+    }
+}
