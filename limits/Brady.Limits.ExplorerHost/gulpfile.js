@@ -14,7 +14,16 @@ console.log('Explorer Host Output Folder:' + explorerHostOutputFolder);
 console.log('Bwf Source Folder:' + bwfFiles);
 
 const provisionalContractModules = path.join(dirname, '../Brady.Limits.PhysicalContract.DataService/modules') + fileTypes;
-const provisionalContractTemplates = path.join(dirname, '../Limits/Brady.Limits.PhysicalContract.DataService/templates') + fileTypes;
+const provisionalContractTemplates = path.join(dirname, '../Brady.Limits.PhysicalContract.DataService/templates') + fileTypes;
+console.log('Physical Contract Modules:' + provisionalContractModules);
+console.log('Physical Contract Templates:' + provisionalContractTemplates);
+
+const limitsModules = path.join(dirname, '../Brady.Limits.DataService/modules') + fileTypes;
+const limitsTemplates = path.join(dirname, '../Brady.Limits.DataService/templates') + fileTypes;
+const limitsNancyViews = path.join(__dirname, '../Brady.Limits.DataService/Nancy/Views') + fileTypes;
+console.log('Limits Modules:' + limitsModules);
+console.log('Limits Templates:' + limitsTemplates);
+console.log('Limits Nancy Views:' + limitsNancyViews);
 
 gulp.task('copyBwfFiles', function (done) {
     gulp.src(bwfFiles)
@@ -22,11 +31,23 @@ gulp.task('copyBwfFiles', function (done) {
         .pipe(livereload({ quiet: true }));
 
     gulp.src(provisionalContractModules)
-        .pipe(gulp.dest(explorerHostOutputFolder))
+        .pipe(gulp.dest(path.join(explorerHostOutputFolder, '/dataservices/provisional_contract/modules')))
         .pipe(livereload({ quiet: true }));
 
     gulp.src(provisionalContractTemplates)
-        .pipe(gulp.dest(explorerHostOutputFolder))
+        .pipe(gulp.dest(path.join(explorerHostOutputFolder, '/dataservices/provisional_contract/templates')))
+        .pipe(livereload({ quiet: true }));
+
+    gulp.src(limitsModules)
+        .pipe(gulp.dest(path.join(explorerHostOutputFolder, '/dataservices/limitsprototype/modules')))
+        .pipe(livereload({ quiet: true }));
+
+    gulp.src(limitsTemplates)
+        .pipe(gulp.dest(path.join(explorerHostOutputFolder, '/dataservices/limitsprototype/templates')))
+        .pipe(livereload({ quiet: true }));
+
+    gulp.src(limitsNancyViews)
+        .pipe(gulp.dest(path.join(explorerHostOutputFolder, '/Nancy/Views')))
         .pipe(livereload({ quiet: true }));
 
     done();

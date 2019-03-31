@@ -78,6 +78,23 @@ CREATE TABLE [limits].[nexthigh](
 )
 GO
 
+CREATE TABLE [limits].[contractstatus] (
+   [id]        INT NOT NULL,
+   [name]      NVARCHAR(64) NOT NULL,
+   CONSTRAINT [pk_contractstatuc] PRIMARY KEY CLUSTERED
+   (
+      [id] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[contractstatus] VALUES (0, 'Pending')
+GO
+INSERT INTO [limits].[contractstatus] VALUES (1, 'Rejected')
+GO
+INSERT INTO [limits].[contractstatus] VALUES (2, 'Approved')
+GO
+
 CREATE TABLE [limits].[provisionalcontract] (
    [id]              BIGINT NOT NULL,
    [contractid]      NVARCHAR(64) NOT NULL,
@@ -86,13 +103,20 @@ CREATE TABLE [limits].[provisionalcontract] (
    [product]         NVARCHAR(64) NOT NULL,
    [quantity]        FLOAT NOT NULL,
    [quantityunit]    NVARCHAR(64) NOT NULL,
-   [premium]         FLOAT NOT NULL
-
+   [premium]         FLOAT NOT NULL,
+   [status]          INT NOT NULL DEFAULT(0),
    CONSTRAINT [pk_provisionalcontract] PRIMARY KEY CLUSTERED
    (
       [id] ASC
    )
 )
+GO
+
+ALTER TABLE [limits].[provisionalcontract]
+   ADD CONSTRAINT [fk_provisionalcontract1]
+   FOREIGN KEY ([status])
+   REFERENCES [limits].[contractstatus] (id)
+   ON DELETE CASCADE
 GO
 
 INSERT INTO [limits].[nexthigh] ([nexthigh], [entityname])
@@ -110,18 +134,131 @@ CREATE TABLE [limits].[a_provisionalcontract] (
    [product]         NVARCHAR(64) NOT NULL,
    [quantity]        FLOAT NOT NULL,
    [quantityunit]    NVARCHAR(64) NOT NULL,
-   [premium]         FLOAT NOT NULL
-	
+   [premium]         FLOAT NOT NULL,
+	[status]          INT NOT NULL,
     CONSTRAINT [pk_a_provisionalcontract] PRIMARY KEY CLUSTERED
     (
         [bwf_auditId] ASC
     )
 )
 GO
+ALTER TABLE [limits].[a_provisionalcontract]
+   ADD CONSTRAINT [fk_[a_provisionalcontract1]
+   FOREIGN KEY ([status])
+   REFERENCES [limits].[contractstatus] (id)
+   ON DELETE CASCADE
+GO
 
 INSERT INTO [limits].[nexthigh] (nexthigh, entityname)
     VALUES (0, 'ProvisionalContractAudit');
 GO	
+
+CREATE TABLE [limits].[selection] (
+   [id]              BIGINT NOT NULL,
+   [name]            NVARCHAR(64) NOT NULL,
+   [filter]          NVARCHAR(4000) NOT NULL
+   CONSTRAINT [pk_selection] PRIMARY KEY CLUSTERED
+   (
+      [id] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[nexthigh] ([nexthigh], [entityname])
+     VALUES (0, 'Selection')
+GO
+
+CREATE TABLE [limits].[a_selection] (
+   [bwf_auditId]             BIGINT            NOT NULL,
+   [bwf_actionId]            BIGINT            NOT NULL,
+   [bwf_auditSummary]        NVARCHAR(1024)    NOT NULL,
+   [id]              BIGINT NOT NULL,
+   [name]            NVARCHAR(64) NOT NULL,
+   [filter]          NVARCHAR(4000) NOT NULL
+   CONSTRAINT [pk_a_selection] PRIMARY KEY CLUSTERED
+   (
+      [bwf_auditid] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[nexthigh] (nexthigh, entityname)
+    VALUES (0, 'SelectionAudit');
+GO
+
+CREATE TABLE [limits].[workflow] (
+   [id]              BIGINT NOT NULL,
+   [name]            NVARCHAR(64) NOT NULL,
+
+   CONSTRAINT [pk_workflow] PRIMARY KEY CLUSTERED
+   (
+      [id] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[nexthigh] ([nexthigh], [entityname])
+     VALUES (0, 'Workflow')
+GO
+
+CREATE TABLE [limits].[a_workflow] (
+   [bwf_auditId]             BIGINT            NOT NULL,
+   [bwf_actionId]            BIGINT            NOT NULL,
+   [bwf_auditSummary]        NVARCHAR(1024)    NOT NULL,
+   [id]              BIGINT NOT NULL,
+   [name]            NVARCHAR(64) NOT NULL,
+
+   CONSTRAINT [pk_a_workflow] PRIMARY KEY CLUSTERED
+   (
+      [bwf_auditid] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[nexthigh] (nexthigh, entityname)
+    VALUES (0, 'WorkflowAudit');
+GO
+
+CREATE TABLE [limits].[workflowlevel] (
+   [id]              BIGINT NOT NULL,
+   [workflowid]      BIGINT,
+   [name]            NVARCHAR(64) NOT NULL,
+
+   CONSTRAINT [pk_workflowlevel] PRIMARY KEY CLUSTERED
+   (
+      [id] ASC
+   )
+)
+GO
+
+ALTER TABLE [limits].[workflowlevel]
+   ADD CONSTRAINT [fk_workflowlevel1]
+   FOREIGN KEY ([workflowid])
+   REFERENCES [limits].[workflow]([id])
+   ON DELETE CASCADE
+GO
+
+INSERT INTO [limits].[nexthigh] ([nexthigh], [entityname])
+     VALUES (0, 'WorkflowLevel')
+GO
+
+CREATE TABLE [limits].[a_workflowlevel] (
+   [bwf_auditId]             BIGINT            NOT NULL,
+   [bwf_actionId]            BIGINT            NOT NULL,
+   [bwf_auditSummary]        NVARCHAR(1024)    NOT NULL,
+   [id]              BIGINT NOT NULL,
+   [name]            NVARCHAR(64) NOT NULL,
+
+   CONSTRAINT [pk_a_workflowlevel] PRIMARY KEY CLUSTERED
+   (
+      [bwf_auditid] ASC
+   )
+)
+GO
+
+INSERT INTO [limits].[nexthigh] (nexthigh, entityname)
+    VALUES (0, 'WorkflowLevelAudit');
+GO
 
 CREATE TABLE [limits].bwfaudit (
     id          BIGINT              NOT NULL,

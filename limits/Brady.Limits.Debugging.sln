@@ -103,6 +103,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BWF.Explorer.Utils", "..\..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BWF", "BWF", "{46462B82-B7F9-432C-BBFA-33A1B48C68CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Limits.DataService", "Brady.Limits.DataService\Brady.Limits.DataService.csproj", "{B1A24D3C-7F62-4C3C-A65A-72B65F7CC18F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Limits.Domain", "Brady.Limits.Domain\Brady.Limits.Domain.csproj", "{3338CA99-C8E0-496D-A894-03E9CFC56DFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -301,6 +305,14 @@ Global
 		{5FB52AA3-A879-4928-82EC-BEFE1B9D78D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB52AA3-A879-4928-82EC-BEFE1B9D78D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB52AA3-A879-4928-82EC-BEFE1B9D78D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A24D3C-7F62-4C3C-A65A-72B65F7CC18F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A24D3C-7F62-4C3C-A65A-72B65F7CC18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A24D3C-7F62-4C3C-A65A-72B65F7CC18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A24D3C-7F62-4C3C-A65A-72B65F7CC18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3338CA99-C8E0-496D-A894-03E9CFC56DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3338CA99-C8E0-496D-A894-03E9CFC56DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3338CA99-C8E0-496D-A894-03E9CFC56DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3338CA99-C8E0-496D-A894-03E9CFC56DFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

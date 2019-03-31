@@ -426,6 +426,14 @@
       <Project>{00CE4A62-CB7A-4E6A-819F-787D5F644EAA}</Project>
       <Name>BWF.Membership.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Brady.Limits.DataService\Brady.Limits.DataService.csproj">
+      <Project>{b1a24d3c-7f62-4c3c-a65a-72b65f7cc18f}</Project>
+      <Name>Brady.Limits.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brady.Limits.Domain\Brady.Limits.Domain.csproj">
+      <Project>{3338ca99-c8e0-496d-a894-03e9cfc56dfc}</Project>
+      <Name>Brady.Limits.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

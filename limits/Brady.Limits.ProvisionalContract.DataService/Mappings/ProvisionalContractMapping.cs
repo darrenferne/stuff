@@ -1,5 +1,6 @@
 ﻿using Brady.Limits.ProvisionalContract.Domain;
 using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Type;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Brady.Limits.ProvisionalContract.DataService.DataAccess.Mappings
             Property(p => p.Quantity);
             Property(p => p.QuantityUnit);
             Property(p => p.Premium);
+            Property(p => p.Status);
         }       
     }
 }

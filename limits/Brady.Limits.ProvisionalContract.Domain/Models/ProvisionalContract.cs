@@ -13,5 +13,6 @@ namespace Brady.Limits.ProvisionalContract.Domain
         public virtual float Quantity { get; set; }
         public virtual string QuantityUnit { get; set; }
         public virtual float Premium { get; set; }
+        public virtual int Status { get; set;}
     }
 }

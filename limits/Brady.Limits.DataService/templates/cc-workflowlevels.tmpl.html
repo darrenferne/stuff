@@ -1,0 +1,9 @@
+﻿<div id="workflowLevels" style="width: 100%; position: relative" data-bind="style: { height: controlHeight }">
+    <div id="workflowLevelsGrid" style="width:85%" data-bind="kendoGrid: { data: levels, columns: displayColumns, selectable: 'multiple', scrollable: true, height: '100%', change: selectedLevelsChange }" />
+    <div id="workflowLevelsMenu" class="btn-group" style="position: absolute; left: 86%; top:0%">
+        <button class="btn btn-primary btn-xs" data-bind="visible: showCreate, enable: enableCreate, click: createLevel"><i class="fa fa-plus fa-white"></i></button>
+        <button class="btn btn-primary btn-xs" data-bind="visible: showEdit, enable: enableEdit, click: editLevel"><i class="fa fa-edit fa-white"></i></button>
+        <button class="btn btn-primary btn-xs" data-bind="visible: showDelete, enable: enableDelete, click: deleteLevel"><i class="fa fa-times fa-white"></i></button>
+    </div>
+</div>
+
