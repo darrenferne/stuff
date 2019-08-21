@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1.csproj", "{3137537B-58B9-401A-BD00-6A1622A28677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brady.Common.CrystalWrapper", "..\Brady.Common.CrystalWrapper\Brady.Common.CrystalWrapper.csproj", "{64BE616C-E0BB-403D-AC8F-9F828EA35C22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{3137537B-58B9-401A-BD00-6A1622A28677}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3137537B-58B9-401A-BD00-6A1622A28677}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3137537B-58B9-401A-BD00-6A1622A28677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64BE616C-E0BB-403D-AC8F-9F828EA35C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BE616C-E0BB-403D-AC8F-9F828EA35C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BE616C-E0BB-403D-AC8F-9F828EA35C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BE616C-E0BB-403D-AC8F-9F828EA35C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C35C67DB-0EFE-48B8-AA2C-22B468F1D80B}
 	EndGlobalSection
 EndGlobal

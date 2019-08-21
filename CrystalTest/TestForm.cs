@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -36,12 +37,9 @@ namespace WindowsFormsApplication1
                 {
                     CrystalWrapper wrapper = new CrystalWrapper();
 
-                    wrapper.DSN = "DYNDARRN";
-                    wrapper.UserId = "DARREN";
-                    wrapper.Password = "P27284";
-                    //wrapper.DSN = "TOYLIN1";
-                    //wrapper.UserId = "trinity_readall";
-                    //wrapper.Password = "trinity";
+                    wrapper.DSN = ConfigurationManager.AppSettings.Get("DSN");
+                    wrapper.UserId = ConfigurationManager.AppSettings.Get("USERNAME");
+                    wrapper.Password = ConfigurationManager.AppSettings.Get("PASSWORD");
                     wrapper.ReportTemplate = template;
                     wrapper.ViewReport();
                 }
