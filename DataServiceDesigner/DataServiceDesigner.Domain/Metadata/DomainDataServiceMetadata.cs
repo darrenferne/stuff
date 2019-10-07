@@ -53,7 +53,12 @@ namespace DataServiceDesigner.Domain
                 .Property(p => p.Connection)
                 .Property(p => p.DefaultSchema)
                 .Property(p => p.DomainObjects[0].DataService)
-                .Property(p => p.DomainObjects[0].Schema);
+                .Property(p => p.DomainObjects[0].Schema)
+                .Property(p => p.DomainObjects[0].DataService)
+                .Property(p => p.DomainObjects[0].Schema)
+                .Property(p => p.DomainObjects[0].ObjectProperties)
+                .Property(p => p.DomainObjects[0].ObjectProperties[0].DataService)
+                .Property(p => p.DomainObjects[0].ObjectProperties[0].Object);
 
             ViewDefaults()
                 .Property(x => x.Name)

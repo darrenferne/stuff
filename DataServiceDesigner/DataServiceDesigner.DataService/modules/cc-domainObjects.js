@@ -35,6 +35,8 @@
                 for (var i = 0; i < selectedRecords.length; i++) {
                     var selectedRecord = selectedRecords[i].record;
                     var domainObject = {
+                        Id: 0,
+                        DataService: { Id: self.data.model.record.Id },
                         Schema: {
                             Id: 0,
                             Name: selectedRecord.SchemaName
@@ -45,16 +47,20 @@
                     };
                     var gridItem = exp.generateBasicGridItem(domainObject, self.selectedRecordGrid().records().length + 1, self.selectedRecordGridColumns);
                     self.selectedRecordGrid().records.push(gridItem);
+                    self.selectedObjects().push(domainObject);
                 }
                 self.availableRecordGrid().records.removeAll(selectedRecords);
             };
             self.deleteSelected = function () {
                 var selectedRecords = self.selectedRecordGrid().selectedRecords();
+                var selectedObjects = self.selectedRecordGrid().selectedRecords().map(function (r) { return r.record; });
                 self.selectedRecordGrid().records.removeAll(selectedRecords);
+                self.selectedObjects.removeAll(selectedObjects);
                 self.loadAvailableObjects(self.connectionName(), true);
             };
             self.clear = function () {
-                var removed = self.selectedRecordGrid().records.removeAll();
+                self.selectedRecordGrid().records.removeAll();
+                self.selectedObjects.removeAll();
                 self.loadAvailableObjects(self.connectionName(), true);
             };
         
@@ -77,7 +83,7 @@
                 ];  
                 
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
-                var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", false);
+                var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);
 
                 grid.validate = function (record, success, failure) {
                     self.selectedRecordGrid().updateDirtyRecordWithLatestValues(record, self.selectedRecordGridColumns);
