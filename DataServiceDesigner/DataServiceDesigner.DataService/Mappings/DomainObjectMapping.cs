@@ -12,8 +12,7 @@ namespace DataServiceDesigner.DataService
 
             Id(x => x.Id);
 
-            Property(x => x.DbSchemaName, m => m.Column("DbSchema"));
-            Property(x => x.DbObjectName, m => m.Column("DbName"));
+            Property(x => x.DbName);
             Property(x => x.Name);
             Property(x => x.DisplayName);
             Property(x => x.PluralisedDisplayName);
@@ -21,6 +20,16 @@ namespace DataServiceDesigner.DataService
             ManyToOne(x => x.DataService, m =>
             {
                 m.Column("dataserviceid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
+                m.Lazy(LazyRelation.NoLazy);
+                m.Fetch(FetchKind.Join);
+            });
+
+            ManyToOne(x => x.Schema, m =>
+            {
+                m.Column("schemaid");
+                m.NotNullable(true);
                 m.Cascade(Cascade.Persist);
                 m.Lazy(LazyRelation.NoLazy);
                 m.Fetch(FetchKind.Join);

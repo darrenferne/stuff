@@ -13,15 +13,15 @@
                     parent.show();
                 else
                     parent.hide();
-            }
+            };
 
             self.initialise = function () {
                 var model = this;
                 self.databaseType.subscribe(function (databaseType) {
-                    model.showOrHide(databaseType == 'SQLServer');
-                })
-                model.showOrHide(self.databaseType() == 'SQLServer');
-            }
+                    model.showOrHide(databaseType === 'SQLServer');
+                });
+                model.showOrHide(self.databaseType() === 'SQLServer');
+            };
             self.initialise();
         }
 

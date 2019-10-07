@@ -5,8 +5,8 @@ namespace DataServiceDesigner.Domain
 {
     public class DomainObjectProperty : IHaveId<long>
     {
-        public virtual DomainObject DomainObject { get; set; }
-        public virtual DbObjectProperty DbProperty { get; set; }
+        public virtual DomainDataService DataService { get; set; }
+        public virtual DomainObject Object { get; set; }
         public virtual long Id { get; set; }
         public virtual string DbName { get; set; }
         public virtual string Name { get; set; }

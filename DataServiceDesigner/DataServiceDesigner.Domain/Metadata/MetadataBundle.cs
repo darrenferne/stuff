@@ -8,10 +8,10 @@ namespace DataServiceDesigner.Domain
             : base("dataservicedesigner",
                 new DataServiceConnectionMetadata(), 
                 new DomainDataServiceMetadata(),
+                new DomainSchemaMetadata(),
                 new DomainObjectMetadata(),
                 new DomainObjectPropertyMetadata()
-                  //,new SchemaBrowserMetadata()
-                  )
+            )
         { }
     }
 }

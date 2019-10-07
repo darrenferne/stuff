@@ -1,4 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace SchemaBrowser.Domain
 {
@@ -16,6 +17,11 @@ namespace SchemaBrowser.Domain
                 .IsNotEditableInGrid();
 
             StringProperty(x => x.Name)
+                .Parameter(p => p
+                    .Query("DbConnections?$orderby=Name")
+                    .DisplayProperty(o => o.Name)
+                    .AllowNullOrEmpty()
+                    .AvailableOperators(Operator.Equals))
                 .PositionInEditor(1);
 
             EnumProperty(x => x.DatabaseType)

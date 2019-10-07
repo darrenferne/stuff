@@ -12,7 +12,7 @@ namespace DataServiceDesigner.DataService
                 .GreaterThanOrEqualTo(0L);
 
             RuleFor(x => x.Name)
-                .Length(0, 64);
+                .Length(1, 64);
         }
     }
 }

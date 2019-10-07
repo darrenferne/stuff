@@ -1,4 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace DataServiceDesigner.Domain
 {
@@ -9,7 +10,7 @@ namespace DataServiceDesigner.Domain
             AutoUpdatesByDefault();
             SupportsEditMode();
 
-            DisplayName("Connection");
+            DisplayName("Data Service Connection");
             
             IntegerProperty(x => x.Id)
                 .IsId()
@@ -17,7 +18,12 @@ namespace DataServiceDesigner.Domain
                 .IsNotEditableInGrid();
 
             StringProperty(x => x.Name)
-                .PositionInEditor(1);
+                .PositionInEditor(1)
+                .Parameter(p => p
+                    .Query("DataServiceConnections?$orderby=Name")
+                    .DisplayProperty(o => o.Name)
+                    .AllowNullOrEmpty()
+                    .AvailableOperators(Operator.Equals));
 
             EnumProperty(x => x.DatabaseType)
                 .PositionInEditor(2);

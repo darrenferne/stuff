@@ -13,7 +13,7 @@
                     parent.show();
                 else
                     parent.hide();
-            }
+            };
 
             self.initialise = function () {
                 var model = this;
@@ -21,7 +21,7 @@
                     model.showOrHide(!useIntegratedSecurity);
                 })
                 model.showOrHide(!self.useIntegratedSecurity());
-            }
+            };
             self.initialise();
         }
 

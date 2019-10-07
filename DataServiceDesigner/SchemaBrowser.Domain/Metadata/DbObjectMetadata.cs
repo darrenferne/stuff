@@ -1,4 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace SchemaBrowser.Domain
 {
@@ -15,19 +16,20 @@ namespace SchemaBrowser.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
-            IntegerProperty(x => x.ConnectionId)
+            TypeProperty(x => x.Connection)
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid()
-                .Parameter(p => p
-                    .Query("DbConnections?$orderby=Name")
-                    .DisplayProperty("Name"));
+                .DisplayFieldInEditorChoice("Name")
+                .ValueFieldInEditorChoice("Id");
 
             StringProperty(x => x.SchemaName)
                 .DisplayName("Db Schema")
                 .PositionInEditor(2)
                 .Parameter(p => p
                     .Query("DbSchemas?$orderby=Name")
-                    .DisplayProperty("Name"));
+                    .DisplayProperty("Name")
+                    .AllowNullOrEmpty()
+                    .AvailableOperators(Operator.Equals));
 
             StringProperty(x => x.Name)
                 .DisplayName("Object Name")
@@ -36,15 +38,11 @@ namespace SchemaBrowser.Domain
             EnumProperty(x => x.ObjectType)
                 .DisplayName("Object Type")
                 .PositionInEditor(4);
-
-            //CollectionProperty(x => x.Properties)
-            //    .DisplayName("Properties")
-            //    .PositionInEditor(7);
-
+            
             ExpandsForEdit();
 
             ViewDefaults()
-                .Parameter(x => x.ConnectionId)
+                .Parameter(x => x.Connection.Name)
                 .Parameter(x => x.SchemaName)
                 .Property(x => x.SchemaName)
                 .Property(x => x.Name)

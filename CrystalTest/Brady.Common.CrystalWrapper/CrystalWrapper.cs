@@ -351,11 +351,10 @@ namespace Brady.Common.CrystalWrapper
         private string GetSQLQuery(ReportDocument report)
         {
             //TODO
-            //CrystalDecisions.ReportAppServer.DataDefModel.ISCRGroupPath gp = new CrystalDecisions.ReportAppServer.DataDefModel.GroupPath();
-            //string reserved;
-            //var s = report.ReportClientDocument.RowsetController.GetSQLStatement(gp, out reserved);
+            CrystalDecisions.ReportAppServer.DataDefModel.ISCRGroupPath gp = new CrystalDecisions.ReportAppServer.DataDefModel.GroupPath();
+            var sql = report.ReportClientDocument.RowsetController.GetSQLStatement(gp, out var reserved);
 
-            return string.Empty;
+            return sql;
         }
 
         public void ExportReport(ReportDocument report)
@@ -509,6 +508,8 @@ namespace Brady.Common.CrystalWrapper
         public void ViewReport()
         {
             ReportDocument report = SetupAndValidateReport();
+
+            var s = GetSQLQuery(report);
 
             ViewReport(report);
         }

@@ -40,9 +40,9 @@ namespace SchemaBrowser.DataService
 
         public void PurgeSchema(long connectionId)
         {
-            DeleteWhere<DbObjectProperty>(p => p.ConnectionId == connectionId);
-            DeleteWhere<DbObject>(p => p.ConnectionId == connectionId);
-            DeleteWhere<DbSchema>(p => p.ConnectionId == connectionId);
+            DeleteWhere<DbObjectProperty>(p => p.Connection.Id == connectionId);
+            DeleteWhere<DbObject>(p => p.Connection.Id == connectionId);
+            DeleteWhere<DbSchema>(p => p.Connection.Id == connectionId);
         }
 
         public void FetchSchema(DbConnection connection)
@@ -53,21 +53,19 @@ namespace SchemaBrowser.DataService
 
             foreach (var dbObject in dbObjects)
             {
-                dbObject.ConnectionId = connection.Id;
+                dbObject.Connection = connection;
                 Create<DbObject>(dbObject);
 
                 if (!dbSchemas.ContainsKey(dbObject.SchemaName))
                 {
-                    var schema = new DbSchema() { ConnectionId = connection.Id, Name = dbObject.SchemaName/*, Objects = new List<DbObject>()*/ };
+                    var schema = new DbSchema() { Connection = connection, Name = dbObject.SchemaName/*, Objects = new List<DbObject>()*/ };
                     dbSchemas.Add(dbObject.SchemaName, schema);
                 }
-
-                //dbSchemas[dbObject.SchemaName].Objects.Add(dbObject);
             }
 
             foreach (var dbObjectProperty in dbObjectProperties)
             {
-                dbObjectProperty.ConnectionId = connection.Id;
+                dbObjectProperty.Connection = connection;
                 Create<DbObjectProperty>(dbObjectProperty);
             }
 

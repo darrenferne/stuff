@@ -17,10 +17,20 @@ namespace DataServiceDesigner.DataService
             Property(x => x.DisplayName);
             Property(x => x.IsPartOfKey);
             Property(x => x.IncludeInDefaultView);
-            
-            ManyToOne(x => x.DomainObject, m =>
+
+            ManyToOne(x => x.DataService, m =>
+            {
+                m.Column("dataserviceid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
+                m.Lazy(LazyRelation.NoLazy);
+                m.Fetch(FetchKind.Join);
+            });
+
+            ManyToOne(x => x.Object, m =>
             {
                 m.Column("objectid");
+                m.NotNullable(true);
                 m.Cascade(Cascade.Persist);
                 m.Lazy(LazyRelation.NoLazy);
                 m.Fetch(FetchKind.Join);

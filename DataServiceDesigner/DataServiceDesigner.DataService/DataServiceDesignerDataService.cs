@@ -41,31 +41,38 @@ namespace DataServiceDesigner.DataService
                     Items = new List<MenuItem>() {
                         new MenuItem()
                         {
-                            Id = "Connection",
-                            Text = "Connections",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DataServiceConnection",
+                            Id = "DomainDataService",
+                            Text = "Domain Data Services",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainDataService",
                             Position = 1
                         },
                         new MenuItem()
                         {
-                            Id = "DataService",
-                            Text = "Data Services",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainDataService",
+                            Id = "DomainConnection",
+                            Text = "Domain Connections",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DataServiceConnection",
                             Position = 2
+                        },
+                        new MenuItem()
+                        {
+                            Id = "DomainSchema",
+                            Text = "Domain Schemas",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainSchema",
+                            Position = 3
                         },
                         new MenuItem()
                         {
                             Id = "DomainObject",
                             Text = "Domain Objects",
                             Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObject",
-                            Position = 3
+                            Position = 4
                         },
                         new MenuItem()
                         {
                             Id = "DomainObjectProperty",
                             Text = "Domain Object Properties",
                             Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectProperty",
-                            Position = 4
+                            Position = 5
                         }
                     }
                 }

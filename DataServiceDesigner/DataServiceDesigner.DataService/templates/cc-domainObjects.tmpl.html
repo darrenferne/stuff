@@ -1,5 +1,5 @@
 ﻿<div id="domainObjects" class="custom-panel-control">
-    <div class="panel-side-by-side panel-3quarter">
+    <div class="panel-side-by-side panel-2third">
         <div class="margin-bottom-xs" data-bind="ifnot: formDisabled">
             <div class="btn-group">
                 <button data-bind="enable: canDelete, click: deleteSelected"
@@ -17,11 +17,11 @@
             </div>
         </div>
         <div class="flex-box grow-one"
-             data-bind="component: { name: 'grid/bwf-grid', params: selectedGrid }">
+             data-bind="component: { name: 'grid/bwf-grid', params: selectedRecordGrid }">
         </div>
     </div>
     <div class="panel-center-spacer"></div>
-    <div class="panel-side-by-side panel-1quarter">
+    <div class="panel-side-by-side panel-1third">
         <div class="btn-group margin-bottom-xs" data-bind="ifnot: formDisabled">
             <button data-bind="enable: canSelect, click: select"
                     type="button" class="btn btn-xs btn-primary">
@@ -30,7 +30,7 @@
             </button>
         </div>
         <div class="flex-box grow-one"
-             data-bind="component: { name: 'grid/bwf-grid', params: availableGrid }">
+             data-bind="component: { name: 'grid/bwf-grid', params: availableRecordGrid }">
         </div>
     </div>
 </div>

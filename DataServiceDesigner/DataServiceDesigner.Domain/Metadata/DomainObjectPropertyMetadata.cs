@@ -17,14 +17,21 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
-            TypeProperty(x => x.DomainObject)
+            TypeProperty(p => p.DataService)
+                .DisplayName("Data Service")
+                .PositionInEditor(1)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataServices?$orderby=Name'")
+                .DisplayFieldInEditorChoice(p => p.Name)
+                .ValueFieldInEditorChoice(p => p.Id)
+                .IsMandatoryInEditMode();
+
+            TypeProperty(x => x.Object)
                 .DisplayName("Domain Object")
                 .PositionInEditor(1)
-                .Parameter(p => p
-                    .DisplayProperty(x => x.DomainObject.Name)
-                    .Query("DesignerDomainObjects?$orderby=Name"))
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=Name'")
                 .DisplayFieldInEditorChoice("Name")
-                .ValueFieldInEditorChoice("Id");
+                .ValueFieldInEditorChoice("Id")
+                .IsMandatoryInEditMode();
 
             StringProperty(x => x.DbName)
                 .PositionInEditor(2)
@@ -46,6 +53,8 @@ namespace DataServiceDesigner.Domain
                 .PositionInEditor(6);
 
             ViewDefaults()
+                .Property(x => x.DataService.Name)
+                .Property(x => x.Object.Name)
                 .Property(x => x.DbName)
                 .Property(x => x.Name)
                 .Property(x => x.DisplayName)

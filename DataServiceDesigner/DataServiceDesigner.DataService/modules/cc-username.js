@@ -13,15 +13,15 @@
                     parent.show();
                 else
                     parent.hide();
-            }
+            };
 
             self.initialise = function () {
                 var model = this;
                 self.useIntegratedSecurity.subscribe(function (useIntegratedSecurity) {
                     model.showOrHide(!useIntegratedSecurity);
-                })
+                });
                 model.showOrHide(!self.useIntegratedSecurity());
-            }
+            };
             self.initialise();
         }
 

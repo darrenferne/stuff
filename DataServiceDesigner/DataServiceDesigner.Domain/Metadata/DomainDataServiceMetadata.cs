@@ -1,4 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using BWF.DataServices.Metadata.Fluent.Enums;
 using SchemaBrowser.Domain;
 using SBD = SchemaBrowser.Domain;
 
@@ -19,28 +20,40 @@ namespace DataServiceDesigner.Domain
                 .IsNotEditableInGrid();
 
             StringProperty(x => x.Name)
-                .PositionInEditor(1);
+                .PositionInEditor(1)
+                .Parameter(p => p
+                    .Query("DomainDataServices?$orderby=Name")
+                    .DisplayProperty(o => o.Name)
+                    .AllowNullOrEmpty()
+                    .AvailableOperators(Operator.Equals));
 
-            StringProperty(x => x.ConnectionString)
-                .DisplayName("Connection String")
+            TypeProperty(p => p.Connection)
+                .DisplayName("Connection")
                 .PositionInEditor(2)
-                .CustomControl("cc-dataServiceConnection")
-                .CustomControlHeight(30);
+                .PopulateChoiceQuery("'dataservicedesigner/query/DataServiceConnections?$orderby=Name'")
+                .DisplayFieldInEditorChoice(x => x.Name)
+                .ValueFieldInEditorChoice(x => x.Id)
+                .IsNotEditableInGrid();
 
-            TypeProperty(x => x.DbConnection)
-                .FromDataService(Constants.DataServiceName)
-                .IsHidden()
-                .IsHiddenInEditor();            
-
-            StringProperty(x => x.DefaultSchema)
+            TypeProperty(x => x.DefaultSchema)
                 .DisplayName("Default Schema")
-                .PositionInEditor(3);
+                .PositionInEditor(3)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=Name'")
+                .DisplayFieldInEditorChoice(x => x.Name)
+                .ValueFieldInEditorChoice(x => x.Id)
+                .IsNotEditableInGrid();
             
             CollectionProperty(x => x.DomainObjects)
-                .DisplayName("Domain Objects")
                 .PositionInEditor(4)
+                .DisplayName("Domain Objects")
                 .CustomControl("cc-domainObjects")
-                .CustomControlHeight(300);
+                .CustomControlHeight(400);
+
+            ExpandsForEdit()
+                .Property(p => p.Connection)
+                .Property(p => p.DefaultSchema)
+                .Property(p => p.DomainObjects[0].DataService)
+                .Property(p => p.DomainObjects[0].Schema);
 
             ViewDefaults()
                 .Property(x => x.Name)

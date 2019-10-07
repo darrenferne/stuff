@@ -10,7 +10,7 @@ namespace DataServiceDesigner.DataService
 {
     public class DataServiceDesignerRepository : ConventionalDatabaseDataServiceRepository, IDataServiceDesignerRepository
     {
-        ISessionFactory _internalFactory;
+        //ISessionFactory _internalFactory;
         public DataServiceDesignerRepository(
            IHostConfiguration hostConfiguration,
            IGlobalisationProvider globalisationProvider,

@@ -2,8 +2,8 @@
     function (ko, options, log, metadataService) {
 
         var isNullOrEmpty = function (str) {
-            return str == null || str === "";
-        }
+            return str === null || str === "";
+        };
 
         function dataServiceConnectionViewModel(data) {
             var self = this;
@@ -19,24 +19,24 @@
                 var onCompletion = function (params) {
                     self.parentModel.record.DbConnection = params.record;
                     self.parentModel.record.ConnectionString = params.record.ConnectionString;
-                }
+                };
 
                 var actionArgs = {
-                    action: dbConnection == null ? 'create' : 'edit',
+                    action: dbConnection === null ? 'create' : 'edit',
                     baseType: 'DbConnection',
                     component: 'bwf-panel-editor',
                     onCompletion: onCompletion,
                     parentIsSource: true,
                     dataService: 'schemabrowser',
-                    toEdit: [ dbConnection ]
-                }
+                    toEdit: [dbConnection]
+                };
 
-                ko.postbox.publish(self.parentModel.state.gridId + '-doAction', actionArgs)
+                ko.postbox.publish(self.parentModel.state.gridId + '-doAction', actionArgs);
             };
 
             self.initialise = function (model, record) {
                 model.connectionString(record.ConnectionString);
-            }
+            };
             self.initialise(self, data.model.record);
         }
 

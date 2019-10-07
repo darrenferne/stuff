@@ -1,4 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
+using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace DataServiceDesigner.Domain
 {
@@ -8,9 +9,9 @@ namespace DataServiceDesigner.Domain
         {
             AutoUpdatesByDefault();
             SupportsEditMode();
-
+            
             DisplayName("Domain Object");
-
+            
             IntegerProperty(x => x.Id)
                 .IsId()
                 .IsHiddenInEditor()
@@ -19,31 +20,30 @@ namespace DataServiceDesigner.Domain
             TypeProperty(x => x.DataService)
                 .DisplayName("Data Service")
                 .PositionInEditor(1)
-                .Parameter(p => p
-                    .DisplayProperty(x => x.DataService.Name)
-                    .Query("DesignerDataServices?$orderby=Name"))
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataService?$orderby=Name'")
                 .DisplayFieldInEditorChoice("Name")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
 
-            StringProperty(x => x.DbSchema)
-                .DisplayName("Db Schema")
+            TypeProperty(x => x.Schema)
+                .DisplayName("Schema")
                 .PositionInEditor(2)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=Name'")
                 .DisplayFieldInEditorChoice(x => x.Name)
-                .ValueFieldInEditorChoice(x => x.Name)
-                .RefreshChoiceOnChangeTo(x => x.DataService)
-                .PopulateChoiceQuery(@"this.dataService + '/ext/availableschemas/' + this.selectedDataService().Id");
+                .ValueFieldInEditorChoice(x => x.Id)
+                .IsMandatoryInEditMode();
 
-            StringProperty(x => x.DbObject)
-                .DisplayName("Db Object")
-                .PositionInEditor(3)
-                .DisplayFieldInEditorChoice(x => x.Name)
-                .ValueFieldInEditorChoice(x => x.Name)
-                .RefreshChoiceOnChangeTo(x => x.DataService, x => x.DbSchema)
-                .PopulateChoiceQuery(@"this.dataService + '/ext/schemaobjects/' + this.selectedDataService().Id + '/' + this.selectedDbSchema().Name");
+            StringProperty(x => x.DbName)
+                 .DisplayName("Db Name")
+                 .PositionInEditor(3);
 
             StringProperty(x => x.Name)
-                .PositionInEditor(4);
+                .PositionInEditor(4)
+                .Parameter(p => p
+                    .Query("DomainObjects?$orderby=Name")
+                    .DisplayProperty(o => o.Name)
+                    .AllowNullOrEmpty()
+                    .AvailableOperators(Operator.Equals));
 
             StringProperty(x => x.DisplayName)
                  .DisplayName("Display Name")
@@ -59,8 +59,8 @@ namespace DataServiceDesigner.Domain
 
             ViewDefaults()
                 .Property(x => x.DataService.Name)
-                .Property(x => x.DbSchema)
-                .Property(x => x.DbObject)
+                .Property(x => x.Schema.Name)
+                .Property(x => x.DbName)
                 .Property(x => x.Name)
                 .Property(x => x.DisplayName)
                 .Property(x => x.PluralisedDisplayName)

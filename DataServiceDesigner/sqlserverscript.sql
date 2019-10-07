@@ -62,34 +62,56 @@ ALTER TABLE [dataservicedesigner].[connection]
    ADD CONSTRAINT [uk_connection_name] UNIQUE NONCLUSTERED ([name]);
 GO 
 
-CREATE TABLE [dataservicedesigner].[dataservice](
+CREATE TABLE [dataservicedesigner].[domainschema](
    [id]               [BIGINT]        NOT NULL,
-   [name]             [NVARCHAR](64)  NOT NULL,
-   [connectionid]     [BIGINT],
-   [defaultschema]    [NVARCHAR](30),
+   [name]             [NVARCHAR](64)  NOT NULL
 )
 GO
 
-ALTER TABLE [dataservicedesigner].[dataservice] 
-   ADD CONSTRAINT [pk_dataservice] 
+ALTER TABLE [dataservicedesigner].[domainschema] 
+   ADD CONSTRAINT [pk_domainschema] 
       PRIMARY KEY CLUSTERED ([id])
 GO
 
-ALTER TABLE [dataservicedesigner].[dataservice] 
-   ADD CONSTRAINT [uk_dataservice_name] UNIQUE NONCLUSTERED ([name]);
+ALTER TABLE [dataservicedesigner].[domainschema] 
+   ADD CONSTRAINT [uk_domainschema_name] UNIQUE NONCLUSTERED ([name]);
 GO 
 
-ALTER TABLE [dataservicedesigner].[dataservice] 
-   ADD CONSTRAINT [fk_dataservice1] 
+
+CREATE TABLE [dataservicedesigner].[domaindataservice](
+   [id]               [BIGINT]        NOT NULL,
+   [name]             [NVARCHAR](64)  NOT NULL,
+   [connectionid]     [BIGINT],
+   [defaultschemaid]  [BIGINT]		  NOT NULL
+)
+GO
+
+ALTER TABLE [dataservicedesigner].[domaindataservice] 
+   ADD CONSTRAINT [pk_domaindataservice] 
+      PRIMARY KEY CLUSTERED ([id])
+GO
+
+ALTER TABLE [dataservicedesigner].[domaindataservice] 
+   ADD CONSTRAINT [uk_domaindataservice_name] UNIQUE NONCLUSTERED ([name]);
+GO 
+
+ALTER TABLE [dataservicedesigner].[domaindataservice] 
+   ADD CONSTRAINT [fk_domaindataservice1] 
       FOREIGN KEY([connectionid])
          REFERENCES [dataservicedesigner].[connection] ([id])
             ON DELETE SET NULL
 GO
 
+ALTER TABLE [dataservicedesigner].[domaindataservice] 
+   ADD CONSTRAINT [fk_domaindataservice2] 
+      FOREIGN KEY([defaultschemaid])
+         REFERENCES [dataservicedesigner].[domainschema] ([id])
+GO
+
 CREATE TABLE [dataservicedesigner].[domainobject](
    [id]                    [BIGINT]       NOT NULL,
    [dataserviceid]         [BIGINT]       NOT NULL,
-   [dbschema]              [NVARCHAR](30) NOT NULL,
+   [schemaid]              [BIGINT]       NOT NULL,
    [dbname]                [NVARCHAR](30) NOT NULL,
    [name]                  [NVARCHAR](64) NULL,
    [displayname]           [NVARCHAR](64) NULL,
@@ -109,12 +131,19 @@ GO
 ALTER TABLE [dataservicedesigner].[domainobject] 
    ADD CONSTRAINT [fk_domainobject1] 
       FOREIGN KEY([dataserviceid])
-         REFERENCES [dataservicedesigner].[dataservice] ([id])
+         REFERENCES [dataservicedesigner].[domaindataservice] ([id])
             ON DELETE CASCADE
 GO
 
+ALTER TABLE [dataservicedesigner].[domainobject] 
+   ADD CONSTRAINT [fk_domainobject2] 
+      FOREIGN KEY([schemaid])
+         REFERENCES [dataservicedesigner].[domainschema] ([id])
+            ON DELETE CASCADE
+GO
 CREATE TABLE [dataservicedesigner].[domainobjectproperty](
    [id]                   [BIGINT]       NOT NULL,
+   [dataserviceid]        [BIGINT]       NOT NULL,
    [objectid]             [BIGINT]       NOT NULL,
    [dbname]               [NVARCHAR](30) NOT NULL,
    [name]                 [NVARCHAR](64),
@@ -140,9 +169,10 @@ ALTER TABLE [dataservicedesigner].[domainobjectproperty]
 GO 
 
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] ON
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (1, 1, N'domaindataservice')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (2, 1, N'dataserviceconnection')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (3, 1, N'domainobject')
-INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'domainobjectproperty')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (1, 1, N'dataserviceconnection')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (2, 1, N'domaindataservice')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (3, 1, N'domainschema')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'domainobject')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (5, 1, N'domainobjectproperty')
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] OFF
 GO

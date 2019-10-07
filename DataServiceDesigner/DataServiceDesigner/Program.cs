@@ -17,6 +17,7 @@ namespace DataServiceDesigner
             XmlConfigurator.Configure();
 
             var hostUrl = ConfigurationManager.AppSettings["ExplorerHostUrl"];
+            var defaultLink = ConfigurationManager.AppSettings["DefaultLink"];
 
             var availableLanguageCultures = new List<string> { "en-GB" };
             var availableFormattingCultures = new List<FormattingCulture>
@@ -51,6 +52,7 @@ namespace DataServiceDesigner
                     Constants.DataServiceDisplayName, // service display name
                     Constants.DataServiceDescription, // service description
                     hostUrl,
+                    defaultLink,
                     globalisationProvider);
 
             var explorerHost = new BWF.Explorer.StartUp.Concrete.ExplorerHost(explorerHostSettings);

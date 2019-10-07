@@ -13,8 +13,8 @@ namespace DataServiceDesigner.DataService
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainObject, DomainObject>()
-                .ForMember(x => x.DbSchema, m => m.Ignore())
-                .ForMember(x => x.DbObject, m => m.Ignore())
+                .ForMember(x => x.DataService, m => m.Ignore())
+                .ForMember(x => x.Schema, m => m.Ignore())
                 .ForMember(x => x.ObjectProperties, m => m.Ignore());
         }
     }

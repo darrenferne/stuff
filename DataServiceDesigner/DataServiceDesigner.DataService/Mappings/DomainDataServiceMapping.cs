@@ -8,16 +8,25 @@ namespace DataServiceDesigner.DataService
     {
         public DomainDataServiceMap()
         {
-            Table("dataservice");
+            Table("domaindataservice");
 
             Id(x => x.Id);
 
             Property(x => x.Name);
-            Property(x => x.DefaultSchema);
-
+            
             ManyToOne(x => x.Connection, m =>
             {
                 m.Column("connectionid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
+                m.Lazy(LazyRelation.NoLazy);
+                m.Fetch(FetchKind.Join);
+            });
+
+            ManyToOne(x => x.DefaultSchema, m =>
+            {
+                m.Column("defaultschemaid");
+                m.NotNullable(true);
                 m.Cascade(Cascade.Persist);
                 m.Lazy(LazyRelation.NoLazy);
                 m.Fetch(FetchKind.Join);
