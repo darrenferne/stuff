@@ -12,33 +12,28 @@ namespace DataServiceDesigner.DataService
 
             Id(x => x.Id);
 
-            Property(x => x.Name);
+            Property(x => x.Name, m => m.NotNullable(true));
             
             ManyToOne(x => x.Connection, m =>
             {
                 m.Column("connectionid");
                 m.NotNullable(true);
                 m.Cascade(Cascade.Persist);
-                m.Lazy(LazyRelation.NoLazy);
                 m.Fetch(FetchKind.Join);
+                m.Lazy(LazyRelation.NoLazy);
             });
 
-            ManyToOne(x => x.DefaultSchema, m =>
-            {
-                m.Column("defaultschemaid");
-                m.NotNullable(true);
-                m.Cascade(Cascade.Persist);
-                m.Lazy(LazyRelation.NoLazy);
-                m.Fetch(FetchKind.Join);
-            });
-
-            Bag(x => x.DomainObjects, 
+            Bag(x => x.Schemas,
                 m =>
                 {
-                    m.Key(k => k.Column("dataserviceid"));
-                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
+                    m.Key(k => {
+                        k.Column("dataserviceid");
+                        k.ForeignKey("fk_domainschema1");
+                        k.NotNullable(true); 
+                    });
+                    m.Cascade(Cascade.All);
                     m.Lazy(CollectionLazy.NoLazy);
-                }, 
+                },
                 r => r.OneToMany());
         }
     }

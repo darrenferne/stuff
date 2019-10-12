@@ -12,30 +12,20 @@ namespace DataServiceDesigner.DataService
 
             Id(x => x.Id);
 
-            Property(x => x.DbName);
-            Property(x => x.Name);
-            Property(x => x.DisplayName);
-            Property(x => x.PluralisedDisplayName);
-
-            ManyToOne(x => x.DataService, m =>
-            {
-                m.Column("dataserviceid");
-                m.NotNullable(true);
-                m.Cascade(Cascade.Persist);
-                m.Lazy(LazyRelation.NoLazy);
-                m.Fetch(FetchKind.Join);
-            });
-
             ManyToOne(x => x.Schema, m =>
             {
                 m.Column("schemaid");
                 m.NotNullable(true);
                 m.Cascade(Cascade.Persist);
-                m.Lazy(LazyRelation.NoLazy);
                 m.Fetch(FetchKind.Join);
+                m.Lazy(LazyRelation.NoLazy);
             });
 
-            Bag(x => x.ObjectProperties,
+            Property(x => x.Name);
+            Property(x => x.DisplayName);
+            Property(x => x.PluralisedDisplayName);
+
+            Bag(x => x.Properties,
                 m =>
                 {
                     m.Key(k => k.Column("objectid"));

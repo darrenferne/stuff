@@ -17,14 +17,6 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
-            TypeProperty(x => x.DataService)
-                .DisplayName("Data Service")
-                .PositionInEditor(1)
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataServices?$orderby=Name'")
-                .DisplayFieldInEditorChoice("Name")
-                .ValueFieldInEditorChoice("Id")
-                .IsMandatoryInEditMode();
-
             TypeProperty(x => x.Schema)
                 .DisplayName("Schema")
                 .PositionInEditor(2)
@@ -33,8 +25,8 @@ namespace DataServiceDesigner.Domain
                 .ValueFieldInEditorChoice(x => x.Id)
                 .IsMandatoryInEditMode();
 
-            StringProperty(x => x.DbName)
-                 .DisplayName("Db Name")
+            StringProperty(x => x.TableName)
+                 .DisplayName("Table Name")
                  .PositionInEditor(3);
 
             StringProperty(x => x.Name)
@@ -53,18 +45,22 @@ namespace DataServiceDesigner.Domain
                  .DisplayName("Pluralised Display Name")
                  .PositionInEditor(6);
             
-            CollectionProperty(x => x.ObjectProperties)
-                .DisplayName("Object Properties")
+            CollectionProperty(x => x.Properties)
+                .DisplayName("Properties")
                 .PositionInEditor(7);
 
             ViewDefaults()
-                .Property(x => x.DataService.Name)
-                .Property(x => x.Schema.Name)
-                .Property(x => x.DbName)
+                .Property(x => x.Schema.DataService.Name)
+                .Property(x => x.Schema.SchemaName)
+                .Property(x => x.TableName)
                 .Property(x => x.Name)
                 .Property(x => x.DisplayName)
                 .Property(x => x.PluralisedDisplayName)
                 .OrderBy(x => x.Name);
+
+            //ExpandsForEdit()
+            //    .Property(p => p.Properties);
+            //    .Property(p => p.Properties[0].Object);
         }
     }
 }

@@ -62,27 +62,10 @@ ALTER TABLE [dataservicedesigner].[connection]
    ADD CONSTRAINT [uk_connection_name] UNIQUE NONCLUSTERED ([name]);
 GO 
 
-CREATE TABLE [dataservicedesigner].[domainschema](
-   [id]               [BIGINT]        NOT NULL,
-   [name]             [NVARCHAR](64)  NOT NULL
-)
-GO
-
-ALTER TABLE [dataservicedesigner].[domainschema] 
-   ADD CONSTRAINT [pk_domainschema] 
-      PRIMARY KEY CLUSTERED ([id])
-GO
-
-ALTER TABLE [dataservicedesigner].[domainschema] 
-   ADD CONSTRAINT [uk_domainschema_name] UNIQUE NONCLUSTERED ([name]);
-GO 
-
-
 CREATE TABLE [dataservicedesigner].[domaindataservice](
    [id]               [BIGINT]        NOT NULL,
    [name]             [NVARCHAR](64)  NOT NULL,
-   [connectionid]     [BIGINT],
-   [defaultschemaid]  [BIGINT]		  NOT NULL
+   [connectionid]     [BIGINT]
 )
 GO
 
@@ -102,18 +85,35 @@ ALTER TABLE [dataservicedesigner].[domaindataservice]
             ON DELETE SET NULL
 GO
 
-ALTER TABLE [dataservicedesigner].[domaindataservice] 
-   ADD CONSTRAINT [fk_domaindataservice2] 
-      FOREIGN KEY([defaultschemaid])
-         REFERENCES [dataservicedesigner].[domainschema] ([id])
+CREATE TABLE [dataservicedesigner].[domainschema](
+   [id]              [BIGINT]        NOT NULL,
+   [dataserviceid]   [BIGINT]        NOT NULL,
+   [schemaname]      [NVARCHAR](64)  NOT NULL,
+   [isdefault]       [BIT]
+)
+GO
+
+ALTER TABLE [dataservicedesigner].[domainschema] 
+   ADD CONSTRAINT [pk_domainschema] 
+      PRIMARY KEY CLUSTERED ([id])
+GO
+
+ALTER TABLE [dataservicedesigner].[domainschema] 
+   ADD CONSTRAINT [uk_domainschema_name] UNIQUE NONCLUSTERED ([dataserviceid],[schemaname]);
+GO 
+
+ALTER TABLE [dataservicedesigner].[domainschema] 
+   ADD CONSTRAINT [fk_domainschema1] 
+      FOREIGN KEY([dataserviceid])
+         REFERENCES [dataservicedesigner].[domaindataservice] ([id])
+            ON DELETE CASCADE
 GO
 
 CREATE TABLE [dataservicedesigner].[domainobject](
    [id]                    [BIGINT]       NOT NULL,
-   [dataserviceid]         [BIGINT]       NOT NULL,
    [schemaid]              [BIGINT]       NOT NULL,
-   [dbname]                [NVARCHAR](30) NOT NULL,
-   [name]                  [NVARCHAR](64) NULL,
+   [tablename]             [NVARCHAR](30) NOT NULL,
+   [objectname]            [NVARCHAR](64) NULL,
    [displayname]           [NVARCHAR](64) NULL,
    [pluraliseddisplayname] [NVARCHAR](64) NULL
 )
@@ -125,28 +125,21 @@ ALTER TABLE [dataservicedesigner].[domainobject]
 GO
 
 ALTER TABLE [dataservicedesigner].[domainobject] 
-   ADD CONSTRAINT [uk_domainobject_name] UNIQUE NONCLUSTERED ([name]);
+   ADD CONSTRAINT [uk_domainobject_dbname] UNIQUE NONCLUSTERED ([schemaid],[objectname]);
 GO 
 
 ALTER TABLE [dataservicedesigner].[domainobject] 
    ADD CONSTRAINT [fk_domainobject1] 
-      FOREIGN KEY([dataserviceid])
-         REFERENCES [dataservicedesigner].[domaindataservice] ([id])
-            ON DELETE CASCADE
-GO
-
-ALTER TABLE [dataservicedesigner].[domainobject] 
-   ADD CONSTRAINT [fk_domainobject2] 
       FOREIGN KEY([schemaid])
          REFERENCES [dataservicedesigner].[domainschema] ([id])
             ON DELETE CASCADE
 GO
+
 CREATE TABLE [dataservicedesigner].[domainobjectproperty](
    [id]                   [BIGINT]       NOT NULL,
-   [dataserviceid]        [BIGINT]       NOT NULL,
    [objectid]             [BIGINT]       NOT NULL,
-   [dbname]               [NVARCHAR](30) NOT NULL,
-   [name]                 [NVARCHAR](64),
+   [columnname]           [NVARCHAR](30) NOT NULL,
+   [propertyname]         [NVARCHAR](64),
    [displayname]          [NVARCHAR](64),
    [ispartofkey]          [BIT],
    [includeindefaultview] [BIT]
@@ -165,7 +158,11 @@ ALTER TABLE [dataservicedesigner].[domainobjectproperty]
 GO
 
 ALTER TABLE [dataservicedesigner].[domainobjectproperty] 
-   ADD CONSTRAINT [uk_domainobjectproperty_name] UNIQUE NONCLUSTERED ([name]);
+   ADD CONSTRAINT [uk_domainobjectproperty_columnname] UNIQUE NONCLUSTERED ([objectid],[columnname]);
+GO 
+
+ALTER TABLE [dataservicedesigner].[domainobjectproperty] 
+   ADD CONSTRAINT [uk_domainobjectproperty_propertyname] UNIQUE NONCLUSTERED ([objectid],[propertyname]);
 GO 
 
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] ON

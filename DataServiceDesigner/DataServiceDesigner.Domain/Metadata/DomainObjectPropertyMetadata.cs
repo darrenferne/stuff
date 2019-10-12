@@ -17,45 +17,38 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
-            TypeProperty(p => p.DataService)
-                .DisplayName("Data Service")
-                .PositionInEditor(1)
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataServices?$orderby=Name'")
-                .DisplayFieldInEditorChoice(p => p.Name)
-                .ValueFieldInEditorChoice(p => p.Id)
-                .IsMandatoryInEditMode();
-
             TypeProperty(x => x.Object)
-                .DisplayName("Domain Object")
-                .PositionInEditor(1)
+                .DisplayName("Object")
+                .PositionInEditor(3)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=Name'")
                 .DisplayFieldInEditorChoice("Name")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
 
-            StringProperty(x => x.DbName)
-                .PositionInEditor(2)
-                .DisplayName("Db Name");
+            StringProperty(x => x.ColumnName)
+                .PositionInEditor(4)
+                .DisplayName("Column Name");
 
             StringProperty(x => x.Name)
-                .PositionInEditor(3);
+                .PositionInEditor(5);
 
             StringProperty(x => x.DisplayName)
                 .DisplayName("Display Name")
-                .PositionInEditor(4);
+                .PositionInEditor(6);
 
             BooleanProperty(x => x.IsPartOfKey)
                 .DisplayName("Is Part Of Key?")
-                .PositionInEditor(5);
+                .PositionInEditor(7);
                 
             BooleanProperty(x => x.IncludeInDefaultView)
                 .DisplayName("Include In Default View?")
-                .PositionInEditor(6);
+                .PositionInEditor(8);
 
             ViewDefaults()
-                .Property(x => x.DataService.Name)
+                .Property(x => x.Object.Schema.DataService.Name)
+                .Property(x => x.Object.Schema.SchemaName)
                 .Property(x => x.Object.Name)
-                .Property(x => x.DbName)
+                .Property(x => x.ColumnName)
                 .Property(x => x.Name)
                 .Property(x => x.DisplayName)
                 .Property(x => x.IsPartOfKey)

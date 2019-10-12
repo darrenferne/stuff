@@ -2,8 +2,8 @@
     function (ko, options, log, metadataService) {
 
         var isNullOrEmpty = function (str) {
-            return str == null || str === "";
-        }
+            return str === null || str === "";
+        };
 
         function initialCatalogViewModel(data) {
             var self = this;
@@ -18,12 +18,12 @@
             self.connectionString = data.model.observables["ConnectionString"];
             
             self.generateConnectionString = function (model) {
-                
+
                 var connectionString = "";
                 if (!isNullOrEmpty(model.dataSource())) {
                     connectionString += "Data Source=" + model.dataSource() + ";";
                 }
-                if (self.databaseType() == "SQLServer" && !isNullOrEmpty(model.initialCatalog())) {
+                if (self.databaseType() === "SQLServer" && !isNullOrEmpty(model.initialCatalog())) {
                     connectionString += "Initial Catalog=" + model.initialCatalog() + ";";
                 }
                 if (model.useIntegratedSecurity()) {
@@ -38,12 +38,12 @@
                     }
                 }
                 self.connectionString(connectionString);
-            }
+            };
             self.testConnection = function () {
                 var databaseType = self.databaseType();
                 var dataSource = self.dataSource();
                 var initialCatalog = self.initialCatalog();
-                var catalogRequired = databaseType == "SQLServer";
+                var catalogRequired = databaseType === "SQLServer";
                 var useIntegrated = self.useIntegratedSecurity();
                 var userName = self.username();
                 var password = self.password();
@@ -65,25 +65,25 @@
                     alert("'Connection String' required");
                 }
                 else {
-                        
+
                     var testConnectionQuery = options.explorerHostUrl + '/api/schemabrowser/ext/TestConnection/' + databaseType + '/?cs=' + encodeURIComponent(connectionString);
 
                     $.ajax({
                         url: testConnectionQuery,
                         xhrFields: { withCredentials: true }
                     })
-                    .done(function (result) {
-                        if (result === "")
-                            alert("Test connection succeeded");
-                        else {
-                            alert(result);
-                        }
-                    })
-                    .fail(function (message) {
-                        alert("Connection test failed\n" + message.status);
-                    });
+                        .done(function (result) {
+                            if (result === "")
+                                alert("Test connection succeeded");
+                            else {
+                                alert(result);
+                            }
+                        })
+                        .fail(function (message) {
+                            alert("Connection test failed\n" + message.status);
+                        });
                 }
-            }
+            };
             self.initialise = function () {
                 var model = this;
                 self.dataSource.subscribe(function () {
@@ -102,7 +102,7 @@
                     model.generateConnectionString(model);
                 })
                 model.generateConnectionString(model);
-            }
+            };
             self.initialise();
         }
 

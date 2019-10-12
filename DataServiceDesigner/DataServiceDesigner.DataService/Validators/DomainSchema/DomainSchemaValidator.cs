@@ -11,7 +11,7 @@ namespace DataServiceDesigner.DataService
             RuleFor(x => x.Id)
                  .GreaterThanOrEqualTo(0L);
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.SchemaName)
                 .Length(1, 64);
         }
     }

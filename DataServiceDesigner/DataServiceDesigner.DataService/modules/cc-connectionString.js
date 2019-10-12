@@ -66,7 +66,7 @@
                 }
                 else {
 
-                    var testConnectionQuery = options.explorerHostUrl + '/dataservicedesigner/ext/api/TestConnection/' + databaseType + '/?cs=' + encodeURIComponent(connectionString);
+                    var testConnectionQuery = options.explorerHostUrl + '/api/schemabrowser/ext/TestConnection/' + databaseType + '/?cs=' + encodeURIComponent(connectionString);
 
                     $.ajax({
                         url: testConnectionQuery,

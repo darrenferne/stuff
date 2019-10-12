@@ -15,7 +15,7 @@ namespace DataServiceDesigner.DataService
     [CreateAction("Create")]
     [EditAction("Edit")]
     [DeleteAction("Delete")]
-    public class DataServiceConnectionRecordType : ChangeableRecordType<DataServiceConnection, long, DataServiceConnectionBatchValidator>
+    public class DataServiceConnectionRecordType : ObservableRecordType<DataServiceConnection, long, DataServiceConnectionBatchValidator>
     {
         ISchemaBrowserConnectionManager _connectionManager;
         public DataServiceConnectionRecordType(ISchemaBrowserConnectionManager connectionManager)

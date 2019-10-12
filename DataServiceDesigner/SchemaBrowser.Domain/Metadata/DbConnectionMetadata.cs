@@ -16,6 +16,9 @@ namespace SchemaBrowser.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
+            IntegerProperty(x => x.ExternalId)
+                .IsHiddenInEditor();
+
             StringProperty(x => x.Name)
                 .Parameter(p => p
                     .Query("DbConnections?$orderby=Name")

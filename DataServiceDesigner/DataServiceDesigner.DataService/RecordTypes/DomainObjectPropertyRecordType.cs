@@ -8,13 +8,12 @@ namespace DataServiceDesigner.DataService
     [CreateAction("Create")]
     [EditAction("Edit")]
     [DeleteAction("Delete")]
-    public class DomainObjectPropertyRecordType : ChangeableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
+    public class DomainObjectPropertyRecordType : ObservableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
     {
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainObjectProperty, DomainObjectProperty>()
-                .ForMember(x => x.DataService, m => m.Ignore())
-                .ForMember(x => x.Object, m => m.Ignore());
+                .ForMember(m => m.Object, o => o.Ignore());
         }
     }
 }

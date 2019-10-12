@@ -57,6 +57,7 @@ namespace DataServiceDesigner.DataService
                 {
                     var sbConnection = new DbConnection
                     {
+                        ExternalId = dsConnection.Id,
                         Name = dsConnection.Name,
                         DatabaseType = dsConnection.DatabaseType,
                         DataSource = dsConnection.DataSource,

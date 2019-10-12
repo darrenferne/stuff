@@ -26,7 +26,7 @@ namespace DataServiceDesigner.Domain
                     .DisplayProperty(o => o.Name)
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));
-
+            
             TypeProperty(p => p.Connection)
                 .DisplayName("Connection")
                 .PositionInEditor(2)
@@ -35,30 +35,18 @@ namespace DataServiceDesigner.Domain
                 .ValueFieldInEditorChoice(x => x.Id)
                 .IsNotEditableInGrid();
 
-            TypeProperty(x => x.DefaultSchema)
-                .DisplayName("Default Schema")
-                .PositionInEditor(3)
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=Name'")
-                .DisplayFieldInEditorChoice(x => x.Name)
-                .ValueFieldInEditorChoice(x => x.Id)
-                .IsNotEditableInGrid();
-            
-            CollectionProperty(x => x.DomainObjects)
+            CollectionProperty(x => x.Schemas)
                 .PositionInEditor(4)
-                .DisplayName("Domain Objects")
-                .CustomControl("cc-domainObjects")
-                .CustomControlHeight(400);
+                .DisplayName("Schemas")
+                .CustomControl("cc-domainSchemas")
+                .CustomControlHeight(300);
 
-            ExpandsForEdit()
-                .Property(p => p.Connection)
-                .Property(p => p.DefaultSchema)
-                .Property(p => p.DomainObjects[0].DataService)
-                .Property(p => p.DomainObjects[0].Schema)
-                .Property(p => p.DomainObjects[0].DataService)
-                .Property(p => p.DomainObjects[0].Schema)
-                .Property(p => p.DomainObjects[0].ObjectProperties)
-                .Property(p => p.DomainObjects[0].ObjectProperties[0].DataService)
-                .Property(p => p.DomainObjects[0].ObjectProperties[0].Object);
+            //ExpandsForEdit()
+                //.Property(p => p.Connection)
+                //.Property(p => p.Schemas); 
+            //    .Property(p => p.Schemas[0].Objects[0])
+            //    .Property(p => p.Schemas[0].Objects[0].Properties[0])
+            //    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object);
 
             ViewDefaults()
                 .Property(x => x.Name)

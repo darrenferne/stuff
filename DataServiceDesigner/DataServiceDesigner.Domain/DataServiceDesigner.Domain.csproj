@@ -61,14 +61,14 @@
   <ItemGroup>
     <Compile Include="Metadata\DataServiceConnectionMetadata.cs" />
     <Compile Include="Metadata\DomainDataServiceMetadata.cs" />
+    <Compile Include="Metadata\DomainObjectMetadata.cs" />
+    <Compile Include="Metadata\DomainObjectPropertyMetadata.cs" />
     <Compile Include="Metadata\DomainSchemaMetadata.cs" />
     <Compile Include="Models\DataServiceConnection.cs" />
     <Compile Include="Models\DomainDataService.cs" />
+    <Compile Include="Metadata\MetadataBundle.cs" />
     <Compile Include="Models\DomainObject.cs" />
     <Compile Include="Models\DomainObjectProperty.cs" />
-    <Compile Include="Metadata\DomainObjectMetadata.cs" />
-    <Compile Include="Metadata\DomainObjectPropertyMetadata.cs" />
-    <Compile Include="Metadata\MetadataBundle.cs" />
     <Compile Include="Models\DomainSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
