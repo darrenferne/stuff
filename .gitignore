@@ -60,7 +60,7 @@ BackUp/
 node_modules
 
 # NuGet packages directory
-packages/
+
 Explorer/.vs/config/applicationhost.config
 *.nugetreferenceswitcher
 
