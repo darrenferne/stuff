@@ -24,7 +24,7 @@ ECHO Restoring NPM packages for the Explorer Host Solution
 CALL NPM install
 
 ECHO Updating NPM packages for the Host Solution
-CALL NPM install @brady/bwf@next
+CALL NPM install @brady/bwf
 
 ECHO Deleting config keys
 CALL NPM config delete "//%npm.registry%:_authToken"
