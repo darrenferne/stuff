@@ -22,6 +22,7 @@ namespace DataServiceDesigner.DataService
             });
 
             Property(x => x.SchemaName, m => m.NotNullable(true));
+            Property(x => x.IsDefault);
 
             Bag(x => x.Objects,
                 m =>
@@ -29,6 +30,7 @@ namespace DataServiceDesigner.DataService
                     m.Key(k => k.Column("schemaid"));
                     m.Cascade(Cascade.All);
                     m.Lazy(CollectionLazy.NoLazy);
+                    m.Inverse(true);
                 },
                 r => r.OneToMany());
         }

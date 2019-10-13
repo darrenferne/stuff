@@ -39,28 +39,28 @@ namespace SchemaBrowser.DataService
                         {
                             Id = "DbConnections",
                             Text = "Db Connections",
-                            Link = $"{{appSetting-ExplorerHostUrl}}/view/#default/{Constants.DataServiceName}/DbConnection",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbConnection",
                             Position = 1
                         },
                         new MenuItem()
                         {
                             Id = "DbSchemas",
                             Text = "Db Schemas",
-                            Link = $"{{appSetting-ExplorerHostUrl}}/view/#default/{Constants.DataServiceName}/DbSchema",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbSchema",
                             Position = 2
                         },
                         new MenuItem()
                         {
                             Id = "DbObjects",
                             Text = "Db Objects",
-                            Link = $"{{appSetting-ExplorerHostUrl}}/view/#default/{Constants.DataServiceName}/DbObject",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbObject",
                             Position = 3
                         },
                         new MenuItem()
                         {
                             Id = "DbObjectProperties",
                             Text = "Db Object Properties",
-                            Link = $"{{appSetting-ExplorerHostUrl}}/view/#default/{Constants.DataServiceName}/DbObjectProperty",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbObjectProperty",
                             Position = 4
                         }
                     }

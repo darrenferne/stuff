@@ -76,7 +76,17 @@
                 var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);
 
                 grid.validate = function (row, success, failure) {
-                    self.selectedRecordGrid().updateDirtyRecordWithLatestValues(row.record, self.selectedRecordGridColumns);
+                    self.selectedRecordGrid().updateDirtyRecordWithLatestValues(row, self.selectedRecordGridColumns);
+                    if (row.dirtyRecord.IsDefault) {
+                        for (var i = 0; i < self.selectedRecordGrid().records().length; i++) {
+                            var currentRecord = self.selectedRecordGrid().records()[i].record;
+                            if (row.record != currentRecord && self.selectedRecordGrid().records()[i].values.IsDefault() === true) {
+                                self.selectedRecordGrid().records()[i].values.IsDefault(false);
+                                self.selectedObjects()[i].IsDefault = false;
+                                break;
+                            }
+                        }
+                    }
                     success(row, row.dirtyRecord);
                     self.selectedObjects.replace(row.record, row.dirtyRecord);
                 };

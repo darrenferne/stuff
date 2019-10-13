@@ -22,7 +22,7 @@ namespace DataServiceDesigner.DataService
             });
 
             Property(x => x.ColumnName);
-            Property(x => x.Name);
+            Property(x => x.PropertyName);
             Property(x => x.DisplayName);
             Property(x => x.IsPartOfKey);
             Property(x => x.IncludeInDefaultView);

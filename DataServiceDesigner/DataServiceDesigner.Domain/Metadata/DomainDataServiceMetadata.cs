@@ -41,9 +41,9 @@ namespace DataServiceDesigner.Domain
                 .CustomControl("cc-domainSchemas")
                 .CustomControlHeight(300);
 
-            //ExpandsForEdit()
-                //.Property(p => p.Connection)
-                //.Property(p => p.Schemas); 
+            ExpandsForEdit()
+                .Property(p => p.Connection)
+                .Property(p => p.Schemas[0].DataService); 
             //    .Property(p => p.Schemas[0].Objects[0])
             //    .Property(p => p.Schemas[0].Objects[0].Properties[0])
             //    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object);

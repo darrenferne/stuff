@@ -21,7 +21,8 @@ namespace DataServiceDesigner.DataService
                 m.Lazy(LazyRelation.NoLazy);
             });
 
-            Property(x => x.Name);
+            Property(x => x.TableName, m => m.NotNullable(true));
+            Property(x => x.ObjectName, m => m.NotNullable(true));
             Property(x => x.DisplayName);
             Property(x => x.PluralisedDisplayName);
 
@@ -29,8 +30,9 @@ namespace DataServiceDesigner.DataService
                 m =>
                 {
                     m.Key(k => k.Column("objectid"));
-                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
+                    m.Cascade(Cascade.All);
                     m.Lazy(CollectionLazy.NoLazy);
+                    m.Inverse(true);
                 },
                 r => r.OneToMany());
         }

@@ -11,7 +11,7 @@ namespace DataServiceDesigner.Domain
     {
         public DomainSchema()
         {
-            DataService = new DomainDataService();
+            Objects = new List<DomainObject>();
         }
         public virtual long Id { get; set; }
         public virtual DomainDataService DataService { get; set; }

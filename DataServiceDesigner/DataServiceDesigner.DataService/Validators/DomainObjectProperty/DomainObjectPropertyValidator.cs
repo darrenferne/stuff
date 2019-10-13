@@ -15,7 +15,7 @@ namespace DataServiceDesigner.DataService
                 .NotEmpty()
                 .Length(1, 64);
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.PropertyName)
                 .NotEmpty()
                 .Length(1, 64);
 

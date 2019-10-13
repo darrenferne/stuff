@@ -8,7 +8,7 @@ namespace DataServiceDesigner.Domain
     {
         public DomainDataService()
         {
-            Schemas = new List<DomainSchema>();
+            //Schemas = new List<DomainSchema>();
         }
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }

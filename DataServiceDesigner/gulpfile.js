@@ -1,66 +1,53 @@
-/// <binding BeforeBuild='copyFilesForBuild' ProjectOpened='default' />
-var gulp = require('gulp');
-var gulputil = require('gulp-util');
-var path = require('path');
-var livereload = require('gulp-livereload');
+/// <binding ProjectOpened='default' />
+const gulp = require('gulp');
+const path = require('path');
+const livereload = require('gulp-livereload');
+const normalize = require('normalize-path');
 
-var fileTypes = '\\**\\*.{css,html,js,ico,png,eot,svg,ttf,woff,woff2,otf,gif,map,swf}';
+const dirname = normalize(__dirname);
+const hostOutputFolder = path.join(__dirname, '/DataServiceDesigner/output');
+const fileTypes = '\\**\\*.{css,html,js,ico,png,eot,svg,ttf,woff,woff2,otf,gif,map,swf}';
 
-var hostOutputFolder = path.join(__dirname, '/DataServiceDesigner/output');
+const bwfFiles = path.join(__dirname, 'node_modules/@brady/bwf') + fileTypes;
 
-var bwfFiles = path.join(__dirname, 'node_modules/@brady/bwf') + fileTypes;
+const sbModules = path.join(__dirname, '/SchemaBrowser.DataService/modules') + fileTypes;
+const sbTemplates = path.join(__dirname, '/SchemaBrowser.DataService/templates') + fileTypes;
 
-var sbModules = path.join(__dirname, '/SchemaBrowser.DataService/modules') + fileTypes;
-var sbTemplates = path.join(__dirname, '/SchemaBrowser.DataService/templates') + fileTypes;
+const dsdModules = path.join(__dirname, '/DataServiceDesigner.DataService/modules') + fileTypes;
+const dsdTemplates = path.join(__dirname, '/DataServiceDesigner.DataService/templates') + fileTypes;
 
-var dsdModules = path.join(__dirname, '/DataServiceDesigner.DataService/modules') + fileTypes;
-var dsdTemplates = path.join(__dirname, '/DataServiceDesigner.DataService/templates') + fileTypes;
+console.log("Dir Name: " + dirname);
+console.log("Host Output Folder: " + hostOutputFolder);
+console.log("Bwf Files: " + bwfFiles);
+console.log("Schema Browser Modules: " + sbModules);
+console.log("Schema Browser Templates: " + sbTemplates);
+console.log("Data Service Designer Modules: " + dsdModules);
+console.log("Data Service Designer: " + dsdTemplates);
 
-gulp.task('copyFiles', function () {
-
-    gulp.src(bwfFiles)
-        .pipe(gulp.dest(hostOutputFolder));
-});
-
-gulp.task('copyFilesWithReload', function () {
-
-    // Explorer
-    gulp.src(bwfFiles)
+gulp.task('copyAllFiles', function (done) {
+	gulp.src(bwfFiles)
         .pipe(gulp.dest(hostOutputFolder))
         .pipe(livereload());
 
     gulp.src(sbModules)
-       .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/schemabrowser/modules')))
-       .pipe(livereload());
+        .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/schemabrowser/modules')))
+        .pipe(livereload({ quiet: true }));
+
     gulp.src(sbTemplates)
         .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/schemabrowser/templates')))
-        .pipe(livereload());
+        .pipe(livereload({ quiet: true }));
 
-    gulp.src(dsdModules)
-       .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/dataservicedesigner/modules')))
-       .pipe(livereload());
+	gulp.src(dsdModules)
+        .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/dataservicedesigner/modules')))
+        .pipe(livereload({ quiet: true }));
+
     gulp.src(dsdTemplates)
         .pipe(gulp.dest(path.join(hostOutputFolder, '/dataservices/dataservicedesigner/templates')))
-        .pipe(livereload());
+        .pipe(livereload({ quiet: true }));
+		
+    done();
 });
 
-gulp.task('copyFilesForBuild', ['copyFiles', 'copyFilesWithReload'], function () {
-    gulputil.log('Copied files to: ' + hostOutputFolder);
-});
+gulp.task('default', gulp.series('copyAllFiles'));
 
-var toWatch =
-    [
-        bwfFiles,
-        sbModules,
-        sbTemplates,
-        dsdModules,
-        dsdTemplates
-    ];
 
-gulp.task('default', ['copyFiles', 'copyFilesWithReload'], function () {
-    gulputil.log('Output folder for explorer host: ' + hostOutputFolder);
-
-    livereload.listen();
-
-    gulp.watch(toWatch, ['copyFilesWithReload']);
-});

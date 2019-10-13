@@ -28,11 +28,11 @@ namespace DataServiceDesigner.DataService
                 {
                     m.Key(k => {
                         k.Column("dataserviceid");
-                        k.ForeignKey("fk_domainschema1");
-                        k.NotNullable(true); 
+                        k.NotNullable(true);
                     });
                     m.Cascade(Cascade.All);
                     m.Lazy(CollectionLazy.NoLazy);
+                    m.Inverse(true);
                 },
                 r => r.OneToMany());
         }

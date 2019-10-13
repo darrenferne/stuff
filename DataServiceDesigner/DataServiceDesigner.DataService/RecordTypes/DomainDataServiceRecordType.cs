@@ -27,6 +27,13 @@ namespace DataServiceDesigner.DataService
             {
                 return (changeSet, context, username) =>
                 {
+                    foreach (var dataService in changeSet.Create.Values.Union(changeSet.Update.Values))
+                    {
+                        foreach (var schema in dataService.Schemas.Where(s => (s.DataService?.Id ?? 0) == 0))
+                        {
+                            schema.DataService = dataService;
+                        }
+                    }
                     base.PreSaveAction(changeSet, context, username);
                 };
             }

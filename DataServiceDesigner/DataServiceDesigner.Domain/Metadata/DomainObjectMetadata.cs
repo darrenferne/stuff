@@ -21,7 +21,7 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Schema")
                 .PositionInEditor(2)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=Name'")
-                .DisplayFieldInEditorChoice(x => x.Name)
+                .DisplayFieldInEditorChoice(x => x.ObjectName)
                 .ValueFieldInEditorChoice(x => x.Id)
                 .IsMandatoryInEditMode();
 
@@ -29,11 +29,11 @@ namespace DataServiceDesigner.Domain
                  .DisplayName("Table Name")
                  .PositionInEditor(3);
 
-            StringProperty(x => x.Name)
+            StringProperty(x => x.ObjectName)
                 .PositionInEditor(4)
                 .Parameter(p => p
                     .Query("DomainObjects?$orderby=Name")
-                    .DisplayProperty(o => o.Name)
+                    .DisplayProperty(o => o.ObjectName)
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));
 
@@ -53,10 +53,10 @@ namespace DataServiceDesigner.Domain
                 .Property(x => x.Schema.DataService.Name)
                 .Property(x => x.Schema.SchemaName)
                 .Property(x => x.TableName)
-                .Property(x => x.Name)
+                .Property(x => x.ObjectName)
                 .Property(x => x.DisplayName)
                 .Property(x => x.PluralisedDisplayName)
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.ObjectName);
 
             //ExpandsForEdit()
             //    .Property(p => p.Properties);

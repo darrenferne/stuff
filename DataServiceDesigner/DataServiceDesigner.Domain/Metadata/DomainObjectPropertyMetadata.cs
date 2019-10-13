@@ -29,7 +29,7 @@ namespace DataServiceDesigner.Domain
                 .PositionInEditor(4)
                 .DisplayName("Column Name");
 
-            StringProperty(x => x.Name)
+            StringProperty(x => x.PropertyName)
                 .PositionInEditor(5);
 
             StringProperty(x => x.DisplayName)
@@ -47,13 +47,13 @@ namespace DataServiceDesigner.Domain
             ViewDefaults()
                 .Property(x => x.Object.Schema.DataService.Name)
                 .Property(x => x.Object.Schema.SchemaName)
-                .Property(x => x.Object.Name)
+                .Property(x => x.Object.ObjectName)
                 .Property(x => x.ColumnName)
-                .Property(x => x.Name)
+                .Property(x => x.PropertyName)
                 .Property(x => x.DisplayName)
                 .Property(x => x.IsPartOfKey)
                 .Property(x => x.IncludeInDefaultView)
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.PropertyName);
         }
     }
 }
