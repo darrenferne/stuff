@@ -1,7 +1,6 @@
 ﻿define(['knockout', 'options', 'loglevel', 'modules/bwf-metadata', 'modules/bwf-explorer', 'knockout-amd-helpers', 'knockout-postbox', 'jquery'],
     function (ko, options, log, metadataService, exp) {
 
-
         function domainObjectsViewModel(data) {
             var self = this;
 
@@ -24,11 +23,29 @@
                     return false;
                 return self.availableRecordGrid().selectedRecords().length > 0;
             });
-            self.connectionName = ko.observable("");
             self.availableRecordGrid = ko.observable(null);
             self.availableObjects = ko.observableArray([]);
             self.selectedRecordGrid = ko.observable(null);
-            self.selectedObjects = data.model.observables.DomainObjects;
+            self.dataService = data.model.observables.DataService();
+            self.schemaName = data.model.observables.SchemaName();
+            self.selectedObjects = data.model.observables.Objects;
+
+            self.toDisplayName = function (name, pluralise) {
+                var displayName = name.charAt(0).toUpperCase();
+                for (var i = 1; i < name.length; i++) {
+                    var char = name.charAt(i);
+                    if (char === char.toUpperCase()) {
+                        displayName = displayName + ' ' + char;
+                    }
+                    else {
+                        displayName = displayName + char;
+                    }
+                }
+                if (pluralise) {
+                    displayName = displayName + 's';
+                }
+                return displayName;
+            };
 
             self.select = function () {
                 var selectedRecords = self.availableRecordGrid().selectedRecords();
@@ -36,14 +53,10 @@
                     var selectedRecord = selectedRecords[i].record;
                     var domainObject = {
                         Id: 0,
-                        DataService: { Id: self.data.model.record.Id },
-                        Schema: {
-                            Id: 0,
-                            Name: selectedRecord.SchemaName
-                        },
-                        DbName: selectedRecord.Name,
-                        Name: selectedRecord.Name,
-                        DisplayName: selectedRecord.Name
+                        TableName: selectedRecord.Name,
+                        ObjectName: selectedRecord.Name,
+                        DisplayName: self.toDisplayName(selectedRecord.Name),
+                        PluralisedDisplayName: self.toDisplayName(selectedRecord.Name, true)
                     };
                     var gridItem = exp.generateBasicGridItem(domainObject, self.selectedRecordGrid().records().length + 1, self.selectedRecordGridColumns);
                     self.selectedRecordGrid().records.push(gridItem);
@@ -56,37 +69,37 @@
                 var selectedObjects = self.selectedRecordGrid().selectedRecords().map(function (r) { return r.record; });
                 self.selectedRecordGrid().records.removeAll(selectedRecords);
                 self.selectedObjects.removeAll(selectedObjects);
-                self.loadAvailableObjects(self.connectionName(), true);
+                self.loadAvailableObjects(self.connection, true);
             };
             self.clear = function () {
                 self.selectedRecordGrid().records.removeAll();
                 self.selectedObjects.removeAll();
-                self.loadAvailableObjects(self.connectionName(), true);
+                self.loadAvailableObjects(self.connection, true);
             };
-        
+
             metadataService.getType("dataservicedesigner", "DomainObject").done(metadata => {
 
                 var idMetadata = metadata.properties["Id"];
                 idMetadata.isNotEditableInGrid = true;
-                var schemaMetadata = metadata.properties["Schema"];
-                schemaMetadata.isNotEditableInGrid = true;
-                var dbNameMetadata = metadata.properties["DbName"];
-                var nameMetadata = metadata.properties["Name"];
+                var tableNameMetadata = metadata.properties["TableName"];
+                var objectNameMetadata = metadata.properties["ObjectName"];
                 var displayNameMetadata = metadata.properties["DisplayName"];
+                var pluralisedDisplayNameMetadata = metadata.properties["PluralisedDisplayName"];
 
                 self.selectedRecordGridColumns = [
                     new exp.ExplorerGridColumn(idMetadata, "Id", 1),
-                    new exp.ExplorerGridColumn(schemaMetadata, "Schema/Name", 2),
-                    new exp.ExplorerGridColumn(dbNameMetadata, "DbName", 3),
-                    new exp.ExplorerGridColumn(nameMetadata, "Name", 4),
-                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 5)
-                ];  
-                
+                    new exp.ExplorerGridColumn(tableNameMetadata, "TableName", 2),
+                    new exp.ExplorerGridColumn(objectNameMetadata, "ObjectName", 3),
+                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 4),
+                    new exp.ExplorerGridColumn(pluralisedDisplayNameMetadata, "PluralisedDisplayName", 5)];
+
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
                 var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);
 
-                grid.validate = function (record, success, failure) {
-                    self.selectedRecordGrid().updateDirtyRecordWithLatestValues(record, self.selectedRecordGridColumns);
+                grid.validate = function (row, success, failure) {
+                    self.selectedRecordGrid().updateDirtyRecordWithLatestValues(row, self.selectedRecordGridColumns);
+                    success(row, row.dirtyRecord);
+                    self.selectedObjects.replace(row.record, row.dirtyRecord);
                 };
 
                 self.selectedRecordGrid(grid);
@@ -94,122 +107,81 @@
 
             metadataService.getType("schemabrowser", "DbObject").done(metadata => {
 
-                var schemaMetadata = metadata.properties["SchemaName"];
                 var dbNameMetadata = metadata.properties["Name"];
-                
+
                 self.availableRecordGridColumns = [
-                    new exp.ExplorerGridColumn(schemaMetadata, "SchemaName", 1),
-                    new exp.ExplorerGridColumn(dbNameMetadata, "Name", 2)
+                    new exp.ExplorerGridColumn(dbNameMetadata, "Name", 1)
                 ];
 
                 var availableItems = exp.generateBasicGridItems(self.availableObjects(), self.availableRecordGridColumns);
                 var grid = exp.generateBasicGridConfiguration(availableItems, self.availableRecordGridColumns, "availableObjects", false);
-                
+
                 self.availableRecordGrid(grid);
             });
 
-            //self.generateselectedRecordGridColumns = function () {
-            //   metadataService.getType("dataservicedesigner", "DomainObject").done(metadata => {
-            //    self.generateselectedRecordGridColumns = [
-            //        new exp.ExplorerGridColumn(metadata.properties["Id"], "Id", 1),
-            //        new exp.ExplorerGridColumn(metadata.properties["Schema"], "Schema", 2),
-            //        new exp.ExplorerGridColumn(metadata.properties["DbName"], "DbName", 3),
-            //        new exp.ExplorerGridColumn(metadata.properties["Name"], "Name", 4),
-            //        new exp.ExplorerGridColumn(metadata.properties["DisplayName"], "DisplayName", 5)
-            //    ];   
-            //});
-            //};
+            self.loadAvailableObjects = function (dataService, schemaName, reload) {
 
-            //self.selectedRecordGridColumns = self.generateselectedRecordGridColumns();
-
-            //self.generateselectedRecordGrid = function () {
-
-            //    var selectedRecords = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
-
-            //    return exp.generateBasicGridConfiguration(selectedRecords, self.selectedRecordGridColumns, "selectedObjects", true);
-            //};
-
-            //self.selectedRecordGrid = self.generateselectedRecordGrid();
-
-            self.loadObjects = function () {
-
-            };
-
-            self.loadAvailableObjects = function (connectionName, reload) {
-
-                if (self.connectionName() === connectionName && !reload)
+                if (dataService == null || schemaName === null) {
                     return;
+                }
+                else if (self.dataService == dataService && self.schemaName == schemaName && !reload) {
+                    return;
+                }
                 else {
-                    self.connectionName(connectionName);
+                    self.dataService = dataService;
+                    self.schemaName = schemaName;
                 }
 
-                var url = self.parentModel.state.dataServiceUrl.replace(self.parentModel.state.dataService, "schemabrowser");
-                var availableObjectQuery = url + "/query/DbObjects?$filter=Connection/Name='" + connectionName + "'&$orderby=SchemaName,Name";
+                var url = self.parentModel.state.dataServiceUrl;
+                var dataServiceQuery = url + "/query/DomainDataServices?$filter=Id=" + dataService + "&$expands=Connection";
 
                 $.ajax({
-                    url: availableObjectQuery,
+                    url: dataServiceQuery,
                     xhrFields: { withCredentials: true }
                 })
                 .done(function (response) {
-                    self.availableRecordGrid().records.removeAll();
-                    for (var i = 0; i < response.Records.length; i++) {
-                        var availableRecord = response.Records[i];
-                        var selected = false;
-                        for (var j = 0; j < self.selectedRecordGrid().records().length; j++) {
-                            var selectedRecord = self.selectedRecordGrid().records()[j].record;
-                            if (availableRecord.SchemaName === selectedRecord.Schema.Name &&
-                                availableRecord.Name === selectedRecord.DbName) {
-                                selected = true;
-                                break;
+
+                    url = self.parentModel.state.dataServiceUrl.replace(self.parentModel.state.dataService, "schemabrowser");
+                    var availableObjectQuery = url + "/query/DbObjects?$filter=SchemaName='" + schemaName + "'&$orderby=Name";
+
+                    $.ajax({
+                        url: availableObjectQuery,
+                        xhrFields: { withCredentials: true }
+                    })
+                    .done(function (response) {
+                        self.availableRecordGrid().records.removeAll();
+                        for (var i = 0; i < response.Records.length; i++) {
+                            var availableRecord = response.Records[i];
+                            var selected = false;
+                            for (var j = 0; j < self.selectedRecordGrid().records().length; j++) {
+                                var selectedRecord = self.selectedRecordGrid().records()[j].record;
+                                if (availableRecord.Name === selectedRecord.Name) {
+                                    selected = true;
+                                    break;
+                                }
+                            }
+                            if (!selected) {
+                                var gridItem = exp.generateBasicGridItem(availableRecord, self.availableRecordGrid().records().length + 1, self.availableRecordGridColumns);
+                                self.availableRecordGrid().records.push(gridItem);
                             }
                         }
-                        if (!selected) {
-                            var gridItem = exp.generateBasicGridItem(availableRecord, self.availableRecordGrid().records().length + 1, self.availableRecordGridColumns);
-                            self.availableRecordGrid().records.push(gridItem);
-                        }
-                    }
+                    });
                 });
             };
 
-            //self.generateavailableRecordGridColumns = function () {
-            //    var schemaMetadata = new exp.BasicGridColumnMetadata("string", "Schema", "Schema", "Schema");
-            //    schemaMetadata.isNotEditableInGrid = true;
-
-            //    var dbNameMetadata = new exp.BasicGridColumnMetadata("string", "DbName", "Db Name", "Db Name");
-            //    dbNameMetadata.isNotEditableInGrid = true;
-
-            //    return [
-            //        new exp.ExplorerGridColumn(schemaMetadata, "Schema", 1),
-            //        new exp.ExplorerGridColumn(dbNameMetadata, "DbName", 2)
-            //    ];
-            //};
-
-            //self.availableRecordGridColumns = self.generateavailableRecordGridColumns();
-
-            //self.generateavailableRecordGrid = function () {
-
-            //    var availableRecords = exp.generateBasicGridItems([], self.availableRecordGridColumns);
-            //    var availableRecordGrid = exp.generateBasicGridConfiguration(availableRecords, self.availableRecordGridColumns, "availableObjects", false);
-
-            //    availableRecordGrid.validate = function (record, success, failure) {
-            //        this.grid.updateDirtyRecordWithLatestValues(record, this.columns);
-            //    };
-            //    return availableRecordGrid;
-            //};
-
-            //self.availableRecordGrid = self.generateavailableRecordGrid();
-
             self.initialise = function () {
-                var model = this;
-
-                //var x = self.getAvailableObjects();
+                self.loadAvailableObjects(self.dataService, self.schemaName, true);
             };
 
-            self.initialise();
-
-            ko.postbox.subscribe("Connection" + '-property-changed', function (post) {
-                self.loadAvailableObjects(post.selected().Name, false);
+            ko.postbox.subscribe("DataService" + '-property-changed', function (post) {
+                self.loadAvailableObjects(post.value, self.schemaName, false);
             });
+
+            ko.postbox.subscribe("SchemaName" + '-property-changed', function (post) {
+                self.loadAvailableObjects(self.dataService, post.value, false);
+            });
+
+            self.initialise();
         }
 
         return domainObjectsViewModel;

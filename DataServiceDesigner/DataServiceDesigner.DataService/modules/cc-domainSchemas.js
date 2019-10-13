@@ -1,7 +1,6 @@
 ﻿define(['knockout', 'options', 'loglevel', 'modules/bwf-metadata', 'modules/bwf-explorer', 'knockout-amd-helpers', 'knockout-postbox', 'jquery'],
     function (ko, options, log, metadataService, exp) {
 
-
         function domainSchemasViewModel(data) {
             var self = this;
 
@@ -108,33 +107,6 @@
                 self.availableRecordGrid(grid);
             });
 
-            //self.generateselectedRecordGridColumns = function () {
-            //   metadataService.getType("dataservicedesigner", "DomainObject").done(metadata => {
-            //    self.generateselectedRecordGridColumns = [
-            //        new exp.ExplorerGridColumn(metadata.properties["Id"], "Id", 1),
-            //        new exp.ExplorerGridColumn(metadata.properties["Schema"], "Schema", 2),
-            //        new exp.ExplorerGridColumn(metadata.properties["DbName"], "DbName", 3),
-            //        new exp.ExplorerGridColumn(metadata.properties["Name"], "Name", 4),
-            //        new exp.ExplorerGridColumn(metadata.properties["DisplayName"], "DisplayName", 5)
-            //    ];   
-            //});
-            //};
-
-            //self.selectedRecordGridColumns = self.generateselectedRecordGridColumns();
-
-            //self.generateselectedRecordGrid = function () {
-
-            //    var selectedRecords = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
-
-            //    return exp.generateBasicGridConfiguration(selectedRecords, self.selectedRecordGridColumns, "selectedObjects", true);
-            //};
-
-            //self.selectedRecordGrid = self.generateselectedRecordGrid();
-
-            self.loadObjects = function () {
-
-            };
-
             self.loadAvailableObjects = function (connection, reload) {
 
                 if (connection === null || self.connection === connection && !reload) {
@@ -170,42 +142,6 @@
                     }
                 });
             };
-
-            //self.generateavailableRecordGridColumns = function () {
-            //    var schemaMetadata = new exp.BasicGridColumnMetadata("string", "Schema", "Schema", "Schema");
-            //    schemaMetadata.isNotEditableInGrid = true;
-
-            //    var dbNameMetadata = new exp.BasicGridColumnMetadata("string", "DbName", "Db Name", "Db Name");
-            //    dbNameMetadata.isNotEditableInGrid = true;
-
-            //    return [
-            //        new exp.ExplorerGridColumn(schemaMetadata, "Schema", 1),
-            //        new exp.ExplorerGridColumn(dbNameMetadata, "DbName", 2)
-            //    ];
-            //};
-
-            //self.availableRecordGridColumns = self.generateavailableRecordGridColumns();
-
-            //self.generateavailableRecordGrid = function () {
-
-            //    var availableRecords = exp.generateBasicGridItems([], self.availableRecordGridColumns);
-            //    var availableRecordGrid = exp.generateBasicGridConfiguration(availableRecords, self.availableRecordGridColumns, "availableObjects", false);
-
-            //    availableRecordGrid.validate = function (record, success, failure) {
-            //        this.grid.updateDirtyRecordWithLatestValues(record, this.columns);
-            //    };
-            //    return availableRecordGrid;
-            //};
-
-            //self.availableRecordGrid = self.generateavailableRecordGrid();
-
-            self.initialise = function () {
-                var model = this;
-
-                //var x = self.getAvailableObjects();
-            };
-
-            self.initialise();
 
             ko.postbox.subscribe("Connection" + '-property-changed', function (post) {
                 self.loadAvailableObjects(post.selected(), false);

@@ -1,4 +1,4 @@
-/// <binding ProjectOpened='default' />
+/// <binding AfterBuild='copyAllFiles' ProjectOpened='default' />
 const gulp = require('gulp');
 const path = require('path');
 const livereload = require('gulp-livereload');

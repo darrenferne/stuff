@@ -20,7 +20,7 @@ namespace DataServiceDesigner.Domain
             TypeProperty(x => x.DataService)
                 .PositionInEditor(2)
                 .DisplayName("Data Service")
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataServices?$orderby=Name'")
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainDataServices?$expands=Connection&$orderby=Name'")
                 .ValueFieldInEditorChoice(nameof(DomainDataService.Id))
                 .DisplayFieldInEditorChoice(nameof(DomainDataService.Name))
                 .IsMandatoryInEditMode();
@@ -39,18 +39,18 @@ namespace DataServiceDesigner.Domain
 
             CollectionProperty(x => x.Objects)
                 .PositionInEditor(4)
-                .DisplayName("Objects");
-            //.CustomControl("cc-domainObjects")
-            //.CustomControlHeight(300);
+                .DisplayName("Objects")
+                .CustomControl("cc-domainObjects")
+                .CustomControlHeight(300);
 
             ViewDefaults()
                 .Property(x => x.SchemaName)
                 .Property(x => x.IsDefault)
                 .OrderBy(x => x.SchemaName);
 
-            //ExpandsForEdit()
-            //    .Property(p => p.Objects[0])
-            //    .Property(p => p.Objects[0].Properties);
+            ExpandsForEdit()
+                .Property(p => p.DataService)
+                .Property(p => p.Objects);
             ////    .Property(p => p.Objects[0].Properties[0].Object);
         }
     }
