@@ -1,0 +1,12 @@
+﻿<style>
+    .cc-customString > label {
+        display: none;
+    }
+</style>
+<div>
+    <div id="connectionString" class="cc-customString" data-bind="component: { name: 'ds-explorer-cc-string', params: { metadata: data.metadata, errorMessages: data.errorMessages, model: data.model, typeMetadata: data.typeMetadata, grid: data.grid, permissions: data.permissions } }">
+    </div>
+    <button type="button" style="margin-top:5px" class="btn btn-xs btn-primary" data-bind="click: testConnection">
+        <span>Test Connection</span>
+    </button>
+</div>
