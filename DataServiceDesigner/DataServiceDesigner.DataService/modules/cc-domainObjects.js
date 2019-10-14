@@ -132,10 +132,6 @@
                 else if (self.dataService == dataService && self.schemaName === schemaName && !reload) {
                     return;
                 }
-                else {
-                    self.dataService = dataService;
-                    self.schemaName = schemaName;
-                }
 
                 var url = self.parentModel.state.dataServiceUrl;
                 var dataServiceQuery = url + "/query/DomainDataServices?$filter=Id=" + dataService + "&$expands=Connection";
@@ -179,10 +175,12 @@
 
                 ko.postbox.subscribe("DataService" + '-property-changed', function (post) {
                     self.loadAvailableObjects(post.value, self.schemaName, false);
+                    self.dataService = post.value;
                 });
 
                 ko.postbox.subscribe("SchemaName" + '-property-changed', function (post) {
                     self.loadAvailableObjects(self.dataService, post.value, false);
+                    self.schemaName = post.value;
                 });
 
                 ko.postbox.publish(self.data.grid + '-togglePanelWidth', true);

@@ -121,10 +121,6 @@
                 else if (self.schema == schema && self.objectName === objectName && !reload) {
                     return;
                 }
-                else {
-                    self.schema = schema;
-                    self.objectName = objectName;
-                }
 
                 var url = self.parentModel.state.dataServiceUrl;
                 var dataServiceQuery = url + "/query/DomainSchemas?$filter=Id=" + schema + "&$expands=DataService/Connection";
@@ -168,10 +164,12 @@
             
                 ko.postbox.subscribe("Schema" + '-property-changed', function (post) {
                     self.loadAvailableObjects(post.value, self.objectName, false);
+                    self.schema = post.value;
                 });
 
                 ko.postbox.subscribe("ObjectName" + '-property-changed', function (post) {
                     self.loadAvailableObjects(self.schema, post.value, false);
+                    self.objectName = post.value;
                 });
 
                 ko.postbox.publish(self.data.grid + '-togglePanelWidth', true);

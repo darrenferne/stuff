@@ -11,6 +11,7 @@ namespace DataServiceDesigner.Domain
     {
         public virtual long Id { get; set; }
         public virtual DomainDataService DataService { get; set; }
+        public virtual bool AddDefaultObjects { get; set; }
         public virtual string SchemaName { get; set; }
         public virtual bool IsDefault { get; set; }
         public virtual IList<DomainObject> Objects { get; set; }

@@ -12,7 +12,7 @@ namespace DataServiceDesigner.DataService
     {
         public void Apply(IKernel kernel)
         {
-            kernel.Bind<ISchemaBrowserConnectionManager>().To<SchemaBrowerConnectionManager>().InSingletonScope();
+            kernel.Bind<ISchemaBrowserHelpers>().To<SchemaBrowerHelpers>().InSingletonScope();
         }
     }
 }

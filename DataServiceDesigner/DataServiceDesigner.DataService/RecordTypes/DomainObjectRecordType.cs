@@ -27,15 +27,15 @@ namespace DataServiceDesigner.DataService
             {
                 return (changeSet, context, username) =>
                 {
-                    foreach (var obj in changeSet.Create.Values.Union(changeSet.Update.Values))
+                    foreach (var domainObject in changeSet.Create.Values.Union(changeSet.Update.Values))
                     {
-                        foreach (var prop in obj.Properties.Where(o => (o.Object?.Id ?? 0) == 0))
+                        foreach (var domainProperty in domainObject.Properties.Where(o => (o.Object?.Id ?? 0) == 0))
                         {
-                            prop.Object = obj;
+                            domainProperty.Object = domainObject;
                         }
                     }
-                    base.PreSaveAction(changeSet, context, username);
 
+                    base.PreSaveAction(changeSet, context, username);
                 };
             }
         }

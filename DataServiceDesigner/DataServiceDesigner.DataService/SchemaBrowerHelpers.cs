@@ -14,13 +14,14 @@ using SchemaBrowser.Domain;
 
 namespace DataServiceDesigner.DataService
 {
-    public class SchemaBrowerConnectionManager : ISchemaBrowserConnectionManager
+    public class SchemaBrowerHelpers : ISchemaBrowserHelpers
     {
         IKernel _kernel;
+        ISchemaBrowserRepository _sbRepository;
         ISchemaBrowserDataService _sbDataService;
         IChangeableRecordType<long, DbConnection> _dbConnectionRecordType;
 
-        public SchemaBrowerConnectionManager(IKernel kernel)
+        public SchemaBrowerHelpers(IKernel kernel)
         {
             _kernel = kernel;
         }
@@ -31,6 +32,7 @@ namespace DataServiceDesigner.DataService
             {
                 try
                 {
+                    _sbRepository = _kernel.Get<ISchemaBrowserRepository>();
                     _sbDataService = _kernel.Get<ISchemaBrowserDataService>();
                     _dbConnectionRecordType = _sbDataService.GetRecordType(nameof(DbConnection)) as IChangeableRecordType<long, DbConnection>;
                 }
@@ -73,6 +75,73 @@ namespace DataServiceDesigner.DataService
 
                 _dbConnectionRecordType.ProcessChangeSet(_sbDataService, sbConnectionChangeSet, settings);
             }
+        }
+
+        private string ToDisplayName(string name, bool pluralise = false)
+        {
+            StringBuilder displayName = new StringBuilder();
+            displayName.Append( char.ToUpper(name[0]));
+            for (int i = 1; i < name.Length; i++)
+            {
+                if (char.IsUpper(name[i]))
+                {
+                    displayName.Append(" ");
+                    displayName.Append(name[i]);
+                }
+                else 
+                {
+                    displayName.Append(name[i]);
+                }
+            }
+            if (pluralise)
+            {
+                if (name.ToLower().EndsWith("y"))
+                {
+                    displayName.Remove(displayName.Length - 1, 1);
+                    displayName.Append("ies");
+                }
+                else
+                {
+                    displayName.Append("s");
+                }
+            }
+
+            return displayName.ToString();
+        }
+
+        public void AddDefaultPropertiesToObject(DomainObject domainObject)
+        {
+            var dbObjectProperties = _sbRepository.GetWhere<DbObjectProperty>(p => p.ObjectName == domainObject.TableName && p.SchemaName == domainObject.Schema.SchemaName);
+            var domainObjectProperties = dbObjectProperties.Select(r => new DomainObjectProperty()
+            {
+                Object = domainObject,
+                ColumnName = r.Name,
+                PropertyName = r.Name,
+                DisplayName = ToDisplayName(r.Name),
+                IncludeInDefaultView = true
+            });
+            domainObject.Properties = new List<DomainObjectProperty>(domainObjectProperties);
+        }
+
+        public void AddDefaultObjectsToSchema(DomainSchema schema)
+        {
+            var dbObjects = _sbRepository.GetWhere<DbObject>(o => o.SchemaName == schema.SchemaName);
+
+            var domainObjects = dbObjects.Select(r =>
+            {
+                var domainObject = new DomainObject()
+                {
+                    Schema = schema,
+                    TableName = r.Name,
+                    ObjectName = r.Name,
+                    DisplayName = ToDisplayName(r.Name),
+                    PluralisedDisplayName = ToDisplayName(r.Name, true)
+                };
+                AddDefaultPropertiesToObject(domainObject);
+                return domainObject;
+            });
+
+            schema.Objects = new List<DomainObject>(domainObjects);
         }
     }
 }

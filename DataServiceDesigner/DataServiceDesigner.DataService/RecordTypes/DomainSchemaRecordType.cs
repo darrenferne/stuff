@@ -14,6 +14,12 @@ namespace DataServiceDesigner.DataService
     [DeleteAction("Delete")]
     public class DomainSchemaRecordType : ChangeableRecordType<DomainSchema, long, DomainSchemaBatchValidator>
     {
+        ISchemaBrowserHelpers _helpers;
+        public DomainSchemaRecordType(ISchemaBrowserHelpers helpers)
+        {
+            _helpers = helpers;
+        }
+
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainSchema, DomainSchema>()
@@ -26,13 +32,16 @@ namespace DataServiceDesigner.DataService
             {
                 return (changeSet, context, username) =>
                 {
-                    foreach (var schema in changeSet.Create.Values.Union(changeSet.Update.Values))
+                    foreach (var domainSchema in changeSet.Create.Values.Union(changeSet.Update.Values))
                     {
-                        foreach (var obj in schema.Objects.Where(o => (o.Schema?.Id ?? 0) == 0))
+                        foreach (var domainObject in domainSchema.Objects.Where(o => (o.Schema?.Id ?? 0) == 0))
                         {
-                            obj.Schema = schema;
+                            domainObject.Schema = domainSchema;
+
+                            _helpers.AddDefaultPropertiesToObject(domainObject);
                         }
                     }
+
                     base.PreSaveAction(changeSet, context, username);
 
                 };

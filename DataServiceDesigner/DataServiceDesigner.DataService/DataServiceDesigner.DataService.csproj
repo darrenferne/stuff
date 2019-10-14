@@ -246,9 +246,10 @@
     <Compile Include="DataServiceDesignerDataService.cs" />
     <Compile Include="DataServiceDesignerKernelManipulations.cs" />
     <Compile Include="DataServiceDesignerRepository.cs" />
+    <Compile Include="DataServiceDesignerStartup.cs" />
     <Compile Include="Interfaces\IDataServiceDesignerDataService.cs" />
     <Compile Include="Interfaces\IDataServiceDesignerRepository.cs" />
-    <Compile Include="Interfaces\ISchemaBrowserConnectionManager.cs" />
+    <Compile Include="Interfaces\ISchemaBrowserHelpers.cs" />
     <Compile Include="Mappings\DataServiceConnectionMapping.cs" />
     <Compile Include="Mappings\DomainDataServiceMapping.cs" />
     <Compile Include="Mappings\DomainObjectMapping.cs" />
@@ -263,7 +264,7 @@
     <Compile Include="RecordTypes\DomainObjectPropertyRecordType.cs" />
     <Compile Include="RecordTypes\DomainObjectRecordType.cs" />
     <Compile Include="RecordTypes\DomainSchemaRecordType.cs" />
-    <Compile Include="SchemaBrowerConnectionManager.cs" />
+    <Compile Include="SchemaBrowerHelpers.cs" />
     <Compile Include="Validators\Connection\DataServiceConnectionBatchValidator.cs" />
     <Compile Include="Validators\Connection\DataServiceConnectionValidator.cs" />
     <Compile Include="Validators\DataService\DomainDataServiceBatchValidator.cs" />
