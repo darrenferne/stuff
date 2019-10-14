@@ -6,10 +6,6 @@ namespace DataServiceDesigner.Domain
 {
     public class DomainDataService : IHaveId<long>
     {
-        public DomainDataService()
-        {
-            //Schemas = new List<DomainSchema>();
-        }
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
         public virtual DataServiceConnection Connection { get; set; }

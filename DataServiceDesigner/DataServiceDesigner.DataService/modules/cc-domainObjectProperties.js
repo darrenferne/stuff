@@ -1,7 +1,7 @@
 ﻿define(['knockout', 'options', 'loglevel', 'modules/bwf-metadata', 'modules/bwf-explorer', 'knockout-amd-helpers', 'knockout-postbox', 'jquery'],
     function (ko, options, log, metadataService, exp) {
 
-        function domainObjectsViewModel(data) {
+        function domainObjectPropertiesViewModel(data) {
             var self = this;
 
             self.data = data;
@@ -26,11 +26,11 @@
             self.availableRecordGrid = ko.observable(null);
             self.availableObjects = ko.observableArray([]);
             self.selectedRecordGrid = ko.observable(null);
-            self.dataService = data.model.observables.DataService();
-            self.schemaName = data.model.observables.SchemaName();
-            self.selectedObjects = data.model.observables.Objects;
+            self.schema = data.model.observables.Schema();
+            self.objectName = data.model.observables.ObjectName();
+            self.selectedObjects = data.model.observables.Properties;
 
-            self.toDisplayName = function (name, pluralise) {
+            self.toDisplayName = function (name) {
                 var displayName = name.charAt(0).toUpperCase();
                 for (var i = 1; i < name.length; i++) {
                     var char = name.charAt(i);
@@ -41,14 +41,6 @@
                         displayName = displayName + char;
                     }
                 }
-                if (pluralise) {
-                    if (displayName.charAt(displayName.length - 1).toLowerCase() === 'y') {
-                        displayName = displayName.substring(0, displayName.length - 1) + "ies";
-                    }
-                    else {
-                        displayName = displayName + 's';
-                    }
-                }
                 return displayName;
             };
 
@@ -56,16 +48,15 @@
                 var selectedRecords = self.availableRecordGrid().selectedRecords();
                 for (var i = 0; i < selectedRecords.length; i++) {
                     var selectedRecord = selectedRecords[i].record;
-                    var domainObject = {
+                    var domainProperty = {
                         Id: 0,
-                        TableName: selectedRecord.Name,
-                        ObjectName: selectedRecord.Name,
-                        DisplayName: self.toDisplayName(selectedRecord.Name),
-                        PluralisedDisplayName: self.toDisplayName(selectedRecord.Name, true)
+                        ColumnName: selectedRecord.Name,
+                        PropertyName: selectedRecord.Name,
+                        DisplayName: self.toDisplayName(selectedRecord.Name)
                     };
-                    var gridItem = exp.generateBasicGridItem(domainObject, self.selectedRecordGrid().records().length + 1, self.selectedRecordGridColumns);
+                    var gridItem = exp.generateBasicGridItem(domainProperty, self.selectedRecordGrid().records().length + 1, self.selectedRecordGridColumns);
                     self.selectedRecordGrid().records.push(gridItem);
-                    self.selectedObjects().push(domainObject);
+                    self.selectedObjects().push(domainProperty);
                 }
                 self.availableRecordGrid().records.removeAll(selectedRecords);
             };
@@ -74,29 +65,27 @@
                 var selectedObjects = self.selectedRecordGrid().selectedRecords().map(function (r) { return r.record; });
                 self.selectedRecordGrid().records.removeAll(selectedRecords);
                 self.selectedObjects.removeAll(selectedObjects);
-                self.loadAvailableObjects(self.dataService, self.schemaName, true);
+                self.loadAvailableObjects(self.schema, self.objectName, true);
             };
             self.clear = function () {
                 self.selectedRecordGrid().records.removeAll();
                 self.selectedObjects.removeAll();
-                self.loadAvailableObjects(self.dataService, self.schemaName, true);
+                self.loadAvailableObjects(self.schema, self.objectName, true);
             };
 
-            metadataService.getType("dataservicedesigner", "DomainObject").done(metadata => {
+            metadataService.getType("dataservicedesigner", "DomainObjectProperty").done(metadata => {
 
                 var idMetadata = metadata.properties["Id"];
                 idMetadata.isNotEditableInGrid = true;
-                var tableNameMetadata = metadata.properties["TableName"];
-                var objectNameMetadata = metadata.properties["ObjectName"];
+                var tableNameMetadata = metadata.properties["ColumnName"];
+                var objectNameMetadata = metadata.properties["PropertyName"];
                 var displayNameMetadata = metadata.properties["DisplayName"];
-                var pluralisedDisplayNameMetadata = metadata.properties["PluralisedDisplayName"];
 
                 self.selectedRecordGridColumns = [
                     new exp.ExplorerGridColumn(idMetadata, "Id", 1),
-                    new exp.ExplorerGridColumn(tableNameMetadata, "TableName", 2),
-                    new exp.ExplorerGridColumn(objectNameMetadata, "ObjectName", 3),
-                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 4),
-                    new exp.ExplorerGridColumn(pluralisedDisplayNameMetadata, "PluralisedDisplayName", 5)];
+                    new exp.ExplorerGridColumn(tableNameMetadata, "ColumnName", 2),
+                    new exp.ExplorerGridColumn(objectNameMetadata, "PropertyName", 3),
+                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 4)];
 
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
                 var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);
@@ -110,7 +99,7 @@
                 self.selectedRecordGrid(grid);
             });
 
-            metadataService.getType("schemabrowser", "DbObject").done(metadata => {
+            metadataService.getType("schemabrowser", "DbObjectProperty").done(metadata => {
 
                 var dbNameMetadata = metadata.properties["Name"];
 
@@ -124,21 +113,21 @@
                 self.availableRecordGrid(grid);
             });
 
-            self.loadAvailableObjects = function (dataService, schemaName, reload) {
+            self.loadAvailableObjects = function (schema, objectName, reload) {
 
-                if (dataService == null || schemaName === null) {
+                if (schema == null || objectName === null) {
                     return;
                 }
-                else if (self.dataService == dataService && self.schemaName === schemaName && !reload) {
+                else if (self.schema == schema && self.objectName === objectName && !reload) {
                     return;
                 }
                 else {
-                    self.dataService = dataService;
-                    self.schemaName = schemaName;
+                    self.schema = schema;
+                    self.objectName = objectName;
                 }
 
                 var url = self.parentModel.state.dataServiceUrl;
-                var dataServiceQuery = url + "/query/DomainDataServices?$filter=Id=" + dataService + "&$expands=Connection";
+                var dataServiceQuery = url + "/query/DomainSchemas?$filter=Id=" + schema + "&$expands=DataService/Connection";
 
                 $.ajax({
                     url: dataServiceQuery,
@@ -147,7 +136,7 @@
                 .done(function (response) {
 
                     url = self.parentModel.state.dataServiceUrl.replace(self.parentModel.state.dataService, "schemabrowser");
-                    var availableObjectQuery = url + "/query/DbObjects?$filter=SchemaName='" + schemaName + "'&$orderby=Name";
+                    var availableObjectQuery = url + "/query/DbObjectPropertys?$filter=ObjectName='" + objectName + "'&$orderby=Name";
 
                     $.ajax({
                         url: availableObjectQuery,
@@ -160,7 +149,7 @@
                             var selected = false;
                             for (var j = 0; j < self.selectedRecordGrid().records().length; j++) {
                                 var selectedRecord = self.selectedRecordGrid().records()[j].record;
-                                if (availableRecord.Name === selectedRecord.ObjectName) {
+                                if (availableRecord.Name === selectedRecord.ColumnName) {
                                     selected = true;
                                     break;
                                 }
@@ -175,14 +164,14 @@
             };
 
             self.initialise = function () {
-                self.loadAvailableObjects(self.dataService, self.schemaName, true);
-
-                ko.postbox.subscribe("DataService" + '-property-changed', function (post) {
-                    self.loadAvailableObjects(post.value, self.schemaName, false);
+                self.loadAvailableObjects(self.schema, self.objectName, true);
+            
+                ko.postbox.subscribe("Schema" + '-property-changed', function (post) {
+                    self.loadAvailableObjects(post.value, self.objectName, false);
                 });
 
-                ko.postbox.subscribe("SchemaName" + '-property-changed', function (post) {
-                    self.loadAvailableObjects(self.dataService, post.value, false);
+                ko.postbox.subscribe("ObjectName" + '-property-changed', function (post) {
+                    self.loadAvailableObjects(self.schema, post.value, false);
                 });
 
                 ko.postbox.publish(self.data.grid + '-togglePanelWidth', true);
@@ -191,6 +180,6 @@
             self.initialise();
         }
 
-        return domainObjectsViewModel;
+        return domainObjectPropertiesViewModel;
     }
 );

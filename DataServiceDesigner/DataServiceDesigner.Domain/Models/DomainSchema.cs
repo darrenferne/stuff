@@ -9,10 +9,6 @@ namespace DataServiceDesigner.Domain
 {
     public class DomainSchema : IHaveId<long>
     {
-        public DomainSchema()
-        {
-            Objects = new List<DomainObject>();
-        }
         public virtual long Id { get; set; }
         public virtual DomainDataService DataService { get; set; }
         public virtual string SchemaName { get; set; }

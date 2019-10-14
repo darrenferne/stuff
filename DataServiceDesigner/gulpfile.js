@@ -1,4 +1,4 @@
-/// <binding AfterBuild='copyAllFiles' ProjectOpened='default' />
+/// <binding ProjectOpened='default' />
 const gulp = require('gulp');
 const path = require('path');
 const livereload = require('gulp-livereload');
@@ -48,6 +48,17 @@ gulp.task('copyAllFiles', function (done) {
     done();
 });
 
-gulp.task('default', gulp.series('copyAllFiles'));
+gulp.task('default', gulp.series('copyAllFiles', function (done) {
+    livereload.listen();
 
+    const watching = [
+        bwfFiles,
+        sbModules,
+        sbTemplates,
+        dsdModules,
+        dsdTemplates
+    ].map(normalize);
 
+    gulp.watch(watching, gulp.series('copyAllFiles'));
+    done();
+})); 

@@ -1,6 +1,7 @@
 ﻿<div id="domainObjects" class="custom-panel-control">
     <div class="panel-side-by-side panel-2third">
-        <div class="margin-bottom-xs" data-bind="ifnot: formDisabled">
+        <div class="panel-no-shrink" data-bind="ifnot: formDisabled">
+            <!--<div class="margin-bottom-xs" data-bind="ifnot: formDisabled">-->
             <div class="btn-group">
                 <button data-bind="enable: canDelete, click: deleteSelected"
                         type="button" class="btn btn-xs btn-primary">
@@ -16,21 +17,27 @@
                 </button>
             </div>
         </div>
-        <div class="flex-box grow-one"
-             data-bind="component: { name: 'grid/bwf-grid', params: selectedRecordGrid }">
+        <div class="panel-box no-border">
+            <div class="max-height flex-box embedded-grid"
+                 data-bind="component: { name: 'grid/bwf-grid', params: selectedRecordGrid }">
+            </div>
         </div>
     </div>
     <div class="panel-center-spacer"></div>
     <div class="panel-side-by-side panel-1third">
-        <div class="btn-group margin-bottom-xs" data-bind="ifnot: formDisabled">
-            <button data-bind="enable: canSelect, click: select"
-                    type="button" class="btn btn-xs btn-primary">
-                <i class="fa fa-plus fa-white"></i>
-                <span data-bind="text: resources['bwf_select']"></span>
-            </button>
+        <div class="panel-no-shrink" data-bind="ifnot: formDisabled">
+            <div class="btn-group margin-bottom-xs" data-bind="ifnot: formDisabled">
+                <button data-bind="enable: canSelect, click: select"
+                        type="button" class="btn btn-xs btn-primary">
+                    <i class="fa fa-plus fa-white"></i>
+                    <span data-bind="text: resources['bwf_select']"></span>
+                </button>
+            </div>
         </div>
-        <div class="flex-box grow-one"
-             data-bind="component: { name: 'grid/bwf-grid', params: availableRecordGrid }">
+        <div class="panel-box no-border">
+            <div class="flex-box grow-one"
+                    data-bind="component: { name: 'grid/bwf-grid', params: availableRecordGrid }">
+            </div>
         </div>
     </div>
 </div>

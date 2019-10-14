@@ -20,9 +20,9 @@ namespace DataServiceDesigner.Domain
             TypeProperty(x => x.Schema)
                 .DisplayName("Schema")
                 .PositionInEditor(2)
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=Name'")
-                .DisplayFieldInEditorChoice(x => x.ObjectName)
-                .ValueFieldInEditorChoice(x => x.Id)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=SchemaName'")
+                .DisplayFieldInEditorChoice(nameof(DomainSchema.SchemaName))
+                .ValueFieldInEditorChoice(nameof(DomainSchema.Id))
                 .IsMandatoryInEditMode();
 
             StringProperty(x => x.TableName)
@@ -47,7 +47,9 @@ namespace DataServiceDesigner.Domain
             
             CollectionProperty(x => x.Properties)
                 .DisplayName("Properties")
-                .PositionInEditor(7);
+                .PositionInEditor(7)
+                .CustomControl("cc-domainObjectProperties")
+                .CustomControlHeight(300);
 
             ViewDefaults()
                 .Property(x => x.Schema.DataService.Name)

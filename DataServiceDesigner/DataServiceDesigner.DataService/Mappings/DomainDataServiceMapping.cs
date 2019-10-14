@@ -30,7 +30,7 @@ namespace DataServiceDesigner.DataService
                         k.Column("dataserviceid");
                         k.NotNullable(true);
                     });
-                    m.Cascade(Cascade.All);
+                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
                     m.Lazy(CollectionLazy.NoLazy);
                     m.Inverse(true);
                 },

@@ -31,8 +31,8 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Connection")
                 .PositionInEditor(2)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DataServiceConnections?$orderby=Name'")
-                .DisplayFieldInEditorChoice(x => x.Name)
-                .ValueFieldInEditorChoice(x => x.Id)
+                .DisplayFieldInEditorChoice(nameof(DataServiceConnection.Name))
+                .ValueFieldInEditorChoice(nameof(DataServiceConnection.Id))
                 .IsNotEditableInGrid();
 
             CollectionProperty(x => x.Schemas)

@@ -130,7 +130,7 @@
                         var selected = false;
                         for (var j = 0; j < self.selectedRecordGrid().records().length; j++) {
                             var selectedRecord = self.selectedRecordGrid().records()[j].record;
-                            if (availableRecord.Name === selectedRecord.Name) {
+                            if (availableRecord.Name === selectedRecord.SchemaName) {
                                 selected = true;
                                 break;
                             }
@@ -143,9 +143,16 @@
                 });
             };
 
-            ko.postbox.subscribe("Connection" + '-property-changed', function (post) {
-                self.loadAvailableObjects(post.selected(), false);
-            });
+            self.initialise = function () {
+                
+                ko.postbox.subscribe("Connection" + '-property-changed', function (post) {
+                    self.loadAvailableObjects(post.selected(), false);
+                });
+
+                ko.postbox.publish(self.data.grid + '-togglePanelWidth', true);
+            };
+
+            self.initialise();
         }
 
         return domainSchemasViewModel;
