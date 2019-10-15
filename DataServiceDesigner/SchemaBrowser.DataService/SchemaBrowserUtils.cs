@@ -7,7 +7,7 @@ using SBD = SchemaBrowser.Domain;
 
 namespace SchemaBrowser.DataService
 {
-    internal class SchemaBrowserUtils
+    public class SchemaBrowserUtils
     {
         private DbProviderFactory GetDbProviderFactory(SBD.DbType dbType)
         {
@@ -35,7 +35,7 @@ namespace SchemaBrowser.DataService
             return selectedFactory;
         }
 
-        private DbConnection GetDbConnection(SBD.DbType dbType, string connectionString)
+        public DbConnection GetDbConnection(SBD.DbType dbType, string connectionString)
         {
             var factory = GetDbProviderFactory(dbType);
             var dbConnection = factory.CreateConnection();
@@ -137,7 +137,7 @@ namespace SchemaBrowser.DataService
                 var objectOwner = (string)columnRow[ownerCol];
                 var objectName = (string)columnRow[tableNameCol];
                 var columnName = (string)columnRow[columnNameCol];
-                var columnType = columnTypeCol == null ? null : (string)columnRow[columnTypeCol];
+                var columnType = columnTypeCol == null ? null : ((string)columnRow[columnTypeCol]).ToUpper();
                 var columnLength = lengthCol == null || columnRow.IsNull(lengthCol.Ordinal) ? 0 : int.Parse(columnRow[lengthCol].ToString());
                 var isNullable = nullableCol == null || columnRow.IsNull(nullableCol.Ordinal) ? true : ((string)columnRow[nullableCol]).ToLower()[0] == 'y';
 
@@ -145,12 +145,48 @@ namespace SchemaBrowser.DataService
                 {
                     SchemaName = objectOwner,
                     ObjectName = objectName,
-                    Name = columnName
+                    Name = columnName,
+                    ColumnType = columnType,
+                    NetType = SQLTypeToNetType(columnType),
+                    ColumnLength = columnLength,
+                    IsNullable = isNullable
                 };
 
                 dbObjectProperties.Add(dbObjectProperty);
             }
             return dbObjectProperties;
+        }
+
+        private string SQLTypeToNetType(string columnType)
+        {
+            switch (columnType) 
+            {
+                case "BIGINT":
+                    return typeof(long).Name;
+                case "INT":
+                    return typeof(int).Name;
+                case "DECIMAL":
+                    return typeof(decimal).Name;
+                case "FLOAT":
+                    return typeof(double).Name;
+                case "BIT":
+                    return typeof(bool).Name;
+                case "DATE":
+                case "DATETIME":
+                case "DATETIME2":
+                    return typeof(DateTime).Name;
+                case "DATETIMEOFFSET":
+                    return typeof(DateTimeOffset).Name;
+                case "CHAR":
+                case "VARCHAR":
+                case "VARCHAR2":
+                case "NCHAR":
+                case "NVARCHAR":
+                case "NVARCHAR2":
+                    return typeof(string).Name;
+                default:
+                    return string.Empty;
+            }
         }
 
         public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DbType dbType, SBD.DbObjectType objectType, DbConnection dbConnection, string objectCatalog, string objectOwner, string objectName)
@@ -183,6 +219,119 @@ namespace SchemaBrowser.DataService
                 dbObjectProperties.Add(dbObjectProperty);
             }
             return dbObjectProperties;
+        }
+
+        private string GetObjectPrimaryKeySQL(SBD.DbType dbType, bool filtered = false)
+        {
+            var sql = string.Empty;
+            if (dbType == SBD.DbType.SqlServer)
+            {
+                sql = @"SELECT
+                            s.name schema_name,
+                            t.name table_name,
+                            i.name index_name,
+                            c.name column_name,
+                            ic.index_column_id ordinal
+                        FROM
+                            sys.tables t
+                            JOIN
+                            sys.schemas s ON t.schema_id = s.schema_id
+                            JOIN
+                            sys.indexes i ON i.object_id = t.object_id
+                            JOIN
+                            sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
+                            JOIN
+                            sys.columns c ON c.object_id = t.object_id AND c.column_id = ic.column_id
+                        WHERE
+                            i.is_primary_key = 1";
+
+                if (filtered)
+                {
+                    sql += @" AND s.name = @1 AND t.name = @2";
+                }
+
+                sql += @" ORDER BY s.name, t.name, i.name, ic.index_column_id";
+            }
+            else
+            {
+            }
+            return sql;
+        }
+        public SBD.DbObjectPrimaryKey GetObjectPrimaryKey(SBD.DbType dbType, string connectionString, string objectOwner, string objectName)
+        {
+            var sql = GetObjectPrimaryKeySQL(dbType, true);
+
+            var connection = GetDbConnection(dbType, connectionString);
+            var command = connection.CreateCommand();
+            command.CommandText = sql;
+            command.CommandType = CommandType.Text;
+            
+            var param1 = command.CreateParameter();
+            param1.DbType = DbType.String;
+            param1.Value = objectOwner;
+            command.Parameters.Add(param1);
+            
+            var param2 = command.CreateParameter();
+            param2.DbType = DbType.String;
+            param2.Value = objectOwner;
+            command.Parameters.Add(param2);
+
+            var reader = command.ExecuteReader();
+            var primaryKey = default(SBD.DbObjectPrimaryKey);
+            while (reader.Read())
+            {
+                if (primaryKey is null)
+                {
+                    primaryKey.SchemaName = reader.GetString(reader.GetOrdinal("schema_name"));
+                    primaryKey.TableName = reader.GetString(reader.GetOrdinal("table_name"));
+                    primaryKey.IndexName = reader.GetString(reader.GetOrdinal("index_name"));
+                }
+                primaryKey.Columns.Add(reader.GetString(reader.GetOrdinal("index_name")));
+            }
+
+            return primaryKey;
+        }
+
+        public List<SBD.DbObjectPrimaryKey> GetObjectPrimaryKeys(SBD.DbType dbType, string connectionString)
+        {
+            var primaryKeys = new List<SBD.DbObjectPrimaryKey>();
+            var sql = GetObjectPrimaryKeySQL(dbType);
+
+            using (var connection = GetDbConnection(dbType, connectionString))
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = sql;
+                    command.CommandType = CommandType.Text;
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        var primaryKey = default(SBD.DbObjectPrimaryKey);
+                        var lastKeyName = string.Empty;
+                        while (reader.Read())
+                        {
+                            var schemaName = reader.GetString(reader.GetOrdinal("schema_name"));
+                            var tableName = reader.GetString(reader.GetOrdinal("table_name"));
+                            var indexName = reader.GetString(reader.GetOrdinal("index_name"));
+                            var keyName = $"{schemaName}.{tableName}.{indexName}";
+                            if (keyName != lastKeyName)
+                            {
+                                primaryKey = new SBD.DbObjectPrimaryKey()
+                                {
+                                    SchemaName = schemaName,
+                                    TableName = tableName,
+                                    IndexName = indexName
+                                };
+                                primaryKeys.Add(primaryKey);
+
+                                lastKeyName = keyName; 
+                            }
+                            primaryKey.Columns.Add(reader.GetString(reader.GetOrdinal("column_name")));
+                        }
+                    }
+                }
+            }
+            return primaryKeys;
         }
     }
 }

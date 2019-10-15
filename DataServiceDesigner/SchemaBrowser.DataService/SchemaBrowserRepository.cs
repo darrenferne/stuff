@@ -49,6 +49,7 @@ namespace SchemaBrowser.DataService
         {
             var dbObjects = _utils.GetDbObjects(connection.DatabaseType, connection.ConnectionString, false);
             var dbObjectProperties = _utils.GetDbObjectProperties(connection.DatabaseType, connection.ConnectionString);
+            var dbObjectPrimaryKeys = _utils.GetObjectPrimaryKeys(connection.DatabaseType, connection.ConnectionString);
             var dbSchemas = new Dictionary<string, DbSchema>();
 
             foreach (var dbObject in dbObjects)
@@ -72,6 +73,12 @@ namespace SchemaBrowser.DataService
             foreach (var dbSchema in dbSchemas.Values)
             {
                 Create<DbSchema>(dbSchema);
+            }
+
+            foreach (var dbObjectPrimaryKey in dbObjectPrimaryKeys)
+            {
+                dbObjectPrimaryKey.Connection = connection;
+                Create<DbObjectPrimaryKey>(dbObjectPrimaryKey);
             }
         }
 

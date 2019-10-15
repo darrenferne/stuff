@@ -36,13 +36,25 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Display Name")
                 .PositionInEditor(6);
 
+            StringProperty(x => x.PropertyType)
+                .DisplayName("Property Type")
+                .PositionInEditor(7);
+
+            StringProperty(x => x.Length)
+                .DisplayName("Length")
+                .PositionInEditor(8);
+
+            StringProperty(x => x.IsNullable)
+                .DisplayName("Nullable?")
+                .PositionInEditor(9);
+
             BooleanProperty(x => x.IsPartOfKey)
                 .DisplayName("Is Part Of Key?")
-                .PositionInEditor(7);
+                .PositionInEditor(10);
                 
             BooleanProperty(x => x.IncludeInDefaultView)
                 .DisplayName("Include In Default View?")
-                .PositionInEditor(8);
+                .PositionInEditor(11);
 
             ViewDefaults()
                 .Property(x => x.Object.Schema.DataService.Name)
@@ -51,6 +63,9 @@ namespace DataServiceDesigner.Domain
                 .Property(x => x.ColumnName)
                 .Property(x => x.PropertyName)
                 .Property(x => x.DisplayName)
+                .Property(x => x.PropertyType)
+                .Property(x => x.Length)
+                .Property(x => x.IsNullable)
                 .Property(x => x.IsPartOfKey)
                 .Property(x => x.IncludeInDefaultView)
                 .OrderBy(x => x.PropertyName);

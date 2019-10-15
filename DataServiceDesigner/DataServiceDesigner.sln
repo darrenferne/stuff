@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceDesigner.DataSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceDesigner", "DataServiceDesigner\DataServiceDesigner.csproj", "{CA348154-17B8-4556-B785-2EED76463316}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{E0035ED6-6C41-4A9C-A301-0AAE270183F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{CA348154-17B8-4556-B785-2EED76463316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA348154-17B8-4556-B785-2EED76463316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA348154-17B8-4556-B785-2EED76463316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

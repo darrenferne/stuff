@@ -59,16 +59,16 @@
         
             metadataService.getType("dataservicedesigner", "DomainSchema").done(metadata => {
 
-                var idMetadata = metadata.properties["Id"];
-                idMetadata.isNotEditableInGrid = true;
+                //var idMetadata = metadata.properties["Id"];
+                //idMetadata.isNotEditableInGrid = true;
                 var nameMetadata = metadata.properties["SchemaName"];
                 nameMetadata.isNotEditableInGrid = true;
                 var isDefaultMetadata = metadata.properties["IsDefault"];
                 
                 self.selectedRecordGridColumns = [
-                    new exp.ExplorerGridColumn(idMetadata, "Id", 1),
-                    new exp.ExplorerGridColumn(nameMetadata, "SchemaName", 2),
-                    new exp.ExplorerGridColumn(isDefaultMetadata, "IsDefault", 3)
+                    //new exp.ExplorerGridColumn(idMetadata, "Id", 1),
+                    new exp.ExplorerGridColumn(nameMetadata, "SchemaName", 1),
+                    new exp.ExplorerGridColumn(isDefaultMetadata, "IsDefault", 2)
                 ];  
                 
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);

@@ -52,7 +52,10 @@
                         Id: 0,
                         ColumnName: selectedRecord.Name,
                         PropertyName: selectedRecord.Name,
-                        DisplayName: self.toDisplayName(selectedRecord.Name)
+                        DisplayName: self.toDisplayName(selectedRecord.Name),
+                        PropertyType: selectedRecord.NetType,
+                        Length: selectedRecord.ColumnLength,
+                        IsNullable: selectedRecord.IsNullable
                     };
                     var gridItem = exp.generateBasicGridItem(domainProperty, self.selectedRecordGrid().records().length + 1, self.selectedRecordGridColumns);
                     self.selectedRecordGrid().records.push(gridItem);
@@ -75,17 +78,27 @@
 
             metadataService.getType("dataservicedesigner", "DomainObjectProperty").done(metadata => {
 
-                var idMetadata = metadata.properties["Id"];
-                idMetadata.isNotEditableInGrid = true;
-                var tableNameMetadata = metadata.properties["ColumnName"];
-                var objectNameMetadata = metadata.properties["PropertyName"];
+                //var idMetadata = metadata.properties["Id"];
+                //idMetadata.isNotEditableInGrid = true;
+                var columnNameMetadata = metadata.properties["ColumnName"];
+                var propertyNameMetadata = metadata.properties["PropertyName"];
                 var displayNameMetadata = metadata.properties["DisplayName"];
+                var propertyTypeMetadata = metadata.properties["PropertyType"];
+                var lengthMetadata = metadata.properties["Length"];
+                var isNullableMetadata = metadata.properties["IsNullable"];
+                var isPartOfKeyMetadata = metadata.properties["IsPartOfKey"];
+                var includeInDefaultViewMetadata = metadata.properties["IncludeInDefaultView"];
 
                 self.selectedRecordGridColumns = [
-                    new exp.ExplorerGridColumn(idMetadata, "Id", 1),
-                    new exp.ExplorerGridColumn(tableNameMetadata, "ColumnName", 2),
-                    new exp.ExplorerGridColumn(objectNameMetadata, "PropertyName", 3),
-                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 4)];
+                    //new exp.ExplorerGridColumn(idMetadata, "Id", 1),
+                    new exp.ExplorerGridColumn(columnNameMetadata, "ColumnName", 1),
+                    new exp.ExplorerGridColumn(propertyNameMetadata, "PropertyName", 2),
+                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 3),
+                    new exp.ExplorerGridColumn(propertyTypeMetadata, "PropertyType", 4),
+                    new exp.ExplorerGridColumn(lengthMetadata, "Length", 5),
+                    new exp.ExplorerGridColumn(isNullableMetadata, "IsNullable", 6),
+                    new exp.ExplorerGridColumn(isPartOfKeyMetadata, "IsPartOfKey", 7),
+                    new exp.ExplorerGridColumn(includeInDefaultViewMetadata, "IncludeInDefaultView", 8)];
 
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
                 var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);

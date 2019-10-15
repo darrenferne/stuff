@@ -95,10 +95,10 @@ namespace DataServiceDesigner.DataService
             }
             if (pluralise)
             {
-                if (name.ToLower().EndsWith("y"))
+                if (name.ToLower().EndsWith("ty"))
                 {
                     displayName.Remove(displayName.Length - 1, 1);
-                    displayName.Append("ies");
+                    displayName.Append("ties");
                 }
                 else
                 {
@@ -112,12 +112,18 @@ namespace DataServiceDesigner.DataService
         public void AddDefaultPropertiesToObject(DomainObject domainObject)
         {
             var dbObjectProperties = _sbRepository.GetWhere<DbObjectProperty>(p => p.ObjectName == domainObject.TableName && p.SchemaName == domainObject.Schema.SchemaName);
+            var primaryKey = _sbRepository.GetWhere<DbObjectPrimaryKey>(p => p.SchemaName == domainObject.Schema.SchemaName && p.TableName == domainObject.TableName).FirstOrDefault();
+            
             var domainObjectProperties = dbObjectProperties.Select(r => new DomainObjectProperty()
             {
                 Object = domainObject,
                 ColumnName = r.Name,
                 PropertyName = r.Name,
                 DisplayName = ToDisplayName(r.Name),
+                PropertyType = r.NetType,
+                Length = r.ColumnLength,
+                IsNullable = r.IsNullable,
+                IsPartOfKey = primaryKey?.Columns?.Contains(r.Name) ?? false,
                 IncludeInDefaultView = true
             });
             domainObject.Properties = new List<DomainObjectProperty>(domainObjectProperties);

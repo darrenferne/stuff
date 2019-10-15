@@ -45,6 +45,18 @@ namespace SchemaBrowser.Domain
                 .PositionInEditor(2)
                 .DisplayName("Property Name");
 
+            StringProperty(x => x.ColumnType)
+                .PositionInEditor(3)
+                .DisplayName("Column Type");
+
+            IntegerProperty(x => x.ColumnLength)
+                .PositionInEditor(4)
+                .DisplayName("Column Length");
+
+            BooleanProperty(x => x.IsNullable)
+                .PositionInEditor(5)
+                .DisplayName("Nullable?");
+
             ViewDefaults()
                 .Parameter(x => x.Connection.Name)
                 .Parameter(x => x.SchemaName)
@@ -52,6 +64,9 @@ namespace SchemaBrowser.Domain
                 .Property(x => x.SchemaName)
                 .Property(x => x.ObjectName)
                 .Property(x => x.Name)
+                .Property(x => x.ColumnType)
+                .Property(x => x.ColumnLength)
+                .Property(x => x.IsNullable)
                 .OrderBy(x => x.SchemaName)
                 .OrderBy(x => x.ObjectName)
                 .OrderBy(x => x.Name);

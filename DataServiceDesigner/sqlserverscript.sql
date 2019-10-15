@@ -141,6 +141,9 @@ CREATE TABLE [dataservicedesigner].[domainobjectproperty](
    [columnname]           [NVARCHAR](30) NOT NULL,
    [propertyname]         [NVARCHAR](64),
    [displayname]          [NVARCHAR](64),
+   [propertytype]         [NVARCHAR](64) NOT NULL,
+   [length]	              [INT],
+   [isnullable]           [BIT],
    [ispartofkey]          [BIT],
    [includeindefaultview] [BIT]
 )

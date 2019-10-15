@@ -249,6 +249,7 @@
     <Compile Include="Nancy\Modules\ApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordTypes\DbConnectionRecordType.cs" />
+    <Compile Include="RecordTypes\DbObjectPrimaryKeyRecordType.cs" />
     <Compile Include="RecordTypes\DbObjectPropertyRecordType.cs" />
     <Compile Include="RecordTypes\DbObjectRecordType.cs" />
     <Compile Include="RecordTypes\DbSchemaRecordType.cs" />

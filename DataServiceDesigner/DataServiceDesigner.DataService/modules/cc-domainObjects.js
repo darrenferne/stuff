@@ -84,19 +84,19 @@
 
             metadataService.getType("dataservicedesigner", "DomainObject").done(metadata => {
 
-                var idMetadata = metadata.properties["Id"];
-                idMetadata.isNotEditableInGrid = true;
+               // var idMetadata = metadata.properties["Id"];
+                //idMetadata.isNotEditableInGrid = true;
                 var tableNameMetadata = metadata.properties["TableName"];
                 var objectNameMetadata = metadata.properties["ObjectName"];
                 var displayNameMetadata = metadata.properties["DisplayName"];
                 var pluralisedDisplayNameMetadata = metadata.properties["PluralisedDisplayName"];
 
                 self.selectedRecordGridColumns = [
-                    new exp.ExplorerGridColumn(idMetadata, "Id", 1),
-                    new exp.ExplorerGridColumn(tableNameMetadata, "TableName", 2),
-                    new exp.ExplorerGridColumn(objectNameMetadata, "ObjectName", 3),
-                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 4),
-                    new exp.ExplorerGridColumn(pluralisedDisplayNameMetadata, "PluralisedDisplayName", 5)];
+                    //new exp.ExplorerGridColumn(idMetadata, "Id", 1),
+                    new exp.ExplorerGridColumn(tableNameMetadata, "TableName", 1),
+                    new exp.ExplorerGridColumn(objectNameMetadata, "ObjectName", 2),
+                    new exp.ExplorerGridColumn(displayNameMetadata, "DisplayName", 3),
+                    new exp.ExplorerGridColumn(pluralisedDisplayNameMetadata, "PluralisedDisplayName", 4)];
 
                 var selectedItems = exp.generateBasicGridItems(self.selectedObjects(), self.selectedRecordGridColumns);
                 var grid = exp.generateBasicGridConfiguration(selectedItems, self.selectedRecordGridColumns, "selectedObjects", true);

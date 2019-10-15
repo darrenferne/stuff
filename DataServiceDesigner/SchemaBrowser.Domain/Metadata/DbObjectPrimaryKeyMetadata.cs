@@ -3,13 +3,13 @@ using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace SchemaBrowser.Domain
 {
-    public class DbObjectMetadata : TypeMetadataProvider<DbObject>
+    public class DbObjectPrimaryKeyMetadata : TypeMetadataProvider<DbObjectPrimaryKey>
     {
-        public DbObjectMetadata()
+        public DbObjectPrimaryKeyMetadata()
         {
             AutoUpdatesByDefault();
             
-            DisplayName("Db Object");
+            DisplayName("Db Object Primary Key");
 
             IntegerProperty(x => x.Id)
                 .IsId()
@@ -31,24 +31,31 @@ namespace SchemaBrowser.Domain
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));
 
-            StringProperty(x => x.Name)
-                .DisplayName("Object Name")
+            StringProperty(x => x.TableName)
+                .DisplayName("Table Name")
                 .PositionInEditor(3);
             
-            EnumProperty(x => x.ObjectType)
-                .DisplayName("Object Type")
+            EnumProperty(x => x.IndexName)
+                .DisplayName("Index Name")
                 .PositionInEditor(4);
-            
+
+            StringProperty(x => x.ColumnSummary)
+                .DisplayName("Column Summary")
+                .PositionInEditor(5)
+                .DisableInCreateMode(true)
+                .DisableInEditMode(true);
+
             ExpandsForEdit();
 
             ViewDefaults()
                 .Parameter(x => x.Connection.Name)
                 .Parameter(x => x.SchemaName)
                 .Property(x => x.SchemaName)
-                .Property(x => x.Name)
-                .Property(x => x.ObjectType)
+                .Property(x => x.TableName)
+                .Property(x => x.IndexName)
+                .Property(x => x.ColumnSummary)
                 .OrderBy(x => x.SchemaName)
-                .OrderBy(x => x.Name);
+                .OrderBy(x => x.TableName);
         }
     }
 }
