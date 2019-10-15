@@ -1,7 +1,5 @@
 ﻿using BWF.DataServices.Metadata.Fluent.Abstract;
 using BWF.DataServices.Metadata.Fluent.Enums;
-using SchemaBrowser.Domain;
-using SBD = SchemaBrowser.Domain;
 
 namespace DataServiceDesigner.Domain
 {

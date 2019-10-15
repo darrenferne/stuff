@@ -1,0 +1,36 @@
+﻿<#@ template language="C#" #>
+using BWF.DataServices.Nancy.Interfaces;
+using BWF.DataServices.StartUp.Concrete;
+using BWF.Globalisation.Concrete;
+using BWF.Globalisation.Interfaces;
+using log4net.Config;
+using System;
+using Template.Domain;
+
+namespace Template.DataService.Host
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            XmlConfigurator.Configure();
+
+            var config = HostConfiguration.Read();
+
+            IResourceQuerier resourceQuerier = new ResourceQuerier(typeof(BWF.Globalisation.Resources).Assembly);
+            var globalisationProvider = new GlobalisationProvider(resourceQuerier, AvailableCultures.LanguageCultures, AvailableCultures.FormattingCultures);
+
+            IDataServiceHostSettings hostSettings =
+                new DataServiceHostSettings(
+                    TemplateConstants.DataServiceName, // service name
+                    TemplateConstants.DataServiceDisplayName, // service display name
+                    TemplateConstants.DataServiceDescription, // service description
+                    config.HostUrl,
+                    null,
+                    globalisationProvider);
+
+            var host = new BWF.DataServices.StartUp.Concrete.DataServiceHost(hostSettings);
+            host.Start();
+        }
+    }
+}

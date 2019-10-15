@@ -1,0 +1,61 @@
+﻿using BWF.DataServices.Core.Abstract;
+using BWF.DataServices.Core.Interfaces;
+using BWF.DataServices.Core.Menu;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.Globalisation.Interfaces;
+using BWF.Hosting.Infrastructure.Interfaces;
+using FluentValidation;
+using System.Collections.Generic;
+using Template.Domain;
+
+namespace Template.DataService
+{
+    public class TemplateDataService : ConventionalDatabaseDataService<TemplateDataService>, ITemplateDataService
+    {
+        public TemplateDataService(
+            IHostConfiguration hostConfiguration,
+            IEnumerable<IRecordType> recordTypes,
+            IGlobalisationProvider globalisationProvider,
+            IAuthorisation authorisation,
+            IMetadataProvider metadataProvider,
+            ITemplateRepository repository,
+            IDatabaseStreamingQueryExecutor databaseStreamingQueryExecutor)
+        : base(
+            TemplateConstants.DataServiceName,
+            globalisationProvider,
+            repository as DatabaseDataServiceRepository,
+            recordTypes,
+            metadataProvider,
+            databaseStreamingQueryExecutor)
+        {
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+        }
+
+        private MenuItem CreateMenuItemForRecordType(string typeName, string displayName, int position)
+        {
+            return new MenuItem()
+            {
+                Id = $"{TemplateConstants.DataServiceName}-{typeName}",
+                Text = displayName,
+                Link = $"{{{{appSetting - ExplorerHostUrl}}}}/view/#default/{TemplateConstants.DataServiceName}/{typeName}",
+                Position = position
+            };
+        }
+
+        public override IEnumerable<MenuItem> GetCustomMenus()
+        {
+            var menu = new List<MenuItem>()
+            {
+                new MenuItem() {
+                    Id = TemplateConstants.DataServiceName,
+                    Text = TemplateConstants.DataServiceDisplayName,
+                    Position = -1,
+                    Items = new List<MenuItem>() {
+                        CreateMenuItemForRecordType(nameof(Model), "Model", 1)
+                    }
+                }
+            };
+            return menu;
+        }
+    }
+}

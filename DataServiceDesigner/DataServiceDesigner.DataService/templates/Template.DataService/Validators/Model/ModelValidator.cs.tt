@@ -1,0 +1,15 @@
+﻿using BWF.DataServices.Support.NHibernate.Abstract;
+using FluentValidation;
+using Template.Domain;
+
+namespace DataServiceDesigner.DataService
+{
+    public class ModelValidator : Validator<Model>
+    {
+        public ModelValidator()
+        {
+            RuleFor(x => x.Id)
+                .GreaterThanOrEqualTo(0L);
+        }
+    }
+}

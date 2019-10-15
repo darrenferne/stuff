@@ -1,0 +1,19 @@
+﻿<#@ template language="C#" #>
+using BWF.DataServices.Core.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Template.DataService
+{
+    public class TemplateDataServiceStartup : IStartUpTask
+    {
+        public long Position => 1;
+
+        public Task<bool> Invoke()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿<#@ template language="C#" #>
+using BWF.DataServices.Metadata.Fluent.Abstract;
+
+namespace Template.Domain
+
+{
+    public class MetadataBundle : TypeMetadataBundle
+    {
+        public MetadataBundle()
+           : base(TemplateConstants.DataServiceName,
+               new ModelMetadata())
+        { }
+    }
+}

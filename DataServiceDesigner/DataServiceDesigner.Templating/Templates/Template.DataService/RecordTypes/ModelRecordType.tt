@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using AutoMapper;
+using BWF.DataServices.Metadata.Attributes.Actions;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using Template.Domain;
+
+namespace Template.DataService
+{
+    [CreateAction("Create")]
+	[CreateAction("View")]
+    [EditAction("Edit")]
+    [DeleteAction("Delete")]
+    public class TemplateRecordType : ChangeableRecordType<Template, long, TemplateBatchValidator>
+    {
+        public override void ConfigureMapper()
+        {
+            Mapper.CreateMap<Model, Model>(); 
+        }
+    }
+}

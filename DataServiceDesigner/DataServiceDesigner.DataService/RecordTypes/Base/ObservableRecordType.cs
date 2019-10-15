@@ -5,11 +5,7 @@ using BWF.DataServices.Metadata.Interfaces;
 using BWF.DataServices.Support.NHibernate.Abstract;
 using BWF.DataServices.Support.NHibernate.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataServiceDesigner.DataService
 {

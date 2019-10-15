@@ -1,5 +1,4 @@
 ﻿using BWF.DataServices.Metadata.Interfaces;
-using SchemaBrowser.Domain;
 
 namespace DataServiceDesigner.Domain
 {

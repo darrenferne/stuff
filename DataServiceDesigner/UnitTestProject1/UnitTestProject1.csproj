@@ -54,6 +54,16 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SchemaBrowser.DataService\SchemaBrowser.DataService.csproj">
+      <Project>{4ec32a24-3c90-4c20-b3b0-6c21ff783e6d}</Project>
+      <Name>SchemaBrowser.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchemaBrowser.Domain\SchemaBrowser.Domain.csproj">
+      <Project>{75f8e5eb-0592-488f-bb66-e20c7ed94e82}</Project>
+      <Name>SchemaBrowser.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

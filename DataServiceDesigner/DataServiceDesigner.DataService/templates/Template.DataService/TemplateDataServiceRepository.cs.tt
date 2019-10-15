@@ -1,0 +1,31 @@
+﻿using BWF.DataServices.Core.Interfaces;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.Globalisation.Interfaces;
+using BWF.Hosting.Infrastructure.Interfaces;
+using System;
+using System.Collections.Generic;
+using Template.Domain;
+
+namespace Template.DataService
+{
+    public class TemplateDataServiceRepository : ConventionalDatabaseDataServiceRepository, ITemplateRepository
+    {
+        //ISessionFactory _internalFactory;
+        public TemplateDataServiceRepository(
+           IHostConfiguration hostConfiguration,
+           IGlobalisationProvider globalisationProvider,
+           IAuthorisation authorisation,
+           IMetadataProvider metadataProvider)
+        : base(
+            hostConfiguration,
+            globalisationProvider,
+            authorisation,
+            new List<string>(),
+            metadataProvider,
+            TemplateConstants.DataServiceName,
+            TemplateConstants.DataServiceSchema)
+        {
+
+        }
+    }
+}

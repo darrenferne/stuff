@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BWF.DataServices.Metadata.Attributes.Actions;
-using BWF.DataServices.Support.NHibernate.Abstract;
 using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService

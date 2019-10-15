@@ -20,6 +20,42 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceDesigner", "Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{E0035ED6-6C41-4A9C-A301-0AAE270183F2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{90373874-59B1-4FA4-A3DF-FDBA43EC879C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template.Domain", "Template.Domain", "{4D9A6585-65E5-44E6-9C8E-EF4ED517223C}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\Template.Domain\Metadata\MetadataBundle.cs.tt = Templates\Template.Domain\Metadata\MetadataBundle.cs.tt
+		Templates\Template.Domain\Models\Model.cs.tt = Templates\Template.Domain\Models\Model.cs.tt
+		Templates\Template.Domain\Metadata\ModelMetadata.cs.tt = Templates\Template.Domain\Metadata\ModelMetadata.cs.tt
+		Templates\Template.Domain\Template.Domain.csproj.tt = Templates\Template.Domain\Template.Domain.csproj.tt
+		Templates\Template.Domain\Constants\TemplateConstants.cs.tt = Templates\Template.Domain\Constants\TemplateConstants.cs.tt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template.DataService", "Template.DataService", "{1A247D63-37C5-4BF8-BDCD-D842D50294B8}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\Template.DataService\Interfaces\ITemplateDataService.cs.tt = Templates\Template.DataService\Interfaces\ITemplateDataService.cs.tt
+		Templates\Template.DataService\Interfaces\ITemplateRepository.cs.tt = Templates\Template.DataService\Interfaces\ITemplateRepository.cs.tt
+		Templates\Template.DataService\Validators\Model\ModelBatchValidator.cs.tt = Templates\Template.DataService\Validators\Model\ModelBatchValidator.cs.tt
+		Templates\Template.DataService\Validators\Model\ModelDeleteValidator.cs.tt = Templates\Template.DataService\Validators\Model\ModelDeleteValidator.cs.tt
+		Templates\Template.DataService\RecordTypes\ModelRecordType.cs.tt = Templates\Template.DataService\RecordTypes\ModelRecordType.cs.tt
+		Templates\Template.DataService\Validators\Model\ModelValidator.cs.tt = Templates\Template.DataService\Validators\Model\ModelValidator.cs.tt
+		Templates\Template.DataService\Template.DataService.csproj.tt = Templates\Template.DataService\Template.DataService.csproj.tt
+		Templates\Template.DataService\TemplateDataService.cs.tt = Templates\Template.DataService\TemplateDataService.cs.tt
+		Templates\Template.DataService\TemplateDataServiceKernelManipulations.cs.tt = Templates\Template.DataService\TemplateDataServiceKernelManipulations.cs.tt
+		Templates\Template.DataService\TemplateDataServiceRepository.cs.tt = Templates\Template.DataService\TemplateDataServiceRepository.cs.tt
+		Templates\Template.DataService\TemplateDataServiceStartup.cs.tt = Templates\Template.DataService\TemplateDataServiceStartup.cs.tt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template.DataService.Host", "Template.DataService.Host", "{C63D60D1-D576-4E4F-ACD3-BF7E072AF2BC}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\Template.DataService.Host\Setup\AvailableCultures.cs.tt = Templates\Template.DataService.Host\Setup\AvailableCultures.cs.tt
+		Templates\Template.DataService.Host\Setup\HostConfiguration.cs.tt = Templates\Template.DataService.Host\Setup\HostConfiguration.cs.tt
+		Templates\Template.DataService.Host\Program.cs.tt = Templates\Template.DataService.Host\Program.cs.tt
+		Templates\Template.DataService.Host\Template.DataService.Host.csproj.tt = Templates\Template.DataService.Host\Template.DataService.Host.csproj.tt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceDesigner.Templating", "DataServiceDesigner.Templating\DataServiceDesigner.Templating.csproj", "{CA521D86-D2F3-4682-B9A8-02A371F841CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,9 +86,18 @@ Global
 		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0035ED6-6C41-4A9C-A301-0AAE270183F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA521D86-D2F3-4682-B9A8-02A371F841CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA521D86-D2F3-4682-B9A8-02A371F841CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA521D86-D2F3-4682-B9A8-02A371F841CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA521D86-D2F3-4682-B9A8-02A371F841CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D9A6585-65E5-44E6-9C8E-EF4ED517223C} = {90373874-59B1-4FA4-A3DF-FDBA43EC879C}
+		{1A247D63-37C5-4BF8-BDCD-D842D50294B8} = {90373874-59B1-4FA4-A3DF-FDBA43EC879C}
+		{C63D60D1-D576-4E4F-ACD3-BF7E072AF2BC} = {90373874-59B1-4FA4-A3DF-FDBA43EC879C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DABAF93-37F0-4C1F-99EC-53D748A49253}

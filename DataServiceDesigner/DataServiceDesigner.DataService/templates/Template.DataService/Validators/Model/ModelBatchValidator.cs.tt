@@ -1,0 +1,16 @@
+﻿using BWF.DataServices.Core.Concrete.ChangeSets;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.DataServices.Support.NHibernate.Validators;
+using Template.Domain;
+
+namespace DataServiceDesigner.DataService
+{
+    public class ModelBatchValidator : BatchValidator<long, Model>
+    {
+        protected override void SetupValidators(ChangeSetItems<long, Model> items)
+        {
+            validator = new ModelValidator();
+            deletionValidator = new ModelDeleteValidator);
+        }
+    }
+}

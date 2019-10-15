@@ -10,7 +10,6 @@ using BWF.DataServices.Metadata.Attributes.Actions;
 using BWF.DataServices.Metadata.Models;
 using SchemaBrowser.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

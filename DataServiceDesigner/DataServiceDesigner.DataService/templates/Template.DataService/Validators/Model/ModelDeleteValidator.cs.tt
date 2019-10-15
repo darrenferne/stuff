@@ -1,0 +1,12 @@
+﻿using BWF.DataServices.Support.NHibernate.Abstract;
+using FluentValidation;
+using Template.Domain;
+
+namespace DataServiceDesigner.DataService
+{
+    public class ModelDeleteValidator : Validator<Model>
+    {
+        public ModelDeleteValidator()
+        { }
+    }
+}

@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" #>
+using BWF.DataServices.Support.NHibernate.Interfaces;
+
+namespace Template.DataService
+{
+    public interface ITemplateRepository : ICrudingDataServiceRepository
+    {
+    }
+}

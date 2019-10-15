@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" #>
+using BWF.DataServices.Metadata.Fluent.Abstract;
+
+namespace Template.Domain
+
+{
+    public class ModelMetadata : TypeMetadataProvider<Model>
+    {
+        public ModelMetadata()
+        {
+            AutoUpdatesByDefault();
+
+            DisplayName("Model");
+
+            IntegerProperty(x => x.Id)
+                .IsId()
+                .IsHiddenInEditor()
+                .IsNotEditableInGrid();
+
+            ViewDefaults()
+                .Property(x => x.Id)
+                .OrderBy(x => x.Id);
+        }
+    }
+}

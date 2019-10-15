@@ -3,8 +3,6 @@ using BWF.DataServices.Support.NHibernate.Abstract;
 using BWF.Globalisation.Interfaces;
 using BWF.Hosting.Infrastructure.Interfaces;
 using System.Collections.Generic;
-using DataServiceDesigner.Domain;
-using NHibernate;
 
 namespace DataServiceDesigner.DataService
 {

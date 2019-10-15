@@ -1,13 +1,9 @@
 ﻿using BWF.DataServices.Core.Interfaces;
 using BWF.DataServices.Nancy.Abstract;
-using BWF.Globalisation.Interfaces;
-using BWF.Enums;
 using Nancy;
 using SchemaBrowser.Domain;
-using System;
 using SchemaBrowser.DataService;
 using DataServiceDesigner.Domain;
-using BWF.DataServices.Query;
 using BWF.DataServices.PortableClients;
 using System.Linq;
 using BWF.DataServices.Nancy.Interfaces;

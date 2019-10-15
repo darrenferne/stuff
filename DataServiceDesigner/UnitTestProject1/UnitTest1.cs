@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Common;
 using System.Data;
+using SchemaBrowser.DataService;
 
 namespace UnitTestProject1
 {
@@ -11,7 +12,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
-            DoIt();
+            SchemaBrowserUtils browser = new SchemaBrowserUtils();
+            
+            var connectionString = @"Data Source=localhost\sqlexpress;Initial Catalog=dsd-latest;Integrated Security=True;Pooling=False";
+            var keys = browser.GetObjectPrimaryKeys(SchemaBrowser.Domain.DbType.SqlServer, connectionString);
+            //var schema = connection.GetSchema();
+            //var tables = connection.GetSchema("Tables");
+            //var fks = connection.GetSchema("ForeignKeys");
+            //var ixs = connection.GetSchema("Indexes");
+            //var ixColumns = connection.GetSchema("IndexColumns");
         }
 
         void DoIt()

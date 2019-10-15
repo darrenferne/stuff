@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using BWF.DataServices.Core.Concrete.ChangeSets;
-using BWF.DataServices.Core.Models;
 using BWF.DataServices.Domain.Models;
 using BWF.DataServices.Metadata.Attributes.Actions;
-using BWF.DataServices.Nancy.Interfaces;
-using BWF.DataServices.PortableClients;
 using BWF.DataServices.Support.NHibernate.Abstract;
 using DataServiceDesigner.Domain;
-using SchemaBrowser.DataService;
-using SchemaBrowser.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DataServiceDesigner.DataService

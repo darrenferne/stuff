@@ -4,7 +4,6 @@ using BWF.Globalisation.Interfaces;
 using BWF.Enums;
 using Nancy;
 using SchemaBrowser.Domain;
-using System;
 
 namespace SchemaBrowser.DataService
 {

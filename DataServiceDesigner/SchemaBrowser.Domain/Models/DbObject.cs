@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SchemaBrowser.Domain
+﻿namespace SchemaBrowser.Domain
 {
     public class DbObject : IHaveAssignableId<long>
     {

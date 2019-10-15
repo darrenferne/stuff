@@ -1,6 +1,4 @@
-﻿using BWF.DataServices.Core.Interfaces;
-using BWF.DataServices.Support.NHibernate.Interfaces;
-using DataServiceDesigner.Domain;
+﻿using BWF.DataServices.Support.NHibernate.Interfaces;
 
 namespace DataServiceDesigner.DataService
 {

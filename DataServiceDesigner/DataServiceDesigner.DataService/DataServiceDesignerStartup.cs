@@ -1,13 +1,7 @@
-﻿using BWF.DataServices.Core.Concrete.ChangeSets;
-using BWF.DataServices.Core.Interfaces;
-using BWF.DataServices.Core.Interfaces.ChangeSets;
-using BWF.DataServices.Core.Models;
+﻿using BWF.DataServices.Core.Interfaces;
 using BWF.DataServices.Domain.Models;
 using BWF.DataServices.Nancy.Interfaces;
-using BWF.DataServices.PortableClients;
 using DataServiceDesigner.Domain;
-using SchemaBrowser.DataService;
-using SchemaBrowser.Domain;
 using System.Linq;
 using System.Threading.Tasks;
 

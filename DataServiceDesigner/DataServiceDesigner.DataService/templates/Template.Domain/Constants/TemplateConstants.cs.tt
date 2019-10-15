@@ -1,0 +1,10 @@
+﻿namespace Template.Domain
+{
+    public class TemplateConstants
+    {
+        public const string DataServiceName = "templatedataservice";
+        public const string DataServiceDisplayName = "Template Data Service";
+        public const string DataServiceDescription = "Template Data Service";
+        public const string DataServiceSchema = "templateschema";
+    }
+}
