@@ -35,44 +35,72 @@ namespace DataServiceDesigner.Templating.Domain
             
             #line default
             #line hidden
-            this.Write(".Domain\r\n{\r\n    public class ");
+            this.Write(".Domain\r\n{\r\n");
             
             #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+if (!string.IsNullOrEmpty(CurrentObject.GetKeyType())) {
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n    public class ");
+            
+            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write(" : IHaveId<");
             
-            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.KeyType));
+            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyType()));
             
             #line default
             #line hidden
-            this.Write(">\r\n    {\r\n");
+            this.Write(">\r\n");
             
             #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("\tpublic class ");
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("    {\r\n");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
 foreach(var property in CurrentObject.Properties) {
             
             #line default
             #line hidden
             this.Write("        public virtual ");
             
-            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
 }
             
             #line default

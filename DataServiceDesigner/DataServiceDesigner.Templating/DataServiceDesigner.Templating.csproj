@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainDataServiceExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateGenerator.cs" />
     <Compile Include="Templates\Template.DataService.Host\HostProgram.cs">

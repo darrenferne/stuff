@@ -14,6 +14,5 @@ namespace DataServiceDesigner.Domain
         public virtual string PluralisedDisplayName { get; set; }
         public virtual IList<DomainObjectProperty> Properties { get; set; }
 
-        public virtual string KeyType => Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
     }
 }

@@ -75,7 +75,8 @@ namespace UnitTestProject1
                             Properties = new List<DomainObjectProperty>(){
                                 new DomainObjectProperty(){
                                     PropertyName = "Property1",
-                                    PropertyType = "long"
+                                    PropertyType = "long",
+                                    IsPartOfKey = true
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property2",

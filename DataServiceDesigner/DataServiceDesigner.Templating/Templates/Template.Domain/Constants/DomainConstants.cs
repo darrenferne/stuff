@@ -51,7 +51,14 @@ namespace DataServiceDesigner.Templating.Domain
             #line hidden
             this.Write("\";\r\n        public const string DataServiceDisplayName = \"Template Data Service\";" +
                     "\r\n        public const string DataServiceDescription = \"Template Data Service\";\r" +
-                    "\n        public const string DataServiceSchema = \"templateschema\";\r\n    }\r\n}\r\n");
+                    "\n        public const string DataServiceSchema = \"");
+            
+            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\DomainConstants.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetDefaultSchema()));
+            
+            #line default
+            #line hidden
+            this.Write("\";\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

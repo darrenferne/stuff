@@ -59,25 +59,58 @@ namespace DataServiceDesigner.Templating.Domain
             this.Write("Constants.DataServiceName,\r\n");
             
             #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
-foreach(var domainObject in DomainDataService.Schemas.SelectMany(s => s.Objects)) {
+var domainObjects = DomainDataService.Schemas.SelectMany(s => s.Objects).ToList();
+            
+            #line default
+            #line hidden
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+for(int i = 0; i < domainObjects.Count; i++) {
+            
+            #line default
+            #line hidden
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+var domainObject = domainObjects[i];
             
             #line default
             #line hidden
             this.Write("\t\t\t\tnew ");
             
-            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(domainObject.ObjectName));
             
             #line default
             #line hidden
-            this.Write("Metadata(), \r\n");
+            this.Write("Metadata()");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+if (i < domainObjects.Count - 1) {
+            
+            #line default
+            #line hidden
+            this.Write(",");
+            
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write(")");
+            
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
 }
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t)\r\n        { }\r\n    }\r\n}\r\n");
+            this.Write(" \r\n");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("        { }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

@@ -13,10 +13,11 @@ namespace Brady.<#=DomainDataService.Name#>.Domain
     {
         public <#=DomainDataService.Name#>MetadataBundle()
            : base(<#=DomainDataService.Name#>Constants.DataServiceName,
-<#foreach(var domainObject in DomainDataService.Schemas.SelectMany(s => s.Objects)) {#>
-				new <#=domainObject.ObjectName#>Metadata(), 
+<#var domainObjects = DomainDataService.Schemas.SelectMany(s => s.Objects).ToList();#>
+<#for(int i = 0; i < domainObjects.Count; i++) {#>
+<#var domainObject = domainObjects[i];#>
+				new <#=domainObject.ObjectName#>Metadata()<#if (i < domainObjects.Count - 1) {#>,<#} else {#>)<#}#> 
 <#}#>
-				)
         { }
     }
 }

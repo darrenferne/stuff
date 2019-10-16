@@ -12,6 +12,6 @@ namespace Brady.<#=DomainDataService.Name#>.Domain
         public const string DataServiceName = "<#=DomainDataService.Name#>";
         public const string DataServiceDisplayName = "Template Data Service";
         public const string DataServiceDescription = "Template Data Service";
-        public const string DataServiceSchema = "templateschema";
+        public const string DataServiceSchema = "<#=DomainDataService.GetDefaultSchema()#>";
     }
 }
