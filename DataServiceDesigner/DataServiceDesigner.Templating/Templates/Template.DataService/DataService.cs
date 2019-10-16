@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DataService : DataServiceBase
     {
 #line hidden
         /// <summary>
@@ -28,31 +28,39 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Template.DataService.Host
-{
-    public class HostConfiguration
-    {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
-        {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
-        }
-    }
-}
-");
+            this.Write("using BWF.DataServices.Core.Abstract;\r\nusing BWF.DataServices.Core.Interfaces;\r\nu" +
+                    "sing BWF.DataServices.Core.Menu;\r\nusing BWF.DataServices.Support.NHibernate.Abst" +
+                    "ract;\r\nusing BWF.Globalisation.Interfaces;\r\nusing BWF.Hosting.Infrastructure.Int" +
+                    "erfaces;\r\nusing FluentValidation;\r\nusing System.Collections.Generic;\r\nusing Temp" +
+                    "late.Domain;\r\n\r\nnamespace Template.DataService\r\n{\r\n    public class TemplateData" +
+                    "Service : ConventionalDatabaseDataService<TemplateDataService>, ITemplateDataSer" +
+                    "vice\r\n    {\r\n        public TemplateDataService(\r\n            IHostConfiguration" +
+                    " hostConfiguration,\r\n            IEnumerable<IRecordType> recordTypes,\r\n        " +
+                    "    IGlobalisationProvider globalisationProvider,\r\n            IAuthorisation au" +
+                    "thorisation,\r\n            IMetadataProvider metadataProvider,\r\n            ITemp" +
+                    "lateRepository repository,\r\n            IDatabaseStreamingQueryExecutor database" +
+                    "StreamingQueryExecutor)\r\n        : base(\r\n            TemplateConstants.DataServ" +
+                    "iceName,\r\n            globalisationProvider,\r\n            repository as Database" +
+                    "DataServiceRepository,\r\n            recordTypes,\r\n            metadataProvider,\r" +
+                    "\n            databaseStreamingQueryExecutor)\r\n        {\r\n            ValidatorOp" +
+                    "tions.CascadeMode = CascadeMode.StopOnFirstFailure;\r\n        }\r\n\r\n        privat" +
+                    "e MenuItem CreateMenuItemForRecordType(string typeName, string displayName, int " +
+                    "position)\r\n        {\r\n            return new MenuItem()\r\n            {\r\n        " +
+                    "        Id = $\"{TemplateConstants.DataServiceName}-{typeName}\",\r\n               " +
+                    " Text = displayName,\r\n                Link = $\"{{{{appSetting - ExplorerHostUrl}" +
+                    "}}}/view/#default/{TemplateConstants.DataServiceName}/{typeName}\",\r\n            " +
+                    "    Position = position\r\n            };\r\n        }\r\n\r\n        public override IE" +
+                    "numerable<MenuItem> GetCustomMenus()\r\n        {\r\n            var menu = new List" +
+                    "<MenuItem>()\r\n            {\r\n                new MenuItem() {\r\n                 " +
+                    "   Id = TemplateConstants.DataServiceName,\r\n                    Text = TemplateC" +
+                    "onstants.DataServiceDisplayName,\r\n                    Position = -1,\r\n          " +
+                    "          Items = new List<MenuItem>() {\r\n                        CreateMenuItem" +
+                    "ForRecordType(nameof(Model), \"Model\", 1)\r\n                    }\r\n               " +
+                    " }\r\n            };\r\n            return menu;\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +115,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DataServiceBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

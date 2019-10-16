@@ -42,116 +42,117 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Templates\Template.DataService.Host\Program.cs">
+    <Compile Include="TemplateGenerator.cs" />
+    <Compile Include="Templates\Template.DataService.Host\HostProgram.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Program.tt</DependentUpon>
+      <DependentUpon>HostProgram.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService.Host\Setup\AvailableCultures.cs">
+    <Compile Include="Templates\Template.DataService.Host\Setup\HostAvailableCultures.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AvailableCultures.tt</DependentUpon>
+      <DependentUpon>HostAvailableCultures.tt</DependentUpon>
     </Compile>
     <Compile Include="Templates\Template.DataService.Host\Setup\HostConfiguration.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HostConfiguration.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService.Host\Template.DataService.Host.cs">
+    <Compile Include="Templates\Template.DataService.Host\HostProject.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Template.DataService.Host.tt</DependentUpon>
+      <DependentUpon>HostProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Interfaces\ITemplateDataService.cs">
+    <Compile Include="Templates\Template.DataService\Interfaces\DataServiceIDataService.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ITemplateDataService.tt</DependentUpon>
+      <DependentUpon>DataServiceIDataService.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Interfaces\ITemplateRepository.cs">
+    <Compile Include="Templates\Template.DataService\Interfaces\DataServiceIRepository.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ITemplateRepository.tt</DependentUpon>
+      <DependentUpon>DataServiceIRepository.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\RecordTypes\ModelRecordType.cs">
+    <Compile Include="Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelRecordType.tt</DependentUpon>
+      <DependentUpon>DataServiceModelRecordType.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Template.DataService.cs">
+    <Compile Include="Templates\Template.DataService\DataServiceProject.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Template.DataService.tt</DependentUpon>
+      <DependentUpon>DataServiceProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\TemplateDataService.cs">
+    <Compile Include="Templates\Template.DataService\DataService.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateDataService.tt</DependentUpon>
+      <DependentUpon>DataService.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\TemplateDataServiceKernelManipulations.cs">
+    <Compile Include="Templates\Template.DataService\DataServiceKernelManipulations.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateDataServiceKernelManipulations.tt</DependentUpon>
+      <DependentUpon>DataServiceKernelManipulations.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\TemplateDataServiceRepository.cs">
+    <Compile Include="Templates\Template.DataService\DataServiceRepository.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateDataServiceRepository.tt</DependentUpon>
+      <DependentUpon>DataServiceRepository.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\TemplateDataServiceStartup.cs">
+    <Compile Include="Templates\Template.DataService\DataServiceStartup.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateDataServiceStartup.tt</DependentUpon>
+      <DependentUpon>DataServiceStartup.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Validators\Model\ModelBatchValidator.cs">
+    <Compile Include="Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBatchValidator.tt</DependentUpon>
+      <DependentUpon>DataServiceModelBatchValidator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Validators\Model\ModelDeleteValidator.cs">
+    <Compile Include="Templates\Template.DataService\Validators\Model\DataServiceModelDeleteValidator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDeleteValidator.tt</DependentUpon>
+      <DependentUpon>DataServiceModelDeleteValidator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.DataService\Validators\Model\ModelValidator.cs">
+    <Compile Include="Templates\Template.DataService\Validators\Model\DataServiceModelValidator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelValidator.tt</DependentUpon>
+      <DependentUpon>DataServiceModelValidator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.Domain\Constants\TemplateConstants.cs">
+    <Compile Include="Templates\Template.Domain\Constants\DomainConstants.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplateConstants.tt</DependentUpon>
+      <DependentUpon>DomainConstants.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.Domain\Metadata\MetadataBundle.cs">
+    <Compile Include="Templates\Template.Domain\Metadata\DomainMetadataBundle.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MetadataBundle.tt</DependentUpon>
+      <DependentUpon>DomainMetadataBundle.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.Domain\Metadata\ModelMetadata.cs">
+    <Compile Include="Templates\Template.Domain\Metadata\DomainModelMetadata.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMetadata.tt</DependentUpon>
+      <DependentUpon>DomainModelMetadata.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.Domain\Models\Model.cs">
+    <Compile Include="Templates\Template.Domain\Models\DomainModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>DomainModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Template.Domain\Template.Domain.cs">
+    <Compile Include="Templates\Template.Domain\DomainProject.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Template.Domain.tt</DependentUpon>
+      <DependentUpon>DomainProject.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Template.DataService.Host\Program.tt">
+    <Content Include="Templates\Template.DataService.Host\HostProgram.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Program.cs</LastGenOutput>
+      <LastGenOutput>HostProgram.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService.Host</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService.Host\Setup\AvailableCultures.tt">
+    <Content Include="Templates\Template.DataService.Host\Setup\HostAvailableCultures.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>AvailableCultures.cs</LastGenOutput>
+      <LastGenOutput>HostAvailableCultures.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService.host</CustomToolNamespace>
     </Content>
     <Content Include="Templates\Template.DataService.Host\Setup\HostConfiguration.tt">
@@ -159,94 +160,100 @@
       <LastGenOutput>HostConfiguration.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService.Host</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService.Host\Template.DataService.Host.tt">
+    <Content Include="Templates\Template.DataService.Host\HostProject.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Template.DataService.Host.cs</LastGenOutput>
+      <LastGenOutput>HostProject.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService.Host</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Interfaces\ITemplateDataService.tt">
+    <Content Include="Templates\Template.DataService\Interfaces\DataServiceIDataService.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ITemplateDataService.cs</LastGenOutput>
+      <LastGenOutput>DataServiceIDataService.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Interfaces\ITemplateRepository.tt">
+    <Content Include="Templates\Template.DataService\Interfaces\DataServiceIRepository.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ITemplateRepository.cs</LastGenOutput>
+      <LastGenOutput>DataServiceIRepository.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\RecordTypes\ModelRecordType.tt">
+    <Content Include="Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModelRecordType.cs</LastGenOutput>
+      <LastGenOutput>DataServiceModelRecordType.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Template.DataService.tt">
+    <Content Include="Templates\Template.DataService\DataServiceProject.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Template.DataService.cs</LastGenOutput>
+      <LastGenOutput>DataServiceProject.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\TemplateDataService.tt">
+    <Content Include="Templates\Template.DataService\DataService.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TemplateDataService.cs</LastGenOutput>
+      <LastGenOutput>DataService.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\TemplateDataServiceKernelManipulations.tt">
+    <Content Include="Templates\Template.DataService\DataServiceKernelManipulations.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TemplateDataServiceKernelManipulations.cs</LastGenOutput>
+      <LastGenOutput>DataServiceKernelManipulations.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\TemplateDataServiceRepository.tt">
+    <Content Include="Templates\Template.DataService\DataServiceRepository.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TemplateDataServiceRepository.cs</LastGenOutput>
+      <LastGenOutput>DataServiceRepository.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\TemplateDataServiceStartup.tt">
+    <Content Include="Templates\Template.DataService\DataServiceStartup.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TemplateDataServiceStartup.cs</LastGenOutput>
+      <LastGenOutput>DataServiceStartup.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Validators\Model\ModelBatchValidator.tt">
+    <Content Include="Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModelBatchValidator.cs</LastGenOutput>
+      <LastGenOutput>DataServiceModelBatchValidator.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Validators\Model\ModelDeleteValidator.tt">
+    <Content Include="Templates\Template.DataService\Validators\Model\DataServiceModelDeleteValidator.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModelDeleteValidator.cs</LastGenOutput>
+      <LastGenOutput>DataServiceModelDeleteValidator.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.DataService\Validators\Model\ModelValidator.tt">
+    <Content Include="Templates\Template.DataService\Validators\Model\DataServiceModelValidator.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModelValidator.cs</LastGenOutput>
+      <LastGenOutput>DataServiceModelValidator.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.Domain\Constants\TemplateConstants.tt">
+    <Content Include="Templates\Template.Domain\Constants\DomainConstants.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TemplateConstants.cs</LastGenOutput>
-      <CustomToolNamespace>DataServiceDesigner.Templating.DataService</CustomToolNamespace>
-    </Content>
-    <Content Include="Templates\Template.Domain\Metadata\MetadataBundle.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MetadataBundle.cs</LastGenOutput>
+      <LastGenOutput>DomainConstants.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.Domain</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.Domain\Metadata\ModelMetadata.tt">
+    <Content Include="Templates\Template.Domain\Metadata\DomainMetadataBundle.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModelMetadata.cs</LastGenOutput>
+      <LastGenOutput>DomainMetadataBundle.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.Domain</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.Domain\Models\Model.tt">
+    <Content Include="Templates\Template.Domain\Metadata\DomainModelMetadata.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Model.cs</LastGenOutput>
+      <LastGenOutput>DomainModelMetadata.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.Domain</CustomToolNamespace>
     </Content>
-    <Content Include="Templates\Template.Domain\Template.Domain.tt">
+    <Content Include="Templates\Template.Domain\Models\DomainModel.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Template.Domain.cs</LastGenOutput>
+      <LastGenOutput>DomainModel.cs</LastGenOutput>
+      <CustomToolNamespace>DataServiceDesigner.Templating.Domain</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Template.Domain\DomainProject.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DomainProject.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating.Domain</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataServiceDesigner.Domain\DataServiceDesigner.Domain.csproj">
+      <Project>{83a4a744-3874-44d7-b068-ea122e368cc6}</Project>
+      <Name>DataServiceDesigner.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

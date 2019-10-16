@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class HostProgram : HostProgramBase
     {
 #line hidden
         /// <summary>
@@ -28,23 +28,38 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+            this.Write(@"using BWF.DataServices.Nancy.Interfaces;
+using BWF.DataServices.StartUp.Concrete;
+using BWF.Globalisation.Concrete;
+using BWF.Globalisation.Interfaces;
+using log4net.Config;
+using System;
+using Template.Domain;
 
 namespace Template.DataService.Host
 {
-    public class HostConfiguration
+    class Program
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        static void Main(string[] args)
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
+            XmlConfigurator.Configure();
+
+            var config = HostConfiguration.Read();
+
+            IResourceQuerier resourceQuerier = new ResourceQuerier(typeof(BWF.Globalisation.Resources).Assembly);
+            var globalisationProvider = new GlobalisationProvider(resourceQuerier, AvailableCultures.LanguageCultures, AvailableCultures.FormattingCultures);
+
+            IDataServiceHostSettings hostSettings =
+                new DataServiceHostSettings(
+                    TemplateConstants.DataServiceName, // service name
+                    TemplateConstants.DataServiceDisplayName, // service display name
+                    TemplateConstants.DataServiceDescription, // service description
+                    config.HostUrl,
+                    null,
+                    globalisationProvider);
+
+            var host = new BWF.DataServices.StartUp.Concrete.DataServiceHost(hostSettings);
+            host.Start();
         }
     }
 }
@@ -52,7 +67,7 @@ namespace Template.DataService.Host
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +122,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class HostProgramBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.Domain
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DomainMetadataBundle : DomainMetadataBundleBase
     {
 #line hidden
         /// <summary>
@@ -28,42 +28,71 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Template.DataService.Host
-{
-    public class HostConfiguration
-    {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
-        {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
-        }
-    }
+            this.Write("using BWF.DataServices.Metadata.Fluent.Abstract;\r\n\r\nnamespace Brady.");
+            
+            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain\r\n{\r\n    public class ");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("MetadataBundle : TypeMetadataBundle\r\n    {\r\n        public ");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("MetadataBundle()\r\n           : base(");
+            
+            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceName,\r\n");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+foreach(var domainObject in DomainDataService.Schemas.SelectMany(s => s.Objects)) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tnew ");
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Metadata(), \r\n");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
 }
-");
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t)\r\n        { }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\DomainMetadataBundle.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
     }
 }
 
@@ -75,18 +104,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
     }
 }
 
@@ -107,7 +136,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DomainMetadataBundleBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

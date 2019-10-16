@@ -1,0 +1,20 @@
+﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainSchema" name="CurrentSchema" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainObject" name="CurrentObject" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using BWF.DataServices.Metadata.Interfaces;
+
+namespace Brady.<#=DomainDataService.Name#>.Domain
+{
+    public class <#=CurrentObject.ObjectName#> : IHaveId<<#=CurrentObject.KeyType#>>
+    {
+<#foreach(var property in CurrentObject.Properties) {#>
+        public virtual <#=property.PropertyType#> <#=property.PropertyName#> { get; set; }
+<#}#>
+    }
+}

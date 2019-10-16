@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DataServiceModelBatchValidator : DataServiceModelBatchValidatorBase
     {
 #line hidden
         /// <summary>
@@ -28,31 +28,26 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+            this.Write(@"using BWF.DataServices.Core.Concrete.ChangeSets;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.DataServices.Support.NHibernate.Validators;
+using Template.Domain;
 
-namespace Template.DataService.Host
+namespace DataServiceDesigner.DataService
 {
-    public class HostConfiguration
+    public class ModelBatchValidator : BatchValidator<long, Model>
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        protected override void SetupValidators(ChangeSetItems<long, Model> items)
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
+            validator = new ModelValidator();
+            deletionValidator = new ModelDeleteValidator);
         }
     }
-}
-");
+}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +102,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DataServiceModelBatchValidatorBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

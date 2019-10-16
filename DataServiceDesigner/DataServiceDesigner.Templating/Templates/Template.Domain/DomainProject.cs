@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.Domain
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\DomainProject.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DomainProject : DomainProjectBase
     {
 #line hidden
         /// <summary>
@@ -28,31 +28,30 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+            this.Write(@"<Project Sdk=""Microsoft.NET.Sdk"">
 
-namespace Template.DataService.Host
-{
-    public class HostConfiguration
-    {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
-        {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
-        }
-    }
-}
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=""'$(Configuration)|$(Platform)'=='Release|AnyCPU'"">
+    <OutputPath>output</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=""'$(Configuration)|$(Platform)'=='Debug|AnyCPU'"">
+    <OutputPath>output</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include=""combined-bwf-domain"" Version=""2046.3.46"" />
+  </ItemGroup>
+
+</Project>
 ");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\DomainProject.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +106,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DomainProjectBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DataServiceModelRecordType : DataServiceModelRecordTypeBase
     {
 #line hidden
         /// <summary>
@@ -28,76 +28,28 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+            this.Write(@"using AutoMapper;
+using BWF.DataServices.Metadata.Attributes.Actions;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using Template.Domain;
 
-namespace Template.DataService.Host
+namespace Template.DataService
 {
-    public class HostConfiguration
+    [CreateAction(""Create"")]
+	[CreateAction(""View"")]
+    [EditAction(""Edit"")]
+    [DeleteAction(""Delete"")]
+    public class TemplateRecordType : ChangeableRecordType<Template, long, TemplateBatchValidator>
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        public override void ConfigureMapper()
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
+            Mapper.CreateMap<Model, Model>(); 
         }
     }
 }
 ");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
-
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
-
-/// <summary>
-/// Access the dsd parameter of the template.
-/// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
-{
-    get
-    {
-        return this._dsdField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
-{
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
-}
-if ((dsdValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
-    if ((data != null))
-    {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default
@@ -107,7 +59,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DataServiceModelRecordTypeBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

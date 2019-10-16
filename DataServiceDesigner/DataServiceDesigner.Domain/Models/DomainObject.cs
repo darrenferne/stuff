@@ -1,5 +1,6 @@
 ﻿using BWF.DataServices.Metadata.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataServiceDesigner.Domain
 {
@@ -12,5 +13,7 @@ namespace DataServiceDesigner.Domain
         public virtual string DisplayName { get; set; }
         public virtual string PluralisedDisplayName { get; set; }
         public virtual IList<DomainObjectProperty> Properties { get; set; }
+
+        public virtual string KeyType => Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
     }
 }

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.Domain
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DomainModel : DomainModelBase
     {
 #line hidden
         /// <summary>
@@ -28,42 +28,97 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Template.DataService.Host
-{
-    public class HostConfiguration
-    {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
-        {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
-        }
-    }
+            this.Write("using BWF.DataServices.Metadata.Interfaces;\r\n\r\nnamespace Brady.");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain\r\n{\r\n    public class ");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(" : IHaveId<");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.KeyType));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n    {\r\n");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+foreach(var property in CurrentObject.Properties) {
+            
+            #line default
+            #line hidden
+            this.Write("        public virtual ");
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyType));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
+            
+            #line default
+            #line hidden
+            this.Write(" { get; set; }\r\n");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
 }
-");
+            
+            #line default
+            #line hidden
+            this.Write("    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\DomainModel.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
+    }
+}
+
+private global::DataServiceDesigner.Domain.DomainSchema _CurrentSchemaField;
+
+/// <summary>
+/// Access the CurrentSchema parameter of the template.
+/// </summary>
+private global::DataServiceDesigner.Domain.DomainSchema CurrentSchema
+{
+    get
+    {
+        return this._CurrentSchemaField;
+    }
+}
+
+private global::DataServiceDesigner.Domain.DomainObject _CurrentObjectField;
+
+/// <summary>
+/// Access the CurrentObject parameter of the template.
+/// </summary>
+private global::DataServiceDesigner.Domain.DomainObject CurrentObject
+{
+    get
+    {
+        return this._CurrentObjectField;
     }
 }
 
@@ -75,18 +130,46 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+    }
+}
+bool CurrentSchemaValueAcquired = false;
+if (this.Session.ContainsKey("CurrentSchema"))
+{
+    this._CurrentSchemaField = ((global::DataServiceDesigner.Domain.DomainSchema)(this.Session["CurrentSchema"]));
+    CurrentSchemaValueAcquired = true;
+}
+if ((CurrentSchemaValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CurrentSchema");
+    if ((data != null))
+    {
+        this._CurrentSchemaField = ((global::DataServiceDesigner.Domain.DomainSchema)(data));
+    }
+}
+bool CurrentObjectValueAcquired = false;
+if (this.Session.ContainsKey("CurrentObject"))
+{
+    this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(this.Session["CurrentObject"]));
+    CurrentObjectValueAcquired = true;
+}
+if ((CurrentObjectValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CurrentObject");
+    if ((data != null))
+    {
+        this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(data));
     }
 }
 
@@ -107,7 +190,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DomainModelBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

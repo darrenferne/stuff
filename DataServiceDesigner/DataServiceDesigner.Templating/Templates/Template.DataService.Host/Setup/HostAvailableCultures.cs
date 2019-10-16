@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService.host
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostAvailableCultures.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class HostAvailableCultures : HostAvailableCulturesBase
     {
 #line hidden
         /// <summary>
@@ -28,31 +28,52 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
+            this.Write(@"using BWF.Globalisation.Concrete;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Template.DataService.Host
 {
-    public class HostConfiguration
+    public class AvailableCultures
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        public static List<string> LanguageCultures = new List<string> 
+        { 
+            ""en-GB"" 
+        };
+
+        public static List<FormattingCulture> FormattingCultures = new List<FormattingCulture>
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
-        }
+            new FormattingCulture (""en-GB"", new List<string>
+            {
+                ""dd/MM/yyyy HH:mm"",
+                ""dd MMMM yyyy HH:mm:ss"",
+                ""dd/MM/yyyy HH:mm:ss"",
+                ""dd-MM-yyyy HH:mm:ss"",
+                ""dd-MMM-yyyy HH:mm:ss"",
+                ""dd MMM yyyy HH:mm:ss""
+            },
+            new List<string>
+            {
+                ""dd/MM/yyyy"",
+                ""dd MMMM yyyy"",
+                ""dd MMMM"",
+                ""MMMM yyyy"",
+                ""dd-MM-yyyy"",
+                ""dd-MMM-yyyy"",
+                ""dd MMM yyyy""
+            })
+        };
+
     }
 }
 ");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostAvailableCultures.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +128,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class HostAvailableCulturesBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

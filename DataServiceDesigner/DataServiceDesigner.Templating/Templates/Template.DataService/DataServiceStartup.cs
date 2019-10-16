@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceStartup.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DataServiceStartup : DataServiceStartupBase
     {
 #line hidden
         /// <summary>
@@ -28,23 +28,21 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
+            this.Write(@"using BWF.DataServices.Core.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Template.DataService.Host
+namespace Template.DataService
 {
-    public class HostConfiguration
+    public class TemplateDataServiceStartup : IStartUpTask
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        public long Position => 1;
+
+        public Task<bool> Invoke()
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
+            throw new NotImplementedException();
         }
     }
 }
@@ -52,7 +50,7 @@ namespace Template.DataService.Host
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceStartup.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +105,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DataServiceStartupBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

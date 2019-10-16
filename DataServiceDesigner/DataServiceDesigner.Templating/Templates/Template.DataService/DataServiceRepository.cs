@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.DataService
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class HostConfiguration : HostConfigurationBase
+    public partial class DataServiceRepository : DataServiceRepositoryBase
     {
 #line hidden
         /// <summary>
@@ -28,23 +28,34 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
+            this.Write(@"using BWF.DataServices.Core.Interfaces;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.Globalisation.Interfaces;
+using BWF.Hosting.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Template.Domain;
 
-namespace Template.DataService.Host
+namespace Template.DataService
 {
-    public class HostConfiguration
+    public class TemplateDataServiceRepository : ConventionalDatabaseDataServiceRepository, ITemplateRepository
     {
-        public string HostUrl { get; set; }
-        public static HostConfiguration Read()
+        //ISessionFactory _internalFactory;
+        public TemplateDataServiceRepository(
+           IHostConfiguration hostConfiguration,
+           IGlobalisationProvider globalisationProvider,
+           IAuthorisation authorisation,
+           IMetadataProvider metadataProvider)
+        : base(
+            hostConfiguration,
+            globalisationProvider,
+            authorisation,
+            new List<string>(),
+            metadataProvider,
+            TemplateConstants.DataServiceName,
+            TemplateConstants.DataServiceSchema)
         {
-            return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
-            };
+
         }
     }
 }
@@ -52,7 +63,7 @@ namespace Template.DataService.Host
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
 
@@ -107,7 +118,7 @@ if ((dsdValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class HostConfigurationBase
+    public class DataServiceRepositoryBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -55,6 +55,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataServiceDesigner.Domain\DataServiceDesigner.Domain.csproj">
+      <Project>{83a4a744-3874-44d7-b068-ea122e368cc6}</Project>
+      <Name>DataServiceDesigner.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataServiceDesigner.Templating\DataServiceDesigner.Templating.csproj">
+      <Project>{ca521d86-d2f3-4682-b9a8-02a371f841cc}</Project>
+      <Name>DataServiceDesigner.Templating</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SchemaBrowser.DataService\SchemaBrowser.DataService.csproj">
       <Project>{4ec32a24-3c90-4c20-b3b0-6c21ff783e6d}</Project>
       <Name>SchemaBrowser.DataService</Name>
