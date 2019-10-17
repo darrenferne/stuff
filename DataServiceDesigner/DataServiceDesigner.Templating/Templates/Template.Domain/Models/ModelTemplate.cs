@@ -38,7 +38,7 @@ namespace DataServiceDesigner.Templating.Domain
             this.Write(".Domain\r\n{\r\n");
             
             #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\ModelTemplate.tt"
-if (!string.IsNullOrEmpty(CurrentObject.GetKeyType())) {
+if (CurrentObject.SupportsIHaveId()) {
             
             #line default
             #line hidden

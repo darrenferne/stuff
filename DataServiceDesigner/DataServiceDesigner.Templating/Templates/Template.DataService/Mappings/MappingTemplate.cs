@@ -67,40 +67,141 @@ namespace DataServiceDesigner.Templating.DataService
             this.Write("Mapping()\r\n        {\r\n");
             
             #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
-if (!string.IsNullOrEmpty(CurrentObject.GetKeyProperty())) {
+if (CurrentObject.HasCompositeKey()) {
             
             #line default
             #line hidden
-            this.Write("\t\t\tId(p => p.");
-            
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyProperty()));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
-}
-            
-            #line default
-            #line hidden
+            this.Write("\t\t\tComposedId(k =>\r\n            {\r\n");
             
             #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
-foreach(var property in CurrentObject.Properties.Where(p => !p.IsPartOfKey)) {
+foreach(var property in CurrentObject.Properties.Where(p => p.IsPartOfKey)) {
             
             #line default
             #line hidden
-            this.Write("            Property(p => p.");
+            this.Write("                k.Property(x => x.");
             
             #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
-            this.Write(");\r\n");
+            this.Write(", m => m.Column(\"");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.ColumnName));
+            
+            #line default
+            #line hidden
+            this.Write("\"));\r\n");
             
             #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("            });\r\n");
+            
+            #line 26 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tId(p => p.");
+            
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyProperty()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+foreach(var property in CurrentObject.Properties.Where(p => !p.IsPartOfKey)) {
+            
+            #line default
+            #line hidden
+            
+            #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+var columnName = string.IsNullOrEmpty(property.ColumnName) ? property.PropertyName : property.ColumnName;
+            
+            #line default
+            #line hidden
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+if (string.Compare(property.PropertyName, columnName, true) == 0 && property.IsNullable) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tProperty(p => p.");
+            
+            #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 33 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("            Property(p => p.");
+            
+            #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
+            
+            #line default
+            #line hidden
+            this.Write(", m => \r\n\t\t\t{\r\n");
+            
+            #line 36 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+if (string.Compare(property.PropertyName, columnName, true) != 0) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tm.Column(\"");
+            
+            #line 37 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(columnName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n");
+            
+            #line 38 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 39 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+if (!property.IsNullable) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tm.NotNullable(true);\r\n");
+            
+            #line 41 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t});\r\n");
+            
+            #line 43 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 44 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Mappings\MappingTemplate.tt"
 }
             
             #line default

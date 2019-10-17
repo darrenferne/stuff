@@ -44,7 +44,8 @@ namespace DataServiceDesigner.Templating.DataService
             #line default
             #line hidden
             this.Write("DataServiceStartup : IStartUpTask\r\n    {\r\n        public long Position => 1;\r\n\r\n " +
-                    "       public Task<bool> Invoke()\r\n        { }\r\n    }\r\n}");
+                    "       public Task<bool> Invoke()\r\n        {\r\n\t\t\treturn Task.FromResult(true);\r\n" +
+                    "\t\t}\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

@@ -5,6 +5,7 @@ using DataServiceDesigner.Templating.Domain;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,26 +147,29 @@ namespace DataServiceDesigner.Templating
                     content = recordTypeTemplate.TransformText();
                     File.WriteAllText(Path.Combine(recordTypesFolder, $"{domainObject.ObjectName}RecordType.cs"), content);
 
-                    var modelValidatorsFolder = Path.Combine(validatorsFolder, domainObject.ObjectName);
-                    ReplaceDirectories(modelValidatorsFolder);
+                    if (domainObject.SupportsIHaveId())
+                    {
+                        var modelValidatorsFolder = Path.Combine(validatorsFolder, domainObject.ObjectName);
+                        ReplaceDirectories(modelValidatorsFolder);
 
-                    ValidatorTemplate validatorTemplate = new ValidatorTemplate();
-                    validatorTemplate.Session = session;
-                    validatorTemplate.Initialize();
-                    content = validatorTemplate.TransformText();
-                    File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}Validator.cs"), content);
+                        ValidatorTemplate validatorTemplate = new ValidatorTemplate();
+                        validatorTemplate.Session = session;
+                        validatorTemplate.Initialize();
+                        content = validatorTemplate.TransformText();
+                        File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}Validator.cs"), content);
 
-                    DeleteValidatorTemplate deleteValidatorTemplate = new DeleteValidatorTemplate();
-                    deleteValidatorTemplate.Session = session;
-                    deleteValidatorTemplate.Initialize();
-                    content = deleteValidatorTemplate.TransformText();
-                    File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}DeleteValidator.cs"), content);
+                        DeleteValidatorTemplate deleteValidatorTemplate = new DeleteValidatorTemplate();
+                        deleteValidatorTemplate.Session = session;
+                        deleteValidatorTemplate.Initialize();
+                        content = deleteValidatorTemplate.TransformText();
+                        File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}DeleteValidator.cs"), content);
 
-                    BatchValidatorTemplate batchValidatorTemplate = new BatchValidatorTemplate();
-                    batchValidatorTemplate.Session = session;
-                    batchValidatorTemplate.Initialize();
-                    content = batchValidatorTemplate.TransformText();
-                    File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}BatchValidator.cs"), content);
+                        BatchValidatorTemplate batchValidatorTemplate = new BatchValidatorTemplate();
+                        batchValidatorTemplate.Session = session;
+                        batchValidatorTemplate.Initialize();
+                        content = batchValidatorTemplate.TransformText();
+                        File.WriteAllText(Path.Combine(modelValidatorsFolder, $"{domainObject.ObjectName}BatchValidator.cs"), content);
+                    }
                 }
             }
         }
@@ -220,8 +224,21 @@ namespace DataServiceDesigner.Templating
             solutionTemplate.Session = session;
             solutionTemplate.Initialize();
             string content = solutionTemplate.TransformText();
-            File.WriteAllText(Path.Combine(outputFolder, $"{dataService.Name}.sln"), content);
+            File.WriteAllText(Path.Combine(outputFolder, $"Brady.{dataService.Name}.sln"), content);
 
+        }
+
+        public void GenerateAndZipSolution(DomainDataService dataService, string outputFolder)
+        {
+            var solutionFolder = Path.Combine(outputFolder, $"Brady.{dataService.Name}");
+            var zipFileName = Path.Combine(outputFolder, $"Brady.{dataService.Name}.zip");
+
+            if (File.Exists(zipFileName))
+                File.Delete(zipFileName);
+
+            GenerateSolution(dataService, solutionFolder);
+            
+            ZipFile.CreateFromDirectory(solutionFolder, zipFileName);
         }
     }
 }

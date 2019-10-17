@@ -7,17 +7,27 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using AutoMapper;
-using BWF.DataServices.Metadata.Attributes.Actions;
+<#if (!CurrentObject.SupportsIHaveId()) {#>
+using BWF.DataServices.Core.Abstract;
+<#} else {#>
 using BWF.DataServices.Support.NHibernate.Abstract;
+<#}#>
+using BWF.DataServices.Metadata.Attributes.Actions;
 using Brady.<#=DomainDataService.Name#>.Domain;
 
 namespace Brady.<#=DomainDataService.Name#>.DataService
 {
+	[ViewAction("<#=CurrentObject.DisplayName#>")]
+<#if (CurrentObject.SupportsIHaveId()) {#>
     [CreateAction("<#=CurrentObject.DisplayName#>")]
-	[CreateAction("<#=CurrentObject.DisplayName#>")]
     [EditAction("<#=CurrentObject.DisplayName#>")]
     [DeleteAction("<#=CurrentObject.DisplayName#>")]
+<#}#>
+<#if (CurrentObject.SupportsIHaveId()) {#>
     public class <#=CurrentObject.ObjectName#>RecordType : ChangeableRecordType<<#=CurrentObject.ObjectName#>, <#=CurrentObject.GetKeyType()#>, <#=CurrentObject.ObjectName#>BatchValidator>
+<#} else {#>
+	public class <#=CurrentObject.ObjectName#>RecordType : RecordType<<#=CurrentObject.ObjectName#>, <#=CurrentObject.ObjectName#>>
+<#}#>
     {
         public override void ConfigureMapper()
         {

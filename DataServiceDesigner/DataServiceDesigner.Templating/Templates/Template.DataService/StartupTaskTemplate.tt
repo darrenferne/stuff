@@ -18,6 +18,8 @@ namespace Brady.<#=DomainDataService.Name#>.DataService
         public long Position => 1;
 
         public Task<bool> Invoke()
-        { }
+        {
+			return Task.FromResult(true);
+		}
     }
 }

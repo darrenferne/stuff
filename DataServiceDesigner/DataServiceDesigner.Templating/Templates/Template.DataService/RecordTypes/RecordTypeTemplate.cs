@@ -28,88 +28,163 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using AutoMapper;\r\nusing BWF.DataServices.Metadata.Attributes.Actions;\r\nusing BWF" +
-                    ".DataServices.Support.NHibernate.Abstract;\r\nusing Brady.");
+            this.Write("using AutoMapper;\r\n");
+            
+            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+if (!CurrentObject.SupportsIHaveId()) {
+            
+            #line default
+            #line hidden
+            this.Write("using BWF.DataServices.Core.Abstract;\r\n");
             
             #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("using BWF.DataServices.Support.NHibernate.Abstract;\r\n");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("using BWF.DataServices.Metadata.Attributes.Actions;\r\nusing Brady.");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\n\r\nnamespace Brady.");
             
-            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write(".DataService\r\n{\r\n    [CreateAction(\"");
+            this.Write(".DataService\r\n{\r\n\t[ViewAction(\"");
             
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
             
             #line default
             #line hidden
-            this.Write("\")]\r\n\t[CreateAction(\"");
+            this.Write("\")]\r\n");
             
-            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+if (CurrentObject.SupportsIHaveId()) {
+            
+            #line default
+            #line hidden
+            this.Write("    [CreateAction(\"");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
             
             #line default
             #line hidden
             this.Write("\")]\r\n    [EditAction(\"");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
             
             #line default
             #line hidden
             this.Write("\")]\r\n    [DeleteAction(\"");
             
-            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
             
             #line default
             #line hidden
-            this.Write("\")]\r\n    public class ");
+            this.Write("\")]\r\n");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 26 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+if (CurrentObject.SupportsIHaveId()) {
+            
+            #line default
+            #line hidden
+            this.Write("    public class ");
+            
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write("RecordType : ChangeableRecordType<");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyType()));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
-            this.Write("BatchValidator>\r\n    {\r\n        public override void ConfigureMapper()\r\n        {" +
-                    "\r\n            Mapper.CreateMap<");
+            this.Write("BatchValidator>\r\n");
             
-            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("\tpublic class ");
+            
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("RecordType : RecordType<");
+            
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n");
+            
+            #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("    {\r\n        public override void ConfigureMapper()\r\n        {\r\n            Map" +
+                    "per.CreateMap<");
+            
+            #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default

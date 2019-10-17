@@ -57,14 +57,14 @@ namespace Brady.<#=DomainDataService.Name#>.DataService
                     Id = <#=DomainDataService.Name#>Constants.DataServiceName,
                     Text = <#=DomainDataService.Name#>Constants.DataServiceDisplayName,
                     Position = 1,
+					Items = new List<MenuItem>() {
 <#var position = 0;#>
 <#var domainObjects = DomainDataService.Schemas.SelectMany(s => s.Objects).ToList();#>
 <#for(int i = 0; i < domainObjects.Count; i++) {#>
 <#var domainObject = domainObjects[i];#>
-                    Items = new List<MenuItem>() {
-                        CreateMenuItemForRecordType(nameof(<#=domainObject.ObjectName#>), "<#=domainObject.DisplayName#>", <#=position#>)
-                    }<#if (i < domainObjects.Count - 1) {#>,<#}#>
+                        CreateMenuItemForRecordType(nameof(<#=domainObject.ObjectName#>), "<#=domainObject.DisplayName#>", <#=position#>)<#if (i < domainObjects.Count - 1) {#>,<#}#>
 <#}#>
+					}
                 }
             };
             return menu;

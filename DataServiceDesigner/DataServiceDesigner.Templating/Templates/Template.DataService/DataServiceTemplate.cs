@@ -152,33 +152,33 @@ using Brady.");
             
             #line default
             #line hidden
-            this.Write("Constants.DataServiceDisplayName,\r\n                    Position = 1,\r\n");
+            this.Write("Constants.DataServiceDisplayName,\r\n                    Position = 1,\r\n\t\t\t\t\tItems " +
+                    "= new List<MenuItem>() {\r\n");
             
-            #line 60 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+            #line 61 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 var position = 0;
             
             #line default
             #line hidden
             
-            #line 61 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+            #line 62 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 var domainObjects = DomainDataService.Schemas.SelectMany(s => s.Objects).ToList();
             
             #line default
             #line hidden
             
-            #line 62 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+            #line 63 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 for(int i = 0; i < domainObjects.Count; i++) {
             
             #line default
             #line hidden
             
-            #line 63 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+            #line 64 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 var domainObject = domainObjects[i];
             
             #line default
             #line hidden
-            this.Write("                    Items = new List<MenuItem>() {\r\n                        Creat" +
-                    "eMenuItemForRecordType(nameof(");
+            this.Write("                        CreateMenuItemForRecordType(nameof(");
             
             #line 65 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(domainObject.ObjectName));
@@ -199,28 +199,28 @@ var domainObject = domainObjects[i];
             
             #line default
             #line hidden
-            this.Write(")\r\n                    }");
+            this.Write(")");
             
-            #line 66 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+            #line 65 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 if (i < domainObjects.Count - 1) {
             
             #line default
             #line hidden
             this.Write(",");
             
+            #line 65 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
             #line 66 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
 }
             
             #line default
             #line hidden
-            
-            #line 67 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceTemplate.tt"
-}
-            
-            #line default
-            #line hidden
-            this.Write("                }\r\n            };\r\n            return menu;\r\n        }\r\n    }\r\n}\r" +
-                    "\n");
+            this.Write("\t\t\t\t\t}\r\n                }\r\n            };\r\n            return menu;\r\n        }\r\n " +
+                    "   }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

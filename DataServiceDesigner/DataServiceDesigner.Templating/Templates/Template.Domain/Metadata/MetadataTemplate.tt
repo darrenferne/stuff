@@ -42,6 +42,9 @@ namespace Brady.<#=DomainDataService.Name#>.Domain
 			StringProperty(x => x.<#=property.PropertyName#>)
 <#break;#>
 <#}#>
+<#if (property.IsPartOfKey) {#>
+				.IsId()
+<#}#>
 				.DisplayName("<#=string.IsNullOrEmpty(property.DisplayName) ? property.PropertyName : property.DisplayName#>");
 
 <#}#>

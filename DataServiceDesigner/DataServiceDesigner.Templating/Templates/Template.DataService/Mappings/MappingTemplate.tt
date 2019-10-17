@@ -16,11 +16,31 @@ namespace Brady.<#=DomainDataService.Name#>.DataService
     {
         public <#=CurrentObject.ObjectName#>Mapping()
         {
-<#if (!string.IsNullOrEmpty(CurrentObject.GetKeyProperty())) {#>
+<#if (CurrentObject.HasCompositeKey()) {#>
+			ComposedId(k =>
+            {
+<#foreach(var property in CurrentObject.Properties.Where(p => p.IsPartOfKey)) {#>
+                k.Property(x => x.<#=property.PropertyName#>, m => m.Column("<#=property.ColumnName#>"));
+<#}#>
+            });
+<#} else {#>
 			Id(p => p.<#=CurrentObject.GetKeyProperty()#>);
 <#}#>
 <#foreach(var property in CurrentObject.Properties.Where(p => !p.IsPartOfKey)) {#>
-            Property(p => p.<#=property.PropertyName#>);
+<#var columnName = string.IsNullOrEmpty(property.ColumnName) ? property.PropertyName : property.ColumnName;#>
+<#if (string.Compare(property.PropertyName, columnName, true) == 0 && property.IsNullable) {#>
+			Property(p => p.<#=property.PropertyName#>);
+<#} else {#>
+            Property(p => p.<#=property.PropertyName#>, m => 
+			{
+<#if (string.Compare(property.PropertyName, columnName, true) != 0) {#>
+				m.Column("<#=columnName#>");
+<#}#>
+<#if (!property.IsNullable) {#>
+				m.NotNullable(true);
+<#}#>
+			});
+<#}#>
 <#}#>
         }
     }

@@ -60,22 +60,28 @@ namespace UnitTestProject1
                             Properties = new List<DomainObjectProperty>(){
                                 new DomainObjectProperty(){
                                     PropertyName = "Property1",
+                                    ColumnName = "prop1",
                                     PropertyType = "long"
                                 },
                                 new DomainObjectProperty(){
+                                    IsPartOfKey = true,
                                     PropertyName = "Property2",
+                                    ColumnName = "prop2",
                                     PropertyType = "string"
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property3",
+                                    ColumnName = "prop3",
                                     PropertyType = "DateTime"
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "property4",
+                                    ColumnName = "prop4",
                                     PropertyType = "bool"
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property5",
+                                    ColumnName = "prop5",
                                     PropertyType = "decimal"
                                 }
                             }
@@ -86,7 +92,7 @@ namespace UnitTestProject1
                             DisplayName = "Object 2",
                             Properties = new List<DomainObjectProperty>(){
                                 new DomainObjectProperty(){
-                                    PropertyName = "Property1",
+                                    PropertyName = "Id",
                                     PropertyType = "long",
                                     IsPartOfKey = true
                                 },
@@ -102,7 +108,7 @@ namespace UnitTestProject1
 
             var outputPath = Path.Combine(Environment.CurrentDirectory, "Test");
             
-            generator.GenerateSolution(dataService, outputPath);
+            generator.GenerateAndZipSolution(dataService, outputPath);
         }
     }
 }

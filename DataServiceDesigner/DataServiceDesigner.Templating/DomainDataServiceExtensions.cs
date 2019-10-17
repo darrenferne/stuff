@@ -11,12 +11,22 @@ namespace DataServiceDesigner.Templating
     {
         public static string GetKeyType(this DomainObject domainObject)
         {
-            return domainObject.Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
+            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
         }
 
         public static string GetKeyProperty(this DomainObject domainObject)
         {
-            return domainObject.Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyName ?? string.Empty;
+            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyName ?? string.Empty;
+        }
+
+        public static bool HasCompositeKey(this DomainObject domainObject)
+        {
+            return domainObject.Properties.Where(p => p.IsPartOfKey).Count() > 1;
+        }
+
+        public static bool SupportsIHaveId(this DomainObject domainObject)
+        {
+            return domainObject.GetKeyProperty() == "Id";
         }
 
         public static string GetDefaultSchema(this DomainDataService dataService)

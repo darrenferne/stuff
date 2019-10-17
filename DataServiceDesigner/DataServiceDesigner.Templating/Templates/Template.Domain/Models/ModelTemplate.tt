@@ -11,7 +11,7 @@ using System;
 
 namespace Brady.<#=DomainDataService.Name#>.Domain
 {
-<#if (!string.IsNullOrEmpty(CurrentObject.GetKeyType())) {#> 
+<#if (CurrentObject.SupportsIHaveId()) {#> 
     public class <#=CurrentObject.ObjectName#> : IHaveId<<#=CurrentObject.GetKeyType()#>>
 <#} else {#>
 	public class <#=CurrentObject.ObjectName#>
