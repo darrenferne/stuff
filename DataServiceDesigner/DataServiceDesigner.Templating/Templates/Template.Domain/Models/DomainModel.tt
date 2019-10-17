@@ -8,6 +8,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 using BWF.DataServices.Metadata.Interfaces;
+using System;
 
 namespace Brady.<#=DomainDataService.Name#>.Domain
 {

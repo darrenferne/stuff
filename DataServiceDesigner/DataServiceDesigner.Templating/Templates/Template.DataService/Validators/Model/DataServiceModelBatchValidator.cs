@@ -28,37 +28,100 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using BWF.DataServices.Core.Concrete.ChangeSets;
-using BWF.DataServices.Support.NHibernate.Abstract;
-using BWF.DataServices.Support.NHibernate.Validators;
-using Template.Domain;
-
-namespace DataServiceDesigner.DataService
-{
-    public class ModelBatchValidator : BatchValidator<long, Model>
-    {
-        protected override void SetupValidators(ChangeSetItems<long, Model> items)
-        {
-            validator = new ModelValidator();
-            deletionValidator = new ModelDeleteValidator);
-        }
-    }
-}");
+            this.Write("using BWF.DataServices.Core.Concrete.ChangeSets;\r\nusing BWF.DataServices.Support." +
+                    "NHibernate.Abstract;\r\nusing BWF.DataServices.Support.NHibernate.Validators;\r\nusi" +
+                    "ng ");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\r\n{\r\n    public class ");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("BatchValidator : BatchValidator<");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyType()));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n    {\r\n        protected override void SetupValidators(ChangeSetItems<");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyType()));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("> items)\r\n        {\r\n            validator = new ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Validator();\r\n            deletionValidator = new ");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("DeleteValidator);\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\DataServiceModelBatchValidator.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
+    }
+}
+
+private global::DataServiceDesigner.Domain.DomainObject _CurrentObjectField;
+
+/// <summary>
+/// Access the CurrentObject parameter of the template.
+/// </summary>
+private global::DataServiceDesigner.Domain.DomainObject CurrentObject
+{
+    get
+    {
+        return this._CurrentObjectField;
     }
 }
 
@@ -70,18 +133,32 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+    }
+}
+bool CurrentObjectValueAcquired = false;
+if (this.Session.ContainsKey("CurrentObject"))
+{
+    this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(this.Session["CurrentObject"]));
+    CurrentObjectValueAcquired = true;
+}
+if ((CurrentObjectValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CurrentObject");
+    if ((data != null))
+    {
+        this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(data));
     }
 }
 

@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -13,7 +13,7 @@ using log4net.Config;
 using System;
 using Template.Domain;
 
-namespace Template.DataService.Host
+namespace Brady.<#=DomainDataService.Name#>.DataService.Host
 {
     class Program
     {
@@ -28,14 +28,14 @@ namespace Template.DataService.Host
 
             IDataServiceHostSettings hostSettings =
                 new DataServiceHostSettings(
-                    TemplateConstants.DataServiceName, // service name
-                    TemplateConstants.DataServiceDisplayName, // service display name
-                    TemplateConstants.DataServiceDescription, // service description
+                    <#=DomainDataService.Name#>Constants.DataServiceName, // service name
+                    <#=DomainDataService.Name#>Constants.DataServiceDisplayName, // service display name
+                    <#=DomainDataService.Name#>Constants.DataServiceDescription, // service description
                     config.HostUrl,
                     null,
                     globalisationProvider);
 
-            var host = new BWF.DataServices.StartUp.Concrete.DataServiceHost(hostSettings);
+            var host = new DataServiceHost(hostSettings);
             host.Start();
         }
     }

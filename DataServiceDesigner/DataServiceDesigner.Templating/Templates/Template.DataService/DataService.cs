@@ -28,50 +28,195 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using BWF.DataServices.Core.Abstract;\r\nusing BWF.DataServices.Core.Interfaces;\r\nu" +
-                    "sing BWF.DataServices.Core.Menu;\r\nusing BWF.DataServices.Support.NHibernate.Abst" +
-                    "ract;\r\nusing BWF.Globalisation.Interfaces;\r\nusing BWF.Hosting.Infrastructure.Int" +
-                    "erfaces;\r\nusing FluentValidation;\r\nusing System.Collections.Generic;\r\nusing Temp" +
-                    "late.Domain;\r\n\r\nnamespace Template.DataService\r\n{\r\n    public class TemplateData" +
-                    "Service : ConventionalDatabaseDataService<TemplateDataService>, ITemplateDataSer" +
-                    "vice\r\n    {\r\n        public TemplateDataService(\r\n            IHostConfiguration" +
-                    " hostConfiguration,\r\n            IEnumerable<IRecordType> recordTypes,\r\n        " +
-                    "    IGlobalisationProvider globalisationProvider,\r\n            IAuthorisation au" +
-                    "thorisation,\r\n            IMetadataProvider metadataProvider,\r\n            ITemp" +
-                    "lateRepository repository,\r\n            IDatabaseStreamingQueryExecutor database" +
-                    "StreamingQueryExecutor)\r\n        : base(\r\n            TemplateConstants.DataServ" +
-                    "iceName,\r\n            globalisationProvider,\r\n            repository as Database" +
-                    "DataServiceRepository,\r\n            recordTypes,\r\n            metadataProvider,\r" +
-                    "\n            databaseStreamingQueryExecutor)\r\n        {\r\n            ValidatorOp" +
-                    "tions.CascadeMode = CascadeMode.StopOnFirstFailure;\r\n        }\r\n\r\n        privat" +
-                    "e MenuItem CreateMenuItemForRecordType(string typeName, string displayName, int " +
-                    "position)\r\n        {\r\n            return new MenuItem()\r\n            {\r\n        " +
-                    "        Id = $\"{TemplateConstants.DataServiceName}-{typeName}\",\r\n               " +
-                    " Text = displayName,\r\n                Link = $\"{{{{appSetting - ExplorerHostUrl}" +
-                    "}}}/view/#default/{TemplateConstants.DataServiceName}/{typeName}\",\r\n            " +
-                    "    Position = position\r\n            };\r\n        }\r\n\r\n        public override IE" +
-                    "numerable<MenuItem> GetCustomMenus()\r\n        {\r\n            var menu = new List" +
-                    "<MenuItem>()\r\n            {\r\n                new MenuItem() {\r\n                 " +
-                    "   Id = TemplateConstants.DataServiceName,\r\n                    Text = TemplateC" +
-                    "onstants.DataServiceDisplayName,\r\n                    Position = -1,\r\n          " +
-                    "          Items = new List<MenuItem>() {\r\n                        CreateMenuItem" +
-                    "ForRecordType(nameof(Model), \"Model\", 1)\r\n                    }\r\n               " +
-                    " }\r\n            };\r\n            return menu;\r\n        }\r\n    }\r\n}\r\n");
+            this.Write(@"using BWF.DataServices.Core.Abstract;
+using BWF.DataServices.Core.Interfaces;
+using BWF.DataServices.Core.Menu;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.Globalisation.Interfaces;
+using BWF.Hosting.Infrastructure.Interfaces;
+using FluentValidation;
+using System.Collections.Generic;
+using Brady.");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\r\n{\r\n    public class ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("DataService : ConventionalDatabaseDataService<");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("DataService>, I");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("DataService\r\n    {\r\n        public ");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"DataService(
+            IHostConfiguration hostConfiguration,
+            IEnumerable<IRecordType> recordTypes,
+            IGlobalisationProvider globalisationProvider,
+            IAuthorisation authorisation,
+            IMetadataProvider metadataProvider,
+            I");
+            
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Repository repository,\r\n            IDatabaseStreamingQueryExecutor databaseStrea" +
+                    "mingQueryExecutor)\r\n        : base(\r\n            ");
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"Constants.DataServiceName,
+            globalisationProvider,
+            repository as DatabaseDataServiceRepository,
+            recordTypes,
+            metadataProvider,
+            databaseStreamingQueryExecutor)
+        {
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+        }
+
+        private MenuItem CreateMenuItemForRecordType(string typeName, string displayName, int position)
+        {
+            return new MenuItem()
+            {
+                Id = $""{");
+            
+            #line 45 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceName}-{typeName}\",\r\n                Text = displayName,\r\n   " +
+                    "             Link = $\"{{{{appSetting-HostUrl}}}}/view/#default/{");
+            
+            #line 47 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"Constants.DataServiceName}/{typeName}"",
+                Position = position
+            };
+        }
+
+        public override IEnumerable<MenuItem> GetCustomMenus()
+        {
+            var menu = new List<MenuItem>()
+            {
+                new MenuItem() {
+                    Id = ");
+            
+            #line 57 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceName,\r\n                    Text = ");
+            
+            #line 58 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceDisplayName,\r\n                    Position = 1,\r\n");
+            
+            #line 60 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+var position = 0;
+            
+            #line default
+            #line hidden
+            
+            #line 61 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+foreach(var domainObject in DomainDataService.Schemas.SelectMany(s => s.Objects)) {
+            
+            #line default
+            #line hidden
+            
+            #line 62 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+position++;
+            
+            #line default
+            #line hidden
+            this.Write("                    Items = new List<MenuItem>() {\r\n                        Creat" +
+                    "eMenuItemForRecordType(nameof(");
+            
+            #line 64 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("), \"");
+            
+            #line 64 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainObject.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\", ");
+            
+            #line 64 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(position));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n                    }\r\n");
+            
+            #line 66 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("                }\r\n            };\r\n            return menu;\r\n        }\r\n    }\r\n}\r" +
+                    "\n");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataService.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
     }
 }
 
@@ -83,18 +228,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
     }
 }
 

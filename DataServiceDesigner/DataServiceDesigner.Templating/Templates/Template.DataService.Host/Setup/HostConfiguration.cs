@@ -28,22 +28,23 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Template.DataService.Host
+            this.Write("using System;\r\nusing System.Configuration;\r\n\r\nnamespace Brady.");
+            
+            #line 11 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@".DataService.Host
 {
     public class HostConfiguration
     {
         public string HostUrl { get; set; }
+
         public static HostConfiguration Read()
         {
             return new HostConfiguration {
-                HostUrl = ConfigurationManager.AppSettings[""ExplorerHostUrl""]
+                HostUrl = ConfigurationManager.AppSettings[""HostUrl""]
             };
         }
     }
@@ -54,16 +55,16 @@ namespace Template.DataService.Host
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\HostConfiguration.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
     }
 }
 
@@ -75,18 +76,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
     }
 }
 

@@ -28,28 +28,169 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using AutoMapper;
-using BWF.DataServices.Metadata.Attributes.Actions;
-using BWF.DataServices.Support.NHibernate.Abstract;
-using Template.Domain;
-
-namespace Template.DataService
-{
-    [CreateAction(""Create"")]
-	[CreateAction(""View"")]
-    [EditAction(""Edit"")]
-    [DeleteAction(""Delete"")]
-    public class TemplateRecordType : ChangeableRecordType<Template, long, TemplateBatchValidator>
-    {
-        public override void ConfigureMapper()
-        {
-            Mapper.CreateMap<Model, Model>(); 
-        }
-    }
-}
-");
+            this.Write("using AutoMapper;\r\nusing BWF.DataServices.Metadata.Attributes.Actions;\r\nusing BWF" +
+                    ".DataServices.Support.NHibernate.Abstract;\r\nusing Brady.");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\r\n{\r\n    [CreateAction(\"");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\")]\r\n\t[CreateAction(\"");
+            
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\")]\r\n    [EditAction(\"");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\")]\r\n    [DeleteAction(\"");
+            
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\")]\r\n    public class ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("RecordType : ChangeableRecordType<");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.GetKeyType()));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("BatchValidator>\r\n    {\r\n        public override void ConfigureMapper()\r\n        {" +
+                    "\r\n            Mapper.CreateMap<");
+            
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(">(); \r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\DataServiceModelRecordType.tt"
+
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
+
+/// <summary>
+/// Access the DomainDataService parameter of the template.
+/// </summary>
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
+{
+    get
+    {
+        return this._DomainDataServiceField;
+    }
+}
+
+private global::DataServiceDesigner.Domain.DomainObject _CurrentObjectField;
+
+/// <summary>
+/// Access the CurrentObject parameter of the template.
+/// </summary>
+private global::DataServiceDesigner.Domain.DomainObject CurrentObject
+{
+    get
+    {
+        return this._CurrentObjectField;
+    }
+}
+
+
+/// <summary>
+/// Initialize the template
+/// </summary>
+public virtual void Initialize()
+{
+    if ((this.Errors.HasErrors == false))
+    {
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
+{
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
+}
+if ((DomainDataServiceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
+    if ((data != null))
+    {
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+    }
+}
+bool CurrentObjectValueAcquired = false;
+if (this.Session.ContainsKey("CurrentObject"))
+{
+    this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(this.Session["CurrentObject"]));
+    CurrentObjectValueAcquired = true;
+}
+if ((CurrentObjectValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CurrentObject");
+    if ((data != null))
+    {
+        this._CurrentObjectField = ((global::DataServiceDesigner.Domain.DomainObject)(data));
+    }
+}
+
+
+    }
+}
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default

@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -11,14 +11,13 @@ using BWF.Globalisation.Interfaces;
 using BWF.Hosting.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
-using Template.Domain;
+using Brady.<#=DomainDataService.ObjectName#>.Domain;
 
-namespace Template.DataService
+namespace Brady.<#=DomainDataService.ObjectName#>.DataService
 {
-    public class TemplateDataServiceRepository : ConventionalDatabaseDataServiceRepository, ITemplateRepository
+    public class <#=DomainDataService.ObjectName#>DataServiceRepository : ConventionalDatabaseDataServiceRepository, I<#=DomainDataService.ObjectName#>Repository
     {
-        //ISessionFactory _internalFactory;
-        public TemplateDataServiceRepository(
+        public <#=DomainDataService.ObjectName#>DataServiceRepository(
            IHostConfiguration hostConfiguration,
            IGlobalisationProvider globalisationProvider,
            IAuthorisation authorisation,
@@ -29,10 +28,8 @@ namespace Template.DataService
             authorisation,
             new List<string>(),
             metadataProvider,
-            TemplateConstants.DataServiceName,
-            TemplateConstants.DataServiceSchema)
-        {
-
-        }
+            <#=DomainDataService.ObjectName#>Constants.DataServiceName,
+            <#=DomainDataService.ObjectName#>Constants.DataServiceSchema)
+        { }
     }
 }

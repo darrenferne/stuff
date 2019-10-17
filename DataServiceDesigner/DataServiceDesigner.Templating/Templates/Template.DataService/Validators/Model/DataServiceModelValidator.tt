@@ -1,5 +1,6 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainObject" name="CurrentObject" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -7,13 +8,13 @@
 <#@ output extension=".cs" #>
 using BWF.DataServices.Support.NHibernate.Abstract;
 using FluentValidation;
-using Template.Domain;
+using Brady.<#=DomainDataService.Name#>.Domain;
 
-namespace DataServiceDesigner.DataService
+namespace Brady.<#=DomainDataService.Name#>.DataService
 {
-    public class ModelValidator : Validator<Model>
+    public class <#=CurrentObject.ObjectName#>Validator : Validator<<#=CurrentObject.ObjectName#>>
     {
-        public ModelValidator()
+        public <#=CurrentObject.ObjectName#>Validator()
         {
             RuleFor(x => x.Id)
                 .GreaterThanOrEqualTo(0L);

@@ -28,15 +28,16 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using BWF.DataServices.Nancy.Interfaces;
-using BWF.DataServices.StartUp.Concrete;
-using BWF.Globalisation.Concrete;
-using BWF.Globalisation.Interfaces;
-using log4net.Config;
-using System;
-using Template.Domain;
-
-namespace Template.DataService.Host
+            this.Write("using BWF.DataServices.Nancy.Interfaces;\r\nusing BWF.DataServices.StartUp.Concrete" +
+                    ";\r\nusing BWF.Globalisation.Concrete;\r\nusing BWF.Globalisation.Interfaces;\r\nusing" +
+                    " log4net.Config;\r\nusing System;\r\nusing Template.Domain;\r\n\r\nnamespace Brady.");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@".DataService.Host
 {
     class Program
     {
@@ -51,14 +52,33 @@ namespace Template.DataService.Host
 
             IDataServiceHostSettings hostSettings =
                 new DataServiceHostSettings(
-                    TemplateConstants.DataServiceName, // service name
-                    TemplateConstants.DataServiceDisplayName, // service display name
-                    TemplateConstants.DataServiceDescription, // service description
+                    ");
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceName, // service name\r\n                    ");
+            
+            #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceDisplayName, // service display name\r\n                    ");
+            
+            #line 33 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"Constants.DataServiceDescription, // service description
                     config.HostUrl,
                     null,
                     globalisationProvider);
 
-            var host = new BWF.DataServices.StartUp.Concrete.DataServiceHost(hostSettings);
+            var host = new DataServiceHost(hostSettings);
             host.Start();
         }
     }
@@ -69,16 +89,16 @@ namespace Template.DataService.Host
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProgram.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
     }
 }
 
@@ -90,18 +110,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
     }
 }
 

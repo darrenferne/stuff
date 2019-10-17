@@ -28,20 +28,44 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using BWF.DataServices.Core.Interfaces;
-using BWF.DataServices.Support.NHibernate.Abstract;
-using BWF.Globalisation.Interfaces;
-using BWF.Hosting.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using Template.Domain;
-
-namespace Template.DataService
-{
-    public class TemplateDataServiceRepository : ConventionalDatabaseDataServiceRepository, ITemplateRepository
-    {
-        //ISessionFactory _internalFactory;
-        public TemplateDataServiceRepository(
+            this.Write("using BWF.DataServices.Core.Interfaces;\r\nusing BWF.DataServices.Support.NHibernat" +
+                    "e.Abstract;\r\nusing BWF.Globalisation.Interfaces;\r\nusing BWF.Hosting.Infrastructu" +
+                    "re.Interfaces;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing Brady.");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\r\n{\r\n    public class ");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("DataServiceRepository : ConventionalDatabaseDataServiceRepository, I");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Repository\r\n    {\r\n        public ");
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write(@"DataServiceRepository(
            IHostConfiguration hostConfiguration,
            IGlobalisationProvider globalisationProvider,
            IAuthorisation authorisation,
@@ -52,29 +76,36 @@ namespace Template.DataService
             authorisation,
             new List<string>(),
             metadataProvider,
-            TemplateConstants.DataServiceName,
-            TemplateConstants.DataServiceSchema)
-        {
-
-        }
-    }
-}
-");
+            ");
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceName,\r\n            ");
+            
+            #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.ObjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Constants.DataServiceSchema)\r\n        { }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceRepository.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _dsdField;
+private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 
 /// <summary>
-/// Access the dsd parameter of the template.
+/// Access the DomainDataService parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService dsd
+private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
 {
     get
     {
-        return this._dsdField;
+        return this._DomainDataServiceField;
     }
 }
 
@@ -86,18 +117,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool dsdValueAcquired = false;
-if (this.Session.ContainsKey("dsd"))
+bool DomainDataServiceValueAcquired = false;
+if (this.Session.ContainsKey("DomainDataService"))
 {
-    this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["dsd"]));
-    dsdValueAcquired = true;
+    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
+    DomainDataServiceValueAcquired = true;
 }
-if ((dsdValueAcquired == false))
+if ((DomainDataServiceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("dsd");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
     if ((data != null))
     {
-        this._dsdField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
     }
 }
 

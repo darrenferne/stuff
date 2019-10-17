@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -7,7 +7,7 @@
 <#@ output extension=".cs" #>
 using BWF.DataServices.Support.NHibernate.Interfaces;
 
-namespace Template.DataService
+namespace Brady.<#=DomainDataService.Name#>.DataService
 {
     public interface ITemplateRepository : ICrudingDataServiceRepository
     {

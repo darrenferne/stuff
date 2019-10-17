@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -13,22 +13,22 @@ using BWF.Globalisation.Interfaces;
 using BWF.Hosting.Infrastructure.Interfaces;
 using FluentValidation;
 using System.Collections.Generic;
-using Template.Domain;
+using Brady.<#=DomainDataService.Name#>.Domain;
 
-namespace Template.DataService
+namespace Brady.<#=DomainDataService.Name#>.DataService
 {
-    public class TemplateDataService : ConventionalDatabaseDataService<TemplateDataService>, ITemplateDataService
+    public class <#=DomainDataService.Name#>DataService : ConventionalDatabaseDataService<<#=DomainDataService.Name#>DataService>, I<#=DomainDataService.Name#>DataService
     {
-        public TemplateDataService(
+        public <#=DomainDataService.Name#>DataService(
             IHostConfiguration hostConfiguration,
             IEnumerable<IRecordType> recordTypes,
             IGlobalisationProvider globalisationProvider,
             IAuthorisation authorisation,
             IMetadataProvider metadataProvider,
-            ITemplateRepository repository,
+            I<#=DomainDataService.Name#>Repository repository,
             IDatabaseStreamingQueryExecutor databaseStreamingQueryExecutor)
         : base(
-            TemplateConstants.DataServiceName,
+            <#=DomainDataService.Name#>Constants.DataServiceName,
             globalisationProvider,
             repository as DatabaseDataServiceRepository,
             recordTypes,
@@ -42,9 +42,9 @@ namespace Template.DataService
         {
             return new MenuItem()
             {
-                Id = $"{TemplateConstants.DataServiceName}-{typeName}",
+                Id = $"{<#=DomainDataService.Name#>Constants.DataServiceName}-{typeName}",
                 Text = displayName,
-                Link = $"{{{{appSetting - ExplorerHostUrl}}}}/view/#default/{TemplateConstants.DataServiceName}/{typeName}",
+                Link = $"{{{{appSetting-HostUrl}}}}/view/#default/{<#=DomainDataService.Name#>Constants.DataServiceName}/{typeName}",
                 Position = position
             };
         }
@@ -54,12 +54,16 @@ namespace Template.DataService
             var menu = new List<MenuItem>()
             {
                 new MenuItem() {
-                    Id = TemplateConstants.DataServiceName,
-                    Text = TemplateConstants.DataServiceDisplayName,
-                    Position = -1,
+                    Id = <#=DomainDataService.Name#>Constants.DataServiceName,
+                    Text = <#=DomainDataService.Name#>Constants.DataServiceDisplayName,
+                    Position = 1,
+<#var position = 0;#>
+<#foreach(var domainObject in DomainDataService.Schemas.SelectMany(s => s.Objects)) {#>
+<#position++;#>
                     Items = new List<MenuItem>() {
-                        CreateMenuItemForRecordType(nameof(Model), "Model", 1)
+                        CreateMenuItemForRecordType(nameof(<#=domainObject.ObjectName#>), "<#=domainObject.DisplayName#>", <#=position#>)
                     }
+<#}#>
                 }
             };
             return menu;

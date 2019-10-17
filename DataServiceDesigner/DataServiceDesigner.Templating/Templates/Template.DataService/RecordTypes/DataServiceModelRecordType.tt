@@ -1,4 +1,6 @@
 ﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainObject" name="CurrentObject" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -7,19 +9,19 @@
 using AutoMapper;
 using BWF.DataServices.Metadata.Attributes.Actions;
 using BWF.DataServices.Support.NHibernate.Abstract;
-using Template.Domain;
+using Brady.<#=DomainDataService.Name#>.Domain;
 
-namespace Template.DataService
+namespace Brady.<#=DomainDataService.Name#>.DataService
 {
-    [CreateAction("Create")]
-	[CreateAction("View")]
-    [EditAction("Edit")]
-    [DeleteAction("Delete")]
-    public class TemplateRecordType : ChangeableRecordType<Template, long, TemplateBatchValidator>
+    [CreateAction("<#=CurrentObject.DisplayName#>")]
+	[CreateAction("<#=CurrentObject.DisplayName#>")]
+    [EditAction("<#=CurrentObject.DisplayName#>")]
+    [DeleteAction("<#=CurrentObject.DisplayName#>")]
+    public class <#=CurrentObject.ObjectName#>RecordType : ChangeableRecordType<<#=CurrentObject.ObjectName#>, <#=CurrentObject.GetKeyType()#>, <#=CurrentObject.ObjectName#>BatchValidator>
     {
         public override void ConfigureMapper()
         {
-            Mapper.CreateMap<Model, Model>(); 
+            Mapper.CreateMap<<#=CurrentObject.ObjectName#>, <#=CurrentObject.ObjectName#>>(); 
         }
     }
 }

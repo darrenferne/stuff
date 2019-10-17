@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" #>
-<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="dsd" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -8,11 +8,8 @@
 using BWF.Globalisation.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Template.DataService.Host
+namespace Brady.<#=DomainDataService.Name#>.DataService.Host
 {
     public class AvailableCultures
     {
@@ -43,6 +40,5 @@ namespace Template.DataService.Host
                 "dd MMM yyyy"
             })
         };
-
     }
 }

@@ -20,9 +20,33 @@ namespace Brady.<#=DomainDataService.Name#>.Domain
             DisplayName("<#=CurrentObject.DisplayName#>");
 
 <#foreach(var property in CurrentObject.Properties) {#>
-            IntegerProperty(x => x.<#=property.PropertyName#>);
+<#switch(property.PropertyType.ToLower()) {#>
+<#case "int32":#>
+<#case "int":#>
+<#case "int64":#>
+<#case "long":#>
+			IntegerProperty(x => x.<#=property.PropertyName#>)
+<#break;#>
+<#case "decimal":#>
+<#case "float":#>
+			NumericProperty(x => x.<#=property.PropertyName#>)
+<#break;#>
+<#case "datetime":#>
+<#case "datetimeoffset":#>
+			DateProperty(x => x.<#=property.PropertyName#>)
+<#break;#>
+<#case "bool":#>
+<#case "boolean":#>
+			BooleanProperty(x => x.<#=property.PropertyName#>)
+<#break;#>
+<#default:#>
+			StringProperty(x => x.<#=property.PropertyName#>)
+<#break;#>
 <#}#>
+				.DisplayName("<#=string.IsNullOrEmpty(property.DisplayName) ? property.PropertyName : property.DisplayName#>")
 
+<#}#>
+				
             ViewDefaults()
 <#foreach(var property in CurrentObject.Properties) {#>
                 .Property(x => x.<#=property.PropertyName#>)

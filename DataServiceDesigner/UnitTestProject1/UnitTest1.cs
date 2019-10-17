@@ -65,6 +65,18 @@ namespace UnitTestProject1
                                 new DomainObjectProperty(){
                                     PropertyName = "Property2",
                                     PropertyType = "string"
+                                },
+                                new DomainObjectProperty(){
+                                    PropertyName = "Property3",
+                                    PropertyType = "DateTime"
+                                },
+                                new DomainObjectProperty(){
+                                    PropertyName = "property4",
+                                    PropertyType = "bool"
+                                },
+                                new DomainObjectProperty(){
+                                    PropertyName = "Property5",
+                                    PropertyType = "decimal"
                                 }
                             }
                         },
