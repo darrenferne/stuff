@@ -1,0 +1,18 @@
+﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using BWF.Hosting.Infrastructure.Interfaces;
+using Ninject;
+
+namespace Brady.<#=DomainDataService.Name#>.DataService
+{
+    public class <#=DomainDataService.Name#>DataServiceKernelManipulations : IKernelManipulation
+    {
+        public void Apply(IKernel kernel)
+        { }
+    }
+}

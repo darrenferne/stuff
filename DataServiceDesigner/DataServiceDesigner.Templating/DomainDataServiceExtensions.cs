@@ -14,6 +14,11 @@ namespace DataServiceDesigner.Templating
             return domainObject.Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
         }
 
+        public static string GetKeyProperty(this DomainObject domainObject)
+        {
+            return domainObject.Properties?.FirstOrDefault(p => p.IsPartOfKey)?.PropertyName ?? string.Empty;
+        }
+
         public static string GetDefaultSchema(this DomainDataService dataService)
         {
             return dataService.Schemas?.FirstOrDefault(p => p.IsDefault)?.SchemaName ?? string.Empty;

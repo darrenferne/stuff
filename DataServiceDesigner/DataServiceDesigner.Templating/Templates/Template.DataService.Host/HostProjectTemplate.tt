@@ -1,0 +1,24 @@
+﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".csproj" #>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="combined-bwf-dataservice-host" Version="2046.3.46" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brady.<#=DomainDataService.Name#>.Domain\Brady.<#=DomainDataService.Name#>.Domain.csproj" />
+	<ProjectReference Include="..\Brady.<#=DomainDataService.Name#>.DataService\Brady.<#=DomainDataService.Name#>.DataService.csproj" />
+  </ItemGroup>
+
+</Project>

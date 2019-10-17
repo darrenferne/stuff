@@ -1,0 +1,35 @@
+﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using BWF.DataServices.Core.Interfaces;
+using BWF.DataServices.Support.NHibernate.Abstract;
+using BWF.Globalisation.Interfaces;
+using BWF.Hosting.Infrastructure.Interfaces;
+using System;
+using System.Collections.Generic;
+using Brady.<#=DomainDataService.Name#>.Domain;
+
+namespace Brady.<#=DomainDataService.Name#>.DataService
+{
+    public class <#=DomainDataService.Name#>DataServiceRepository : ConventionalDatabaseDataServiceRepository, I<#=DomainDataService.Name#>Repository
+    {
+        public <#=DomainDataService.Name#>DataServiceRepository(
+           IHostConfiguration hostConfiguration,
+           IGlobalisationProvider globalisationProvider,
+           IAuthorisation authorisation,
+           IMetadataProvider metadataProvider)
+        : base(
+            hostConfiguration,
+            globalisationProvider,
+            authorisation,
+            new List<string>(),
+            metadataProvider,
+            <#=DomainDataService.Name#>Constants.DataServiceName,
+            <#=DomainDataService.Name#>Constants.DataServiceSchema)
+        { }
+    }
+}

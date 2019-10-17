@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainObject" name="CurrentObject" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
+using Brady.<#=DomainDataService.Name#>.Domain;
+
+namespace Brady.<#=DomainDataService.Name#>.DataService
+{
+    public class <#=CurrentObject.ObjectName#>Mapping : ClassMapping<<#=CurrentObject.ObjectName#>>
+    {
+        public <#=CurrentObject.ObjectName#>Mapping()
+        {
+<#if (!string.IsNullOrEmpty(CurrentObject.GetKeyProperty())) {#>
+			Id(p => p.<#=CurrentObject.GetKeyProperty()#>);
+<#}#>
+<#foreach(var property in CurrentObject.Properties.Where(p => !p.IsPartOfKey)) {#>
+            Property(p => p.<#=property.PropertyName#>);
+<#}#>
+        }
+    }
+}

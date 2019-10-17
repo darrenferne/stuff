@@ -101,10 +101,8 @@ namespace UnitTestProject1
             };
 
             var outputPath = Path.Combine(Environment.CurrentDirectory, "Test");
-            if (Directory.Exists(outputPath))
-                Directory.Delete(outputPath, true);
-            Directory.CreateDirectory(outputPath);
-            generator.GenerateDomainProject(dataService, outputPath);
+            
+            generator.GenerateSolution(dataService, outputPath);
         }
     }
 }
