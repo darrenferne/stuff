@@ -64,8 +64,142 @@ namespace DataServiceDesigner.Templating.DataService
             
             #line default
             #line hidden
-            this.Write("Validator()\r\n        {\r\n            RuleFor(x => x.Id)\r\n                .GreaterT" +
-                    "hanOrEqualTo(0L);\r\n        }\r\n    }\r\n}");
+            this.Write("Validator()\r\n        {\r\n");
+            
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+for(int i = 0; i < CurrentObject.Properties.Count; i++) {
+            
+            #line default
+            #line hidden
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+var property = CurrentObject.Properties[i]; 
+            
+            #line default
+            #line hidden
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (property.RequiresValidation()) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tRuleFor(x => x.");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (!property.IsNullable) {
+            
+            #line default
+            #line hidden
+            this.Write("                .NotNull()");
+            
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (property.Length == 0) {
+            
+            #line default
+            #line hidden
+            this.Write(";");
+            
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+ WriteLine(""); }
+            
+            #line default
+            #line hidden
+            
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 26 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (property.Length > 0) {
+            
+            #line default
+            #line hidden
+            
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (!property.IsNullable) { WriteLine(""); }
+            
+            #line default
+            #line hidden
+            
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if (property.IsNullable) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t.Length(0, ");
+            
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Length));
+            
+            #line default
+            #line hidden
+            this.Write(");");
+            
+            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+ WriteLine(""); 
+            
+            #line default
+            #line hidden
+            
+            #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t.Length(1, ");
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Length));
+            
+            #line default
+            #line hidden
+            this.Write(");");
+            
+            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+ WriteLine(""); 
+            
+            #line default
+            #line hidden
+            
+            #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 33 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+if(i < CurrentObject.Properties.Count - 1) { WriteLine(""); }
+            
+            #line default
+            #line hidden
+            
+            #line 35 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            
+            #line 36 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\ValidatorTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

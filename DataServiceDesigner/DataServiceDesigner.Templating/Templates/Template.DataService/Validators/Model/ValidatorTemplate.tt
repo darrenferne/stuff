@@ -16,8 +16,24 @@ namespace Brady.<#=DomainDataService.Name#>.DataService
     {
         public <#=CurrentObject.ObjectName#>Validator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThanOrEqualTo(0L);
+<#for(int i = 0; i < CurrentObject.Properties.Count; i++) {#>
+<#var property = CurrentObject.Properties[i]; #>
+<#if (property.RequiresValidation()) {#>
+			RuleFor(x => x.<#=property.PropertyName#>)
+<#if (!property.IsNullable) {#>
+                .NotNull()<#if (property.Length == 0) {#>;<# WriteLine(""); }#>
+<#}#>
+<#if (property.Length > 0) {#>
+<#if (!property.IsNullable) { WriteLine(""); }#>
+<#if (property.IsNullable) {#>
+				.Length(0, <#=property.Length#>);<# WriteLine(""); #>
+<#} else {#>
+				.Length(1, <#=property.Length#>);<# WriteLine(""); #>
+<#}#>
+<#}#>
+<#if(i < CurrentObject.Properties.Count - 1) { WriteLine(""); }#>
+<#}#>
+<#}#>
         }
     }
 }

@@ -43,13 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainDataServiceExtensions.cs" />
-    <Compile Include="OracleScriptTemplate.cs">
+    <Compile Include="Templates\Scripts\OracleScriptTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OracleScriptTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServerScriptTemplate.cs">
+    <Compile Include="Templates\Scripts\SqlServerScriptTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SqlServerScriptTemplate.tt</DependentUpon>
@@ -167,13 +167,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OracleScriptTemplate.tt">
+    <Content Include="Templates\Scripts\OracleScriptTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>OracleScriptTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>DataServiceDesigner.Templating</CustomToolNamespace>
     </Content>
-    <Content Include="SqlServerScriptTemplate.tt">
+    <Content Include="Templates\Scripts\SqlServerScriptTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SqlServerScriptTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>DataServiceDesigner.Templating</CustomToolNamespace>
     </Content>
     <Content Include="Templates\SolutionTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

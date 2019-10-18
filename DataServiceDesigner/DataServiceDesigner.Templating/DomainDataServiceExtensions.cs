@@ -76,5 +76,10 @@ namespace DataServiceDesigner.Templating
                 property.PropertyName.ToLower() : 
                 property.ColumnName;
         }
+
+        public static bool RequiresValidation(this DomainObjectProperty property)
+        {
+            return !property.IsNullable || property.Length > 0;
+        }
     }
 }

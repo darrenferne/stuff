@@ -18,7 +18,7 @@ namespace DataServiceDesigner.Templating
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\OracleScriptTemplate.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\OracleScriptTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class OracleScriptTemplate : OracleScriptTemplateBase
     {
@@ -31,7 +31,7 @@ namespace DataServiceDesigner.Templating
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\OracleScriptTemplate.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\OracleScriptTemplate.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 

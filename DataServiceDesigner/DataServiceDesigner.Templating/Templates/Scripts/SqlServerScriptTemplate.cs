@@ -19,7 +19,7 @@ namespace DataServiceDesigner.Templating
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class SqlServerScriptTemplate : SqlServerScriptTemplateBase
     {
@@ -31,28 +31,28 @@ namespace DataServiceDesigner.Templating
         {
             this.Write("USE [");
             
-            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Connection.InitialCatalog));
             
             #line default
             #line hidden
             this.Write("]\r\nGO\r\n\r\n");
             
-            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var schemaName = CurrentSchema.SchemaName.ToLower();
             
             #line default
             #line hidden
             this.Write("CREATE SCHEMA [");
             
-            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
             #line hidden
             this.Write("]\r\nGO\r\n\r\nCREATE TABLE [");
             
-            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -77,7 +77,7 @@ GO
 
 CREATE PROCEDURE [");
             
-            #line 35 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 35 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -98,7 +98,7 @@ BEGIN
    
    IF NOT EXISTS (SELECT version FROM [");
             
-            #line 49 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 49 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -110,7 +110,7 @@ BEGIN
    
    IF EXISTS (SELECT version FROM [");
             
-            #line 54 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 54 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -124,7 +124,7 @@ GO
 
 CREATE PROCEDURE [");
             
-            #line 61 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 61 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -143,7 +143,7 @@ BEGIN
    DECLARE @scriptName NVARCHAR(50)
    SET @scriptName = '");
             
-            #line 73 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 73 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -152,7 +152,7 @@ BEGIN
                     "_\' + CAST(@NewPatch AS NVARCHAR(10)) + \'_\' + CAST(@NewCompile AS NVARCHAR(10))) " +
                     "+ \'.sql\'\r\n   \r\n   INSERT INTO [");
             
-            #line 75 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 75 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -161,7 +161,7 @@ BEGIN
                     "\n      VALUES (@version, @NewMajor, @NewMinor, @NewPatch, @NewCompile, @scriptNa" +
                     "me, SYSUTCDATETIME())\r\nEND\r\nGO\r\n\r\nCREATE TABLE [");
             
-            #line 80 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 80 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -182,237 +182,237 @@ GO
 
 ");
             
-            #line 94 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 94 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 foreach(var schemaObject in CurrentSchema.Objects) {
             
             #line default
             #line hidden
             
-            #line 95 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 95 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var tableName = schemaObject.TableName.ToLower();
             
             #line default
             #line hidden
             
-            #line 96 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 96 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var maxPropLength = schemaObject.Properties.Max(p => p.GetColumnName().Length) + 2;
             
             #line default
             #line hidden
             
-            #line 97 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 97 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 maxPropLength = (int)(Math.Round((maxPropLength + 2) / 3.0) * 3.0);
             
             #line default
             #line hidden
             
-            #line 98 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 98 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var maxTypeLength = schemaObject.Properties.Max(p => p.GetColumnType(DatabaseType.SqlServer).Length) + 2;
             
             #line default
             #line hidden
             
-            #line 99 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 99 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 maxTypeLength = (int)(Math.Round((maxTypeLength + 2) / 3.0) * 3.0);
             
             #line default
             #line hidden
             this.Write("CREATE TABLE [");
             
-            #line 100 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 100 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
             #line hidden
             this.Write("].[");
             
-            #line 100 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 100 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("] (\r\n");
             
-            #line 101 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 101 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 for(int i = 0; i< schemaObject.Properties.Count; i++) {
             
             #line default
             #line hidden
             
-            #line 102 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 102 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var property = schemaObject.Properties[i];
             
             #line default
             #line hidden
             
-            #line 103 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 103 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var propPadding = maxPropLength - (property.GetColumnName().Length + 2);
             
             #line default
             #line hidden
             
-            #line 104 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 104 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var typePadding = maxTypeLength - (property.GetColumnType(DatabaseType.SqlServer).Length + 2);
             
             #line default
             #line hidden
             this.Write("   [");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.GetColumnName()));
             
             #line default
             #line hidden
             this.Write("]");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 Write(new string(' ', propPadding));
             
             #line default
             #line hidden
             this.Write("[");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.GetColumnType(DatabaseType.SqlServer)));
             
             #line default
             #line hidden
             this.Write("]");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 Write(new string(' ', typePadding));
             
             #line default
             #line hidden
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 if (!property.IsNullable) {
             
             #line default
             #line hidden
             this.Write(" NOT NULL");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 if (i < schemaObject.Properties.Count - 1) {
             
             #line default
             #line hidden
             this.Write(",");
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 105 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 WriteLine("");
             
             #line default
             #line hidden
             
-            #line 106 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 106 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write(")\r\nGO\r\n\r\nALTER TABLE [");
             
-            #line 110 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 110 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
             #line hidden
             this.Write("].[");
             
-            #line 110 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 110 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("]\r\n   ADD CONSTRAINT [pk_");
             
-            #line 111 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 111 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("] \r\n      PRIMARY KEY (\r\n");
             
-            #line 113 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 113 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var keyProperties = schemaObject.Properties.Where(p => p.IsPartOfKey).ToList();
             
             #line default
             #line hidden
             
-            #line 114 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 114 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 for(int i = 0; i < keyProperties.Count; i++) {
             
             #line default
             #line hidden
             
-            #line 115 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 115 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 var property = schemaObject.Properties[i];
             
             #line default
             #line hidden
             this.Write("         [");
             
-            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.GetColumnName()));
             
             #line default
             #line hidden
             this.Write("]");
             
-            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 if (i < keyProperties.Count -1 ) {
             
             #line default
             #line hidden
             this.Write(",");
             
-            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 116 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 } else { WriteLine(""); }
             
             #line default
             #line hidden
             
-            #line 117 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 117 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("      }\r\nGO\r\n\r\nINSERT INTO [");
             
-            #line 121 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 121 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
             #line hidden
             this.Write("].[nexthigh] ([nexthigh], [entityname])\r\n   VALUES (0, \'");
             
-            #line 122 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 122 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tableName));
             
             #line default
             #line hidden
             this.Write("\');\r\nGO\r\n\r\n");
             
-            #line 125 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 125 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("[");
             
-            #line 126 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+            #line 126 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schemaName));
             
             #line default
@@ -421,7 +421,7 @@ if (i < keyProperties.Count -1 ) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\SqlServerScriptTemplate.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Scripts\SqlServerScriptTemplate.tt"
 
 private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
 

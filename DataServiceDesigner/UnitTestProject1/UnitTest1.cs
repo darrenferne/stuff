@@ -105,7 +105,14 @@ namespace UnitTestProject1
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property2",
-                                    PropertyType = "string"
+                                    PropertyType = "string",
+                                    Length = 64
+                                },
+                                new DomainObjectProperty(){
+                                    PropertyName = "Property2",
+                                    PropertyType = "string",
+                                    IsNullable = true,
+                                    Length = 64
                                 }
                             }
                         }
