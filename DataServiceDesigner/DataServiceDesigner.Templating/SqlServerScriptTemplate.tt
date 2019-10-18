@@ -1,0 +1,127 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainDataService" name="DomainDataService" #>
+<#@ parameter type="DataServiceDesigner.Domain.DomainSchema" name="CurrentSchema" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SchemaBrowser.Domain" #>
+<#@ output extension=".sql" #>
+USE [<#=DomainDataService.Connection.InitialCatalog#>]
+GO
+
+<#var schemaName = CurrentSchema.SchemaName.ToLower();#>
+CREATE SCHEMA [<#=schemaName#>]
+GO
+
+CREATE TABLE [<#=schemaName#>].[schemaversion](
+   [id]         [BIGINT] IDENTITY(1,1) NOT NULL,
+   [version]    [NVARCHAR](50)         NOT NULL,
+   [major]      [INT]                  NOT NULL,
+   [minor]      [INT]                  NOT NULL,
+   [patch]      [INT]                  NOT NULL,
+   [compile]    [INT]                  NOT NULL,
+   [scriptname] [NVARCHAR](50)         NOT NULL,
+   [updatedat]  [DATETIMEOFFSET](7)    NOT NULL,
+
+   CONSTRAINT [pk_schemaversion] PRIMARY KEY CLUSTERED (
+      [id] ASC
+   ),
+   CONSTRAINT [uq_version1]
+      UNIQUE ([version])
+)
+GO
+
+CREATE PROCEDURE [<#=schemaName#>].[prc_checkversion] ( 
+   @OldMajor    INT,
+   @OldMinor    INT,
+   @OldPatch    INT,
+   @OldCompile  INT,
+   @NewMajor    INT,
+   @NewMinor    INT,
+   @NewPatch    INT,
+   @NewCompile  INT
+)
+AS
+BEGIN
+   --SET NOCOUNT ON
+   
+   IF NOT EXISTS (SELECT version FROM [<#=schemaName#>].[schemaversion] WHERE major = @OldMajor AND minor = @OldMinor AND patch = @OldPatch AND compile = @OldCompile)
+   BEGIN 
+      RAISERROR('Cannot upgrade to %d.%d.%d.%d before schema is upgraded to %d.%d.%d.%d', 16, 1, @NewMajor, @NewMinor, @NewPatch, @NewCompile, @OldMajor, @OldMinor, @OldPatch, @OldCompile)
+   END 
+   
+   IF EXISTS (SELECT version FROM [<#=schemaName#>].[schemaversion] WHERE major = @NewMajor AND minor = @NewMinor AND patch = @NewPatch AND compile = @NewCompile)
+   BEGIN
+      RAISERROR('Cannot upgrade to %d.%d.%d.%d as schema is already at this version or greater', 16, 1, @NewMajor, @NewMinor, @NewPatch, @NewCompile)
+   END 
+END
+GO
+
+CREATE PROCEDURE [<#=schemaName#>].[prc_updateversion] ( 
+   @NewMajor    INT,
+   @NewMinor    INT,
+   @NewPatch    INT,
+   @NewCompile  INT
+)
+AS
+BEGIN
+   DECLARE @version NVARCHAR(43)
+   SET @version = (CAST(@NewMajor AS NVARCHAR(10)) + '.' + CAST(@NewMinor AS NVARCHAR(10)) + '.' + CAST(@NewPatch AS NVARCHAR(10)) + '.' + CAST(@NewCompile AS NVARCHAR(10)))
+   
+   DECLARE @scriptName NVARCHAR(50)
+   SET @scriptName = '<#=schemaName#>_' + (CAST(@NewMajor AS NVARCHAR(10)) + '_' + CAST(@NewMinor AS NVARCHAR(10)) + '_' + CAST(@NewPatch AS NVARCHAR(10)) + '_' + CAST(@NewCompile AS NVARCHAR(10))) + '.sql'
+   
+   INSERT INTO [<#=schemaName#>].[schemaversion] (version, major, minor, patch, compile, scriptname, updatedat)
+      VALUES (@version, @NewMajor, @NewMinor, @NewPatch, @NewCompile, @scriptName, SYSUTCDATETIME())
+END
+GO
+
+CREATE TABLE [<#=schemaName#>].[nexthigh](
+   [id]         [INT] IDENTITY(1,1) NOT NULL,
+   [nexthigh]   [BIGINT]            NOT NULL,
+   [entityname] [NVARCHAR](30)      NOT NULL,
+
+   CONSTRAINT [pk_nexthigh] PRIMARY KEY CLUSTERED (
+      [id] ASC
+   ),
+   CONSTRAINT [uk_nexthigh_entityname] UNIQUE NONCLUSTERED (
+      [entityname] ASC
+   )
+)
+GO
+
+<#foreach(var schemaObject in CurrentSchema.Objects) {#>
+<#var tableName = schemaObject.TableName.ToLower();#>
+<#var maxPropLength = schemaObject.Properties.Max(p => p.GetColumnName().Length) + 2;#>
+<#maxPropLength = (int)(Math.Round((maxPropLength + 2) / 3.0) * 3.0);#>
+<#var maxTypeLength = schemaObject.Properties.Max(p => p.GetColumnType(DatabaseType.SqlServer).Length) + 2;#>
+<#maxTypeLength = (int)(Math.Round((maxTypeLength + 2) / 3.0) * 3.0);#>
+CREATE TABLE [<#=schemaName#>].[<#=tableName#>] (
+<#for(int i = 0; i< schemaObject.Properties.Count; i++) {#>
+<#var property = schemaObject.Properties[i];#>
+<#var propPadding = maxPropLength - (property.GetColumnName().Length + 2);#>
+<#var typePadding = maxTypeLength - (property.GetColumnType(DatabaseType.SqlServer).Length + 2);#>
+   [<#=property.GetColumnName()#>]<#Write(new string(' ', propPadding));#>[<#=property.GetColumnType(DatabaseType.SqlServer)#>]<#Write(new string(' ', typePadding));#><#if (!property.IsNullable) {#> NOT NULL<#}#><#if (i < schemaObject.Properties.Count - 1) {#>,<#}#><#WriteLine("");#>
+<#}#>
+)
+GO
+
+ALTER TABLE [<#=schemaName#>].[<#=tableName#>]
+   ADD CONSTRAINT [pk_<#=tableName#>] 
+      PRIMARY KEY (
+<#var keyProperties = schemaObject.Properties.Where(p => p.IsPartOfKey).ToList();#>
+<#for(int i = 0; i < keyProperties.Count; i++) {#>
+<#var property = schemaObject.Properties[i];#>
+         [<#=property.GetColumnName()#>]<#if (i < keyProperties.Count -1 ) {#>,<#} else { WriteLine(""); }#>
+<#}#>
+      }
+GO
+
+INSERT INTO [<#=schemaName#>].[nexthigh] ([nexthigh], [entityname])
+   VALUES (0, '<#=tableName#>');
+GO
+
+<#}#>
+[<#=schemaName#>].[prc_updateversion] 1, 0, 0, 1
+GO

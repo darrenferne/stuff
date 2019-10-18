@@ -56,8 +56,8 @@ namespace SchemaBrowser.DataService
 
         private bool OnlyBeSuppliedForSQLServer(DbConnection connection, string initialCatalog)
         {
-            return (connection.DatabaseType == DbType.SqlServer && !string.IsNullOrEmpty(initialCatalog)) ||
-                   (connection.DatabaseType == DbType.Oracle && string.IsNullOrEmpty(initialCatalog));
+            return (connection.DatabaseType == DatabaseType.SqlServer && !string.IsNullOrEmpty(initialCatalog)) ||
+                   (connection.DatabaseType == DatabaseType.Oracle && string.IsNullOrEmpty(initialCatalog));
         }
 
         private bool OnlyBeSuppliedForNonIntegratedSecurity(DbConnection connection, string value)

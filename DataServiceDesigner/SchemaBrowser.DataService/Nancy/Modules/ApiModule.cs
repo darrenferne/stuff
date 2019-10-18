@@ -23,7 +23,7 @@ namespace SchemaBrowser.DataService
             Get[@"/TestConnection/{databaseType}"] = args =>
             {
                 string databaseType = args.databaseType;
-                DbType dbType = databaseType.FromDatabaseValue<DbType>();
+                DatabaseType dbType = databaseType.FromDatabaseValue<DatabaseType>();
                 string connectionString = Request.Query["cs"]; //can't get this to work via normal parameter as it's encoded
                 string message = string.Empty;
 

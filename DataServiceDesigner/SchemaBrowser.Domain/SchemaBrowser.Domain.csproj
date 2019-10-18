@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Enums\DbConnectionStatus.cs" />
-    <Compile Include="Enums\DbType.cs" />
+    <Compile Include="Enums\DatabaseType.cs" />
     <Compile Include="Enums\DbObjectType.cs" />
     <Compile Include="Interfaces\IHaveAssignableId.cs" />
     <Compile Include="Metadata\DbConnectionMetadata.cs" />

@@ -7,6 +7,7 @@ using DataServiceDesigner.Templating;
 using System.IO;
 using DataServiceDesigner.Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTestProject1
 {
@@ -19,7 +20,7 @@ namespace UnitTestProject1
             SchemaBrowserUtils browser = new SchemaBrowserUtils();
             
             var connectionString = @"Data Source=localhost\sqlexpress;Initial Catalog=dsd-latest;Integrated Security=True;Pooling=False";
-            var keys = browser.GetObjectPrimaryKeys(SchemaBrowser.Domain.DbType.SqlServer, connectionString);
+            var keys = browser.GetObjectPrimaryKeys(SchemaBrowser.Domain.DatabaseType.SqlServer, connectionString);
             //var schema = connection.GetSchema();
             //var tables = connection.GetSchema("Tables");
             //var fks = connection.GetSchema("ForeignKeys");
@@ -40,11 +41,17 @@ namespace UnitTestProject1
             
         }
 
+        void Junk()
+        {
+            var l = new List<int>();
+            var m = new string(' ', 2);
+        }
         [TestMethod]
         public void MyTestMethod()
         {
             TemplateGenerator generator = new TemplateGenerator();
             DomainDataService dataService = new DomainDataService();
+            dataService.Connection = new DataServiceConnection() { InitialCatalog = "TestDB" };
             dataService.Name = "Test";
             dataService.Schemas = new List<DomainSchema>()
             {
@@ -108,7 +115,7 @@ namespace UnitTestProject1
 
             var outputPath = Path.Combine(Environment.CurrentDirectory, "Test");
             
-            generator.GenerateAndZipSolution(dataService, outputPath);
+            generator.GenerateAllAndZip(dataService, outputPath);
         }
     }
 }

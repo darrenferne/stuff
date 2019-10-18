@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace SchemaBrowser.Domain
 {
     [JsonConverter(typeof(RichEnumConverter))]
-    public enum DbType
+    public enum DatabaseType
     {
         [RichEnum("SQL Server", "SQLServer")]
         SqlServer,

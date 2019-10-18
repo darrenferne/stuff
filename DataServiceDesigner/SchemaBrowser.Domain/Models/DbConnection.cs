@@ -5,7 +5,7 @@
         public virtual long Id { get; set; }
         public virtual long? ExternalId { get; set; }
         public virtual string Name { get; set; }
-        public virtual DbType DatabaseType { get; set; }
+        public virtual DatabaseType DatabaseType { get; set; }
         public virtual string DataSource { get; set; }
         public virtual string InitialCatalog { get; set; }
         public virtual string Username { get; set; }

@@ -216,7 +216,7 @@ namespace DataServiceDesigner.Templating
             GenerateDomainProject(dataService, outputFolder);
             GenerateDataServiceProject(dataService, outputFolder);
             GenerateDataServiceHostProject(dataService, outputFolder);
-
+            
             var session = new Dictionary<string, object>();
             session.Add("DomainDataService", dataService);
 
@@ -228,7 +228,39 @@ namespace DataServiceDesigner.Templating
 
         }
 
-        public void GenerateAndZipSolution(DomainDataService dataService, string outputFolder)
+        public void GenerateScripts(DomainDataService dataService, string outputFolder)
+        {
+            outputFolder = Path.Combine(outputFolder, $"DatabaseScripts");
+            var sqlScriptsFolder = Path.Combine(outputFolder, "SqlServer");
+            var oracleScriptsFolder = Path.Combine(outputFolder, "Oracle");
+
+            ReplaceDirectories(outputFolder, sqlScriptsFolder, oracleScriptsFolder);
+
+            var session = new Dictionary<string, object>();
+            session.Add("DomainDataService", dataService);
+
+            if (!(dataService.Schemas is null))
+            {
+                foreach (var domainSchema in dataService.Schemas)
+                {
+                    session["CurrentSchema"] = domainSchema;
+
+                    SqlServerScriptTemplate sqlScriptTemplate = new SqlServerScriptTemplate();
+                    sqlScriptTemplate.Session = session;
+                    sqlScriptTemplate.Initialize();
+                    var content = sqlScriptTemplate.TransformText();
+                    File.WriteAllText(Path.Combine(sqlScriptsFolder, $"{domainSchema.SchemaName.ToLower()}_1_0_0_1.sql"), content);
+
+                    OracleScriptTemplate oracleScriptTemplate = new OracleScriptTemplate();
+                    oracleScriptTemplate.Session = session;
+                    oracleScriptTemplate.Initialize();
+                    content = oracleScriptTemplate.TransformText();
+                    File.WriteAllText(Path.Combine(oracleScriptsFolder, $"{domainSchema.SchemaName.ToLower()}_1_0_0_1.sql"), content);
+                }
+            }
+        }
+
+        public void GenerateAllAndZip(DomainDataService dataService, string outputFolder)
         {
             var solutionFolder = Path.Combine(outputFolder, $"Brady.{dataService.Name}");
             var zipFileName = Path.Combine(outputFolder, $"Brady.{dataService.Name}.zip");
@@ -237,7 +269,8 @@ namespace DataServiceDesigner.Templating
                 File.Delete(zipFileName);
 
             GenerateSolution(dataService, solutionFolder);
-            
+            GenerateScripts(dataService, solutionFolder);
+
             ZipFile.CreateFromDirectory(solutionFolder, zipFileName);
         }
     }

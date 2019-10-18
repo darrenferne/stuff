@@ -9,7 +9,7 @@ namespace SchemaBrowser.DataService
 {
     public class SchemaBrowserUtils
     {
-        private DbProviderFactory GetDbProviderFactory(SBD.DbType dbType)
+        private DbProviderFactory GetDbProviderFactory(SBD.DatabaseType dbType)
         {
             DataTable availableFactories = DbProviderFactories.GetFactoryClasses();
             DataColumn providerNameCol = availableFactories.Columns["InvariantName"];
@@ -20,11 +20,11 @@ namespace SchemaBrowser.DataService
                 var providerName = (string)factoryRow[providerNameCol.Ordinal];
                 switch (dbType)
                 {
-                    case SBD.DbType.SqlServer:
+                    case SBD.DatabaseType.SqlServer:
                         if (providerName == "System.Data.SqlClient")
                             selectedFactory = DbProviderFactories.GetFactory(factoryRow);
                         break;
-                    case SBD.DbType.Oracle:
+                    case SBD.DatabaseType.Oracle:
                         if (providerName == "Oracle.DataAccess.Client")
                             selectedFactory = DbProviderFactories.GetFactory(factoryRow);
                         break;
@@ -35,7 +35,7 @@ namespace SchemaBrowser.DataService
             return selectedFactory;
         }
 
-        public DbConnection GetDbConnection(SBD.DbType dbType, string connectionString)
+        public DbConnection GetDbConnection(SBD.DatabaseType dbType, string connectionString)
         {
             var factory = GetDbProviderFactory(dbType);
             var dbConnection = factory.CreateConnection();
@@ -48,7 +48,7 @@ namespace SchemaBrowser.DataService
             return dbConnection;
         }
 
-        public bool TestConnection(SBD.DbType dbType, string connectionString, out string message)
+        public bool TestConnection(SBD.DatabaseType dbType, string connectionString, out string message)
         {
             message = string.Empty;
             try
@@ -65,7 +65,7 @@ namespace SchemaBrowser.DataService
             return string.IsNullOrEmpty(message);
         }
 
-        public List<SBD.DbObject> GetDbObjects(SBD.DbType dbType, string connectionString, bool includeProperties = true)
+        public List<SBD.DbObject> GetDbObjects(SBD.DatabaseType dbType, string connectionString, bool includeProperties = true)
         {
             var tables = GetDbObjects(dbType, SBD.DbObjectType.Table, connectionString, includeProperties);
             var views = GetDbObjects(dbType, SBD.DbObjectType.View, connectionString, includeProperties);
@@ -73,20 +73,20 @@ namespace SchemaBrowser.DataService
             return tables.Union(views).ToList();
         }
 
-        public List<SBD.DbObject> GetDbObjects(SBD.DbType dbType, SBD.DbObjectType objectType, string connectionString, bool includeProperties = true)
+        public List<SBD.DbObject> GetDbObjects(SBD.DatabaseType dbType, SBD.DbObjectType objectType, string connectionString, bool includeProperties = true)
         {
             List<SBD.DbObject> dbObjects = new List<SBD.DbObject>();
 
             using (var dbConnection = GetDbConnection(dbType, connectionString))
             {
                 var tables = dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Tables" : "Views");
-                var catalogCol = dbType == SBD.DbType.SqlServer ? tables.Columns["TABLE_CATALOG"] : null;
-                var ownerCol = dbType == SBD.DbType.SqlServer ? tables.Columns["TABLE_SCHEMA"] : tables.Columns["OWNER"];
-                var tableNameCol = objectType == SBD.DbObjectType.View && dbType != SBD.DbType.SqlServer ? tables.Columns["VIEW_NAME"] : tables.Columns["TABLE_NAME"];
+                var catalogCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_CATALOG"] : null;
+                var ownerCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_SCHEMA"] : tables.Columns["OWNER"];
+                var tableNameCol = objectType == SBD.DbObjectType.View && dbType != SBD.DatabaseType.SqlServer ? tables.Columns["VIEW_NAME"] : tables.Columns["TABLE_NAME"];
 
                 foreach (DataRow tableRow in tables.Rows)
                 {
-                    var objectCatalog = dbType == SBD.DbType.SqlServer ? (string)tableRow[catalogCol] : string.Empty;
+                    var objectCatalog = dbType == SBD.DatabaseType.SqlServer ? (string)tableRow[catalogCol] : string.Empty;
                     var objectOwner = (string)tableRow[ownerCol];
                     var objectName = (string)tableRow[tableNameCol];
 
@@ -106,7 +106,7 @@ namespace SchemaBrowser.DataService
             return dbObjects;
         }
 
-        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DbType dbType, string connectionString)
+        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DatabaseType dbType, string connectionString)
         {
             using (var dbConnection = GetDbConnection(dbType, connectionString))
             {
@@ -117,20 +117,20 @@ namespace SchemaBrowser.DataService
             }
         }
 
-        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DbType dbType, SBD.DbObjectType objectType, DbConnection dbConnection)
+        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DatabaseType dbType, SBD.DbObjectType objectType, DbConnection dbConnection)
         {
             List<SBD.DbObjectProperty> dbObjectProperties = new List<SBD.DbObjectProperty>();
 
-            var columns = dbType == SBD.DbType.SqlServer ?
+            var columns = dbType == SBD.DatabaseType.SqlServer ?
                     dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Columns" : "ViewColumns") :
                     dbConnection.GetSchema("Columns");
 
-            var ownerCol = dbType == SBD.DbType.SqlServer ? columns.Columns["TABLE_SCHEMA"] : columns.Columns["OWNER"];
+            var ownerCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["TABLE_SCHEMA"] : columns.Columns["OWNER"];
             var tableNameCol = columns.Columns["TABLE_NAME"];
             var columnNameCol = columns.Columns["COLUMN_NAME"];
-            var columnTypeCol = dbType == SBD.DbType.SqlServer ? columns.Columns["DATA_TYPE"] : columns.Columns["DATATYPE"];
-            var lengthCol = dbType == SBD.DbType.SqlServer ? columns.Columns["CHARACTER_MAXIMUM_LENGTH"] : columns.Columns["LENGTH"];
-            var nullableCol = dbType == SBD.DbType.SqlServer ? columns.Columns["IS_NULLABLE"] : columns.Columns["NULLABLE"];
+            var columnTypeCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["DATA_TYPE"] : columns.Columns["DATATYPE"];
+            var lengthCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["CHARACTER_MAXIMUM_LENGTH"] : columns.Columns["LENGTH"];
+            var nullableCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["IS_NULLABLE"] : columns.Columns["NULLABLE"];
 
             foreach (DataRow columnRow in columns.Rows)
             {
@@ -189,18 +189,18 @@ namespace SchemaBrowser.DataService
             }
         }
 
-        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DbType dbType, SBD.DbObjectType objectType, DbConnection dbConnection, string objectCatalog, string objectOwner, string objectName)
+        public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DatabaseType dbType, SBD.DbObjectType objectType, DbConnection dbConnection, string objectCatalog, string objectOwner, string objectName)
         {
             List<SBD.DbObjectProperty> dbObjectProperties = new List<SBD.DbObjectProperty>();
 
-            var columns = dbType == SBD.DbType.SqlServer ?
+            var columns = dbType == SBD.DatabaseType.SqlServer ?
                     dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Columns" : "ViewColumns", new string[] { objectCatalog, objectOwner, objectName }) :
                     dbConnection.GetSchema("Columns", new string[] { objectOwner, objectName });
 
             var columnNameCol = columns.Columns["COLUMN_NAME"];
-            var columnTypeCol = dbType == SBD.DbType.SqlServer ? columns.Columns["DATA_TYPE"] : columns.Columns["DATATYPE"];
-            var lengthCol = dbType == SBD.DbType.SqlServer ? columns.Columns["CHARACTER_MAXIMUM_LENGTH"] : columns.Columns["LENGTH"];
-            var nullableCol = dbType == SBD.DbType.SqlServer ? columns.Columns["IS_NULLABLE"] : columns.Columns["NULLABLE"];
+            var columnTypeCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["DATA_TYPE"] : columns.Columns["DATATYPE"];
+            var lengthCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["CHARACTER_MAXIMUM_LENGTH"] : columns.Columns["LENGTH"];
+            var nullableCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["IS_NULLABLE"] : columns.Columns["NULLABLE"];
 
             foreach (DataRow columnRow in columns.Rows)
             {
@@ -221,10 +221,10 @@ namespace SchemaBrowser.DataService
             return dbObjectProperties;
         }
 
-        private string GetObjectPrimaryKeySQL(SBD.DbType dbType, bool filtered = false)
+        private string GetObjectPrimaryKeySQL(SBD.DatabaseType dbType, bool filtered = false)
         {
             var sql = string.Empty;
-            if (dbType == SBD.DbType.SqlServer)
+            if (dbType == SBD.DatabaseType.SqlServer)
             {
                 sql = @"SELECT
                             s.name schema_name,
@@ -257,7 +257,7 @@ namespace SchemaBrowser.DataService
             }
             return sql;
         }
-        public SBD.DbObjectPrimaryKey GetObjectPrimaryKey(SBD.DbType dbType, string connectionString, string objectOwner, string objectName)
+        public SBD.DbObjectPrimaryKey GetObjectPrimaryKey(SBD.DatabaseType dbType, string connectionString, string objectOwner, string objectName)
         {
             var sql = GetObjectPrimaryKeySQL(dbType, true);
 
@@ -292,7 +292,7 @@ namespace SchemaBrowser.DataService
             return primaryKey;
         }
 
-        public List<SBD.DbObjectPrimaryKey> GetObjectPrimaryKeys(SBD.DbType dbType, string connectionString)
+        public List<SBD.DbObjectPrimaryKey> GetObjectPrimaryKeys(SBD.DatabaseType dbType, string connectionString)
         {
             var primaryKeys = new List<SBD.DbObjectPrimaryKey>();
             var sql = GetObjectPrimaryKeySQL(dbType);
