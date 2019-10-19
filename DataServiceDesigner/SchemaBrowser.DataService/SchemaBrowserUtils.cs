@@ -227,11 +227,10 @@ namespace SchemaBrowser.DataService
             if (dbType == SBD.DatabaseType.SqlServer)
             {
                 sql = @"SELECT
-                            s.name schema_name,
-                            t.name table_name,
-                            i.name index_name,
-                            c.name column_name,
-                            ic.index_column_id ordinal
+                            s.name              schema_name,
+                            t.name              table_name,
+                            i.name              index_name,
+                            c.name              column_name
                         FROM
                             sys.tables t
                             JOIN
@@ -254,10 +253,29 @@ namespace SchemaBrowser.DataService
             }
             else
             {
+                sql = @"SELECT
+                            cc.owner            schema_name,
+                            cc.table_name       table_name, 
+                            c.constaint_name    index_name
+                            cc.column_name      columns_name
+                        FROM 
+                            all_constraints c
+                            JOIN
+                            all_cons_columns cc ON c.constraint_name = cc.constraint_name AND c.owner = cc.owner
+                        WHERE 
+                            c.constraint_type = 'P'";
+                
+                if (filtered)
+                {
+                    sql += @" AND s.owner = @1 AND t.table_name = @2";
+                }
+
+                sql += @" ORDER BY cc.owner, cc.table_name, c.constraint_name, cc.column_name, cc.position;";
             }
             return sql;
         }
-        public SBD.DbObjectPrimaryKey GetObjectPrimaryKey(SBD.DatabaseType dbType, string connectionString, string objectOwner, string objectName)
+
+        public SBD.DbObjectIndex GetObjectPrimaryKey(SBD.DatabaseType dbType, string connectionString, string objectOwner, string objectName)
         {
             var sql = GetObjectPrimaryKeySQL(dbType, true);
 
@@ -277,7 +295,7 @@ namespace SchemaBrowser.DataService
             command.Parameters.Add(param2);
 
             var reader = command.ExecuteReader();
-            var primaryKey = default(SBD.DbObjectPrimaryKey);
+            var primaryKey = default(SBD.DbObjectIndex);
             while (reader.Read())
             {
                 if (primaryKey is null)
@@ -286,15 +304,15 @@ namespace SchemaBrowser.DataService
                     primaryKey.TableName = reader.GetString(reader.GetOrdinal("table_name"));
                     primaryKey.IndexName = reader.GetString(reader.GetOrdinal("index_name"));
                 }
-                primaryKey.Columns.Add(reader.GetString(reader.GetOrdinal("index_name")));
+                primaryKey.Columns.Add(reader.GetString(reader.GetOrdinal("column_name")));
             }
 
             return primaryKey;
         }
 
-        public List<SBD.DbObjectPrimaryKey> GetObjectPrimaryKeys(SBD.DatabaseType dbType, string connectionString)
+        public List<SBD.DbObjectIndex> GetObjectPrimaryKeys(SBD.DatabaseType dbType, string connectionString)
         {
-            var primaryKeys = new List<SBD.DbObjectPrimaryKey>();
+            var primaryKeys = new List<SBD.DbObjectIndex>();
             var sql = GetObjectPrimaryKeySQL(dbType);
 
             using (var connection = GetDbConnection(dbType, connectionString))
@@ -306,7 +324,7 @@ namespace SchemaBrowser.DataService
 
                     using (var reader = command.ExecuteReader())
                     {
-                        var primaryKey = default(SBD.DbObjectPrimaryKey);
+                        var primaryKey = default(SBD.DbObjectIndex);
                         var lastKeyName = string.Empty;
                         while (reader.Read())
                         {
@@ -316,7 +334,7 @@ namespace SchemaBrowser.DataService
                             var keyName = $"{schemaName}.{tableName}.{indexName}";
                             if (keyName != lastKeyName)
                             {
-                                primaryKey = new SBD.DbObjectPrimaryKey()
+                                primaryKey = new SBD.DbObjectIndex()
                                 {
                                     SchemaName = schemaName,
                                     TableName = tableName,
@@ -332,6 +350,151 @@ namespace SchemaBrowser.DataService
                 }
             }
             return primaryKeys;
+        }
+
+        private string GetObjectForeignKeySQL(SBD.DatabaseType dbType, bool filtered = false)
+        {
+            var sql = string.Empty;
+            if (dbType == SBD.DatabaseType.SqlServer)
+            {
+                sql = @"SELECT
+                            s.name						schema_name,
+                            t.name						table_name,
+                            fk.name						constraint_name,
+	                        cfk.name					constraint_column_name,
+	                        rs.name						referenced_schema_name,
+	                        rt.name						referenced_table_name,
+	                        ri.name						referenced_index_name,
+	                        crt.name					referenced_column_name
+                        FROM
+                            sys.tables t
+                            JOIN
+                            sys.schemas s ON s.schema_id = t.schema_id
+                            JOIN
+                            sys.foreign_keys fk ON fk.parent_object_id = t.object_id
+                            JOIN
+                            sys.foreign_key_columns fkc ON fkc.constraint_object_id = fk.object_id
+	                        JOIN
+	                        sys.columns cfk ON cfk.object_id = fkc.parent_object_id AND cfk.column_id = fkc.parent_column_id
+	                        JOIN
+	                        sys.tables rt ON rt.object_id = fkc.referenced_object_id
+	                        JOIN
+                            sys.schemas rs ON rs.schema_id = rt.schema_id
+	                        JOIN
+                            sys.columns crt ON crt.object_id = fkc.referenced_object_id AND crt.column_id = fkc.referenced_column_id
+	                        JOIN
+	                        sys.indexes ri ON ri.object_id = fk.referenced_object_id AND ri.index_id = fk.key_index_id";
+
+                if (filtered)
+                {
+                    sql += @" AND s.name = @1 AND t.name = @2";
+                }
+
+                sql += @" ORDER BY s.name, t.name, fk.name, fkc.constraint_column_id";
+            }
+            else
+            {
+                sql = @"";
+
+                if (filtered)
+                {
+                    sql += @"";
+                }
+
+                sql += @"";
+            }
+            return sql;
+        }
+
+        public SBD.DbObjectForeignKey GetObjectForeignKey(SBD.DatabaseType dbType, string connectionString, string objectOwner, string objectName)
+        {
+            var sql = GetObjectForeignKeySQL(dbType, true);
+
+            var connection = GetDbConnection(dbType, connectionString);
+            var command = connection.CreateCommand();
+            command.CommandText = sql;
+            command.CommandType = CommandType.Text;
+
+            var param1 = command.CreateParameter();
+            param1.DbType = DbType.String;
+            param1.Value = objectOwner;
+            command.Parameters.Add(param1);
+
+            var param2 = command.CreateParameter();
+            param2.DbType = DbType.String;
+            param2.Value = objectOwner;
+            command.Parameters.Add(param2);
+
+            var reader = command.ExecuteReader();
+            var foreignKey = default(SBD.DbObjectForeignKey);
+            while (reader.Read())
+            {
+                if (foreignKey is null)
+                {
+                    foreignKey.SchemaName = reader.GetString(reader.GetOrdinal("schema_name"));
+                    foreignKey.TableName = reader.GetString(reader.GetOrdinal("table_name"));
+                    foreignKey.ConstraintName = reader.GetString(reader.GetOrdinal("constraint_name"));
+                    foreignKey.ReferencedIndex = new SBD.DbObjectIndex()
+                    {
+                        SchemaName = reader.GetString(reader.GetOrdinal("referenced_schema_name")),
+                        TableName = reader.GetString(reader.GetOrdinal("referenced_table_name")),
+                        IndexName = reader.GetString(reader.GetOrdinal("referenced_index_name"))
+                    };
+                }
+                foreignKey.Columns.Add(reader.GetString(reader.GetOrdinal("constraint_column_name")));
+                foreignKey.ReferencedIndex.Columns.Add(reader.GetString(reader.GetOrdinal("referenced_column_name")));
+            }
+
+            return foreignKey;
+        }
+
+        public List<SBD.DbObjectForeignKey> GetObjectForeignKeys(SBD.DatabaseType dbType, string connectionString)
+        {
+            var foreignKeys = new List<SBD.DbObjectForeignKey>();
+            var sql = GetObjectForeignKeySQL(dbType);
+
+            using (var connection = GetDbConnection(dbType, connectionString))
+            {
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = sql;
+                    command.CommandType = CommandType.Text;
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        var foreignKey = default(SBD.DbObjectForeignKey);
+                        var lastKeyName = string.Empty;
+                        while (reader.Read())
+                        {
+                            var schemaName = reader.GetString(reader.GetOrdinal("schema_name"));
+                            var tableName = reader.GetString(reader.GetOrdinal("table_name"));
+                            var constraintName = reader.GetString(reader.GetOrdinal("constraint_name"));
+                            var keyName = $"{schemaName}.{tableName}.{constraintName}";
+                            if (keyName != lastKeyName)
+                            {
+                                foreignKey = new SBD.DbObjectForeignKey()
+                                {
+                                    SchemaName = schemaName,
+                                    TableName = tableName,
+                                    ConstraintName = constraintName,
+                                    ReferencedIndex = new SBD.DbObjectIndex() 
+                                    {
+                                        SchemaName = reader.GetString(reader.GetOrdinal("referenced_schema_name")),
+                                        TableName = reader.GetString(reader.GetOrdinal("referenced_table_name")),
+                                        IndexName = reader.GetString(reader.GetOrdinal("referenced_index_name"))
+                                    }
+                                };
+                                foreignKeys.Add(foreignKey);
+
+                                lastKeyName = keyName;
+                            }
+                            foreignKey.Columns.Add(reader.GetString(reader.GetOrdinal("constraint_column_name")));
+                            foreignKey.ReferencedIndex.Columns.Add(reader.GetString(reader.GetOrdinal("referenced_column_name")));
+                        }
+                    }
+                }
+            }
+            return foreignKeys;
         }
     }
 }

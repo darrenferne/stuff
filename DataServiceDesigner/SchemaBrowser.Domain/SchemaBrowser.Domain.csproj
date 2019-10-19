@@ -58,6 +58,7 @@
     <Compile Include="Enums\DbObjectType.cs" />
     <Compile Include="Interfaces\IHaveAssignableId.cs" />
     <Compile Include="Metadata\DbConnectionMetadata.cs" />
+    <Compile Include="Metadata\DbObjectForeignKeyMetadata.cs" />
     <Compile Include="Metadata\DbObjectPrimaryKeyMetadata.cs" />
     <Compile Include="Metadata\DbObjectMetadata.cs" />
     <Compile Include="Metadata\DbObjectPropertyMetadata.cs" />
@@ -65,7 +66,8 @@
     <Compile Include="Metadata\DbSchemaMetadata.cs" />
     <Compile Include="Models\DbConnection.cs" />
     <Compile Include="Models\DbObject.cs" />
-    <Compile Include="Models\DbObjectPrimaryKey.cs" />
+    <Compile Include="Models\DbObjectForeignKey.cs" />
+    <Compile Include="Models\DbObjectIndex.cs" />
     <Compile Include="Models\DbObjectProperty.cs" />
     <Compile Include="Models\DbSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

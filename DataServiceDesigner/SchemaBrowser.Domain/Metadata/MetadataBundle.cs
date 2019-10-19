@@ -10,7 +10,8 @@ namespace SchemaBrowser.Domain
                   new DbSchemaMetadata(),
                   new DbObjectMetadata(),
                   new DbObjectPropertyMetadata(),
-                  new DbObjectPrimaryKeyMetadata())
+                  new DbObjectPrimaryKeyMetadata(),
+                  new DbObjectForeignKeyMetadata())
         { }
     }
 }

@@ -69,6 +69,13 @@ namespace SchemaBrowser.DataService
                             Text = "Db Object Primary Keys",
                             Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbObjectPrimaryKey",
                             Position = 4
+                        },
+                        new MenuItem()
+                        {
+                            Id = "DbObjectForeignKeys",
+                            Text = "Db Object Foreign Keys",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/" + Constants.DataServiceName + "/DbObjectForeignKey",
+                            Position = 4
                         }
                     }
                 }

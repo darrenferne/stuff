@@ -2,9 +2,9 @@
 
 namespace SchemaBrowser.Domain
 {
-    public class DbObjectPrimaryKey : IHaveAssignableId<long>
+    public class DbObjectIndex : IHaveAssignableId<long>
     {
-        public DbObjectPrimaryKey()
+        public DbObjectIndex()
         {
             Columns = new List<string>();
         }

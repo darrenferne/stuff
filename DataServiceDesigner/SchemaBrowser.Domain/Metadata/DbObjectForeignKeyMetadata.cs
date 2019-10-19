@@ -3,13 +3,13 @@ using BWF.DataServices.Metadata.Fluent.Enums;
 
 namespace SchemaBrowser.Domain
 {
-    public class DbObjectPrimaryKeyMetadata : TypeMetadataProvider<DbObjectIndex>
+    public class DbObjectForeignKeyMetadata : TypeMetadataProvider<DbObjectForeignKey>
     {
-        public DbObjectPrimaryKeyMetadata()
+        public DbObjectForeignKeyMetadata()
         {
             AutoUpdatesByDefault();
             
-            DisplayName("Db Object Primary Key");
+            DisplayName("Db Object Foreign Key");
 
             IntegerProperty(x => x.Id)
                 .IsId()
@@ -35,12 +35,18 @@ namespace SchemaBrowser.Domain
                 .DisplayName("Table Name")
                 .PositionInEditor(3);
             
-            EnumProperty(x => x.IndexName)
-                .DisplayName("Index Name")
+            EnumProperty(x => x.ConstraintName)
+                .DisplayName("Constraint Name")
                 .PositionInEditor(4);
 
             StringProperty(x => x.ColumnSummary)
                 .DisplayName("Column Summary")
+                .PositionInEditor(5)
+                .DisableInCreateMode(true)
+                .DisableInEditMode(true);
+
+            StringProperty(x => x.ReferencedIndexSummary)
+                .DisplayName("Referenced Index Summary")
                 .PositionInEditor(5)
                 .DisableInCreateMode(true)
                 .DisableInEditMode(true);
@@ -52,8 +58,9 @@ namespace SchemaBrowser.Domain
                 .Parameter(x => x.SchemaName)
                 .Property(x => x.SchemaName)
                 .Property(x => x.TableName)
-                .Property(x => x.IndexName)
+                .Property(x => x.ConstraintName)
                 .Property(x => x.ColumnSummary)
+                .Property(x => x.ReferencedIndexSummary)
                 .OrderBy(x => x.SchemaName)
                 .OrderBy(x => x.TableName);
         }

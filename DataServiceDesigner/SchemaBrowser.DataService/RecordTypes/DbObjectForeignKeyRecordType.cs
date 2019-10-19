@@ -5,12 +5,12 @@ using SchemaBrowser.Domain;
 
 namespace SchemaBrowser.DataService
 {
-    [ViewAction("Db Object Primary Key")]
-    public class DbObjectPrimaryKeyRecordType : RecordType<DbObjectIndex, DbObjectIndex>
+    [ViewAction("Db Object Foreign Key")]
+    public class DbObjectForeignKeyRecordType : RecordType<DbObjectForeignKey, DbObjectForeignKey>
     {
         public override void ConfigureMapper()
         {
-            Mapper.CreateMap<DbObjectIndex, DbObjectIndex>();
+            Mapper.CreateMap<DbObjectForeignKey, DbObjectForeignKey>();
         }
     }
 }

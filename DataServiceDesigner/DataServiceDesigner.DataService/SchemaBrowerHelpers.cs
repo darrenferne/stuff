@@ -110,7 +110,7 @@ namespace DataServiceDesigner.DataService
         public void AddDefaultPropertiesToObject(DomainObject domainObject)
         {
             var dbObjectProperties = _sbRepository.GetWhere<DbObjectProperty>(p => p.ObjectName == domainObject.TableName && p.SchemaName == domainObject.Schema.SchemaName);
-            var primaryKey = _sbRepository.GetWhere<DbObjectPrimaryKey>(p => p.SchemaName == domainObject.Schema.SchemaName && p.TableName == domainObject.TableName).FirstOrDefault();
+            var primaryKey = _sbRepository.GetWhere<DbObjectIndex>(p => p.SchemaName == domainObject.Schema.SchemaName && p.TableName == domainObject.TableName).FirstOrDefault();
             
             var domainObjectProperties = dbObjectProperties.Select(r => new DomainObjectProperty()
             {
