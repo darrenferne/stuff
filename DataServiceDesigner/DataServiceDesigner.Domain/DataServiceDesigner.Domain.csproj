@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Metadata\DataServiceConnectionMetadata.cs" />
     <Compile Include="Metadata\DomainDataServiceMetadata.cs" />
     <Compile Include="Metadata\DomainObjectMetadata.cs" />
@@ -84,6 +85,9 @@
       <Project>{75f8e5eb-0592-488f-bb66-e20c7ed94e82}</Project>
       <Name>SchemaBrowser.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

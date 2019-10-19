@@ -36,7 +36,7 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Display Name")
                 .PositionInEditor(6);
 
-            StringProperty(x => x.PropertyType)
+            EnumProperty(x => x.PropertyType)
                 .DisplayName("Property Type")
                 .PositionInEditor(7);
 

@@ -11,9 +11,9 @@ namespace DataServiceDesigner.Templating
 {
     public static class DomainDataServiceExtensions
     {
-        public static string GetKeyType(this DomainObject domainObject)
+        public static PropertyType GetKeyType(this DomainObject domainObject)
         {
-            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? string.Empty;
+            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? PropertyType.Undefined;
         }
 
         public static string GetKeyProperty(this DomainObject domainObject)
@@ -40,28 +40,27 @@ namespace DataServiceDesigner.Templating
         {
             if (string.IsNullOrEmpty(property.ColumnType))
             {
-                switch (property.PropertyType.ToLower())
+                switch (property.PropertyType)
                 {
-                    case "int32":
-                    case "int":
-                        return "INT";
-                    case "int64":
-                    case "long":
-                        return "BIGINT";
-                    case "float":
+                    case PropertyType.Int32:
+                        return dbType == DatabaseType.SqlServer ? "INT" : "NUMBER(10)";
+                    case PropertyType.Int64:
+                        return dbType == DatabaseType.SqlServer ? "BIGINT" : "NUMBER(19)";
+                    case PropertyType.Float:
+                        return "FLOAT(24)";
+                    case PropertyType.Double:
                         return "FLOAT";
-                    case "decimal":
+                    case PropertyType.Decimal:
                         return "DECIMAL";
-                    case "datetime":
-                        return "DATETIME";
-                    case "datetimeoffset":
-                        return "DATETIMEOFFSET";
-                    case "string":
+                    case PropertyType.DateTime:
+                        return dbType == DatabaseType.SqlServer ? "DATETIME" : "DATE";
+                    case PropertyType.DateTimeOffset:
+                        return dbType == DatabaseType.SqlServer ? "DATETIMEOFFSET" : "TIMESTAMP WITH TIME ZONE";
+                    case PropertyType.String:
                         var propertyLength = property.Length == 0 ? 64 : property.Length;
-                        return $"NVARCHAR({propertyLength})";
-                    case "boolean":
-                    case "bool":
-                        return "BIT";
+                        return dbType == DatabaseType.SqlServer ? $"NVARCHAR({propertyLength})" : $"NVARCHAR2({propertyLength})";
+                    case PropertyType.Boolean:
+                        return dbType == DatabaseType.SqlServer ? "BIT" : "NUMBER(1)";
                     default:
                         return string.Empty;
                 }

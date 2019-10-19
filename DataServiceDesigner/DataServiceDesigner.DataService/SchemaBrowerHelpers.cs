@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BWF.DataServices.Core.Concrete.ChangeSets;
@@ -116,9 +117,10 @@ namespace DataServiceDesigner.DataService
             {
                 Object = domainObject,
                 ColumnName = r.Name,
+                ColumnType = r.ColumnType,
                 PropertyName = r.Name,
                 DisplayName = ToDisplayName(r.Name),
-                PropertyType = r.NetType,
+                PropertyType = (PropertyType)Enum.Parse(typeof(PropertyType), r.NetType, true),
                 Length = r.ColumnLength,
                 IsNullable = r.IsNullable,
                 IsPartOfKey = primaryKey?.Columns?.Contains(r.Name) ?? false,

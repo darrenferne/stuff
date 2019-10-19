@@ -159,7 +159,7 @@ namespace SchemaBrowser.DataService
 
         private string SQLTypeToNetType(string columnType)
         {
-            switch (columnType) 
+            switch (columnType.ToUpper()) 
             {
                 case "BIGINT":
                     return typeof(long).Name;
@@ -176,6 +176,8 @@ namespace SchemaBrowser.DataService
                 case "DATETIME2":
                     return typeof(DateTime).Name;
                 case "DATETIMEOFFSET":
+                case "TIMESTAMP WITH TIME ZONE":
+                case "TIMESTAMP WITH LOCAL TIME ZONE":
                     return typeof(DateTimeOffset).Name;
                 case "CHAR":
                 case "VARCHAR":

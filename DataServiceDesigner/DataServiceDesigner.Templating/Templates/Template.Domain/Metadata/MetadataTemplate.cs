@@ -12,6 +12,7 @@ namespace DataServiceDesigner.Templating.Domain
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using DataServiceDesigner.Domain;
     using System;
     
     /// <summary>
@@ -30,28 +31,28 @@ namespace DataServiceDesigner.Templating.Domain
         {
             this.Write("using BWF.DataServices.Metadata.Fluent.Abstract;\r\n\r\nnamespace Brady.");
             
-            #line 11 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
             this.Write(".Domain\r\n{\r\n    public class ");
             
-            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write("Metadata : TypeMetadataProvider<");
             
-            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
             #line hidden
             this.Write(">\r\n    {\r\n        public ");
             
-            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.ObjectName));
             
             #line default
@@ -59,71 +60,65 @@ namespace DataServiceDesigner.Templating.Domain
             this.Write("Metadata()\r\n        {\r\n            AutoUpdatesByDefault();\r\n\r\n            Display" +
                     "Name(\"");
             
-            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.DisplayName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\r\n");
             
-            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 foreach(var property in CurrentObject.Properties) {
             
             #line default
             #line hidden
             
-            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-switch(property.PropertyType.ToLower()) {
-            
-            #line default
-            #line hidden
-            
             #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "int32":
+switch(property.PropertyType) {
             
             #line default
             #line hidden
             
             #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "int":
+case PropertyType.Int32:
             
             #line default
             #line hidden
             
             #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "int64":
-            
-            #line default
-            #line hidden
-            
-            #line 26 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "long":
+case PropertyType.Int64:
             
             #line default
             #line hidden
             this.Write("\t\t\tIntegerProperty(x => x.");
             
-            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 26 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 break;
             
             #line default
             #line hidden
             
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+case PropertyType.Decimal:
+            
+            #line default
+            #line hidden
+            
             #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "decimal":
+case PropertyType.Double:
             
             #line default
             #line hidden
             
             #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "float":
+case PropertyType.Float:
             
             #line default
             #line hidden
@@ -143,13 +138,13 @@ break;
             #line hidden
             
             #line 33 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "datetime":
+case PropertyType.DateTime:
             
             #line default
             #line hidden
             
             #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "datetimeoffset":
+case PropertyType.DateTimeOffset:
             
             #line default
             #line hidden
@@ -169,107 +164,101 @@ break;
             #line hidden
             
             #line 37 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "bool":
-            
-            #line default
-            #line hidden
-            
-            #line 38 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
-case "boolean":
+case PropertyType.Boolean:
             
             #line default
             #line hidden
             this.Write("\t\t\tBooleanProperty(x => x.");
             
-            #line 39 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 38 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 40 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 39 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 break;
             
             #line default
             #line hidden
             
-            #line 41 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 40 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 default:
             
             #line default
             #line hidden
             this.Write("\t\t\tStringProperty(x => x.");
             
-            #line 42 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 41 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 43 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 42 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 break;
             
             #line default
             #line hidden
             
-            #line 44 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 43 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 }
             
             #line default
             #line hidden
             
-            #line 45 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 44 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 if (property.IsPartOfKey) {
             
             #line default
             #line hidden
             this.Write("\t\t\t\t.IsId()\r\n");
             
-            #line 47 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 46 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("\t\t\t\t.DisplayName(\"");
             
-            #line 48 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 47 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(property.DisplayName) ? property.PropertyName : property.DisplayName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\r\n");
             
-            #line 50 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 49 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            ViewDefaults()\r\n");
             
-            #line 52 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 51 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 foreach(var property in CurrentObject.Properties) {
             
             #line default
             #line hidden
             this.Write("                .Property(x => x.");
             
-            #line 53 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 52 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.PropertyName));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 54 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 53 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("\t\t\t\t.OrderBy(x => x.");
             
-            #line 55 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
+            #line 54 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Metadata\MetadataTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CurrentObject.Properties[0].PropertyName));
             
             #line default

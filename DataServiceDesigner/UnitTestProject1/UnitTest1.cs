@@ -68,28 +68,28 @@ namespace UnitTestProject1
                                 new DomainObjectProperty(){
                                     PropertyName = "Property1",
                                     ColumnName = "prop1",
-                                    PropertyType = "long"
+                                    PropertyType = PropertyType.Int64
                                 },
                                 new DomainObjectProperty(){
                                     IsPartOfKey = true,
                                     PropertyName = "Property2",
                                     ColumnName = "prop2",
-                                    PropertyType = "string"
+                                    PropertyType = PropertyType.String
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property3",
                                     ColumnName = "prop3",
-                                    PropertyType = "DateTime"
+                                    PropertyType = PropertyType.DateTime
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "property4",
                                     ColumnName = "prop4",
-                                    PropertyType = "bool"
+                                    PropertyType = PropertyType.Boolean
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property5",
                                     ColumnName = "prop5",
-                                    PropertyType = "decimal"
+                                    PropertyType = PropertyType.Decimal
                                 }
                             }
                         },
@@ -100,17 +100,17 @@ namespace UnitTestProject1
                             Properties = new List<DomainObjectProperty>(){
                                 new DomainObjectProperty(){
                                     PropertyName = "Id",
-                                    PropertyType = "long",
+                                    PropertyType = PropertyType.Int64,
                                     IsPartOfKey = true
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property2",
-                                    PropertyType = "string",
+                                    PropertyType = PropertyType.String,
                                     Length = 64
                                 },
                                 new DomainObjectProperty(){
                                     PropertyName = "Property2",
-                                    PropertyType = "string",
+                                    PropertyType = PropertyType.String,
                                     IsNullable = true,
                                     Length = 64
                                 }

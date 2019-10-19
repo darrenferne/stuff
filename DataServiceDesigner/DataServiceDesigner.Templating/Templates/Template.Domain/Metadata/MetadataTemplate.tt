@@ -5,6 +5,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="DataServiceDesigner.Domain" #>
 <#@ output extension=".cs" #>
 using BWF.DataServices.Metadata.Fluent.Abstract;
 
@@ -19,23 +20,21 @@ namespace Brady.<#=DomainDataService.Name#>.Domain
             DisplayName("<#=CurrentObject.DisplayName#>");
 
 <#foreach(var property in CurrentObject.Properties) {#>
-<#switch(property.PropertyType.ToLower()) {#>
-<#case "int32":#>
-<#case "int":#>
-<#case "int64":#>
-<#case "long":#>
+<#switch(property.PropertyType) {#>
+<#case PropertyType.Int32:#>
+<#case PropertyType.Int64:#>
 			IntegerProperty(x => x.<#=property.PropertyName#>)
 <#break;#>
-<#case "decimal":#>
-<#case "float":#>
+<#case PropertyType.Decimal:#>
+<#case PropertyType.Double:#>
+<#case PropertyType.Float:#>
 			NumericProperty(x => x.<#=property.PropertyName#>)
 <#break;#>
-<#case "datetime":#>
-<#case "datetimeoffset":#>
+<#case PropertyType.DateTime:#>
+<#case PropertyType.DateTimeOffset:#>
 			DateProperty(x => x.<#=property.PropertyName#>)
 <#break;#>
-<#case "bool":#>
-<#case "boolean":#>
+<#case PropertyType.Boolean:#>
 			BooleanProperty(x => x.<#=property.PropertyName#>)
 <#break;#>
 <#default:#>

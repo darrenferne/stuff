@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BWF.DataServices.Metadata.Attributes.Actions;
+using BWF.DataServices.Support.NHibernate.Abstract;
 using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService
@@ -7,7 +8,7 @@ namespace DataServiceDesigner.DataService
     [CreateAction("Create")]
     [EditAction("Edit")]
     [DeleteAction("Delete")]
-    public class DomainObjectPropertyRecordType : ObservableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
+    public class DomainObjectPropertyRecordType : ChangeableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
     {
         public override void ConfigureMapper()
         {
