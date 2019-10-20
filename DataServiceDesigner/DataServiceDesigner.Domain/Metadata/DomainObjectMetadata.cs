@@ -32,7 +32,7 @@ namespace DataServiceDesigner.Domain
             StringProperty(x => x.ObjectName)
                 .PositionInEditor(4)
                 .Parameter(p => p
-                    .Query("DomainObjects?$orderby=Name")
+                    .Query("DomainObjects?$orderby=ObjectName")
                     .DisplayProperty(o => o.ObjectName)
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));

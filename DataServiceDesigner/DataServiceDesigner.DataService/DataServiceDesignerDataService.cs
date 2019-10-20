@@ -73,6 +73,13 @@ namespace DataServiceDesigner.DataService
                             Text = "Domain Object Properties",
                             Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectProperty",
                             Position = 5
+                        },
+                        new MenuItem()
+                        {
+                            Id = "DomainObjectReference",
+                            Text = "Domain Object References",
+                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectReference",
+                            Position = 5
                         }
                     }
                 }

@@ -60,14 +60,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PropertyType.cs" />
+    <Compile Include="Enums\ReferenceType.cs" />
     <Compile Include="Metadata\DataServiceConnectionMetadata.cs" />
     <Compile Include="Metadata\DomainDataServiceMetadata.cs" />
+    <Compile Include="Metadata\DomainObjectReferencePropertyMetadata.cs" />
+    <Compile Include="Metadata\DomainObjectReferenceMetadata.cs" />
     <Compile Include="Metadata\DomainObjectMetadata.cs" />
     <Compile Include="Metadata\DomainObjectPropertyMetadata.cs" />
     <Compile Include="Metadata\DomainSchemaMetadata.cs" />
     <Compile Include="Models\DataServiceConnection.cs" />
     <Compile Include="Models\DomainDataService.cs" />
     <Compile Include="Metadata\MetadataBundle.cs" />
+    <Compile Include="Models\DomainObjectReferenceProperty.cs" />
+    <Compile Include="Models\DomainObjectReference.cs" />
     <Compile Include="Models\DomainObject.cs" />
     <Compile Include="Models\DomainObjectProperty.cs" />
     <Compile Include="Models\DomainSchema.cs" />
@@ -86,9 +91,7 @@
       <Name>SchemaBrowser.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

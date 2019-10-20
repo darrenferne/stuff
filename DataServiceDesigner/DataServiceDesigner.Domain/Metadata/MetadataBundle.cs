@@ -10,7 +10,9 @@ namespace DataServiceDesigner.Domain
                 new DomainDataServiceMetadata(),
                 new DomainSchemaMetadata(),
                 new DomainObjectMetadata(),
-                new DomainObjectPropertyMetadata()
+                new DomainObjectPropertyMetadata(),
+                new DomainObjectReferenceMetadata(),
+                new DomainObjectReferencePropertyMetadata()
             )
         { }
     }

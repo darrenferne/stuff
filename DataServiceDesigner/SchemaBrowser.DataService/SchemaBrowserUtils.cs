@@ -147,7 +147,7 @@ namespace SchemaBrowser.DataService
                     ObjectName = objectName,
                     Name = columnName,
                     ColumnType = columnType,
-                    NetType = SQLTypeToNetType(columnType),
+                    NetType = SBD.DbTypeConversion.SqlTypeToNetType(columnType),
                     ColumnLength = columnLength,
                     IsNullable = isNullable
                 };
@@ -155,40 +155,6 @@ namespace SchemaBrowser.DataService
                 dbObjectProperties.Add(dbObjectProperty);
             }
             return dbObjectProperties;
-        }
-
-        private string SQLTypeToNetType(string columnType)
-        {
-            switch (columnType.ToUpper()) 
-            {
-                case "BIGINT":
-                    return typeof(long).Name;
-                case "INT":
-                    return typeof(int).Name;
-                case "DECIMAL":
-                    return typeof(decimal).Name;
-                case "FLOAT":
-                    return typeof(double).Name;
-                case "BIT":
-                    return typeof(bool).Name;
-                case "DATE":
-                case "DATETIME":
-                case "DATETIME2":
-                    return typeof(DateTime).Name;
-                case "DATETIMEOFFSET":
-                case "TIMESTAMP WITH TIME ZONE":
-                case "TIMESTAMP WITH LOCAL TIME ZONE":
-                    return typeof(DateTimeOffset).Name;
-                case "CHAR":
-                case "VARCHAR":
-                case "VARCHAR2":
-                case "NCHAR":
-                case "NVARCHAR":
-                case "NVARCHAR2":
-                    return typeof(string).Name;
-                default:
-                    return string.Empty;
-            }
         }
 
         public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DatabaseType dbType, SBD.DbObjectType objectType, DbConnection dbConnection, string objectCatalog, string objectOwner, string objectName)

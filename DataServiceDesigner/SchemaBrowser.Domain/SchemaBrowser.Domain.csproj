@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Conversion\DbTypeConversion.cs" />
     <Compile Include="Enums\DbConnectionStatus.cs" />
     <Compile Include="Enums\DatabaseType.cs" />
     <Compile Include="Enums\DbObjectType.cs" />

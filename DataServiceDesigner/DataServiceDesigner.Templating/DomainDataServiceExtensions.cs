@@ -39,32 +39,7 @@ namespace DataServiceDesigner.Templating
         public static string GetColumnType(this DomainObjectProperty property, DatabaseType dbType) 
         {
             if (string.IsNullOrEmpty(property.ColumnType))
-            {
-                switch (property.PropertyType)
-                {
-                    case PropertyType.Int32:
-                        return dbType == DatabaseType.SqlServer ? "INT" : "NUMBER(10)";
-                    case PropertyType.Int64:
-                        return dbType == DatabaseType.SqlServer ? "BIGINT" : "NUMBER(19)";
-                    case PropertyType.Float:
-                        return "FLOAT(24)";
-                    case PropertyType.Double:
-                        return "FLOAT";
-                    case PropertyType.Decimal:
-                        return "DECIMAL";
-                    case PropertyType.DateTime:
-                        return dbType == DatabaseType.SqlServer ? "DATETIME" : "DATE";
-                    case PropertyType.DateTimeOffset:
-                        return dbType == DatabaseType.SqlServer ? "DATETIMEOFFSET" : "TIMESTAMP WITH TIME ZONE";
-                    case PropertyType.String:
-                        var propertyLength = property.Length == 0 ? 64 : property.Length;
-                        return dbType == DatabaseType.SqlServer ? $"NVARCHAR({propertyLength})" : $"NVARCHAR2({propertyLength})";
-                    case PropertyType.Boolean:
-                        return dbType == DatabaseType.SqlServer ? "BIT" : "NUMBER(1)";
-                    default:
-                        return string.Empty;
-                }
-            }
+                return DbTypeConversion.NetTypeToSqlType(property.PropertyType.ToString(), dbType, property.Length);
             else
                 return property.ColumnType;
         }

@@ -1,5 +1,27 @@
 USE [dsd-latest]
 GO
+DROP TRIGGER [dataservicedesigner].[trg_domainobjectproperty_delete]
+GO
+DROP TABLE [dataservicedesigner].[domainobjectreferenceproperty]
+GO
+DROP TABLE [dataservicedesigner].[domainobjectreference]
+GO
+DROP TABLE [dataservicedesigner].[domainobjectproperty]
+GO
+DROP TABLE [dataservicedesigner].[domainobject]
+GO
+DROP TABLE [dataservicedesigner].[domainschema]
+GO
+DROP TABLE [dataservicedesigner].[domaindataservice]
+GO
+DROP TABLE [dataservicedesigner].[connection]
+GO
+DROP TABLE [dataservicedesigner].[schemaversion]
+GO
+DROP TABLE [dataservicedesigner].[nexthigh]
+GO
+DROP SCHEMA [dataservicedesigner]
+GO
 
 SET ANSI_NULLS ON
 GO
@@ -75,7 +97,8 @@ ALTER TABLE [dataservicedesigner].[domaindataservice]
 GO
 
 ALTER TABLE [dataservicedesigner].[domaindataservice] 
-   ADD CONSTRAINT [uk_domaindataservice_name] UNIQUE NONCLUSTERED ([name]);
+   ADD CONSTRAINT [uk_domaindataservice_name] 
+      UNIQUE NONCLUSTERED ([name]);
 GO 
 
 ALTER TABLE [dataservicedesigner].[domaindataservice] 
@@ -99,7 +122,8 @@ ALTER TABLE [dataservicedesigner].[domainschema]
 GO
 
 ALTER TABLE [dataservicedesigner].[domainschema] 
-   ADD CONSTRAINT [uk_domainschema_name] UNIQUE NONCLUSTERED ([dataserviceid],[schemaname]);
+   ADD CONSTRAINT [uk_domainschema_name] 
+      UNIQUE NONCLUSTERED ([dataserviceid],[schemaname]);
 GO 
 
 ALTER TABLE [dataservicedesigner].[domainschema] 
@@ -125,7 +149,8 @@ ALTER TABLE [dataservicedesigner].[domainobject]
 GO
 
 ALTER TABLE [dataservicedesigner].[domainobject] 
-   ADD CONSTRAINT [uk_domainobject_dbname] UNIQUE NONCLUSTERED ([schemaid],[objectname]);
+   ADD CONSTRAINT [uk_domainobject_dbname] 
+      UNIQUE NONCLUSTERED ([schemaid],[objectname]);
 GO 
 
 ALTER TABLE [dataservicedesigner].[domainobject] 
@@ -161,12 +186,79 @@ ALTER TABLE [dataservicedesigner].[domainobjectproperty]
 GO
 
 ALTER TABLE [dataservicedesigner].[domainobjectproperty] 
-   ADD CONSTRAINT [uk_domainobjectproperty_columnname] UNIQUE NONCLUSTERED ([objectid],[columnname]);
+   ADD CONSTRAINT [uk_domainobjectproperty_columnname] 
+      UNIQUE NONCLUSTERED ([objectid],[columnname]);
 GO 
 
 ALTER TABLE [dataservicedesigner].[domainobjectproperty] 
-   ADD CONSTRAINT [uk_domainobjectproperty_propertyname] UNIQUE NONCLUSTERED ([objectid],[propertyname]);
+   ADD CONSTRAINT [uk_domainobjectproperty_propertyname] 
+      UNIQUE NONCLUSTERED ([objectid],[propertyname]);
 GO 
+
+CREATE TABLE dataservicedesigner.domainobjectreference (
+   [id]               [BIGINT]        NOT NULL,
+   [referencename]    [NVARCHAR](64)  NOT NULL,
+   [constraintname]   [NVARCHAR](30)  NOT NULL,
+   [referencetype]    [NVARCHAR](10)  NOT NULL
+)
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference]
+   ADD CONSTRAINT [pk_domainobjectreference] 
+      PRIMARY KEY CLUSTERED ([id])
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference] 
+   ADD CONSTRAINT [uk_domainobjectreference_referencename] 
+      UNIQUE NONCLUSTERED ([referencename]);
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference] 
+   ADD CONSTRAINT [uk_domainobjectreference_constraintname] 
+      UNIQUE NONCLUSTERED ([constraintname]);
+GO
+
+CREATE TABLE [dataservicedesigner].[domainobjectreferenceproperty] (
+   [id]                 [BIGINT]   NOT NULL,	
+   [referenceid]        [BIGINT]   NOT NULL,	
+   [parentpropertyid]   [BIGINT]   NOT NULL,
+   [childpropertyid]    [BIGINT]   NOT NULL
+)
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreferenceproperty]
+   ADD CONSTRAINT [pk_domainobjectreferenceproperty] 
+      PRIMARY KEY CLUSTERED ([referenceid],[parentpropertyid],[childpropertyid])
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreferenceproperty]
+   ADD CONSTRAINT [ck_domainobjectreferenceproperty1] 
+      CHECK(parentpropertyid != childpropertyid)
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreferenceproperty] 
+   ADD CONSTRAINT [fk_domainobjectreferenceproperty1] 
+      FOREIGN KEY([parentpropertyid])
+         REFERENCES [dataservicedesigner].[domainobjectproperty] ([id])
+            ON DELETE NO ACTION
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreferenceproperty] 
+   ADD CONSTRAINT [fk_domainobjectreferenceproperty2] 
+      FOREIGN KEY([childpropertyid])
+         REFERENCES [dataservicedesigner].[domainobjectproperty] ([id])
+            ON DELETE NO ACTION
+GO
+
+CREATE TRIGGER [dataservicedesigner].[trg_domainobjectproperty_delete]
+   ON [dataservicedesigner].[domainobjectproperty]
+      FOR DELETE
+AS
+	DELETE FROM [dataservicedesigner].[domainobjectreferenceproperty]
+	   WHERE 
+	      [parentpropertyid] IN (SELECT deleted.id FROM deleted) OR
+		  [childpropertyid] IN (SELECT deleted.id FROM deleted) 
+GO
 
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] ON
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (1, 1, N'dataserviceconnection')
@@ -174,5 +266,6 @@ INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES 
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (3, 1, N'domainschema')
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'domainobject')
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (5, 1, N'domainobjectproperty')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (6, 1, N'domainobjectreference')
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] OFF
 GO

@@ -19,7 +19,6 @@ namespace DataServiceDesigner.DataService
         ISchemaBrowserRepository _sbRepository;
         ISchemaBrowserDataService _sbDataService;
         IChangeableRecordType<long, DbConnection> _dbConnectionRecordType;
-
         public SchemaBrowerHelpers(IKernel kernel)
         {
             _kernel = kernel;

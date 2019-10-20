@@ -28,7 +28,7 @@ namespace DataServiceDesigner.Domain
             StringProperty(x => x.SchemaName)
                 .PositionInEditor(3)
                 .Parameter(p => p
-                    .Query("DomainSchemas?$orderby=Name")
+                    .Query("DomainSchemas?$orderby=SchemaName")
                     .DisplayProperty(o => o.SchemaName)
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));

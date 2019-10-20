@@ -20,7 +20,7 @@ namespace DataServiceDesigner.Domain
             TypeProperty(x => x.Object)
                 .DisplayName("Object")
                 .PositionInEditor(3)
-                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=Name'")
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=ObjectName'")
                 .DisplayFieldInEditorChoice("Name")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
