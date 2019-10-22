@@ -11,11 +11,16 @@ namespace DataServiceDesigner.DataService
             RuleFor(x => x.Id)
                 .GreaterThanOrEqualTo(0L);
 
-            RuleFor(x => x.Parent)
+            RuleFor(x => x.ReferenceId)
                 .NotNull();
 
-            RuleFor(x => x.Child)
+            RuleFor(x => x.ParentPropertyId)
                 .NotNull();
+
+            RuleFor(x => x.ChildPropertyId)
+                .NotNull()
+                .Must((o, i) => i != o.ParentPropertyId)
+                    .WithMessage("'Child Property Id' must not be the same as 'Parent Property Id'");
         }
     }
 }

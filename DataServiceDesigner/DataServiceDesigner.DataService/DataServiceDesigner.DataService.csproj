@@ -288,11 +288,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppReadme\Compare-NET-Objects-Help.txt" />
-    <Content Include="modules\cc-childObject.js" />
+    <Content Include="modules\cc-domainObjectReferenceProperties.js" />
     <Content Include="modules\cc-parentObject.js" />
+    <Content Include="modules\cc-childObject.js" />
     <Content Include="modules\cc-connectionString.js" />
     <Content Include="modules\cc-dataServiceConnection.js" />
-    <Content Include="modules\cc-domainObjectReferenceProperties.js" />
+    <Content Include="modules\cc-referenceProperties.js" />
     <Content Include="modules\cc-domainObjectProperties.js" />
     <Content Include="modules\cc-domainObjects.js" />
     <Content Include="modules\cc-domainSchemas.js" />
@@ -300,6 +301,7 @@
     <Content Include="modules\cc-password.js" />
     <Content Include="modules\cc-username.js" />
     <Content Include="templates\cc-childObject.tmpl.html" />
+    <Content Include="templates\cc-referenceProperties.tmpl.html" />
     <Content Include="templates\cc-parentObject.tmpl.html" />
     <Content Include="templates\cc-connectionString.tmpl.html" />
     <Content Include="templates\cc-dataServiceConnection.tmpl.html" />
@@ -307,7 +309,7 @@
     <Content Include="templates\cc-domainObjectProperties.tmpl.html" />
     <Content Include="templates\cc-domainObjects.tmpl.html" />
     <Content Include="templates\cc-domainSchemas.tmpl.html" />
-    <Content Include="templates\cc-initialcatalog.tmpl.html" />
+    <Content Include="templates\cc-initialCatalog.tmpl.html" />
     <Content Include="templates\cc-password.tmpl.html" />
     <Content Include="templates\cc-username.tmpl.html" />
   </ItemGroup>

@@ -1,16 +1,17 @@
 ﻿define(['knockout', 'options', 'loglevel', 'modules/bwf-metadata', 'modules/bwf-explorer', 'knockout-amd-helpers', 'knockout-postbox', 'jquery'],
     function (ko, options, log, metadataService, exp) {
 
-        function domainObjectReferencePropertiesViewModel(data) {
+        function referencePropertiesViewModel(data) {
             var self = this;
 
+            self.parentObjectMetadata = data.typeMetadata.properties.Parent;
+            self.childObjectMetadata = data.typeMetadata.properties.Child;
             self.data = data;
             self.parentModel = data.model;
             self.resources = options.resources;
             self.formDisabled = ko.observable(false);
             self.referencePropertyGrid = ko.observable(null);
             self.referenceProperties = data.model.observables.Properties;
-            self.id = data.model.observables.Id;
             self.selectedParentObject = data.model.observables.Parent;
             self.selectedChildObject = data.model.observables.Child;
 
@@ -30,11 +31,10 @@
             self.add = function () {
                 var referenceProperty = {
                     Id: 0,
-                    ReferenceId: self.id(), 
                     ParentObjectId: self.selectedParentObject(),
                     ChildObjectId: self.selectedChildObject(),
-                    ParentPropertyId: null,
-                    ChildPropertyId: null
+                    Parent: null,
+                    Child: null
                 };
                 var gridItem = exp.generateBasicGridItem(referenceProperty, self.referencePropertyGrid().records().length + 1, self.referencePropertyGridColumns);
                 self.referencePropertyGrid().records.push(gridItem);
@@ -54,29 +54,27 @@
 
             metadataService.getType("dataservicedesigner", "DomainObjectReferenceProperty").done(metadata => {
 
-                var parentMetadata = metadata.properties["ParentPropertyId"];
+                var parentMetadata = metadata.properties["Parent"];
                 parentMetadata.refreshChoiceOnChangesTo = "ParentObjectId";
-                parentMetadata.populateChoiceQuery = "'dataservicedesigner/query/DomainObjectPropertys?' + (this.selectedParentObjectId() == null ? '' : '$filter=Object/Id=' + this.selectedParentObjectId() + '&') + '$expand=Object&$orderby=PropertyName'";
-                var childMetadata = metadata.properties["ChildPropertyId"];
+                parentMetadata.populateChoiceQuery = "'dataservicedesigner/query/DomainObjectPropertys?' + (this.selectedParentObjectId() == null ? '' : '$filter=Object/Id=' + this.selectedParentObjectId() + '&') + '$orderby=PropertyName'";
+                var childMetadata = metadata.properties["Child"];
                 childMetadata.refreshChoiceOnChangesTo = "ChildObjectId";
-                childMetadata.populateChoiceQuery = "'dataservicedesigner/query/DomainObjectPropertys?' + (this.selectedChildObjectId() == null ? '' : '$filter=Object/Id=' + this.selectedChildObjectId() + '&') + '$expand=Object&$orderby=PropertyName'";
+                childMetadata.populateChoiceQuery = "'dataservicedesigner/query/DomainObjectPropertys?' + (this.selectedChildObjectId() == null ? '' : '$filter=Object/Id=' + this.selectedChildObjectId() + '&') + '$orderby=PropertyName'";
 
                 self.referencePropertyGridColumns = [
-                    new exp.ExplorerGridColumn(parentMetadata, "ParentPropertyId", 1),
-                    new exp.ExplorerGridColumn(childMetadata, "ChildPropertyId", 2)
+                    new exp.ExplorerGridColumn(parentMetadata, "Parent", 1),
+                    new exp.ExplorerGridColumn(childMetadata, "Child", 2)
                 ];
 
                 var properties = self.referenceProperties().map(function (r) {
                     return {
                         Id: r.Id,
-                        ReferenceId: r.ReferenceId, 
                         ParentObjectId: self.selectedParentObject(),
                         ChildObjectId: self.selectedChildObject(),
-                        ParentPropertyId: r.ParentPropertyId,
-                        ChildPropertyId: r.ChildPropertyId
+                        Parent: r.Parent,
+                        Child: r.Child
                     };
                 });
-
                 var gridItems = exp.generateBasicGridItems(properties, self.referencePropertyGridColumns);
                 var grid = exp.generateBasicGridConfiguration(gridItems, self.referencePropertyGridColumns, "referenceProperties", true);
 
@@ -102,6 +100,6 @@
             self.initialise();
         }
 
-        return domainObjectReferencePropertiesViewModel;
+        return referencePropertiesViewModel;
     }
 );

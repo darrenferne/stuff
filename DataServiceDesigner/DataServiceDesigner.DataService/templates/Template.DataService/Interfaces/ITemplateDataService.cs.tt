@@ -1,8 +1,0 @@
-﻿using BWF.DataServices.Core.Interfaces;
-
-namespace Template.DataService
-{
-    public interface ITemplateDataService : IDataService
-    {
-    }
-}

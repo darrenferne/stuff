@@ -119,7 +119,7 @@ namespace DataServiceDesigner.DataService
                 ColumnType = r.ColumnType,
                 PropertyName = r.Name,
                 DisplayName = ToDisplayName(r.Name),
-                PropertyType = (PropertyType)Enum.Parse(typeof(PropertyType), r.NetType, true),
+                PropertyType = Enum.TryParse<PropertyType>(r.NetType, true, out var propertyType) ? propertyType : PropertyType.Undefined,
                 Length = r.ColumnLength,
                 IsNullable = r.IsNullable,
                 IsPartOfKey = primaryKey?.Columns?.Contains(r.Name) ?? false,

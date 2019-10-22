@@ -12,21 +12,36 @@ namespace DataServiceDesigner.DataService
 
             Id(x => x.Id);
 
-            ManyToOne(x => x.Parent, m =>
+            ManyToOne(x => x.Reference, m =>
             {
-                m.Column("parentpropertyid");
-                m.NotNullable(true);
+                m.Column("referenceid");
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
+                m.Insert(false);
+                m.Update(false);
             });
 
-            ManyToOne(x => x.Child, m =>
+            ManyToOne(x => x.ParentProperty, m =>
             {
-                m.Column("childpropertyid");
-                m.NotNullable(true);
+                m.Column("parentpropertyid");
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
+                m.Insert(false);
+                m.Update(false);
             });
+
+            ManyToOne(x => x.ChildProperty, m =>
+            {
+                m.Column("childpropertyid");
+                m.Fetch(FetchKind.Join);
+                m.Lazy(LazyRelation.NoLazy);
+                m.Insert(false);
+                m.Update(false);
+            });
+
+            Property(x => x.ReferenceId, m => m.NotNullable(true));
+            Property(x => x.ParentPropertyId, m => m.NotNullable(true));
+            Property(x => x.ChildPropertyId, m => m.NotNullable(true));
         }
     }
 }

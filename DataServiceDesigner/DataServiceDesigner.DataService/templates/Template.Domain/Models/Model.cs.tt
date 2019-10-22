@@ -1,9 +1,0 @@
-﻿using BWF.DataServices.Metadata.Interfaces;
-
-namespace Template.Domain
-{
-    public class Model : IHaveId<long>
-    {
-        public virtual long Id { get; set; }
-    }
-}

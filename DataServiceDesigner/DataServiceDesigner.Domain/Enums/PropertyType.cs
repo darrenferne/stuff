@@ -30,6 +30,8 @@ namespace DataServiceDesigner.Domain
         [RichEnum("Boolean", "Boolean")]
         Boolean,
         [RichEnum("String", "String")]
-        String
+        String,
+        [RichEnum("Guid", "Guid")]
+        Guid
     }
 }

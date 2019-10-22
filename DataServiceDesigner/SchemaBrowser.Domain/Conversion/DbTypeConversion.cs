@@ -40,6 +40,9 @@ namespace SchemaBrowser.Domain
                 case "NVARCHAR":
                 case "NVARCHAR2":
                     return typeof(string).Name;
+                case "UNIQUEIDENTIFIER":
+                case "RAW":
+                    return typeof(Guid).Name;
                 default:
                     return string.Empty;
             }
@@ -75,6 +78,8 @@ namespace SchemaBrowser.Domain
                         dbType == DatabaseType.SqlServer ? "MAX" : "2000"
                         : length.ToString();
                     return dbType == DatabaseType.SqlServer ? $"NVARCHAR({length})" : $"NVARCHAR2({length})";
+                case "GUID":
+                    return dbType == DatabaseType.SqlServer ? "UNIQUEIDENTIFIER" : "RAW(16)";
                 default:
                     return string.Empty;
             }

@@ -17,6 +17,13 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
+            IntegerProperty(x => x.ReferenceId)
+                .DisplayName("Reference")
+                .IsHiddenInEditor()
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjectReferences?$Expands=Object$orderby=ReferenceName'")
+                .DisplayFieldInEditorChoice("ReferenceName")
+                .ValueFieldInEditorChoice("Id");
+
             TypeProperty(x => x.Reference)
                 .DisplayName("Reference")
                 .PositionInEditor(1)
@@ -25,36 +32,44 @@ namespace DataServiceDesigner.Domain
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
 
-            TypeProperty(x => x.Parent)
+            TypeProperty(x => x.ParentProperty)
+                .DisplayName("Parent Property")
+                .IsHiddenInEditor()
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjectPropertys?$Expand=Object$orderby=PropertyName'")
+                .ValueFieldInEditorChoice("Id")
+                .DisplayFieldInEditorChoice("PropertyName");
+
+            IntegerProperty(x => x.ParentPropertyId)
                 .DisplayName("Parent Property")
                 .PositionInEditor(1)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjectPropertys?$Expand=Object$orderby=PropertyName'")
-                .FilteredOn(@"Reference/Parent/Id", @"Object/Id")
                 .DisplayFieldInEditorChoice("PropertyName")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
 
-            TypeProperty(x => x.Child)
+            IntegerProperty(x => x.ChildProperty)
+                .DisplayName("Child Property")
+                .IsHiddenInEditor()
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjectPropertys?$Expands=Object$orderby=PropertyName'")
+                .DisplayFieldInEditorChoice("PropertyName")
+                .ValueFieldInEditorChoice("Id");
+
+            IntegerProperty(x => x.ChildPropertyId)
                 .DisplayName("Child Property")
                 .PositionInEditor(2)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjectPropertys?$Expands=Object$orderby=PropertyName'")
                 .DisplayFieldInEditorChoice("PropertyName")
-                .FilteredOn(@"Reference/Child/Id", @"Object/Id")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode();
-
-            ExpandsForEdit()
-                .Property(x => x.Parent)
-                .Property(x => x.Child);
 
             ViewDefaults()
                 .Property(x => x.Reference.ReferenceName)
                 .Property(x => x.Reference.ConstraintName)
-                .Property(x => x.Parent.Object.ObjectName)
-                .Property(x => x.Parent.PropertyName)
+                .Property(x => x.ParentProperty.Object.ObjectName)
+                .Property(x => x.ParentProperty.PropertyName)
                 .OrderBy(x => x.Reference.ReferenceName)
-                .OrderBy(x => x.Parent.Object.ObjectName)
-                .OrderBy(x => x.Parent.PropertyName);
+                .OrderBy(x => x.ParentProperty.Object.ObjectName)
+                .OrderBy(x => x.ParentProperty.PropertyName);
         }
     }
 }

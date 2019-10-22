@@ -21,5 +21,16 @@ namespace DataServiceDesigner.DataService
                 .ForMember(x => x.Child, m => m.Ignore())
                 .ForMember(x => x.Properties, m => m.Ignore());
         }
+
+        public override Action<ChangeSet<long, DomainObjectReference>, BatchSaveContext<long, DomainObjectReference>, string> PreSaveAction
+        {
+            get
+            {
+                return (changeSet, context, username) =>
+                {
+                    base.PreSaveAction(changeSet, context, username);
+                };
+            }
+        }
     }
 }

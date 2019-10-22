@@ -13,6 +13,7 @@ namespace DataServiceDesigner.Domain
             PluralisedDisplayName("Domain Object Properties");
 
             IntegerProperty(x => x.Id)
+                .DisplayName("Id")
                 .IsId()
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
@@ -30,6 +31,7 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Column Name");
 
             StringProperty(x => x.PropertyName)
+                .DisplayName("Property Name")
                 .PositionInEditor(5);
 
             StringProperty(x => x.DisplayName)

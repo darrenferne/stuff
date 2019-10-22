@@ -7,22 +7,31 @@
             self.data = data;
             self.parentId = '#' + data.grid + '-' + data.metadata.name + '-bwf-property-control';
 
-            self.selectedParent = self.data.model.observables["Parent"];
-            self.selectedParentChange = ko.observable(null);
+            self.selectedChildChange = ko.observable(null);
 
-            self.setChildObjectQuery = function(parent) {
-                self.data.typeMetadata.properties.Child.populateChoiceQuery = "'dataservicedesigner/query/DomainObjects?$filter=Id!=' + " + parent + " + '&$orderby=ObjectName'"
-                self.data.model.observables.selectedParentChange(parent);
+            self.setParentObjectQuery = function (child) {
+                if (child === null || child === undefined) {
+                    child = 0;
+                }
+
+                self.data.typeMetadata.properties.Parent.populateChoiceQuery = "'dataservicedesigner/query/DomainObjects?$filter=Id!=' + " + child + " + '&$orderby=ObjectName'";
+                self.selectedChildChange(child);
             };
 
-            self.initialise = function(x) {
+            self.initialise = function() {
 
-                self.selectedParent.subscribe(function(parent) {
-                    self.setChildObjectQuery(parent);
+                self.data.model.observables["Child"].subscribe(function (child) {
+                    self.setParentObjectQuery(child);
                 });
 
-                self.data.model.observables.selectedParentChange = self.selectedParentChange;
-                self.data.typeMetadata.properties.Child.refreshChoiceOnChangesTo = "ParentChange";
+                self.data.model.observables.selectedChildChange = self.selectedChildChange;
+                self.data.typeMetadata.properties.Parent.refreshChoiceOnChangesTo = "ChildChange";
+                self.setParentObjectQuery(0);
+
+                ko.postbox.subscribe(data.grid + '-pop-panel', function () {
+                    delete self.data.model.observables.selectedChildChange;
+                    self.data.typeMetadata.properties.Parent.refreshChoiceOnChangesTo = "";
+                });
             };
 
             self.initialise();

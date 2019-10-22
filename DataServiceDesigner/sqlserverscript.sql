@@ -197,6 +197,8 @@ GO
 
 CREATE TABLE dataservicedesigner.domainobjectreference (
    [id]               [BIGINT]        NOT NULL,
+   [parentobjectid]   [BIGINT]        NOT NULL,
+   [childobjectid]    [BIGINT]        NOT NULL,
    [referencename]    [NVARCHAR](64)  NOT NULL,
    [constraintname]   [NVARCHAR](30)  NOT NULL,
    [referencetype]    [NVARCHAR](10)  NOT NULL
@@ -216,6 +218,20 @@ GO
 ALTER TABLE [dataservicedesigner].[domainobjectreference] 
    ADD CONSTRAINT [uk_domainobjectreference_constraintname] 
       UNIQUE NONCLUSTERED ([constraintname]);
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference] 
+   ADD CONSTRAINT [fk_domainobjectreference1] 
+      FOREIGN KEY([parentobjectid])
+         REFERENCES [dataservicedesigner].[domainobject] ([id])
+            ON DELETE NO ACTION
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference] 
+   ADD CONSTRAINT [fk_domainobjectreference2] 
+      FOREIGN KEY([childobjectid])
+         REFERENCES [dataservicedesigner].[domainobject] ([id])
+            ON DELETE NO ACTION
 GO
 
 CREATE TABLE [dataservicedesigner].[domainobjectreferenceproperty] (
@@ -250,6 +266,16 @@ ALTER TABLE [dataservicedesigner].[domainobjectreferenceproperty]
             ON DELETE NO ACTION
 GO
 
+CREATE TRIGGER [dataservicedesigner].[trg_domainobject_delete]
+   ON [dataservicedesigner].[domainobject]
+      FOR DELETE
+AS
+	DELETE FROM [dataservicedesigner].[domainobjectreference]
+	   WHERE 
+	      [parentobjectid] IN (SELECT deleted.id FROM deleted) OR
+		   [childobjectid] IN (SELECT deleted.id FROM deleted) 
+GO
+
 CREATE TRIGGER [dataservicedesigner].[trg_domainobjectproperty_delete]
    ON [dataservicedesigner].[domainobjectproperty]
       FOR DELETE
@@ -267,5 +293,6 @@ INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES 
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (4, 1, N'domainobject')
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (5, 1, N'domainobjectproperty')
 INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (6, 1, N'domainobjectreference')
+INSERT [dataservicedesigner].[nexthigh] ([id], [nexthigh], [entityname]) VALUES (7, 1, N'domainobjectreferenceproperty')
 SET IDENTITY_INSERT [dataservicedesigner].[nexthigh] OFF
 GO
