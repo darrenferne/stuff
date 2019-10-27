@@ -11,17 +11,13 @@ namespace DataServiceDesigner.Domain
         Undefined,
         [RichEnum("Int32", "Int32")]
         Int32,
-        [RichEnum("Int", "Int")]
-        Int  = Int32,
         [RichEnum("Int64", "Int64")]
         Int64,
-        [RichEnum("Long", "Long")]
-        Long = Int64,
         [RichEnum("Float", "Float")]
         Float,
         [RichEnum("Double", "Double")]
         Double,
-        [RichEnum("Decimal", "Decinal")]
+        [RichEnum("Decimal", "Decimal")]
         Decimal,
         [RichEnum("DateTime", "DateTime")]
         DateTime,

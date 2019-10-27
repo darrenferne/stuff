@@ -40,13 +40,15 @@ namespace DataServiceDesigner.DataService
         InvokableFor = InvokableFor.One,
         ScriptModule =
             @"
+            var selectedRecord = scope.selectedRecords()[0].record;
             var actionArgs = {
                 action: 'edit',
                 baseType: 'DomainObjectReference', 
                 component: 'bwf-panel-editor',
                 dataService: scope.dataService(),
                 dataServiceUrl: scope.dataServiceUrl(),
-                metadata: scope.metadata()
+                metadata: scope.metadata(),
+                toEdit: [ selectedRecord ]
             };
             ko.postbox.publish(scope.viewGridId + '-clear-panel', actionArgs);
             ko.postbox.publish(scope.viewGridId + '-doAction', actionArgs);"
@@ -69,6 +71,13 @@ namespace DataServiceDesigner.DataService
             {
                 return (changeSet, context, username) =>
                 {
+                    foreach (var reference in changeSet.Create.Values.Union(changeSet.Update.Values))
+                    {
+                        foreach (var property in reference.Properties.Where(p => (p.Reference?.Id ?? 0) == 0))
+                        {
+                            property.Reference = reference;
+                        }
+                    }
                     base.PreSaveAction(changeSet, context, username);
                 };
             }
