@@ -11,6 +11,15 @@ namespace DataServiceDesigner.DataService
             Table("domainobjectreference");
 
             Id(x => x.Id);
+            
+            ManyToOne(x => x.Schema, m =>
+            {
+                m.Column("schemaid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
+                m.Fetch(FetchKind.Join);
+                m.Lazy(LazyRelation.NoLazy);
+            });
 
             ManyToOne(x => x.Parent, m =>
             {

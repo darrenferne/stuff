@@ -7,6 +7,7 @@ namespace DataServiceDesigner.DataService
     {
         void SynchConnections(IChangeSet changeSet, string token);
         void AddDefaultObjectsToSchema(DomainSchema domainSchema);
+        void AddDefaultRelationshipsToSchema(DomainSchema domainSchema);
         void AddDefaultPropertiesToObject(DomainObject domainObject);
     }
 }

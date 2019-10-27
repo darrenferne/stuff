@@ -148,5 +148,33 @@ namespace DataServiceDesigner.DataService
 
             schema.Objects = new List<DomainObject>(domainObjects);
         }
+
+        public void AddDefaultRelationshipsToSchema(DomainSchema domainSchema)
+        {
+            var dbRelationships = _sbRepository.GetWhere<DbObjectForeignKey>(fk => fk.SchemaName == domainSchema.SchemaName);
+
+            var domainReferences = dbRelationships.Select(r =>
+            {
+                var domainReference = new DomainObjectReference()
+                {
+                    Schema =domainSchema,
+                    ReferenceName = r.ConstraintName,
+                    ConstraintName = r.ConstraintName,
+                    Child = domainSchema.Objects.SingleOrDefault(o => o.Schema.SchemaName == r.SchemaName && o.TableName == r.TableName),
+                    Parent = domainSchema.Objects.SingleOrDefault(o => o.Schema.SchemaName == r.ReferencedIndex.SchemaName && o.TableName == r.ReferencedIndex.TableName),
+                };
+
+                domainReference.Properties = r.Columns.Select((rc, i) => new DomainObjectReferenceProperty()
+                {
+                    Reference = domainReference,
+                    ChildProperty = domainReference.Child.Properties.FirstOrDefault(cp => cp.ColumnName ==  rc),
+                    ParentProperty = domainReference.Parent.Properties.FirstOrDefault(cp => cp.ColumnName == r.ReferencedIndex.Columns[i])
+                }).ToList();
+
+                return domainReference;
+            });
+
+            domainSchema.References = new List<DomainObjectReference>(domainReferences);
+        }
     }
 }

@@ -33,6 +33,16 @@ namespace DataServiceDesigner.DataService
                     m.Inverse(true);
                 },
                 r => r.OneToMany());
+
+            Bag(x => x.References,
+                m =>
+                {
+                    m.Key(k => k.Column("schemaid"));
+                    m.Cascade(Cascade.All);
+                    m.Lazy(CollectionLazy.NoLazy);
+                    m.Inverse(true);
+                },
+                r => r.OneToMany());
         }
     }
 }
