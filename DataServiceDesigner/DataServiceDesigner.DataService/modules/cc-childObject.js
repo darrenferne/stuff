@@ -28,7 +28,7 @@
                 self.data.typeMetadata.properties.Child.refreshChoiceOnChangesTo = "ParentChange";
                 self.setChildObjectQuery(0);
 
-                ko.postbox.subscribe(data.grid + '-pop-panel', function () {
+                ko.postbox.subscribe(data.grid + '-clear-panel', function () {
                     delete self.data.model.observables.selectedParentChange;
                     self.data.typeMetadata.properties.Child.refreshChoiceOnChangesTo = "";
                 });
