@@ -7,6 +7,7 @@ namespace DataServiceDesigner.Domain
     public class DomainObjectReference : IHaveId<long>
     {  
         public virtual long Id { get; set; }
+        public virtual DomainSchema Schema { get; set; }
         public virtual string ReferenceName { get; set; }
         public virtual string ConstraintName { get; set; }
         public virtual ReferenceType ReferenceType { get; set; }

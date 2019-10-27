@@ -24,7 +24,8 @@ namespace DataServiceDesigner.DataService
         {
             Mapper.CreateMap<DomainSchema, DomainSchema>()
                 .ForMember(m => m.DataService, o => o.Ignore())
-                .ForMember(m => m.Objects, o => o.Ignore()); 
+                .ForMember(m => m.Objects, o => o.Ignore())
+                .ForMember(m => m.References, o => o.Ignore()); 
         }
         public override Action<ChangeSet<long, DomainSchema>, BatchSaveContext<long, DomainSchema>, string> PreSaveAction
         {

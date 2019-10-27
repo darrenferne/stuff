@@ -72,8 +72,8 @@
                         ReferenceId: r.ReferenceId, 
                         ParentObjectId: self.selectedParentObject(),
                         ChildObjectId: self.selectedChildObject(),
-                        ParentPropertyId: r.ParentPropertyId,
-                        ChildPropertyId: r.ChildPropertyId
+                        ParentPropertyId: r.ParentProperty.Id,
+                        ChildPropertyId: r.ChildProperty.Id
                     };
                 });
 

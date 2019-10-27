@@ -15,33 +15,33 @@ namespace DataServiceDesigner.DataService
             ManyToOne(x => x.Reference, m =>
             {
                 m.Column("referenceid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
-                m.Insert(false);
-                m.Update(false);
             });
 
             ManyToOne(x => x.ParentProperty, m =>
             {
                 m.Column("parentpropertyid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
-                m.Insert(false);
-                m.Update(false);
             });
 
             ManyToOne(x => x.ChildProperty, m =>
             {
                 m.Column("childpropertyid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
-                m.Insert(false);
-                m.Update(false);
             });
 
-            Property(x => x.ReferenceId, m => m.NotNullable(true));
-            Property(x => x.ParentPropertyId, m => m.NotNullable(true));
-            Property(x => x.ChildPropertyId, m => m.NotNullable(true));
+            //Property(x => x.ReferenceId, m => m.NotNullable(true));
+            //Property(x => x.ParentPropertyId, m => m.NotNullable(true));
+            //Property(x => x.ChildPropertyId, m => m.NotNullable(true));
         }
     }
 }

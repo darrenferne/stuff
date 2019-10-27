@@ -17,6 +17,14 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
+            TypeProperty(x => x.Schema)
+                .DisplayName("Schema")
+                .PositionInEditor(1)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DomainSchemas?$orderby=SchemaName'")
+                .DisplayFieldInEditorChoice("SchemaName")
+                .ValueFieldInEditorChoice("Id")
+                .IsMandatoryInEditMode();
+
             StringProperty(x => x.ReferenceName)
                  .DisplayName("Reference Name")
                  .PositionInEditor(1);
@@ -33,6 +41,7 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Parent Object")
                 .PositionInEditor(4)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=ObjectName'")
+                //.FilteredOn("Schema/Id","Schema/Id")
                 .DisplayFieldInEditorChoice("ObjectName")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode()
@@ -43,6 +52,7 @@ namespace DataServiceDesigner.Domain
                 .DisplayName("Child Object")
                 .PositionInEditor(5)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DomainObjects?$orderby=ObjectName'")
+                //.FilteredOn("Schema/Id", "Schema/Id")
                 .DisplayFieldInEditorChoice("ObjectName")
                 .ValueFieldInEditorChoice("Id")
                 .IsMandatoryInEditMode()
@@ -54,6 +64,12 @@ namespace DataServiceDesigner.Domain
                 .PositionInEditor(6)
                 .CustomControl("cc-domainObjectReferenceProperties")
                 .CustomControlHeight(180);
+
+            ExpandsForEdit()
+                .Property(x => x.Parent.Properties)
+                .Property(x => x.Child.Properties)
+                .Property(x => x.Properties[0].ParentProperty)
+                .Property(x => x.Properties[0].ChildProperty);
 
             ViewDefaults()
                 .Property(x => x.ReferenceName)

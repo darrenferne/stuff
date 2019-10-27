@@ -17,9 +17,10 @@ namespace DataServiceDesigner.DataService
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainObjectReference, DomainObjectReference>()
-                .ForMember(x => x.Parent, m => m.Ignore())
-                .ForMember(x => x.Child, m => m.Ignore())
-                .ForMember(x => x.Properties, m => m.Ignore());
+                .ForMember(m => m.Schema, o => o.Ignore())
+                .ForMember(m => m.Parent, o => o.Ignore())
+                .ForMember(m => m.Child, o => o.Ignore())
+                .ForMember(m => m.Properties, o => o.Ignore());
         }
 
         public override Action<ChangeSet<long, DomainObjectReference>, BatchSaveContext<long, DomainObjectReference>, string> PreSaveAction

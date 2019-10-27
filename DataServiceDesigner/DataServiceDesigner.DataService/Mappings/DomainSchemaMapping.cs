@@ -35,10 +35,11 @@ namespace DataServiceDesigner.DataService
                 r => r.OneToMany());
 
             Bag(x => x.References,
+
                 m =>
                 {
                     m.Key(k => k.Column("schemaid"));
-                    m.Cascade(Cascade.All);
+                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
                     m.Lazy(CollectionLazy.NoLazy);
                     m.Inverse(true);
                 },

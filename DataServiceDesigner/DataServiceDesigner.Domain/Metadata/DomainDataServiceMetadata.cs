@@ -39,12 +39,17 @@ namespace DataServiceDesigner.Domain
                 .CustomControl("cc-domainSchemas")
                 .CustomControlHeight(300);
 
-            ExpandsForEdit()
-                .Property(p => p.Connection)
-                .Property(p => p.Schemas[0].DataService); 
-            //    .Property(p => p.Schemas[0].Objects[0])
-            //    .Property(p => p.Schemas[0].Objects[0].Properties[0])
-            //    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object);
+            //ExpandsForEdit()
+            //    .Property(p => p.Connection)
+            //    .Property(p => p.Schemas[0].DataService)
+            //    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object)
+            //    .Property(p => p.Schemas[0].References[0].Schema)
+            //    .Property(p => p.Schemas[0].References[0].Parent)
+            //    .Property(p => p.Schemas[0].References[0].Child)
+            //    .Property(p => p.Schemas[0].References[0].Properties[0].Reference)
+            //    .Property(p => p.Schemas[0].References[0].Properties[0].ParentProperty)
+            //    .Property(p => p.Schemas[0].References[0].Properties[0].ChildProperty);
+            ////    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object);
 
             ViewDefaults()
                 .Property(x => x.Name)

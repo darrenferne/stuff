@@ -25,6 +25,7 @@ namespace DataServiceDesigner.DataService
             {
                 m.Column("parentobjectid");
                 m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
             });
@@ -33,6 +34,7 @@ namespace DataServiceDesigner.DataService
             {
                 m.Column("childobjectid");
                 m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
             });
@@ -45,7 +47,7 @@ namespace DataServiceDesigner.DataService
                 m =>
                 {
                     m.Key(k => k.Column("referenceid"));
-                    m.Cascade(Cascade.All);
+                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
                     m.Lazy(CollectionLazy.NoLazy);
                     m.Inverse(true);
                 },

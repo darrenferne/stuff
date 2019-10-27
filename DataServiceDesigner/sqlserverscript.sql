@@ -197,6 +197,7 @@ GO
 
 CREATE TABLE dataservicedesigner.domainobjectreference (
    [id]               [BIGINT]        NOT NULL,
+   [schemaid]         [BIGINT]        NOT NULL,
    [parentobjectid]   [BIGINT]        NOT NULL,
    [childobjectid]    [BIGINT]        NOT NULL,
    [referencename]    [NVARCHAR](64)  NOT NULL,
@@ -222,13 +223,20 @@ GO
 
 ALTER TABLE [dataservicedesigner].[domainobjectreference] 
    ADD CONSTRAINT [fk_domainobjectreference1] 
+      FOREIGN KEY([schemaid])
+         REFERENCES [dataservicedesigner].[domainschema] ([id])
+            ON DELETE CASCADE
+GO
+
+ALTER TABLE [dataservicedesigner].[domainobjectreference] 
+   ADD CONSTRAINT [fk_domainobjectreference2] 
       FOREIGN KEY([parentobjectid])
          REFERENCES [dataservicedesigner].[domainobject] ([id])
             ON DELETE NO ACTION
 GO
 
 ALTER TABLE [dataservicedesigner].[domainobjectreference] 
-   ADD CONSTRAINT [fk_domainobjectreference2] 
+   ADD CONSTRAINT [fk_domainobjectreference3] 
       FOREIGN KEY([childobjectid])
          REFERENCES [dataservicedesigner].[domainobject] ([id])
             ON DELETE NO ACTION

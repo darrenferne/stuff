@@ -23,10 +23,11 @@ namespace DataServiceDesigner.DataService
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainDataService, DomainDataService>()
-                .ForMember(x => x.Connection, m => m.Ignore())
-                .ForMember(x => x.Schemas, m => m.Ignore());
+                .ForMember(m => m.Connection, o => o.Ignore())
+                .ForMember(m => m.Schemas, o => o.Ignore());
         }
 
+        
         public override Action<ChangeSet<long, DomainDataService>, BatchSaveContext<long, DomainDataService>, string> PreSaveAction
         {
             get
@@ -40,9 +41,29 @@ namespace DataServiceDesigner.DataService
                             schema.DataService = dataService;
 
                             _helpers.AddDefaultObjectsToSchema(schema);
+                            _helpers.AddDefaultRelationshipsToSchema(schema);
                         }
                     }
                     base.PreSaveAction(changeSet, context, username);
+                };
+            }
+        }
+
+        public override Action<ChangeSet<long, DomainDataService>, BatchSaveContext<long, DomainDataService>, string> PostSaveAction
+        {
+            get
+            {
+                return (changeSet, context, username) =>
+                {
+                    foreach (var dataService in changeSet.Create.Values.Union(changeSet.Update.Values))
+                    {
+                        foreach (var schema in dataService.Schemas.Where(s => (s.DataService?.Id ?? 0) == 0))
+                        {
+                            _helpers.AddDefaultRelationshipsToSchema(schema);
+                            
+                        }
+                    }
+                    base.PostSaveAction(changeSet, context, username);
                 };
             }
         }
