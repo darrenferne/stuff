@@ -8,9 +8,9 @@ using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService
 {
-    [CreateAction("Create")]
-    [EditAction("Edit")]
-    [DeleteAction("Delete")]
+    [CreateAction("Connection")]
+    [EditAction("Connection")]
+    [DeleteAction("Connection")]
     public class DataServiceConnectionRecordType : ChangeableRecordType<DataServiceConnection, long, DataServiceConnectionBatchValidator>
     {
         ISchemaBrowserHelpers _connectionManager;

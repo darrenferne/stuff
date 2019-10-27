@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DataServiceDesigner.DataService
 {
-    [CreateAction("Create")]
-    [EditAction("Edit")]
-    [DeleteAction("Delete")]
+    [CreateAction("Domain Object")]
+    [EditAction("Domain Object")]
+    [DeleteAction("Domain Object")]
     public class DomainObjectRecordType : ChangeableRecordType<DomainObject, long, DomainObjectBatchValidator>
     {
         public override void ConfigureMapper()

@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DataServiceDesigner.DataService
 {
-    [CreateAction("Create")]
-    [EditAction("Edit")]
-    [DeleteAction("Delete")]
+    [CreateAction("Data Service")]
+    [EditAction("Data Service")]
+    [DeleteAction("Data Service")]
     public class DataServiceRecordType : ChangeableRecordType<DomainDataService, long, DomainDataServiceBatchValidator>
     {
         ISchemaBrowserHelpers _helpers;

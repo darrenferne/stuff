@@ -5,9 +5,9 @@ using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService
 {
-    [CreateAction("Create")]
-    [EditAction("Edit")]
-    [DeleteAction("Delete")]
+    [CreateAction("Domain Object Property")]
+    [EditAction("Domain Object Property")]
+    [DeleteAction("Domain Object Property")]
     public class DomainObjectPropertyRecordType : ChangeableRecordType<DomainObjectProperty, long, DomainObjectPropertyBatchValidator>
     {
         public override void ConfigureMapper()
