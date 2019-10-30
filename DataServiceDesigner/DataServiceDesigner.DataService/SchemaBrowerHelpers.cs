@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using BWF.DataServices.Core.Concrete.ChangeSets;
@@ -77,34 +78,52 @@ namespace DataServiceDesigner.DataService
 
         private string ToDisplayName(string name, bool pluralise = false)
         {
-            StringBuilder displayName = new StringBuilder();
-            displayName.Append( char.ToUpper(name[0]));
-            for (int i = 1; i < name.Length; i++)
+            string displayName = string.Empty;
+            if (name.Contains('_'))
             {
-                if (char.IsUpper(name[i]))
-                {
-                    displayName.Append(" ");
-                    displayName.Append(name[i]);
-                }
-                else 
-                {
-                    displayName.Append(name[i]);
-                }
+                var parts = name.ToLower().Split('_').Select(p => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p));
+                displayName = string.Join(" ", parts);
             }
-            if (pluralise)
+            else
             {
-                if (name.ToLower().EndsWith("ty"))
+                //if everything is upper case then lower case it, otherwise it's mixed or varied case which is fine
+                if (name == name.ToUpper())
+                    name = name.ToLower();
+
+                var builder = new StringBuilder();
+                builder.Append(char.ToUpper(name[0]));
+                for (int i = 1; i < name.Length; i++)
                 {
-                    displayName.Remove(displayName.Length - 1, 1);
-                    displayName.Append("ties");
+                    if (char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]))
+                    {
+                        builder.Append(" ");
+                        builder.Append(name[i]);
+                    }
+                    else
+                    {
+                        builder.Append(name[i]);
+                    }
                 }
-                else
-                {
-                    displayName.Append("s");
-                }
+                displayName = builder.ToString();
             }
 
-            return displayName.ToString();
+            if (pluralise)
+            {
+                if (!name.ToLower().EndsWith("s"))
+                {
+                    if (name.ToLower().EndsWith("ty"))
+                    {
+                        displayName.Remove(displayName.Length - 1, 1);
+                        displayName += "ties";
+                    }
+                    else
+                    {
+                        displayName += "s";
+                    }
+                }
+            }
+            
+            return displayName;
         }
 
         public void AddDefaultPropertiesToObject(DomainObject domainObject)
@@ -167,14 +186,15 @@ namespace DataServiceDesigner.DataService
                 domainReference.Properties = r.Columns.Select((rc, i) => new DomainObjectReferenceProperty()
                 {
                     Reference = domainReference,
-                    ChildProperty = domainReference.Child.Properties.FirstOrDefault(cp => cp.ColumnName ==  rc),
-                    ParentProperty = domainReference.Parent.Properties.FirstOrDefault(cp => cp.ColumnName == r.ReferencedIndex.Columns[i])
+                    ChildProperty = domainReference.Child?.Properties.FirstOrDefault(cp => cp.ColumnName ==  rc),
+                    ParentProperty = domainReference.Parent?.Properties.FirstOrDefault(cp => cp.ColumnName == r.ReferencedIndex.Columns[i])
                 }).ToList();
 
                 return domainReference;
             });
 
-            domainSchema.References = new List<DomainObjectReference>(domainReferences);
+            //Exclude any reference that has a parent or child that was not found ot that has self referencing properties
+            domainSchema.References = new List<DomainObjectReference>(domainReferences.Where(r => !(r.Parent is null || r.Child is null) && !r.Properties.Any(p => p.ParentProperty == p.ChildProperty)));
         }
     }
 }

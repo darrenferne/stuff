@@ -18,14 +18,16 @@ namespace UnitTestProject1
         public void TestMethod1()
         {
             SchemaBrowserUtils browser = new SchemaBrowserUtils();
-            
-            var connectionString = @"Data Source=localhost\sqlexpress;Initial Catalog=dsd-latest;Integrated Security=True;Pooling=False";
-            var keys = browser.GetObjectPrimaryKeys(SchemaBrowser.Domain.DatabaseType.SqlServer, connectionString);
+
+            var connectionString = "Data Source= (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = TRINITYDB-DF)(PORT = 1521)))(CONNECT_DATA =(UR=A)(SERVICE_NAME = DARRENF.BRADYPLC.COM)));User Id=ap$darren;Password=M0nkF1sh;";
+            //var connection = browser.GetDbConnection(SchemaBrowser.Domain.DatabaseType.Oracle, connectionString);
             //var schema = connection.GetSchema();
-            //var tables = connection.GetSchema("Tables");
-            //var fks = connection.GetSchema("ForeignKeys");
-            //var ixs = connection.GetSchema("Indexes");
-            //var ixColumns = connection.GetSchema("IndexColumns");
+
+            //var objects =  browser.GetDbObjects(SchemaBrowser.Domain.DatabaseType.Oracle, connectionString);
+            //var duplicateObjects = objects.GroupBy(o => new { o.SchemaName, o.Name }).Where(g => g.Count() > 1).ToList();
+
+            var properties = browser.GetDbObjectProperties(SchemaBrowser.Domain.DatabaseType.Oracle, connectionString);
+            var duplicateProperties = properties.GroupBy(o => new { o.SchemaName, o.ObjectName, o.Name }).Where(g => g.Count() > 1).ToList();
         }
 
         void DoIt()

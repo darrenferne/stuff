@@ -25,7 +25,7 @@ namespace SchemaBrowser.DataService
                             selectedFactory = DbProviderFactories.GetFactory(factoryRow);
                         break;
                     case SBD.DatabaseType.Oracle:
-                        if (providerName == "Oracle.DataAccess.Client")
+                        if (providerName == "Oracle.DataAccess.Client" || providerName == "Oracle.ManagedDataAccess.Client")
                             selectedFactory = DbProviderFactories.GetFactory(factoryRow);
                         break;
                 }
@@ -53,6 +53,9 @@ namespace SchemaBrowser.DataService
             message = string.Empty;
             try
             {
+                if (!connectionString.Contains("Connection Timeout"))
+                    connectionString = connectionString + ";Connection Timeout=120";
+
                 using (var connection = GetDbConnection(dbType, connectionString))
                 {
                     connection.Close();
@@ -75,34 +78,37 @@ namespace SchemaBrowser.DataService
 
         public List<SBD.DbObject> GetDbObjects(SBD.DatabaseType dbType, SBD.DbObjectType objectType, string connectionString, bool includeProperties = true)
         {
-            List<SBD.DbObject> dbObjects = new List<SBD.DbObject>();
-
             using (var dbConnection = GetDbConnection(dbType, connectionString))
             {
-                var tables = dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Tables" : "Views");
-                var catalogCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_CATALOG"] : null;
-                var ownerCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_SCHEMA"] : tables.Columns["OWNER"];
-                var tableNameCol = objectType == SBD.DbObjectType.View && dbType != SBD.DatabaseType.SqlServer ? tables.Columns["VIEW_NAME"] : tables.Columns["TABLE_NAME"];
-
-                foreach (DataRow tableRow in tables.Rows)
-                {
-                    var objectCatalog = dbType == SBD.DatabaseType.SqlServer ? (string)tableRow[catalogCol] : string.Empty;
-                    var objectOwner = (string)tableRow[ownerCol];
-                    var objectName = (string)tableRow[tableNameCol];
-
-                    var dbObject = new SBD.DbObject()
-                    {
-                        SchemaName = objectOwner,
-                        Name = objectName,
-                        ObjectType = objectType,
-                        //Properties = includeProperties ? GetDbObjectProperties(dbType, objectType, dbConnection, objectCatalog, objectOwner, objectName) 
-                        //                               : new List<SBD.DbObjectProperty>()
-                    };
-
-                    dbObjects.Add(dbObject);
-                }
+                return GetDbObjects(dbType, dbConnection, objectType);
             }
+        }
 
+        public List<SBD.DbObject> GetDbObjects(SBD.DatabaseType dbType, DbConnection dbConnection, SBD.DbObjectType objectType)
+        {
+            List<SBD.DbObject> dbObjects = new List<SBD.DbObject>();
+
+            var tables = dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Tables" : "Views");
+            var catalogCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_CATALOG"] : null;
+            var ownerCol = dbType == SBD.DatabaseType.SqlServer ? tables.Columns["TABLE_SCHEMA"] : tables.Columns["OWNER"];
+            var tableNameCol = objectType == SBD.DbObjectType.View && dbType != SBD.DatabaseType.SqlServer ? tables.Columns["VIEW_NAME"] : tables.Columns["TABLE_NAME"];
+
+            foreach (DataRow tableRow in tables.Rows)
+            {
+                var objectCatalog = dbType == SBD.DatabaseType.SqlServer ? (string)tableRow[catalogCol] : string.Empty;
+                var objectOwner = (string)tableRow[ownerCol];
+                var objectName = (string)tableRow[tableNameCol];
+
+                var dbObject = new SBD.DbObject()
+                {
+                    SchemaName = objectOwner,
+                    Name = objectName,
+                    ObjectType = objectType
+                };
+
+                dbObjects.Add(dbObject);
+            }
+            
             return dbObjects;
         }
 
@@ -119,12 +125,16 @@ namespace SchemaBrowser.DataService
 
         public List<SBD.DbObjectProperty> GetDbObjectProperties(SBD.DatabaseType dbType, SBD.DbObjectType objectType, DbConnection dbConnection)
         {
+            List<SBD.DbObject> dbObjects = null;
             List<SBD.DbObjectProperty> dbObjectProperties = new List<SBD.DbObjectProperty>();
 
             var columns = dbType == SBD.DatabaseType.SqlServer ?
                     dbConnection.GetSchema(objectType == SBD.DbObjectType.Table ? "Columns" : "ViewColumns") :
                     dbConnection.GetSchema("Columns");
 
+            if (dbType == SBD.DatabaseType.Oracle)
+                dbObjects = GetDbObjects(dbType, dbConnection, objectType);
+            
             var ownerCol = dbType == SBD.DatabaseType.SqlServer ? columns.Columns["TABLE_SCHEMA"] : columns.Columns["OWNER"];
             var tableNameCol = columns.Columns["TABLE_NAME"];
             var columnNameCol = columns.Columns["COLUMN_NAME"];
@@ -136,23 +146,26 @@ namespace SchemaBrowser.DataService
             {
                 var objectOwner = (string)columnRow[ownerCol];
                 var objectName = (string)columnRow[tableNameCol];
-                var columnName = (string)columnRow[columnNameCol];
-                var columnType = columnTypeCol == null ? null : ((string)columnRow[columnTypeCol]).ToUpper();
-                var columnLength = lengthCol == null || columnRow.IsNull(lengthCol.Ordinal) ? 0 : int.Parse(columnRow[lengthCol].ToString());
-                var isNullable = nullableCol == null || columnRow.IsNull(nullableCol.Ordinal) ? true : ((string)columnRow[nullableCol]).ToLower()[0] == 'y';
-
-                var dbObjectProperty = new SBD.DbObjectProperty()
+                if (dbType == SBD.DatabaseType.SqlServer || (dbType == SBD.DatabaseType.Oracle && dbObjects.Any(o => o.SchemaName == objectOwner && o.Name == objectName)))
                 {
-                    SchemaName = objectOwner,
-                    ObjectName = objectName,
-                    Name = columnName,
-                    ColumnType = columnType,
-                    NetType = SBD.DbTypeConversion.SqlTypeToNetType(columnType),
-                    ColumnLength = columnLength,
-                    IsNullable = isNullable
-                };
+                    var columnName = (string)columnRow[columnNameCol];
+                    var columnType = columnTypeCol == null ? null : ((string)columnRow[columnTypeCol]).ToUpper();
+                    var columnLength = lengthCol == null || columnRow.IsNull(lengthCol.Ordinal) ? 0 : int.Parse(columnRow[lengthCol].ToString());
+                    var isNullable = nullableCol == null || columnRow.IsNull(nullableCol.Ordinal) ? true : ((string)columnRow[nullableCol]).ToLower()[0] == 'y';
 
-                dbObjectProperties.Add(dbObjectProperty);
+                    var dbObjectProperty = new SBD.DbObjectProperty()
+                    {
+                        SchemaName = objectOwner,
+                        ObjectName = objectName,
+                        Name = columnName,
+                        ColumnType = columnType,
+                        NetType = SBD.DbTypeConversion.SqlTypeToNetType(columnType),
+                        ColumnLength = columnLength,
+                        IsNullable = isNullable
+                    };
+
+                    dbObjectProperties.Add(dbObjectProperty);
+                }
             }
             return dbObjectProperties;
         }
@@ -224,12 +237,12 @@ namespace SchemaBrowser.DataService
                 sql = @"SELECT
                             cc.owner            schema_name,
                             cc.table_name       table_name, 
-                            c.constaint_name    index_name
-                            cc.column_name      columns_name
+                            c.constraint_name   index_name,
+                            cc.column_name      column_name
                         FROM 
-                            all_constraints c
+                            dba_constraints c
                             JOIN
-                            all_cons_columns cc ON c.constraint_name = cc.constraint_name AND c.owner = cc.owner
+                            dba_cons_columns cc ON c.constraint_name = cc.constraint_name AND c.owner = cc.owner
                         WHERE 
                             c.constraint_type = 'P'";
                 
@@ -238,7 +251,7 @@ namespace SchemaBrowser.DataService
                     sql += @" AND s.owner = @1 AND t.table_name = @2";
                 }
 
-                sql += @" ORDER BY cc.owner, cc.table_name, c.constraint_name, cc.column_name, cc.position;";
+                sql += @" ORDER BY cc.owner, cc.table_name, c.constraint_name, cc.column_name, cc.position";
             }
             return sql;
         }
@@ -362,14 +375,32 @@ namespace SchemaBrowser.DataService
             }
             else
             {
-                sql = @"";
+                sql = @"SELECT 
+                           c.owner              schema_name,
+                           c.table_name         table_name,
+                           c.constraint_name    constraint_name,
+                           cc.column_name       constraint_column_name,
+                           rc.owner             referenced_schema_name,
+                           rc.table_name        referenced_table_name,
+                           rc.constraint_name   referenced_index_name,
+                           rcc.column_name      referenced_column_name
+                        FROM 
+                           dba_constraints c
+                           JOIN
+                           dba_cons_columns cc ON cc.owner = c.owner AND cc.constraint_name = c.constraint_name 
+                           JOIN
+                           dba_constraints rc ON rc.owner = c.r_owner AND rc.constraint_name = c.r_constraint_name
+                           JOIN
+                           dba_cons_columns rcc ON rcc.owner = rc.owner AND rcc.constraint_name = rc.constraint_name AND rcc.position = cc.position
+                        WHERE   
+                           c.constraint_type='R'";
 
                 if (filtered)
                 {
-                    sql += @"";
+                    sql += @" AND c.owner = @1 AND c.table_name = @2";
                 }
 
-                sql += @"";
+                sql += @" ORDER BY c.owner, c.table_name, c.constraint_name, cc.position";
             }
             return sql;
         }

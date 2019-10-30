@@ -66,12 +66,12 @@ CREATE TABLE [dataservicedesigner].[connection](
    [id]                    [BIGINT]        NOT NULL,
    [name]                  [NVARCHAR](64)  NOT NULL,
    [databasetype]          [NVARCHAR](64)  NOT NULL,
-   [datasource]            [NVARCHAR](64)  NOT NULL,
+   [datasource]            [NVARCHAR](1000)  NOT NULL,
    [initialcatalog]        [NVARCHAR](64),
    [username]              [NVARCHAR](64),
    [password]              [NVARCHAR](64),
    [useintegratedsecurity] [BIT],
-   [connectionstring]      [NVARCHAR](256) NOT NULL
+   [connectionstring]      [NVARCHAR](2000) NOT NULL
 )
 GO
 

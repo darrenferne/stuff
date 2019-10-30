@@ -17,7 +17,7 @@ namespace DataServiceDesigner.DataService
 
             RuleFor(x => x.DataSource)
                 .NotEmpty()
-                .Length(1, 64);
+                .Length(1, 1000);
 
             RuleFor(x => x.InitialCatalog)
                 .Length(0, 64);
@@ -30,7 +30,7 @@ namespace DataServiceDesigner.DataService
 
             RuleFor(x => x.ConnectionString)
                 .NotEmpty()
-                .Length(1, 256);
+                .Length(1, 2000);
         }
     }
 }
