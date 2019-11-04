@@ -30,15 +30,33 @@
             self.objectName = data.model.observables.ObjectName();
             self.selectedObjects = data.model.observables.Properties;
 
-            self.toDisplayName = function (name) {
-                var displayName = name.charAt(0).toUpperCase();
-                for (var i = 1; i < name.length; i++) {
-                    var char = name.charAt(i);
-                    if (char === char.toUpperCase()) {
-                        displayName = displayName + ' ' + char;
+            self.toDisplayName = function (name, pluralise) {
+                if (name.includes('_')) {
+                    var parts = name.Split('_');
+                    displayName = parts.map(self.toDisplayName).join(' ');
+                }
+                else {
+                    if (name === name.toUpperCase()) {
+                        name = name.toLowerCase();
+                    }
+                    var displayName = name.charAt(0).toUpperCase();
+                    for (var i = 1; i < name.length; i++) {
+                        var char = name.charAt(i);
+                        var charM1 = name.charAt(i - 1);
+                        if (char === char.toUpperCase() && charM1 !==charM1.toUpperCase()) {
+                            displayName = displayName + ' ' + char;
+                        }
+                        else {
+                            displayName = displayName + char;
+                        }
+                    }
+                }
+                if (pluralise) {
+                    if (displayName.substr(-2).toLower() === 'ty') {
+                        displayName = displayName.substr(displayName.length - 2) + 'ties';
                     }
                     else {
-                        displayName = displayName + char;
+                        displayName = displayName + 's';
                     }
                 }
                 return displayName;

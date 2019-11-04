@@ -31,19 +31,29 @@
             self.selectedObjects = data.model.observables.Objects;
 
             self.toDisplayName = function (name, pluralise) {
-                var displayName = name.charAt(0).toUpperCase();
-                for (var i = 1; i < name.length; i++) {
-                    var char = name.charAt(i);
-                    if (char === char.toUpperCase()) {
-                        displayName = displayName + ' ' + char;
+                if (name.includes('_')) {
+                    var parts = name.Split('_');
+                    displayName = parts.map(self.toDisplayName).join(' ');
+                }
+                else {
+                    if (name === name.toUpperCase()) {
+                        name = name.toLowerCase();
                     }
-                    else {
-                        displayName = displayName + char;
+                    var displayName = name.charAt(0).toUpperCase();
+                    for (var i = 1; i < name.length; i++) {
+                        var char = name.charAt(i);
+                        var charM1 = name.charAt(i - 1);
+                        if (char === char.toUpperCase() && charM1 !== charM1.toUpperCase()) {
+                            displayName = displayName + ' ' + char;
+                        }
+                        else {
+                            displayName = displayName + char;
+                        }
                     }
                 }
                 if (pluralise) {
-                    if (displayName.charAt(displayName.length - 1).toLowerCase() === 'y') {
-                        displayName = displayName.substring(0, displayName.length - 1) + "ies";
+                    if (displayName.substr(-2).toLower() === 'ty') {
+                        displayName = displayName.substr(displayName.length - 2) + 'ties';
                     }
                     else {
                         displayName = displayName + 's';
