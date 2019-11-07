@@ -28,6 +28,12 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
+            
+            #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+var namespacePrefix = DataServiceSolution.GetNamespace(); 
+            
+            #line default
+            #line hidden
             this.Write(@"<Project Sdk=""Microsoft.NET.Sdk"">
 
   <PropertyGroup>
@@ -40,50 +46,92 @@ namespace DataServiceDesigner.Templating.DataService.Host
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=""..\Brady.");
-            
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Domain\\Brady.");
-            
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Domain.csproj\" />\r\n\t<ProjectReference Include=\"..\\Brady.");
+");
             
             #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+foreach(var dataService in DataServiceSolution.DataServices) {
             
             #line default
             #line hidden
-            this.Write(".DataService\\Brady.");
+            this.Write("    <ProjectReference Include=\"..\\");
             
-            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
             
             #line default
             #line hidden
-            this.Write(".DataService.csproj\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n");
+            this.Write(".");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain\\");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 22 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain.csproj\" />\r\n\t<ProjectReference Include=\"..\\");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\\");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService.csproj\" />\r\n");
+            
+            #line 24 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("  </ItemGroup>\r\n\r\n</Project>\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\HostProjectTemplate.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
+private global::DataServiceDesigner.Domain.DataServiceSolution _DataServiceSolutionField;
 
 /// <summary>
-/// Access the DomainDataService parameter of the template.
+/// Access the DataServiceSolution parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
+private global::DataServiceDesigner.Domain.DataServiceSolution DataServiceSolution
 {
     get
     {
-        return this._DomainDataServiceField;
+        return this._DataServiceSolutionField;
     }
 }
 
@@ -95,18 +143,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool DomainDataServiceValueAcquired = false;
-if (this.Session.ContainsKey("DomainDataService"))
+bool DataServiceSolutionValueAcquired = false;
+if (this.Session.ContainsKey("DataServiceSolution"))
 {
-    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
-    DomainDataServiceValueAcquired = true;
+    this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(this.Session["DataServiceSolution"]));
+    DataServiceSolutionValueAcquired = true;
 }
-if ((DomainDataServiceValueAcquired == false))
+if ((DataServiceSolutionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DataServiceSolution");
     if ((data != null))
     {
-        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(data));
     }
 }
 

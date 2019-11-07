@@ -28,7 +28,14 @@ namespace DataServiceDesigner.Templating.Domain
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using BWF.DataServices.Metadata.Interfaces;\r\nusing System;\r\n\r\nnamespace Brady.");
+            this.Write("using BWF.DataServices.Metadata.Interfaces;\r\nusing System;\r\n\r\nnamespace ");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\ModelTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Models\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

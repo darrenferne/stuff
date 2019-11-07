@@ -28,7 +28,14 @@ namespace DataServiceDesigner.Templating.Domain
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("namespace Brady.");
+            this.Write("namespace ");
+            
+            #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\ConstantsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\ConstantsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
@@ -42,18 +49,16 @@ namespace DataServiceDesigner.Templating.Domain
             
             #line default
             #line hidden
-            this.Write("Constants\r\n    {\r\n        public const string DataServiceName = \"");
+            this.Write("Constants\r\n    {\r\n\t\tpublic const string DataServiceName = \"");
             
             #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\ConstantsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write("\";\r\n        public const string DataServiceDisplayName = \"Template Data Service\";" +
-                    "\r\n        public const string DataServiceDescription = \"Template Data Service\";\r" +
-                    "\n        public const string DataServiceSchema = \"");
+            this.Write("\";\r\n\t\tpublic const string DataServiceSchema = \"");
             
-            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\ConstantsTemplate.tt"
+            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.Domain\Constants\ConstantsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetDefaultSchema()));
             
             #line default

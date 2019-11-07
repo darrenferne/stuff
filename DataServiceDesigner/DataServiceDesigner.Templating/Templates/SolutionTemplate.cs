@@ -36,220 +36,335 @@ var rootGuid = Guid.NewGuid();
             #line hidden
             
             #line 9 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-var domainGuid = Guid.NewGuid();
+var namespacePrefix = DataServiceSolution.GetNamespace();
             
             #line default
             #line hidden
             
             #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-var dataServiceGuid = Guid.NewGuid();
+var domainGuids = new Dictionary<string, Guid>();
             
             #line default
             #line hidden
             
             #line 11 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-var hostGuid = Guid.NewGuid();
+var dataServiceGuids = new Dictionary<string, Guid>();
+            
+            #line default
+            #line hidden
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+var hostGuids = new Dictionary<string, Guid>();
             
             #line default
             #line hidden
             this.Write("Microsoft Visual Studio Solution File, Format Version 12.00\r\n# Visual Studio 15\r\n" +
                     "VisualStudioVersion = 15.0.28307.421\r\nMinimumVisualStudioVersion = 10.0.40219.1\r" +
-                    "\nProject(\"{");
+                    "\n");
             
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            #line 17 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+foreach(var dataService in DataServiceSolution.DataServices) {
+            
+            #line default
+            #line hidden
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+domainGuids.Add(dataService.Name, Guid.NewGuid());
+            
+            #line default
+            #line hidden
+            
+            #line 19 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+dataServiceGuids.Add(dataService.Name, Guid.NewGuid());
+            
+            #line default
+            #line hidden
+            
+            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+hostGuids.Add(dataService.Name, Guid.NewGuid());
+            
+            #line default
+            #line hidden
+            this.Write("Project(\"{");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(rootGuid));
             
             #line default
             #line hidden
-            this.Write("}\") = \"Brady.");
+            this.Write("}\") = \"");
             
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Domain\", \"Brady.");
-            
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
             
             #line default
             #line hidden
-            this.Write(".Domain\\Brady.");
+            this.Write(".");
             
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain\", \"");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain\\");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
             
             #line default
             #line hidden
             this.Write(".Domain.csproj\", \"{");
             
-            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuid));
+            #line 21 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuids[dataService.Name]));
             
             #line default
             #line hidden
             this.Write("}\"\r\nEndProject\r\nProject(\"{");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(rootGuid));
             
             #line default
             #line hidden
-            this.Write("}\") = \"Brady.");
+            this.Write("}\") = \"");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".DataService\", \"Brady.");
-            
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
             
             #line default
             #line hidden
-            this.Write(".DataService\\Brady.");
+            this.Write(".");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\", \"");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService\\");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
             
             #line default
             #line hidden
             this.Write(".DataService.csproj\", \"{");
             
-            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuid));
+            #line 23 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuids[dataService.Name]));
             
             #line default
             #line hidden
             this.Write("}\"\r\nEndProject\r\nProject(\"{");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(rootGuid));
             
             #line default
             #line hidden
-            this.Write("}\") = \"Brady.");
+            this.Write("}\") = \"");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".DataService.Host\", \"Brady.");
-            
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
             
             #line default
             #line hidden
-            this.Write(".DataService.Host\\Brady.");
+            this.Write(".");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService.Host\", \"");
+            
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".DataService.Host\\");
+            
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataService.Name));
             
             #line default
             #line hidden
             this.Write(".DataService.Host.csproj\", \"{");
             
-            #line 20 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuid));
+            #line 25 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuids[dataService.Name]));
             
             #line default
             #line hidden
-            this.Write("}\"\r\nEndProject\r\nGlobal\r\n\tGlobalSection(SolutionConfigurationPlatforms) = preSolut" +
-                    "ion\r\n\t\tDebug|Any CPU = Debug|Any CPU\r\n\t\tRelease|Any CPU = Release|Any CPU\r\n\tEndG" +
-                    "lobalSection\r\n\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n\t\t{");
+            this.Write("}\"\r\nEndProject\r\n");
             
-            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuid));
+            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+}
             
             #line default
             #line hidden
-            this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
-            
-            #line 29 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
-            
-            #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
-            
-            #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n\t\t{");
-            
-            #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
-            
-            #line 33 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
+            this.Write("Global\r\n\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n\t\tDebug|Any" +
+                    " CPU = Debug|Any CPU\r\n\t\tRelease|Any CPU = Release|Any CPU\r\n\tEndGlobalSection\r\n\tG" +
+                    "lobalSection(ProjectConfigurationPlatforms) = postSolution\r\n");
             
             #line 34 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuid));
+foreach(var dataService in DataServiceSolution.DataServices) {
             
             #line default
             #line hidden
-            this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
+            this.Write("\t\t{");
             
             #line 35 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n\t\t{");
-            
-            #line 36 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuid));
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuids[dataService.Name]));
             
             #line default
             #line hidden
             this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
             
-            #line 37 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuid));
+            #line 36 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuids[dataService.Name]));
             
             #line default
             #line hidden
             this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
             
-            #line 38 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuid));
+            #line 37 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuids[dataService.Name]));
             
             #line default
             #line hidden
             this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
             
-            #line 39 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuid));
+            #line 38 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(domainGuids[dataService.Name]));
             
             #line default
             #line hidden
-            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n\tEndGlobalSection\r\n\tGlobalSection(So" +
-                    "lutionProperties) = preSolution\r\n\t\tHideSolutionNode = FALSE\r\n\tEndGlobalSection\r\n" +
-                    "\tGlobalSection(ExtensibilityGlobals) = postSolution\r\n\t\tSolutionGuid = {");
+            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n\t\t{");
+            
+            #line 39 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
+            
+            #line 40 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
+            
+            #line 41 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
+            
+            #line 42 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(dataServiceGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n\t\t{");
+            
+            #line 43 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
+            
+            #line 44 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
             
             #line 45 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
+            
+            #line 46 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(hostGuids[dataService.Name]));
+            
+            #line default
+            #line hidden
+            this.Write("}.Release|Any CPU.Build.0 = Release|Any CPU\r\n");
+            
+            #line 47 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\tEndGlobalSection\r\n\tGlobalSection(SolutionProperties) = preSolution\r\n\t\tHideSoluti" +
+                    "onNode = FALSE\r\n\tEndGlobalSection\r\n\tGlobalSection(ExtensibilityGlobals) = postSo" +
+                    "lution\r\n\t\tSolutionGuid = {");
+            
+            #line 53 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Guid.NewGuid()));
             
             #line default
@@ -260,16 +375,16 @@ var hostGuid = Guid.NewGuid();
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\SolutionTemplate.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
+private global::DataServiceDesigner.Domain.DataServiceSolution _DataServiceSolutionField;
 
 /// <summary>
-/// Access the DomainDataService parameter of the template.
+/// Access the DataServiceSolution parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
+private global::DataServiceDesigner.Domain.DataServiceSolution DataServiceSolution
 {
     get
     {
-        return this._DomainDataServiceField;
+        return this._DataServiceSolutionField;
     }
 }
 
@@ -281,18 +396,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool DomainDataServiceValueAcquired = false;
-if (this.Session.ContainsKey("DomainDataService"))
+bool DataServiceSolutionValueAcquired = false;
+if (this.Session.ContainsKey("DataServiceSolution"))
 {
-    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
-    DomainDataServiceValueAcquired = true;
+    this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(this.Session["DataServiceSolution"]));
+    DataServiceSolutionValueAcquired = true;
 }
-if ((DomainDataServiceValueAcquired == false))
+if ((DataServiceSolutionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DataServiceSolution");
     if ((data != null))
     {
-        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(data));
     }
 }
 

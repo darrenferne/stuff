@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace DataServiceDesigner.Templating.DataService.Host
+namespace DataServiceDesigner.Templating.Templates.Template.DataService.Host.Setup
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace DataServiceDesigner.Templating.DataService.Host
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\AvailableCulturesTemplate.tt"
+    #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class AvailableCulturesTemplate : AvailableCulturesTemplateBase
+    public partial class ConstantsTemplate : ConstantsTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,59 +28,53 @@ namespace DataServiceDesigner.Templating.DataService.Host
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using BWF.Globalisation.Concrete;\r\nusing System.Collections.Generic;\r\n\r\nnamespace" +
-                    " ");
+            this.Write("namespace ");
             
-            #line 11 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\AvailableCulturesTemplate.tt"
+            #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.GetNamespace()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 11 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\AvailableCulturesTemplate.tt"
+            #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
             
             #line default
             #line hidden
-            this.Write(@".DataService.Host
-{
-    public class AvailableCultures
-    {
-        public static List<string> LanguageCultures = new List<string> 
-        { 
-            ""en-GB"" 
-        };
-
-        public static List<FormattingCulture> FormattingCultures = new List<FormattingCulture>
-        {
-            new FormattingCulture (""en-GB"", new List<string>
-            {
-                ""dd/MM/yyyy HH:mm"",
-                ""dd MMMM yyyy HH:mm:ss"",
-                ""dd/MM/yyyy HH:mm:ss"",
-                ""dd-MM-yyyy HH:mm:ss"",
-                ""dd-MMM-yyyy HH:mm:ss"",
-                ""dd MMM yyyy HH:mm:ss""
-            },
-            new List<string>
-            {
-                ""dd/MM/yyyy"",
-                ""dd MMMM yyyy"",
-                ""dd MMMM"",
-                ""MMMM yyyy"",
-                ""dd-MM-yyyy"",
-                ""dd-MMM-yyyy"",
-                ""dd MMM yyyy""
-            })
-        };
-    }
-}
-");
+            this.Write(".Domain\r\n{\r\n    public class ");
+            
+            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Constants\r\n    {\r\n        public const string ServiceName = \"");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.ServiceName));
+            
+            #line default
+            #line hidden
+            this.Write("\";\r\n        public const string ServiceDisplayName = \"");
+            
+            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.ServiceDisplayName));
+            
+            #line default
+            #line hidden
+            this.Write("\";\r\n        public const string ServiceDescription = \"");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.ServiceDescription));
+            
+            #line default
+            #line hidden
+            this.Write("\";\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\AvailableCulturesTemplate.tt"
+        #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt"
 
 private global::DataServiceDesigner.Domain.DataServiceSolution _DataServiceSolutionField;
 
@@ -135,7 +129,7 @@ if ((DataServiceSolutionValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class AvailableCulturesTemplateBase
+    public class ConstantsTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

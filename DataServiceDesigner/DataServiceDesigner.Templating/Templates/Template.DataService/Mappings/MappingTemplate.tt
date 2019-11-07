@@ -8,9 +8,9 @@
 <#@ output extension=".cs" #>
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using Brady.<#=DomainDataService.Name#>.Domain;
+using <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
     public class <#=CurrentObject.ObjectName#>Mapping : ClassMapping<<#=CurrentObject.ObjectName#>>
     {

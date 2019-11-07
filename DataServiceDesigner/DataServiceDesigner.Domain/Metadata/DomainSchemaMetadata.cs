@@ -43,6 +43,9 @@ namespace DataServiceDesigner.Domain
                 .CustomControl("cc-domainObjects")
                 .CustomControlHeight(300);
 
+            CollectionProperty(x => x.References)
+                .DisplayName("References");
+
             ViewDefaults()
                 .Property(x => x.SchemaName)
                 .Property(x => x.IsDefault)

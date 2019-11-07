@@ -8,7 +8,7 @@
 using BWF.Hosting.Infrastructure.Interfaces;
 using Ninject;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
     public class <#=DomainDataService.Name#>DataServiceKernelManipulations : IKernelManipulation
     {

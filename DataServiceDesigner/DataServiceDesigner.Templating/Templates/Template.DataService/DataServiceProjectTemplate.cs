@@ -28,6 +28,12 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
+            
+            #line 8 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
+var namespacePrefix = DomainDataService.GetNamespace();
+            
+            #line default
+            #line hidden
             this.Write(@"<Project Sdk=""Microsoft.NET.Sdk"">
 
   <PropertyGroup>
@@ -47,16 +53,30 @@ namespace DataServiceDesigner.Templating.DataService
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=""..\Brady.");
+    <ProjectReference Include=""..\");
             
-            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write(".Domain\\Brady.");
+            this.Write(".Domain\\");
             
-            #line 27 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(namespacePrefix));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 28 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\DataServiceProjectTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default

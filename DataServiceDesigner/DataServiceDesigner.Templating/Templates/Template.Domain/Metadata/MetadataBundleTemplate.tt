@@ -7,7 +7,7 @@
 <#@ output extension=".cs" #>
 using BWF.DataServices.Metadata.Fluent.Abstract;
 
-namespace Brady.<#=DomainDataService.Name#>.Domain
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain
 {
     public class <#=DomainDataService.Name#>MetadataBundle : TypeMetadataBundle
     {

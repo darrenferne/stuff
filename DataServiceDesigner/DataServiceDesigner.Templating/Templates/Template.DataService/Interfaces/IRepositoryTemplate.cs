@@ -28,7 +28,14 @@ namespace DataServiceDesigner.Templating.DataService
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using BWF.DataServices.Support.NHibernate.Interfaces;\r\n\r\nnamespace Brady.");
+            this.Write("using BWF.DataServices.Support.NHibernate.Interfaces;\r\n\r\nnamespace ");
+            
+            #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Interfaces\IRepositoryTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 10 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Interfaces\IRepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

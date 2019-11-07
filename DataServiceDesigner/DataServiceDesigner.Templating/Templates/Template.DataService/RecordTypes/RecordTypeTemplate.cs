@@ -49,14 +49,28 @@ if (!CurrentObject.SupportsIHaveId()) {
             
             #line default
             #line hidden
-            this.Write("using BWF.DataServices.Metadata.Attributes.Actions;\r\nusing Brady.");
+            this.Write("using BWF.DataServices.Metadata.Attributes.Actions;\r\nusing ");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            this.Write(".Domain;\r\n\r\nnamespace ");
+            
+            #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 18 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RecordTypes\RecordTypeTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

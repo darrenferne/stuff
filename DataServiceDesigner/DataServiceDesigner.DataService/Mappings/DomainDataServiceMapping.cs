@@ -14,6 +14,15 @@ namespace DataServiceDesigner.DataService
 
             Property(x => x.Name, m => m.NotNullable(true));
             
+            ManyToOne(x => x.Solution, m =>
+            {
+                m.Column("solutionid");
+                m.NotNullable(true);
+                m.Cascade(Cascade.Persist);
+                m.Fetch(FetchKind.Join);
+                m.Lazy(LazyRelation.NoLazy);
+            });
+
             ManyToOne(x => x.Connection, m =>
             {
                 m.Column("connectionid");

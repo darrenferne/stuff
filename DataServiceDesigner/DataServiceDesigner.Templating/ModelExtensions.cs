@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace DataServiceDesigner.Templating
 {
-    public static class DomainDataServiceExtensions
+    public static class ModelExtensions
     {
+        public static string GetNamespace(this DomainDataService dataService)
+        {
+            return dataService.Solution?.GetNamespace();
+        }
+        public static string GetNamespace(this DataServiceSolution solution)
+        {
+            return string.IsNullOrEmpty(solution.NamespacePrefix) ? Defaults.NamespacePrefix : solution.NamespacePrefix;
+        }
         public static PropertyType GetKeyType(this DomainObject domainObject)
         {
             return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? PropertyType.Undefined;

@@ -30,17 +30,31 @@ namespace DataServiceDesigner.Templating.DataService.Host
         {
             this.Write("using BWF.DataServices.Nancy.Interfaces;\r\nusing BWF.DataServices.StartUp.Concrete" +
                     ";\r\nusing BWF.Globalisation.Concrete;\r\nusing BWF.Globalisation.Interfaces;\r\nusing" +
-                    " log4net.Config;\r\nusing Brady.");
+                    " log4net.Config;\r\nusing ");
             
             #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.GetNamespace()));
             
             #line default
             #line hidden
-            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            this.Write(".");
+            
+            #line 13 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Domain;\r\n\r\nnamespace ");
             
             #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 15 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
             
             #line default
             #line hidden
@@ -62,25 +76,25 @@ namespace DataServiceDesigner.Templating.DataService.Host
                     ");
             
             #line 30 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
             
             #line default
             #line hidden
-            this.Write("Constants.DataServiceName, // service name\r\n                    ");
+            this.Write("Constants.ServiceName, // service name\r\n                    ");
             
             #line 31 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
             
             #line default
             #line hidden
-            this.Write("Constants.DataServiceDisplayName, // service display name\r\n                    ");
+            this.Write("Constants.ServiceDisplayName, // service display name\r\n                    ");
             
             #line 32 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataServiceSolution.Name));
             
             #line default
             #line hidden
-            this.Write(@"Constants.DataServiceDescription, // service description
+            this.Write(@"Constants.ServiceDescription, // service description
                     config.HostUrl,
                     null,
                     globalisationProvider);
@@ -96,16 +110,16 @@ namespace DataServiceDesigner.Templating.DataService.Host
         
         #line 1 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService.Host\ProgramTemplate.tt"
 
-private global::DataServiceDesigner.Domain.DomainDataService _DomainDataServiceField;
+private global::DataServiceDesigner.Domain.DataServiceSolution _DataServiceSolutionField;
 
 /// <summary>
-/// Access the DomainDataService parameter of the template.
+/// Access the DataServiceSolution parameter of the template.
 /// </summary>
-private global::DataServiceDesigner.Domain.DomainDataService DomainDataService
+private global::DataServiceDesigner.Domain.DataServiceSolution DataServiceSolution
 {
     get
     {
-        return this._DomainDataServiceField;
+        return this._DataServiceSolutionField;
     }
 }
 
@@ -117,18 +131,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool DomainDataServiceValueAcquired = false;
-if (this.Session.ContainsKey("DomainDataService"))
+bool DataServiceSolutionValueAcquired = false;
+if (this.Session.ContainsKey("DataServiceSolution"))
 {
-    this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(this.Session["DomainDataService"]));
-    DomainDataServiceValueAcquired = true;
+    this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(this.Session["DataServiceSolution"]));
+    DataServiceSolutionValueAcquired = true;
 }
-if ((DomainDataServiceValueAcquired == false))
+if ((DataServiceSolutionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DomainDataService");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DataServiceSolution");
     if ((data != null))
     {
-        this._DomainDataServiceField = ((global::DataServiceDesigner.Domain.DomainDataService)(data));
+        this._DataServiceSolutionField = ((global::DataServiceDesigner.Domain.DataServiceSolution)(data));
     }
 }
 

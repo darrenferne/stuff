@@ -6,7 +6,8 @@ namespace DataServiceDesigner.Domain
     {
         public MetadataBundle()
             : base("dataservicedesigner",
-                new DataServiceConnectionMetadata(), 
+                new DataServiceSolutionMetadata(),
+                new DataServiceConnectionMetadata(),
                 new DomainDataServiceMetadata(),
                 new DomainSchemaMetadata(),
                 new DomainObjectMetadata(),

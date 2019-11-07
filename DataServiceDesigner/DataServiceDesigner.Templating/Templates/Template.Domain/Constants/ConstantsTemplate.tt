@@ -5,13 +5,11 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-namespace Brady.<#=DomainDataService.Name#>.Domain
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain
 {
     public class <#=DomainDataService.Name#>Constants
     {
-        public const string DataServiceName = "<#=DomainDataService.Name#>";
-        public const string DataServiceDisplayName = "Template Data Service";
-        public const string DataServiceDescription = "Template Data Service";
-        public const string DataServiceSchema = "<#=DomainDataService.GetDefaultSchema()#>";
+		public const string DataServiceName = "<#=DomainDataService.Name#>";
+		public const string DataServiceSchema = "<#=DomainDataService.GetDefaultSchema()#>";
     }
 }

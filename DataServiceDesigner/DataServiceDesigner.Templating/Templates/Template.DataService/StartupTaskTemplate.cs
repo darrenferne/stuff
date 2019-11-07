@@ -29,7 +29,14 @@ namespace DataServiceDesigner.Templating.DataService
         public virtual string TransformText()
         {
             this.Write("using BWF.DataServices.Core.Interfaces;\r\nusing System;\r\nusing System.Collections." +
-                    "Generic;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\n\r\nnamespace Brady.");
+                    "Generic;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\n\r\nnamespace ");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\StartupTaskTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\StartupTaskTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

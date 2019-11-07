@@ -8,7 +8,7 @@
 using System;
 using System.Configuration;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService.Host
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService.Host
 {
     public class HostConfiguration
     {

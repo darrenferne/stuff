@@ -9,7 +9,7 @@
 using BWF.DataServices.Metadata.Interfaces;
 using System;
 
-namespace Brady.<#=DomainDataService.Name#>.Domain
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain
 {
 <#if (CurrentObject.SupportsIHaveId()) {#> 
     public class <#=CurrentObject.ObjectName#> : IHaveId<<#=CurrentObject.GetKeyType()#>>

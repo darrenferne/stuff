@@ -5,6 +5,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".csproj" #>
+<#var namespacePrefix = DomainDataService.GetNamespace();#>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -24,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Brady.<#=DomainDataService.Name#>.Domain\Brady.<#=DomainDataService.Name#>.Domain.csproj" />
+    <ProjectReference Include="..\\<#=namespacePrefix#>.<#=DomainDataService.Name#>.Domain\\<#=namespacePrefix#>.<#=DomainDataService.Name#>.Domain.csproj" />
   </ItemGroup>
 
 </Project>

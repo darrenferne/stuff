@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainDataServiceExtensions.cs" />
+    <Compile Include="ModelExtensions.cs" />
     <Compile Include="Templates\Scripts\OracleScriptTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -59,6 +59,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SolutionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Template.DataService.Host\Setup\ConstantsTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConstantsTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Templates\Template.DataService.Host\ProgramTemplate.cs">
       <AutoGen>True</AutoGen>
@@ -181,6 +186,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SolutionTemplate.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ConstantsTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Template.DataService.Host\ProgramTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

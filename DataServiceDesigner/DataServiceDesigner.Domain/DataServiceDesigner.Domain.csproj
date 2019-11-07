@@ -59,9 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Defaults.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Enums\ReferenceType.cs" />
     <Compile Include="Metadata\DataServiceConnectionMetadata.cs" />
+    <Compile Include="Metadata\DataServiceSolutionMetadata.cs" />
     <Compile Include="Metadata\DomainDataServiceMetadata.cs" />
     <Compile Include="Metadata\DomainObjectReferencePropertyMetadata.cs" />
     <Compile Include="Metadata\DomainObjectReferenceMetadata.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Metadata\DomainObjectPropertyMetadata.cs" />
     <Compile Include="Metadata\DomainSchemaMetadata.cs" />
     <Compile Include="Models\DataServiceConnection.cs" />
+    <Compile Include="Models\DataServiceSolution.cs" />
     <Compile Include="Models\DomainDataService.cs" />
     <Compile Include="Metadata\MetadataBundle.cs" />
     <Compile Include="Models\DomainObjectReferenceProperty.cs" />

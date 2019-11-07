@@ -17,17 +17,26 @@ namespace DataServiceDesigner.Domain
                 .IsHiddenInEditor()
                 .IsNotEditableInGrid();
 
-            StringProperty(x => x.Name)
+            TypeProperty(p => p.Solution)
+                .DisplayName("Solution")
                 .PositionInEditor(1)
+                .PopulateChoiceQuery("'dataservicedesigner/query/DataServiceSolutions?$orderby=Name'")
+                .DisplayFieldInEditorChoice(nameof(DataServiceConnection.Name))
+                .ValueFieldInEditorChoice(nameof(DataServiceConnection.Id))
+                .IsNotEditableInGrid();
+
+            StringProperty(x => x.Name)
+                .PositionInEditor(2)
+                .DisplayName("Data Service Name")
                 .Parameter(p => p
                     .Query("DomainDataServices?$orderby=Name")
                     .DisplayProperty(o => o.Name)
                     .AllowNullOrEmpty()
                     .AvailableOperators(Operator.Equals));
-            
+
             TypeProperty(p => p.Connection)
                 .DisplayName("Connection")
-                .PositionInEditor(2)
+                .PositionInEditor(3)
                 .PopulateChoiceQuery("'dataservicedesigner/query/DataServiceConnections?$orderby=Name'")
                 .DisplayFieldInEditorChoice(nameof(DataServiceConnection.Name))
                 .ValueFieldInEditorChoice(nameof(DataServiceConnection.Id))
@@ -39,20 +48,10 @@ namespace DataServiceDesigner.Domain
                 .CustomControl("cc-domainSchemas")
                 .CustomControlHeight(300);
 
-            //ExpandsForEdit()
-            //    .Property(p => p.Connection)
-            //    .Property(p => p.Schemas[0].DataService)
-            //    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object)
-            //    .Property(p => p.Schemas[0].References[0].Schema)
-            //    .Property(p => p.Schemas[0].References[0].Parent)
-            //    .Property(p => p.Schemas[0].References[0].Child)
-            //    .Property(p => p.Schemas[0].References[0].Properties[0].Reference)
-            //    .Property(p => p.Schemas[0].References[0].Properties[0].ParentProperty)
-            //    .Property(p => p.Schemas[0].References[0].Properties[0].ChildProperty);
-            ////    .Property(p => p.Schemas[0].Objects[0].Properties[0].Object);
-
             ViewDefaults()
+                .Property(x => x.Solution.Name)
                 .Property(x => x.Name)
+                .OrderBy(x => x.Solution.Name)
                 .OrderBy(x => x.Name);
         }
     }

@@ -13,9 +13,9 @@ using BWF.DataServices.Core.Abstract;
 using BWF.DataServices.Support.NHibernate.Abstract;
 <#}#>
 using BWF.DataServices.Metadata.Attributes.Actions;
-using Brady.<#=DomainDataService.Name#>.Domain;
+using <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
 	[ViewAction("<#=CurrentObject.DisplayName#>")]
 <#if (CurrentObject.SupportsIHaveId()) {#>

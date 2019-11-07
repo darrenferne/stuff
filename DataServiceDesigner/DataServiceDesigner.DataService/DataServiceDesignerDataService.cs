@@ -6,6 +6,7 @@ using BWF.Hosting.Infrastructure.Interfaces;
 using FluentValidation;
 using System.Collections.Generic;
 using BWF.DataServices.Core.Menu;
+using DataServiceDesigner.Domain;
 
 namespace DataServiceDesigner.DataService
 {
@@ -30,57 +31,32 @@ namespace DataServiceDesigner.DataService
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
         }
 
+        private MenuItem CreateMenuForModel(string model, string displayName, int position = 0)
+        {
+            return new MenuItem
+            {
+                Id = $"{Constants.DataServiceName}-{model}",
+                Text = displayName,
+                Position = position,
+                Link = $"{{appSetting-ExplorerHostUrl}}/view/#default/{Constants.DataServiceName}/{model}"
+            };
+        }
         public override IEnumerable<MenuItem> GetCustomMenus()
         {
             var menu = new List<MenuItem>()
             {
                 new MenuItem() {
-                    Id = "DataServiceDesigner",
-                    Text = "Data Service Designer",
+                    Id = Constants.DataServiceName,
+                    Text = Constants.DataServiceDisplayName,
                     Position = -1,
                     Items = new List<MenuItem>() {
-                        new MenuItem()
-                        {
-                            Id = "DomainDataService",
-                            Text = "Domain Data Services",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainDataService",
-                            Position = 1
-                        },
-                        new MenuItem()
-                        {
-                            Id = "DomainConnection",
-                            Text = "Domain Connections",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DataServiceConnection",
-                            Position = 2
-                        },
-                        new MenuItem()
-                        {
-                            Id = "DomainSchema",
-                            Text = "Domain Schemas",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainSchema",
-                            Position = 3
-                        },
-                        new MenuItem()
-                        {
-                            Id = "DomainObject",
-                            Text = "Domain Objects",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObject",
-                            Position = 4
-                        },
-                        new MenuItem()
-                        {
-                            Id = "DomainObjectProperty",
-                            Text = "Domain Object Properties",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectProperty",
-                            Position = 5
-                        },
-                        new MenuItem()
-                        {
-                            Id = "DomainObjectReference",
-                            Text = "Domain Object References",
-                            Link = "{{appSetting-ExplorerHostUrl}}/view/#default/dataservicedesigner/DomainObjectReference",
-                            Position = 5
-                        }
+                        CreateMenuForModel(nameof(DataServiceSolution), "Data Service Solution", 2),
+                        CreateMenuForModel(nameof(DataServiceConnection), "Data Service Connections", 2),
+                        CreateMenuForModel(nameof(DomainDataService), "Domain Data Services", 3),
+                        CreateMenuForModel(nameof(DomainSchema), "Domain Schemas", 4),
+                        CreateMenuForModel(nameof(DomainObject), "Domain Objects", 5),
+                        CreateMenuForModel(nameof(DomainObjectProperty), "Domain Object Properties", 6),
+                        CreateMenuForModel(nameof(DomainObjectReference), "Domain Object References", 7)
                     }
                 }
             };

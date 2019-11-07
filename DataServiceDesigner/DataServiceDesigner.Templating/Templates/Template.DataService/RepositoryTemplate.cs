@@ -30,14 +30,28 @@ namespace DataServiceDesigner.Templating.DataService
         {
             this.Write("using BWF.DataServices.Core.Interfaces;\r\nusing BWF.DataServices.Support.NHibernat" +
                     "e.Abstract;\r\nusing BWF.Globalisation.Interfaces;\r\nusing BWF.Hosting.Infrastructu" +
-                    "re.Interfaces;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing Brady.");
+                    "re.Interfaces;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing ");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RepositoryTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            this.Write(".Domain;\r\n\r\nnamespace ");
+            
+            #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RepositoryTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 16 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

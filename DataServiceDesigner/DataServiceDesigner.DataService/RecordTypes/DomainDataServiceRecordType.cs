@@ -2,6 +2,7 @@
 using BWF.DataServices.Core.Concrete.ChangeSets;
 using BWF.DataServices.Domain.Models;
 using BWF.DataServices.Metadata.Attributes.Actions;
+using BWF.DataServices.Metadata.Enums;
 using BWF.DataServices.Support.NHibernate.Abstract;
 using DataServiceDesigner.Domain;
 using System;
@@ -12,6 +13,20 @@ namespace DataServiceDesigner.DataService
     [CreateAction("Data Service")]
     [EditAction("Data Service")]
     [DeleteAction("Data Service")]
+    [JavascriptAction(1,
+        Name = "Generate Template",
+        DisplayName = "Generate Template",
+        Explanation = "Generate template code for the data service",
+        InvokableFor = InvokableFor.One,
+        ScriptModule =
+            @"
+            var baseUrl = scope.dataServiceUrl();
+            var dataServiceName = scope.selectedRecords()[0].record.Name;
+            var url = baseUrl  + '/generatetemplate/' + dataServiceName;
+            $(""#template"").remove();
+            $(""<iframe id='template' style='dsplay:none' src='"" + url +""'></iframe>"").appendTo('body');"
+    )]
+    
     public class DataServiceRecordType : ChangeableRecordType<DomainDataService, long, DomainDataServiceBatchValidator>
     {
         ISchemaBrowserHelpers _helpers;

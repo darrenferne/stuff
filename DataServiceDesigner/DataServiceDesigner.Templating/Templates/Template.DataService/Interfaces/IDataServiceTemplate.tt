@@ -7,7 +7,7 @@
 <#@ output extension=".cs" #>
 using BWF.DataServices.Core.Interfaces;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
     public interface I<#=DomainDataService.Name#>DataService : IDataService
     {

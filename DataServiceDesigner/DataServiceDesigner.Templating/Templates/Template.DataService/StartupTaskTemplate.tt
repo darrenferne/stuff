@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
     public class <#=DomainDataService.Name#>DataServiceStartup : IStartUpTask
     {

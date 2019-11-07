@@ -30,14 +30,28 @@ namespace DataServiceDesigner.Templating.DataService
         {
             this.Write("using BWF.DataServices.Core.Concrete.ChangeSets;\r\nusing BWF.DataServices.Support." +
                     "NHibernate.Abstract;\r\nusing BWF.DataServices.Support.NHibernate.Validators;\r\nusi" +
-                    "ng Brady.");
+                    "ng ");
+            
+            #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\BatchValidatorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 12 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\BatchValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));
             
             #line default
             #line hidden
-            this.Write(".Domain;\r\n\r\nnamespace Brady.");
+            this.Write(".Domain;\r\n\r\nnamespace ");
+            
+            #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\BatchValidatorTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.GetNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
             
             #line 14 "C:\git\stuff\DataServiceDesigner\DataServiceDesigner.Templating\Templates\Template.DataService\Validators\Model\BatchValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DomainDataService.Name));

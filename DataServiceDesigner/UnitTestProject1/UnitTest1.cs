@@ -121,10 +121,21 @@ namespace UnitTestProject1
                     }
                 }
             };
+            
+            DataServiceSolution solution = new DataServiceSolution()
+            {
+                NamespacePrefix = "Prefix",
+                ServiceName = "Test.Service",
+                ServiceDisplayName = "Test Service",
+                ServiceDescription = "Test Service",
+                CompanyName = "Test Co",
+                DataServices = new List<DomainDataService> { dataService }
+            };
+            dataService.Solution = solution;
 
             var outputPath = Path.Combine(Environment.CurrentDirectory, "Test");
             
-            generator.GenerateAllAndZip(dataService, outputPath);
+            generator.GenerateAllAndZip(solution, outputPath);
         }
     }
 }

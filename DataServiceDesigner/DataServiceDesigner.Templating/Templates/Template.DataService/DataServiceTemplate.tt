@@ -13,9 +13,9 @@ using BWF.Globalisation.Interfaces;
 using BWF.Hosting.Infrastructure.Interfaces;
 using FluentValidation;
 using System.Collections.Generic;
-using Brady.<#=DomainDataService.Name#>.Domain;
+using <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Domain;
 
-namespace Brady.<#=DomainDataService.Name#>.DataService
+namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.DataService
 {
     public class <#=DomainDataService.Name#>DataService : ConventionalDatabaseDataService<<#=DomainDataService.Name#>DataService>, I<#=DomainDataService.Name#>DataService
     {

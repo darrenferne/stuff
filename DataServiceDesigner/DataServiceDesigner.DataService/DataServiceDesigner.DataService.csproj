@@ -250,6 +250,7 @@
     <Compile Include="Interfaces\IDataServiceDesignerDataService.cs" />
     <Compile Include="Interfaces\IDataServiceDesignerRepository.cs" />
     <Compile Include="Interfaces\ISchemaBrowserHelpers.cs" />
+    <Compile Include="Mappings\DataServiceSolutionMapping.cs" />
     <Compile Include="Mappings\DataServiceConnectionMapping.cs" />
     <Compile Include="Mappings\DomainDataServiceMapping.cs" />
     <Compile Include="Mappings\DomainObjectReferenceMapping.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Mappings\DomainSchemaMapping.cs" />
     <Compile Include="Nancy\Modules\ApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordTypes\DataServiceSolutionRecordType.cs" />
     <Compile Include="RecordTypes\DataServiceConnectionRecordType.cs" />
     <Compile Include="RecordTypes\DomainDataServiceRecordType.cs" />
     <Compile Include="RecordTypes\DomainObjectReferencePropertyRecordType.cs" />
@@ -267,6 +269,8 @@
     <Compile Include="RecordTypes\DomainObjectRecordType.cs" />
     <Compile Include="RecordTypes\DomainSchemaRecordType.cs" />
     <Compile Include="SchemaBrowerHelpers.cs" />
+    <Compile Include="Validators\Solution\DataServiceSolutionBatchValidator.cs" />
+    <Compile Include="Validators\Solution\DataServiceSolutionValidator.cs" />
     <Compile Include="Validators\Connection\DataServiceConnectionBatchValidator.cs" />
     <Compile Include="Validators\Connection\DataServiceConnectionValidator.cs" />
     <Compile Include="Validators\DataService\DomainDataServiceBatchValidator.cs" />
@@ -299,6 +303,8 @@
     <Content Include="modules\cc-domainSchemas.js" />
     <Content Include="modules\cc-initialCatalog.js" />
     <Content Include="modules\cc-password.js" />
+    <Content Include="modules\cc-stringWithDependency.js" />
+    <Content Include="modules\cc-stringWithDefault.js" />
     <Content Include="modules\cc-username.js" />
     <Content Include="templates\cc-childObject.tmpl.html" />
     <Content Include="templates\cc-referenceProperties.tmpl.html" />
@@ -311,6 +317,8 @@
     <Content Include="templates\cc-domainSchemas.tmpl.html" />
     <Content Include="templates\cc-initialCatalog.tmpl.html" />
     <Content Include="templates\cc-password.tmpl.html" />
+    <Content Include="templates\cc-stringWithDependency.tmpl.html" />
+    <Content Include="templates\cc-stringWithDefault.tmpl.html" />
     <Content Include="templates\cc-username.tmpl.html" />
   </ItemGroup>
   <ItemGroup>
