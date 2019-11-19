@@ -38,6 +38,7 @@ namespace DataServiceDesigner.DataService
         public override void ConfigureMapper()
         {
             Mapper.CreateMap<DomainDataService, DomainDataService>()
+                .ForMember(m => m.Solution, o => o.Ignore())
                 .ForMember(m => m.Connection, o => o.Ignore())
                 .ForMember(m => m.Schemas, o => o.Ignore());
         }

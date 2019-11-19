@@ -15,7 +15,8 @@ namespace DataServiceDesigner.DataService
     {
         public override void ConfigureMapper()
         {
-            Mapper.CreateMap<DataServiceSolution, DataServiceSolution>();
+            Mapper.CreateMap<DataServiceSolution, DataServiceSolution>()
+                .ForMember(m => m.DataServices, o => o.Ignore()); 
         }
     }
 }
