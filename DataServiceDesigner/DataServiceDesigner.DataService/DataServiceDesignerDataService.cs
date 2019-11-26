@@ -56,7 +56,8 @@ namespace DataServiceDesigner.DataService
                         CreateMenuForModel(nameof(DomainSchema), "Domain Schemas", 4),
                         CreateMenuForModel(nameof(DomainObject), "Domain Objects", 5),
                         CreateMenuForModel(nameof(DomainObjectProperty), "Domain Object Properties", 6),
-                        CreateMenuForModel(nameof(DomainObjectReference), "Domain Object References", 7)
+                        CreateMenuForModel(nameof(DomainObjectReference), "Domain Object References", 7),
+                        CreateMenuForModel(nameof(DomainObjectReferenceProperty), "Domain Object Reference Properties", 8)
                     }
                 }
             };

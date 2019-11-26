@@ -7,12 +7,17 @@
             self.data = data;
             self.parentId = '#' + data.grid + '-' + data.metadata.name + '-bwf-property-control';
 
+
+            self.isNullOrEmpty = function (value) {
+                return value == null || value === "";
+            }
+
             var parameter = JSON.parse(data.metadata.customControlParameter);
             self.property = data.model.observables[data.metadata.name];
             self.default = parameter.default;
 
             self.initialise = function () {
-                if (self.property() == "") {
+                if (self.isNullOrEmpty(self.property())) {
                     self.property(self.default);
                 }
             };

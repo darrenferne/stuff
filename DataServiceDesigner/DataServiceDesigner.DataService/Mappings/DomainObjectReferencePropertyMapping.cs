@@ -16,7 +16,7 @@ namespace DataServiceDesigner.DataService
             {
                 m.Column("referenceid");
                 m.NotNullable(true);
-                m.Cascade(Cascade.Persist);
+                m.Cascade(Cascade.All);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
             });
@@ -25,16 +25,17 @@ namespace DataServiceDesigner.DataService
             {
                 m.Column("parentpropertyid");
                 m.NotNullable(true);
-                m.Cascade(Cascade.Persist);
+                m.Cascade(Cascade.All);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
+               
             });
 
             ManyToOne(x => x.ChildProperty, m =>
             {
                 m.Column("childpropertyid");
                 m.NotNullable(true);
-                m.Cascade(Cascade.Persist);
+                m.Cascade(Cascade.All);
                 m.Fetch(FetchKind.Join);
                 m.Lazy(LazyRelation.NoLazy);
             });

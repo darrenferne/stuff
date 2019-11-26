@@ -30,7 +30,7 @@ namespace DataServiceDesigner.DataService
                 m =>
                 {
                     m.Key(k => k.Column("objectid"));
-                    m.Cascade(Cascade.All);
+                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
                     m.Lazy(CollectionLazy.NoLazy);
                     m.Inverse(true);
                 },

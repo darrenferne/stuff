@@ -67,6 +67,8 @@ namespace DataServiceDesigner.Domain
                 .Property(x => x.Reference.ConstraintName)
                 .Property(x => x.ParentProperty.Object.ObjectName)
                 .Property(x => x.ParentProperty.PropertyName)
+                .Property(x => x.ChildProperty.Object.ObjectName)
+                .Property(x => x.ChildProperty.PropertyName)
                 .OrderBy(x => x.Reference.ReferenceName)
                 .OrderBy(x => x.ParentProperty.Object.ObjectName)
                 .OrderBy(x => x.ParentProperty.PropertyName);

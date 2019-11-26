@@ -39,7 +39,7 @@ namespace DataServiceDesigner.DataService
                 m =>
                 {
                     m.Key(k => k.Column("schemaid"));
-                    m.Cascade(Cascade.All.Include(Cascade.DeleteOrphans));
+                    m.Cascade(Cascade.All);
                     m.Lazy(CollectionLazy.NoLazy);
                     m.Inverse(true);
                 },

@@ -53,7 +53,9 @@ namespace DataServiceDesigner.Domain
 
             ExpandsForEdit()
                 .Property(p => p.DataService)
-                .Property(p => p.Objects);
+                .Property(p => p.Objects)
+                .Property(p => p.References);
+                
             ////    .Property(p => p.Objects[0].Properties[0].Object);
         }
     }
