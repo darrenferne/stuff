@@ -18,17 +18,17 @@ namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Data
         {
 <#for(int i = 0; i < CurrentObject.Properties.Count; i++) {#>
 <#var property = CurrentObject.Properties[i]; #>
+<#var maxLength = property.Length == -1 ? int.MaxValue: property.Length; #>
 <#if (property.RequiresValidation()) {#>
 			RuleFor(x => x.<#=property.PropertyName#>)
 <#if (!property.IsNullable) {#>
-                .NotNull()<#if (property.Length == 0) {#>;<# WriteLine(""); }#>
+                .NotNull()<#if (maxLength == 0) {#>;<#}#>
 <#}#>
-<#if (property.Length > 0) {#>
-<#if (!property.IsNullable) { WriteLine(""); }#>
+<#if (maxLength != 0) {#>
 <#if (property.IsNullable) {#>
-				.Length(0, <#=property.Length#>);<# WriteLine(""); #>
+				.Length(0, <#=maxLength#>);<# WriteLine(""); #>
 <#} else {#>
-				.Length(1, <#=property.Length#>);<# WriteLine(""); #>
+				.Length(1, <#=maxLength#>);<# WriteLine(""); #>
 <#}#>
 <#}#>
 <#if(i < CurrentObject.Properties.Count - 1) { WriteLine(""); }#>

@@ -9,6 +9,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainConstantsTemplate = DataServiceDesigner.Templating.Domain.ConstantsTemplate;
+using HostConstantsTemplate = DataServiceDesigner.Templating.DataService.Host.ConstantsTemplate;
 
 namespace DataServiceDesigner.Templating
 {
@@ -41,7 +43,7 @@ namespace DataServiceDesigner.Templating
             string content = projectTemplate.TransformText();
             File.WriteAllText(Path.Combine(outputFolder, $"{dataService.Solution.NamespacePrefix}.{dataService.Name}.Domain.csproj"), content);
 
-            ConstantsTemplate constantsTemplate = new ConstantsTemplate();
+            DomainConstantsTemplate constantsTemplate = new DomainConstantsTemplate();
             constantsTemplate.Session = session;
             constantsTemplate.Initialize();
             content = constantsTemplate.TransformText();
@@ -196,7 +198,7 @@ namespace DataServiceDesigner.Templating
             content = programTemplate.TransformText();
             File.WriteAllText(Path.Combine(outputFolder, $"Program.cs"), content);
 
-            ConstantsTemplate constantsTemplate = new ConstantsTemplate();
+            HostConstantsTemplate constantsTemplate = new HostConstantsTemplate();
             constantsTemplate.Session = session;
             constantsTemplate.Initialize();
             content = constantsTemplate.TransformText();
@@ -255,6 +257,9 @@ namespace DataServiceDesigner.Templating
                 {
                     var sqlScriptsFolder = Path.Combine(sqlScriptsBaseFolder, dataService.Name);
                     var oracleScriptsFolder = Path.Combine(oracleScriptsBaseFolder, dataService.Name);
+
+                    ReplaceDirectories(sqlScriptsFolder, oracleScriptsFolder);
+
                     foreach (var domainSchema in dataService.Schemas)
                     {
                         session["CurrentSchema"] = domainSchema;

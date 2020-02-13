@@ -8,6 +8,7 @@ namespace DataServiceDesigner.Domain
         public virtual long Id { get; set; }
         public virtual DataServiceSolution Solution { get; set; }
         public virtual string Name { get; set; }
+        public virtual string DisplayName { get; set; } 
         public virtual DataServiceConnection Connection { get; set; }
         public virtual IList<DomainSchema> Schemas{ get; set; }
     }

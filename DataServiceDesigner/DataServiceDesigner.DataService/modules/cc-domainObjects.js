@@ -52,7 +52,7 @@
                     }
                 }
                 if (pluralise) {
-                    if (displayName.substr(-2).toLower() === 'ty') {
+                    if (displayName.substr(-2).toLowerCase() === 'ty') {
                         displayName = displayName.substr(displayName.length - 2) + 'ties';
                     }
                     else {

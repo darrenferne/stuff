@@ -7,7 +7,7 @@
 <#@ output extension=".cs" #>
 namespace <#=DataServiceSolution.GetNamespace()#>.<#=DataServiceSolution.Name#>.Domain
 {
-    public class <#=DataServiceSolution.Name#>Constants
+    public class <#=DataServiceSolution.Name#>HostConstants
     {
         public const string ServiceName = "<#=DataServiceSolution.ServiceName#>";
         public const string ServiceDisplayName = "<#=DataServiceSolution.ServiceDisplayName#>";

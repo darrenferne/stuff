@@ -19,9 +19,33 @@ namespace DataServiceDesigner.Templating
         {
             return string.IsNullOrEmpty(solution.NamespacePrefix) ? Defaults.NamespacePrefix : solution.NamespacePrefix;
         }
-        public static PropertyType GetKeyType(this DomainObject domainObject)
+
+        public static string ToCSharpType(this PropertyType propertyType)
         {
-            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? PropertyType.Undefined;
+            switch (propertyType)
+            {
+                case PropertyType.Int32:
+                    return "int";
+                case PropertyType.Int64:
+                    return "long";
+                case PropertyType.Boolean:
+                    return "bool";
+                case PropertyType.DateTime:
+                case PropertyType.DateTimeOffset:
+                case PropertyType.Guid:
+                    return propertyType.ToString();
+                case PropertyType.String:
+                case PropertyType.Decimal:
+                case PropertyType.Double:
+                case PropertyType.Float:
+                    return propertyType.ToString().ToLower();
+                default:
+                    return string.Empty;
+            }
+        }
+        public static string GetKeyType(this DomainObject domainObject)
+        {
+            return (domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyType ?? PropertyType.Undefined).ToCSharpType();
         }
 
         public static string GetKeyProperty(this DomainObject domainObject)

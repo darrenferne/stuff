@@ -10,6 +10,7 @@ namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Doma
     public class <#=DomainDataService.Name#>Constants
     {
 		public const string DataServiceName = "<#=DomainDataService.Name#>";
+		public const string DataServiceDisplayName = "<#=string.IsNullOrEmpty(DomainDataService.DisplayName) ? DomainDataService.Name : DomainDataService.DisplayName#>";
 		public const string DataServiceSchema = "<#=DomainDataService.GetDefaultSchema()#>";
     }
 }

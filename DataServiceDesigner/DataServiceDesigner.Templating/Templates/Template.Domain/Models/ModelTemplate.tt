@@ -18,7 +18,7 @@ namespace <#=DomainDataService.GetNamespace()#>.<#=DomainDataService.Name#>.Doma
 <#}#>
     {
 <#foreach(var property in CurrentObject.Properties) {#>
-        public virtual <#=property.PropertyType#> <#=property.PropertyName#> { get; set; }
+        public virtual <#=property.PropertyType.ToCSharpType()#> <#=property.PropertyName#> { get; set; }
 <#}#>
     }
 }

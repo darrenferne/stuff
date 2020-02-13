@@ -20,16 +20,16 @@ namespace <#=DataServiceSolution.GetNamespace()#>.<#=DataServiceSolution.Name#>.
         {
             XmlConfigurator.Configure();
 
-            var config = HostConfiguration.Read();
+            var config = <#=DataServiceSolution.Name#>HostConfiguration.Read();
 
             IResourceQuerier resourceQuerier = new ResourceQuerier(typeof(BWF.Globalisation.Resources).Assembly);
             var globalisationProvider = new GlobalisationProvider(resourceQuerier, AvailableCultures.LanguageCultures, AvailableCultures.FormattingCultures);
 
             IDataServiceHostSettings hostSettings =
                 new DataServiceHostSettings(
-                    <#=DataServiceSolution.Name#>Constants.ServiceName, // service name
-                    <#=DataServiceSolution.Name#>Constants.ServiceDisplayName, // service display name
-                    <#=DataServiceSolution.Name#>Constants.ServiceDescription, // service description
+                    <#=DataServiceSolution.Name#>HostConstants.ServiceName,
+                    <#=DataServiceSolution.Name#>HostConstants.ServiceDisplayName,
+                    <#=DataServiceSolution.Name#>HostConstants.ServiceDescription,
                     config.HostUrl,
                     null,
                     globalisationProvider);

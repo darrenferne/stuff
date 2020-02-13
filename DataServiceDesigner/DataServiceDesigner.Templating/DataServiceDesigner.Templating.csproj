@@ -190,6 +190,7 @@
     <Content Include="Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ConstantsTemplate.cs</LastGenOutput>
+      <CustomToolNamespace>DataServiceDesigner.Templating.DataService.Host</CustomToolNamespace>
     </Content>
     <Content Include="Templates\Template.DataService.Host\ProgramTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
