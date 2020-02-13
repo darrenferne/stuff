@@ -78,13 +78,14 @@ namespace DataServiceDesigner.DataService
             async Task<DataServiceSolution> GetSolution(string solutionName)
             {
                 var builder = new QueryBuilder<DataServiceSolution>()
-                .Expand(p => p.DataServices[0].Connection)
-                .Expand(p => p.DataServices[0].Schemas)
-                .Expand(p => p.DataServices[0].Schemas[0].Objects)
-                .Expand(p => p.DataServices[0].Schemas[0].Objects[0].Properties)
-                .Expand(p => p.DataServices[0].Schemas[0].References)
-                .Expand(p => p.DataServices[0].Schemas[0].References[0].Properties)
-                .Filter(d => d.Property(p => p.Name).EqualTo(solutionName));
+                    .Expand(p => p.DataServices[0].Solution)
+                    .Expand(p => p.DataServices[0].Connection)
+                    .Expand(p => p.DataServices[0].Schemas)
+                    .Expand(p => p.DataServices[0].Schemas[0].Objects)
+                    .Expand(p => p.DataServices[0].Schemas[0].Objects[0].Properties)
+                    .Expand(p => p.DataServices[0].Schemas[0].References)
+                    .Expand(p => p.DataServices[0].Schemas[0].References[0].Properties)
+                    .Filter(d => d.Property(p => p.Name).EqualTo(solutionName));
 
                 var roleIds = await _authorisation.GetAdministratorRoleIdsAsync();
                 var queryResult = _dsdDataService.Query(new Query(builder.GetQuery()), BwfSystemUser, roleIds, string.Empty, _dshs.SystemToken, out var fault);

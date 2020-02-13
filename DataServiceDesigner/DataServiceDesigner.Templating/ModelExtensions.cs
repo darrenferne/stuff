@@ -26,7 +26,10 @@ namespace DataServiceDesigner.Templating
 
         public static string GetKeyProperty(this DomainObject domainObject)
         {
-            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyName ?? string.Empty;
+            if (domainObject.HasCompositeKey())
+                return string.Empty;
+
+            return domainObject.Properties?.SingleOrDefault(p => p.IsPartOfKey)?.PropertyName  ?? string.Empty;
         }
 
         public static bool HasCompositeKey(this DomainObject domainObject)

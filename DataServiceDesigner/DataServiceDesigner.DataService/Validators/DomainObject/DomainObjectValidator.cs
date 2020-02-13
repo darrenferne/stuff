@@ -10,7 +10,10 @@ namespace DataServiceDesigner.DataService
         {
             RuleFor(x => x.Id)
                  .GreaterThanOrEqualTo(0L);
-            
+
+            RuleFor(x => x.TableName)
+                .Length(1, 64);
+
             RuleFor(x => x.ObjectName)
                 .Length(1, 64);
 

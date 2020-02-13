@@ -12,21 +12,7 @@ namespace DataServiceDesigner.DataService
 {
     [CreateAction("Data Service")]
     [EditAction("Data Service")]
-    [DeleteAction("Data Service")]
-    [JavascriptAction(1,
-        Name = "Generate Template",
-        DisplayName = "Generate Template",
-        Explanation = "Generate template code for the data service",
-        InvokableFor = InvokableFor.One,
-        ScriptModule =
-            @"
-            var baseUrl = scope.dataServiceUrl();
-            var dataServiceName = scope.selectedRecords()[0].record.Name;
-            var url = baseUrl  + '/generatetemplate/' + dataServiceName;
-            $(""#template"").remove();
-            $(""<iframe id='template' style='dsplay:none' src='"" + url +""'></iframe>"").appendTo('body');"
-    )]
-    
+    [DeleteAction("Data Service")]    
     public class DataServiceRecordType : ChangeableRecordType<DomainDataService, long, DomainDataServiceBatchValidator>
     {
         ISchemaBrowserHelpers _helpers;
