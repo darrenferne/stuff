@@ -21,6 +21,7 @@ namespace DataServiceDesigner.Domain
         public virtual string ServiceName { get; set; }
         public virtual string ServiceDisplayName { get; set; }
         public virtual string ServiceDescription { get; set; }
+        public virtual int DefaultPort { get; set; }
         public virtual IList<DomainDataService> DataServices { get; set; }
     }
 }

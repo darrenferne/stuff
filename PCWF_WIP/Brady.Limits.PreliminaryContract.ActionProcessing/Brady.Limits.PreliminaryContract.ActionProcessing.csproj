@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="combined-bwf-nancy-dataservice" Version="2046.3.57" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brady.Limits.ActionProcessing.Core\Brady.Limits.ActionProcessing.Core.csproj" />
+    <ProjectReference Include="..\Brady.Limits.PreliminaryContract.Domain\Brady.Limits.PreliminaryContract.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Requests\External\" />
+  </ItemGroup>
+
+</Project>

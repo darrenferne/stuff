@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SolutionTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Template.DataService.Host\AppConfigTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppConfigTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Template.DataService.Host\Setup\ConstantsTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,6 +191,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SolutionTemplate.cs</LastGenOutput>
       <CustomToolNamespace>DataServiceDesigner.Templating</CustomToolNamespace>
+    </Content>
+    <Content Include="Templates\Template.DataService.Host\AppConfigTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AppConfigTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Template.DataService.Host\Setup\ConstantsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

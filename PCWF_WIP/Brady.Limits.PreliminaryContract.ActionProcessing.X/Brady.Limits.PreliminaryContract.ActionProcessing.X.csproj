@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <Copyright>Copyright © Brady Plc 2019</Copyright>
+    <Company>Brady Plc</Company>
+    <Authors>Brady Plc</Authors>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pipeline\PreliminaryContractActionProcessorRequirements.cs" />
+    <Compile Remove="Pipeline\PreliminaryContractStatePersistence.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="brady.fintrade.promotion" Version="2046.4.38" />
+    <PackageReference Include="combined-bwf-database-dataservice" Version="2046.3.57" />
+    <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brady.Limits.ActionProcessing.Core\Brady.Limits.ActionProcessing.Core.csproj" />
+    <ProjectReference Include="..\Brady.Limits.PreliminaryContract.Domain\Brady.Limits.PreliminaryContract.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
