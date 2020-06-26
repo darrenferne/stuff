@@ -78,7 +78,7 @@ namespace Brady.Limits.ActionProcessing.Core
             {
                 if (request is IStatePersistentRequest)
                 {
-                    _stateManager.Forward(RestoreStateRequest.New(request as IStatePersistentRequest));
+                    _stateManager.Tell(RestoreStateRequest.New(request as IStatePersistentRequest));
                 }
                 else
                 {

@@ -38,7 +38,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
             request.Request.SetState(currentState);
 
-            Sender.Forward(request.Request);
+            Sender.Tell(request.Request);
         }
 
         public void OnUpdateStateRequest(UpdateStateRequest request)
@@ -47,8 +47,8 @@ namespace Brady.Limits.ActionProcessing.Core
             var newState = request.Response.StateChange.NewState;
 
             _requirements.StatePersistence.SetCurrentState(originalRequest, newState);
-            
-            Sender.Forward(originalRequest);
+
+            Sender.Tell(originalRequest);
         }
     }
 }
