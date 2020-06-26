@@ -49,7 +49,7 @@
         public static ContractProcessingState Clone(this ContractProcessingState state, string newCurrentState = null, ContractState newContractState = null)
         {
             return new ContractProcessingState(
-                string.IsNullOrEmpty(newCurrentState) ? state.CurrentState : newCurrentState,
+                string.IsNullOrEmpty(newCurrentState) ? state.StateName : newCurrentState,
                 newContractState is null ? state.ContractState.Clone() : newContractState);
         }
 

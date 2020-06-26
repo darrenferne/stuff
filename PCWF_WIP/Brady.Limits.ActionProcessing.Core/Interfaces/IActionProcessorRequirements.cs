@@ -2,6 +2,8 @@
 {
     public interface IActionProcessorRequirements
     {
+        IActionProcessorAuthorisation Authorisation { get; }
+
         IActionPipelineConfiguration PipelineConfiguration { get; }
 
         IActionProcessingRequestPersistence RequestPersistence { get; }

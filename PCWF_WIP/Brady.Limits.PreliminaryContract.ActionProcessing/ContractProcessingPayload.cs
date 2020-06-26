@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ContractProcessingPayload : IActionProcessingPayload
+    public class ContractProcessingPayload : IActionRequestPayload
     {
         public ContractProcessingPayload(Contract contract, Guid? trackingReference = null)
         {

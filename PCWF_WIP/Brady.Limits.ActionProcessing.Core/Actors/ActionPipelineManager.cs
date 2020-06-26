@@ -65,8 +65,8 @@ namespace Brady.Limits.ActionProcessing.Core
 
             var canHandle = _requirements.PipelineConfiguration.ActionTypes.ContainsKey(request.ActionName);
 
-            if (!(request.CurrentState is null))
-                canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.CurrentState.CurrentState);
+            if (!(request.Context.CurrentState is null))
+                canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.Context.CurrentState.StateName);
 
             return canHandle;
         }
@@ -88,8 +88,8 @@ namespace Brady.Limits.ActionProcessing.Core
             var newState = response.StateChange.NewState;
 
             if (!(request is null) &&
-                request is IStatePersistentRequest &&
-                request.CurrentState != newState)
+                request is IRequestWithState &&
+                request.Context.CurrentState != newState)
             {
                 _stateManager.Tell(UpdateStateRequest.New(request, response));
                 return true;
@@ -100,9 +100,9 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void RestoreState(IActionRequest request)
         {
-            if (request is IStatePersistentRequest)
+            if (request is IRequestWithState)
             {
-                _stateManager.Tell(GetStateRequest.New(request as IStatePersistentRequest), Self);
+                _stateManager.Tell(GetStateRequest.New(request as IRequestWithState), Self);
             }
             else
             {
@@ -113,7 +113,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void ProcessAction(IActionRequest request)
         {
-            var currentStateName = request.CurrentState.CurrentState;
+            var currentStateName = request.Context.CurrentState.StateName;
             if (!string.IsNullOrEmpty(currentStateName))
             {
                 if (_requirements.PipelineConfiguration.AllowedStates.ContainsKey(currentStateName))
@@ -124,7 +124,7 @@ namespace Brady.Limits.ActionProcessing.Core
                         return Context.ActorOf(ActionManager.Props(_requirements, state), $"{ActionManager.Name}_{currentStateName}");
                     });
 
-                    processor.Forward(request);
+                    processor.Tell(request);
                 }
                 else
                 {
@@ -142,12 +142,14 @@ namespace Brady.Limits.ActionProcessing.Core
         {
             if (!(response is null))
             {
-                ProcessContinuation(response);
                 PublishResponse(response);
+
+                if (!ProcessContinuation(response))
+                    SetCompletion(response);
             }
         }
 
-        private void ProcessContinuation(IActionResponse response)
+        private bool ProcessContinuation(IActionResponse response)
         {
             if (response.Request is IContinuationRequest)
             {
@@ -159,7 +161,26 @@ namespace Brady.Limits.ActionProcessing.Core
                 {
                     var nextRequest = nextRequestDescriptor.ToRequest(actionRequest.PayloadType, response.StateChange.NewPayload, response.StateChange.NewState);
                     Self.Tell(nextRequest);
+                    return true;
                 }
+            }
+
+            return false;
+        }
+
+        private void SetCompletion(IActionResponse response)
+        {
+            if (response.Request is IActionRequest)
+            {
+                var request = response.Request as IActionRequest;
+                var completionResponse = new ActionResponse(request.Context.OriginatingRequest, response.StateChange);
+
+                if (!(request.Context.CompletionSource is null))
+                {
+                    request.Context.CompletionSource.TrySetResult(completionResponse);
+                }
+
+                PublishResponse(completionResponse);
             }
         }
 
@@ -181,7 +202,7 @@ namespace Brady.Limits.ActionProcessing.Core
             //TODO add error handling and logging
             SavePendingRequest(request);
 
-            if (request.CurrentState is null)
+            if (request.Context.CurrentState is null)
             {
                 RestoreState(request);
             }
@@ -207,7 +228,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void OnUnhandledRequest(IActionRequest request)
         {
-            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The specified current state '{request.CurrentState.CurrentState}' is not a known state."));
+            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state."));
         }
 
         private void OnStateUpdated(UpdateStateResponse response)
@@ -219,7 +240,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void OnStateRetrieved(GetStateResponse response)
         {
-            var originalRequest = response.ForRequest as IStatePersistentRequest;
+            var originalRequest = response.ForRequest as IRequestWithState;
             originalRequest.SetState(response.CurrentState);
 
             ProcessAction(originalRequest);

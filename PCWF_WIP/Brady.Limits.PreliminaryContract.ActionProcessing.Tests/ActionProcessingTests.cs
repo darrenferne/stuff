@@ -40,7 +40,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 
         private IActionProcessor GetProcessor(bool start = true, bool withRecovery = false)
         {
-            var requirements = new TestProcessorRequirements(new PreliminaryContractActionPipelineConfiguration(_kernel), _requestPersistence, _statePersistence, _responseObserver);
+            var requirements = new TestProcessorRequirements(new PreliminaryContractActionPipelineConfiguration(_kernel), _requestPersistence, _statePersistence, null, _responseObserver);
 
             var processor = new ActionProcessor(requirements, Sys);
 
@@ -72,7 +72,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             processor.ProcessAction(request);
             
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => r.Request == request && r.StateChange.NewState.CurrentState == "AvailableForApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => r.Request == request && r.StateChange.NewState.StateName == "AvailableForApproval"));
             },
             assertTimeout, assertInterval);
         }

@@ -65,9 +65,6 @@ namespace Brady.Limits.ActionProcessing.Core
                 var stateChange = action.Invoke(request);
                 var response = new ActionResponse(request, stateChange);
 
-                if (Sender.Path != Context.Parent.Path && !request.IsRecoveryRequest)
-                    Sender.Tell(response);
-
                 Context.Parent.Tell(response);
             }
             catch (Exception ex)
@@ -78,7 +75,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public void OnUnhandledRequest(IActionRequest request)
         {
-            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state: '{request.CurrentState.CurrentState}'."));
+            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state: '{request.Context.CurrentState.StateName}'."));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public virtual IActionProcessingStateChange OnError(TRequest request, Exception ex)
         {
-            return new FailureStateChange(request.Payload, request.CurrentState, FormatError(ex.Message));
+            return new FailureStateChange(request.Payload, request.Context.CurrentState, FormatError(ex.Message));
         }
 
         IActionProcessingStateChange IAllowedAction.Invoke(IActionRequest request)

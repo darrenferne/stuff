@@ -8,7 +8,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public ContractProcessingState(string currentState, object externalState = null)
             : base(currentState, externalState)
         { }
-        public ContractState ContractState => ExternalState as ContractState;
+        public ContractState ContractState => ExtendedState as ContractState;
         
         public static ContractProcessingState New(string currentState, object externalState = null) => new ContractProcessingState(currentState, externalState);
     }

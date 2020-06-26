@@ -21,7 +21,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public override IActionProcessingStateChange OnInvoke(TRequest request)
         {
             var contract = request.Payload as Contract;
-            var contractProcessingState = request.CurrentState as ContractProcessingState;
+            var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;
             if (!contractState.IsValid.HasValue)

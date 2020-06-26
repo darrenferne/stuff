@@ -15,24 +15,12 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
         {
             public TestRequirements(IKernel kernel)
             {
-                PipelinePersistenceMock = new Mock<IActionProcessingRequestPersistence>();
-
-                PipelinePersistenceMock
-                    .Setup(p => p.GetPendingRequests())
-                    .Returns(new List<IActionRequest>());
-
-                PipelinePersistenceMock
-                    .Setup(p => p.SavePendingRequest(It.IsAny<IActionRequest>()));
-
-                PipelinePersistenceMock
-                    .Setup(p => p.DeletePendingRequest(It.IsAny<Guid>()));
-
-                RequestPersistence = PipelinePersistenceMock.Object;
-
-                ActionFactory = new TestActionFactory(kernel);
+                RequestPersistence = new TestRequestPersistence();
+                StatePersistence = new TestStatePersistence();
+                var actionFactory = new TestActionFactory(kernel);
 
                 PipelineConfiguration = new ActionPipelineConfiguration(
-                    ActionFactory,
+                    actionFactory,
                     "TestPipeline", "Zero",
                     new AllowedState("Zero",
                         nameof(Add)),
@@ -43,9 +31,8 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
                 );
             }
 
-            public IActionFactory ActionFactory { get; }
+            public IActionProcessorAuthorisation Authorisation { get; }
             public IActionPipelineConfiguration PipelineConfiguration { get; }
-            internal Mock<IActionProcessingRequestPersistence> PipelinePersistenceMock { get; }
             public IActionProcessingRequestPersistence RequestPersistence { get; }
             public IActionProcessingStatePersistence StatePersistence { get; }
             public IActionResponseObserver ActionResponseObserver { get; }

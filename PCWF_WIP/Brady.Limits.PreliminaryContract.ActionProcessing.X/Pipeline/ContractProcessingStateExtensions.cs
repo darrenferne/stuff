@@ -5,8 +5,8 @@
         public static ContractProcessingState Clone(this ContractProcessingState state, string newCurrent = null, object newExternal = null)
         {
             return new ContractProcessingState(
-                string.IsNullOrEmpty(newCurrent) ? state.CurrentState : newCurrent,
-                newExternal is null ? state.ExternalState : newExternal)
+                string.IsNullOrEmpty(newCurrent) ? state.StateName : newCurrent,
+                newExternal is null ? state.ExtendedState : newExternal)
             {
                 IsInFlight = state.IsInFlight,
                 IsMaterialChange = state.IsMaterialChange,

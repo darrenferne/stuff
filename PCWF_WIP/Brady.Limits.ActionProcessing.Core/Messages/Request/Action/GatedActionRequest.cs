@@ -5,7 +5,7 @@ using System.Linq;
 namespace Brady.Limits.ActionProcessing.Core
 {
     public class GatedActionRequest<TPayload> : ActionRequest<TPayload>, IContinuationRequest
-        where TPayload : IActionProcessingPayload
+        where TPayload : IActionRequestPayload
     {
         public GatedActionRequest(Guid requestId, string actionName, TPayload payload, params GateDescriptor[] gates)
             : base(requestId, actionName, payload)
@@ -31,7 +31,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public ActionRequestDescriptor NextRequest(IActionProcessingState state)
         {
-            return Gates.ContainsKey(state.CurrentState) ? Gates[state.CurrentState] : null;
+            return Gates.ContainsKey(state.StateName) ? Gates[state.StateName] : null;
         }
     }
 }
