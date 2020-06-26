@@ -18,7 +18,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
             _requirements = requirements;
 
-            Receive<RestoreStateRequest>(request => OnRestoreStateRequest(request));
+            Receive<GetStateRequest>(request => OnRestoreStateRequest(request));
             Receive<UpdateStateRequest>(request => OnUpdateStateRequest(request));
         }
 
@@ -30,25 +30,20 @@ namespace Brady.Limits.ActionProcessing.Core
             return Akka.Actor.Props.Create(() => new ActionStateManager(requirements));
         }
                 
-        public void OnRestoreStateRequest(RestoreStateRequest request)
+        public void OnRestoreStateRequest(GetStateRequest request)
         {
-            var currentState = _requirements.StatePersistence.GetCurrentState(request.Request);
+            var currentState = _requirements.StatePersistence.GetCurrentState(request.ForRequest);
             if (currentState is null)
-                currentState = _requirements.StatePersistence.GetInitialState(request.Request);
+                currentState = _requirements.StatePersistence.GetInitialState(request.ForRequest);
 
-            request.Request.SetState(currentState);
-
-            Sender.Forward(request.Request);
+            Sender.Tell(GetStateResponse.New(request, currentState));
         }
 
         public void OnUpdateStateRequest(UpdateStateRequest request)
         {
-            var originalRequest = request.Response.Request as IActionRequest;
-            var newState = request.Response.StateChange.NewState;
-
-            _requirements.StatePersistence.SetCurrentState(originalRequest, newState);
+           _requirements.StatePersistence.SetCurrentState(request.ForRequest, request.ForRequestResponse.StateChange.NewState);
             
-            Sender.Forward(originalRequest);
+            Sender.Tell(UpdateStateResponse.New(request, request.ForRequest));
         }
     }
 }
