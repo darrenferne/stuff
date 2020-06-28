@@ -1,6 +1,6 @@
 ﻿namespace Brady.Limits.ActionProcessing.Core.Tests
 {
-    public class Add : AllowedAction<ActionRequest<IntegerPayload>>
+    public class Add : AllowedAction<ActionRequest<IntegerPayload>>, IExternalAction
     {
         public Add(TestActionIoC injected)
         {

@@ -11,6 +11,6 @@ namespace Brady.Limits.ActionProcessing.Core
         IActionProcessorUser User { get; }
         IActionRequest OriginatingRequest { get; }
         IActorRef OriginatingActor { get; }
-        TaskCompletionSource<IActionResponse> CompletionSource { get; }
+        TaskCompletionSource<IResponse> CompletionSource { get; }
     }
 }

@@ -46,13 +46,12 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
         {
             IAllowedAction action = new TestAction();
 
-            var currentState = TestState.New("One");
-            var currentValue = IntegerPayload.New(1);
+            var currentPayload = IntegerPayload.New(1);
             var expectedState = TestState.New("OneMore");
-            var expectedValue = IntegerPayload.New(2);
-            var stateChange = action.Invoke(new ActionRequest<IntegerPayload>("TestAction", currentValue));
+            var expectedValue = 2;
+            var stateChange = action.Invoke(new ActionRequest<IntegerPayload>("TestAction", currentPayload));
 
-            Assert.AreEqual(expectedValue, stateChange.NewPayload);
+            Assert.AreEqual(expectedValue, stateChange.NewPayload.Object);
             Assert.AreEqual(expectedState.StateName, stateChange.NewState.StateName);
             Assert.AreEqual(1, stateChange.Messages.Count());
             Assert.AreEqual("Happy Path", stateChange.Messages.First());

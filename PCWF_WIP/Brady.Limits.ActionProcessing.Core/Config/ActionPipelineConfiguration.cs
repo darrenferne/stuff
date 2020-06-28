@@ -6,7 +6,7 @@ namespace Brady.Limits.ActionProcessing.Core
 {
     public class ActionPipelineConfiguration : IActionPipelineConfiguration
     {
-        public ActionPipelineConfiguration(IActionFactory actionFactory, string name, string defaultState, params AllowedState[] states)
+        public ActionPipelineConfiguration(IActionFactory actionFactory, string name, params AllowedState[] states)
         {
             var factoryRequired = states?
                 .SelectMany(s => s.AllowedActions)
@@ -16,7 +16,6 @@ namespace Brady.Limits.ActionProcessing.Core
                 throw new ActionProcessorException("An action factory is require when state actions are defined by name only");
 
             Name = name;
-            DefaultState = defaultState;
 
             AllowedStates = states?
                 .ToDictionary(s => s.Name);
@@ -39,20 +38,19 @@ namespace Brady.Limits.ActionProcessing.Core
             ActionFactory = actionFactory;
         }
 
-        public ActionPipelineConfiguration(string name, string defaultState, params AllowedState[] states)
-            : this(null, name, defaultState, states)
+        public ActionPipelineConfiguration(string name, params AllowedState[] states)
+            : this(null, name, states)
         { }
 
         public ActionPipelineConfiguration(IActionFactory actionFactory, params AllowedState[] states)
-            : this(actionFactory, string.Empty, string.Empty,  states)
+            : this(actionFactory, string.Empty,  states)
         { }
 
         public ActionPipelineConfiguration(params AllowedState[] states)
-            : this(null, string.Empty, string.Empty, states)
+            : this(null, string.Empty, states)
         { }
 
         public string Name { get; set; }
-        public string DefaultState { get; set; }
         public Dictionary<string, AllowedState> AllowedStates { get; }
         public Dictionary<string, Type> ActionTypes { get; }
         public IActionFactory ActionFactory { get; }

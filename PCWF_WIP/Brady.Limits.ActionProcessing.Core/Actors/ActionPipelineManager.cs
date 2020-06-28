@@ -32,6 +32,7 @@ namespace Brady.Limits.ActionProcessing.Core
                                    request => CanHandleRequest(request));
             
             Receive<IActionRequest>(request => OnUnhandledRequest(request));
+            Receive<UnhandledResponse>(response => OnUnhandledResponse(response));
 
             Receive<GetStateResponse>(response => OnStateRetrieved(response));
             Receive<UpdateStateResponse>(response => OnStateUpdated(response));
@@ -55,6 +56,15 @@ namespace Brady.Limits.ActionProcessing.Core
 
             foreach (IActionRequest pendingRequest in pendingRequests)
             {
+                if (pendingRequest is IRequestWithContext)
+                {
+                    var contextRequest = pendingRequest as IRequestWithContext;
+                    var user = new ActionProcessorUser(_requirements.Authorisation, _requirements.Authorisation?.SystemUserName);
+                    var context = new ActionRequestContext(user, Self, pendingRequest as IActionRequest, null, null);
+
+                    contextRequest.InitialiseContext(context);
+                }
+
                 Self.Tell(pendingRequest.FlagForRecovery());
             }
         }
@@ -106,8 +116,7 @@ namespace Brady.Limits.ActionProcessing.Core
             }
             else
             {
-                //TODO - Reject request
-                _log.Warning($"Could not process request for action '{request.ActionName}' ({request.RequestName}:{request.RequestId}). There is no current state defined for the request and state cannot be restored for a non-state persistent request");
+                SetRejected(request, $"Could not process request for action '{request.ActionName}' ({request.RequestName}:{request.RequestId}). There is no current state defined for the request and state cannot be restored for a non-state persistent request");
             }
         }
 
@@ -128,13 +137,12 @@ namespace Brady.Limits.ActionProcessing.Core
                 }
                 else
                 {
-                    Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{currentStateName}'."));
+                    SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{currentStateName}'.");
                 }
             }
             else
             {
-                //TODO - Reject request
-                _log.Warning($"Could not process request for action '{request.ActionName}' ({request.RequestName}:{request.RequestId}). There is no current state defined for the request");
+                SetRejected(request, $"Could not process request for action '{request.ActionName}' ({request.RequestName}:{request.RequestId}). There is no current state defined for the request");
             }
         }
 
@@ -159,7 +167,10 @@ namespace Brady.Limits.ActionProcessing.Core
 
                 if (!(nextRequestDescriptor is null))
                 {
-                    var nextRequest = nextRequestDescriptor.ToRequest(actionRequest.PayloadType, response.StateChange.NewPayload, response.StateChange.NewState);
+                    var nextRequest = nextRequestDescriptor.ToRequest(actionRequest.PayloadType, response.StateChange.NewPayload);
+                    if (nextRequest is IRequestWithContext && response.Request is IActionRequest)
+                        (nextRequest as IRequestWithContext).InitialiseContext((response.Request as IActionRequest).Context);
+
                     Self.Tell(nextRequest);
                     return true;
                 }
@@ -168,6 +179,22 @@ namespace Brady.Limits.ActionProcessing.Core
             return false;
         }
 
+        private void SetRejected(IActionRequest request, string message)
+        {
+            var response = new UnhandledResponse(request.Context.OriginatingRequest, message);
+            SetRejected(request.Context, response);
+        }
+
+        private void SetRejected(IActionRequestContext context, UnhandledResponse response)
+        {
+            _log.Warning(response.Message);
+            if (!(context.CompletionSource is null))
+            {
+                context.CompletionSource.TrySetResult(response);
+            }
+
+        }
+        
         private void SetCompletion(IActionResponse response)
         {
             if (response.Request is IActionRequest)
@@ -186,7 +213,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void PublishResponse(IActionResponse response)
         {
-            if (!(_requirements.ActionResponseObserver is null))
+            if (!(response is null) && !(_requirements.ActionResponseObserver is null))
             {
                 //Only publish responses to externally visible actions 
                 var actionName = (response.Request as IAllowedAction).Name;
@@ -228,19 +255,32 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void OnUnhandledRequest(IActionRequest request)
         {
-            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state."));
+            SetRejected(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state.");
         }
 
+        private void OnUnhandledResponse(UnhandledResponse response)
+        {
+            var context = (response.Request as IActionRequest).Context;
+
+            SetRejected(context, response);
+        }
+        
         private void OnStateUpdated(UpdateStateResponse response)
         {
-            var originalRequestResponse = (response.Request as UpdateStateRequest).ForRequestResponse;
+            var updateStateRequest = response.Request as UpdateStateRequest;
+            var originalRequest = updateStateRequest.ForRequest as IRequestWithState;
+            var originalRequestResponse = updateStateRequest.ForRequestResponse;
+            var newState = originalRequestResponse.StateChange.NewState;
 
+            originalRequest.SetState(newState);
+            
             ProcessActionResponse(originalRequestResponse);
         }
 
         private void OnStateRetrieved(GetStateResponse response)
         {
             var originalRequest = response.ForRequest as IRequestWithState;
+            
             originalRequest.SetState(response.CurrentState);
 
             ProcessAction(originalRequest);

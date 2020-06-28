@@ -11,7 +11,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     public class PreliminaryContractActionPipelineConfiguration : ActionPipelineConfiguration
     {
         public PreliminaryContractActionPipelineConfiguration(IKernel kernel)
-            : base(new ActionFactory(kernel), "preliminarycontractactionpipeline", nameof(Unknown),
+            : base(new ActionFactory(kernel), "preliminarycontractactionpipeline", 
                   new Unknown(),
                   new IsNew())
         { }

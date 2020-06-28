@@ -27,7 +27,7 @@ namespace Brady.Limits.ActionProcessing.Core
             IActorRef originatingActor,
             IActionRequest originatingRequest,
             IActionProcessingState currentState,
-            TaskCompletionSource<IActionResponse> completionSource)
+            TaskCompletionSource<IResponse> completionSource)
         {
             User = user;
             OriginatingRequest = originatingRequest;
@@ -40,6 +40,6 @@ namespace Brady.Limits.ActionProcessing.Core
         public IActionProcessorUser User { get; }
         public IActionRequest OriginatingRequest { get; }
         public IActorRef OriginatingActor { get; }
-        public TaskCompletionSource<IActionResponse> CompletionSource { get; }
+        public TaskCompletionSource<IResponse> CompletionSource { get; }
     }
 }

@@ -6,12 +6,12 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 {
     class TestStatePersistence : IActionProcessingStatePersistence
     {
-        private readonly string _initialState;
+        private readonly Func<IActionRequest, string> _getInitialState;
         private readonly Dictionary<Guid, IActionProcessingState> _stateStore;
 
-        public TestStatePersistence(string initialState = "Start")
+        public TestStatePersistence(Func<IActionRequest, string> getInitialState)
         {
-            _initialState = initialState;
+            _getInitialState = getInitialState;
             _stateStore = new Dictionary<Guid, IActionProcessingState>();
         }
         public IActionProcessingState GetCurrentState(IActionRequest request)
@@ -24,7 +24,8 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
         public IActionProcessingState GetInitialState(IActionRequest request)
         {
-            return new ActionProcessingState(_initialState);
+            var initialState = _getInitialState(request);
+            return new ActionProcessingState(initialState);
         }
 
         public void SetCurrentState(IActionRequest request, IActionProcessingState newState)

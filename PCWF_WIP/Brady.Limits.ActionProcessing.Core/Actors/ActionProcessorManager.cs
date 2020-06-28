@@ -58,6 +58,17 @@ namespace Brady.Limits.ActionProcessing.Core
             Sender.Tell(new Response(_state.ToString(), request));
         }
 
+        private void SetRejected(IActionRequest request, string message)
+        {
+            if (!(request is null))
+            {
+                var context = request.Context;
+                var response = UnhandledResponse.New(request, message);
+                Sender.Tell(response);
+                context.CompletionSource.TrySetResult(response);
+            }
+        }
+
         private bool ValidateStateAndAction(IActionRequest request)
         {
             var allowedStates = _requirements.PipelineConfiguration.AllowedStates;
@@ -65,13 +76,13 @@ namespace Brady.Limits.ActionProcessing.Core
 
             if (!allowedStates.ContainsKey(currentState) || !typeof(IExternalState).IsAssignableFrom(allowedStates[currentState].GetType()))
             {
-                Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state."));
+                SetRejected(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state.");
                 return false;
             }
 
             if (!allowedStates[currentState].AllowedActions.ContainsKey(request.ActionName))
             {
-                Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{request.Context.CurrentState.StateName}'."));
+                SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{request.Context.CurrentState.StateName}'.");
                 return false;
             }
 
@@ -82,12 +93,12 @@ namespace Brady.Limits.ActionProcessing.Core
         {
             if (!(_requirements.PipelineConfiguration.ActionTypes.ContainsKey(request.ActionName)))
             {
-                Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid."));
+                SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid.");
                 return false;
             }
             else if (!typeof(IExternalAction).IsAssignableFrom(_requirements.PipelineConfiguration.ActionTypes[request.ActionName]))
             {
-                Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not accessible."));
+                SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not accessible.");
                 return false;
             }
             return true;

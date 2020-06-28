@@ -20,47 +20,45 @@ namespace Brady.Limits.ActionProcessing.Core
         public Type RequestType { get; set; }
         public string ActionName { get; set; }
 
-        protected IActionRequest ConstructRequest(Type requestType, object payload, IActionProcessingState state)
+        protected IActionRequest ConstructRequest(Type requestType, IActionRequestPayload payload)
         {
             foreach(var constructor in requestType.GetConstructors())
             {
                 var parameters = constructor.GetParameters();
                 switch(parameters.Length)
                 {
-                    case 2:
-                        if (parameters[0].ParameterType.IsAssignableFrom(state.GetType()) &&
-                            parameters[1].ParameterType.IsAssignableFrom(payload.GetType()))
+                    case 1:
+                        if (parameters[0].ParameterType.IsAssignableFrom(payload.GetType()))
                         {
-                            return Activator.CreateInstance(requestType, state, payload) as IActionRequest;
+                            return Activator.CreateInstance(requestType, payload) as IActionRequest;
                         }
                         break;
-                    case 3:
+                    case 2:
                         if (parameters[0].ParameterType == typeof(string) && 
-                            parameters[1].ParameterType.IsAssignableFrom(state.GetType()) &&
-                            parameters[2].ParameterType.IsAssignableFrom(payload.GetType()))
+                            parameters[1].ParameterType.IsAssignableFrom(payload.GetType()))
                         {
-                            return Activator.CreateInstance(requestType, ActionName, state, payload) as IActionRequest;
+                            return Activator.CreateInstance(requestType, ActionName, payload) as IActionRequest;
                         }
                         break;
                 }
             }
             
-            throw new ActionProcessorException($"Could not find a suitable constructor for type: {requestType}");
+            throw new ActionProcessorException($"Could not find a suitable constructor for type: {requestType.Name}");
         }
 
-        public virtual IActionRequest ToRequest(Type payloadType, object payload, IActionProcessingState state)
+        public virtual IActionRequest ToRequest(Type payloadType, IActionRequestPayload payload)
         {
             if (RequestType.IsGenericType)
             {
                 var genericType = RequestType.MakeGenericType(payloadType);
 
-                return ConstructRequest(genericType, payload, state);
+                return ConstructRequest(genericType, payload);
             }
             else
             {
                 var payloadProperty = RequestType.GetProperty(nameof(IActionRequest.Payload), BindingFlags.Public | BindingFlags.Instance);
                 if (payloadType.IsAssignableFrom(payloadProperty.PropertyType))
-                    return ConstructRequest(RequestType, payload, state);
+                    return ConstructRequest(RequestType, payload);
 
                 throw new ActionProcessorException($"The request payload type is incompatible with the given action request descriptor '{RequestType.Name}'.");
             }

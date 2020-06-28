@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    [DebuggerDisplay("Action:{ActionName}, State:{CurrentState.CurrentStateName}")]
+    [DebuggerDisplay("Action:{ActionName}, State:{Context.CurrentState.StateName}")]
     public class ActionRequest<TPayload> : Request, IRequestWithState, IRequestWithContext
         where TPayload : IActionRequestPayload
     {

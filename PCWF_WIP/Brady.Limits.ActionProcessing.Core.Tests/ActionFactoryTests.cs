@@ -16,12 +16,11 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             public TestRequirements(IKernel kernel)
             {
                 RequestPersistence = new TestRequestPersistence();
-                StatePersistence = new TestStatePersistence();
+                StatePersistence = new TestStatePersistence((r) => "Zero");
                 var actionFactory = new TestActionFactory(kernel);
 
                 PipelineConfiguration = new ActionPipelineConfiguration(
-                    actionFactory,
-                    "TestPipeline", "Zero",
+                    actionFactory, "TestPipeline",
                     new AllowedState("Zero",
                         nameof(Add)),
                     new AllowedState("Positive",
@@ -76,10 +75,10 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             var processor = new ActionProcessor(requirements, Sys);
 
             processor.Start(false);
-            processor.ProcessAction(new ActionRequest<IntegerPayload>(nameof(Add), IntegerPayload.New(0)));
+            var response = processor.ProcessAction(new ActionRequest<IntegerPayload>(nameof(Add), IntegerPayload.New(0))).Result;
 
             AwaitAssert(() => {
-                Assert.AreEqual(1, (statePersistence.LastPayload as IntegerPayload).Value);
+                Assert.AreEqual(1, (statePersistence?.LastPayload as IntegerPayload)?.Value);
             }, 
             TimeSpan.FromSeconds(1));
         }
