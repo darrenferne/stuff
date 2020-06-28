@@ -8,6 +8,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
     {
         private readonly string _initialState;
         private readonly Dictionary<Guid, IActionProcessingState> _stateStore;
+
         public TestStatePersistence(string initialState = "Start")
         {
             _initialState = initialState;

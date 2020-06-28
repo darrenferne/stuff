@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Brady.Limits.ActionProcessing.Core
 {
     [DebuggerDisplay("ObjectType:{ActionName}, TrackingReference:{}, Payload:{CurrentState.Name}")]
-    public class ActionProcessingPayload<TPayload> : IActionProcessingPayload
+    public class ActionProcessingPayload<TPayload> : IActionRequestPayload
     {
         public ActionProcessingPayload(TPayload payload, Guid? trackingReference = null)
         {

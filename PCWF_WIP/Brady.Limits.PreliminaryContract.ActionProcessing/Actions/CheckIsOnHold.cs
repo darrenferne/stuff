@@ -17,7 +17,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public override IActionProcessingStateChange OnInvoke(CheckIsOnHoldRequest request)
         {
             var contract = request.Payload as Contract;
-            var contractProcessingState = request.CurrentState as ContractProcessingState;
+            var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;
             if (!contractState.IsOnHold.HasValue)

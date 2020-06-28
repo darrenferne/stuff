@@ -4,7 +4,7 @@ namespace Brady.Limits.ActionProcessing.Core
 {
 
     public class InternalDelegateAction<TPayload> : AllowedAction<ActionRequest<TPayload>>, IInternalAction
-        where TPayload : IActionProcessingPayload
+        where TPayload : IActionRequestPayload
     {
         Func<ActionRequest<TPayload>, IActionProcessingStateChange> _onInvoke;
         Func<ActionRequest<TPayload>, bool> _canInvoke;

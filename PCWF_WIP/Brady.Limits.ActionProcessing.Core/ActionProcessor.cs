@@ -43,15 +43,38 @@ namespace Brady.Limits.ActionProcessing.Core
                 .Wait();
         }
 
-        public Task<IResponse> ProcessAction<TRequest>(TRequest request)
+        public void ProcessAction<TRequest>(TRequest request, string userName = null)
             where TRequest : class, IActionRequest
         {
             if (State != ActionProcessorState.Started)
                 throw new ActionProcessorException("ProcessAction requests cannot be submitted before the processor has been started");
 
-            return  _actionProcessorManager
-                .Ask(request)
-                .ContinueWith(t => t.Result as IResponse);
-        }        
+            var requestWithContext = request as IRequestWithContext;
+            if (!(requestWithContext is null))
+            {
+                var user = new ActionProcessorUser(_requirements.Authorisation, userName);
+                var context = new ActionRequestContext(user, _actionProcessorManager, request, null, null);
+
+                requestWithContext.InitialiseContext(context);
+            }
+
+            _actionProcessorManager.Tell(request);
+        }
+
+        public Task<IActionResponse> ProcessActionAsync<TRequest>(TRequest request, string userName = null)
+            where TRequest : class, IRequestWithContext
+        {
+            if (State != ActionProcessorState.Started)
+                throw new ActionProcessorException("ProcessAction requests cannot be submitted before the processor has been started");
+
+            var user = new ActionProcessorUser(_requirements.Authorisation, userName);
+            var completionSource = new TaskCompletionSource<IActionResponse>();
+            var context = new ActionRequestContext(user, _actionProcessorManager, request as IActionRequest, null, completionSource);
+
+            request.InitialiseContext(context);
+            _actionProcessorManager.Tell(request);
+
+            return completionSource.Task;
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public interface IActionProcessingPayload 
+    public interface IActionRequestPayload 
     {
         Type ObjectType { get; }
         object Object { get; }

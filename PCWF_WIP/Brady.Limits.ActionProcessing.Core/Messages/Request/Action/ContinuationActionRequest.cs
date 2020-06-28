@@ -5,7 +5,7 @@ using System.Linq;
 namespace Brady.Limits.ActionProcessing.Core
 {
     public class ContinuationActionRequest<TPayload> : ActionRequest<TPayload>, IContinuationRequest
-        where TPayload : IActionProcessingPayload
+        where TPayload : IActionRequestPayload
     {
         public ContinuationActionRequest(Guid requestId, string actionName, TPayload payload, params ActionRequestDescriptor[] continuationActions)
             : base(requestId, actionName, payload)
