@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    [DebuggerDisplay("RequestType:{RequestType}, ActionName:{ActionName}")]
+    [DebuggerDisplay("RequestType:{RequestType.Name}, ActionName:{ActionName}")]
 
     public class ActionRequestDescriptor
     {

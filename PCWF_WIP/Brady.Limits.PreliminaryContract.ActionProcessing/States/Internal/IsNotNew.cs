@@ -10,7 +10,11 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsNotNew : InternalState
     {
         public IsNotNew()
-            : base(nameof(IsNotNew))
+            : base(nameof(IsNotNew),
+                  nameof(CheckIsNew),
+                  nameof(CheckIsMaterialChange),
+                  nameof(CheckIsPendingApproval),
+                  nameof(CheckIsAvailable))
         { }
     }
 }

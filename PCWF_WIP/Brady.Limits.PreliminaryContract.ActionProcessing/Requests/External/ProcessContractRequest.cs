@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ProcessContractRequest : ActionRequest<ContractProcessingPayload>
+    public class ProcessContractRequest : GatedActionRequest<ContractProcessingPayload>
     {
         public ProcessContractRequest(ContractProcessingPayload payload)
-            : base(nameof(ValidateContract), payload)
+            : base(nameof(ValidateContract), payload,
+                  new GateDescriptor(nameof(IsValid), new ActionRequestDescriptor(typeof(ProcessValidContractRequest))),
+                  new GateDescriptor(nameof(IsNotValid), new ActionRequestDescriptor(typeof(FailureNotificationRequest))))
         { }
 
         public static ProcessContractRequest New(ContractProcessingPayload payload) => new ProcessContractRequest(payload);

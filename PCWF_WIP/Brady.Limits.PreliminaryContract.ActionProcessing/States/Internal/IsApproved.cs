@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class Unknown : InternalState
+    internal class IsApproved : InternalState
     {
-        public Unknown()
-            : base(nameof(Unknown))
+        public IsApproved()
+            : base(nameof(IsApproved))
         { }
     }
 }

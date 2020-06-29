@@ -12,8 +12,20 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public PreliminaryContractActionPipelineConfiguration(IKernel kernel)
             : base(new ActionFactory(kernel), "preliminarycontractactionpipeline", 
-                  new Unknown(),
-                  new IsNew())
+                  new IsNew(),
+                  new IsNotNew(),
+                  new IsValid(),
+                  new IsNotValid(),
+                  new IsAvailable(),
+                  new IsNotAvailable(),
+                  new IsInflight(),
+                  new IsNotInflight(),
+                  new IsMaterialChange(),
+                  new IsNotMaterialChange(),
+                  new IsPendingApproval(),
+                  new IsRejected(),
+                  new IsApproved(),
+                  new IsCancelled())
         { }
     }
 }

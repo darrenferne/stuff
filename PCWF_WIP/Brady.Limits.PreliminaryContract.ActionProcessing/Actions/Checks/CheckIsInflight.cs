@@ -20,13 +20,13 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsInflight.HasValue)
+            if (!contractState.IsPendingApproval.HasValue)
             {
                 //TODO - Check if inflight;
-                contractState = contractState.Clone().WithIsInflight();
+                contractState = contractState.Clone().WithIsPendingApproval();
             }
 
-            var newProcessingState = contractProcessingState.WithIsInflight();
+            var newProcessingState = contractProcessingState.WithIsPendingApproval();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

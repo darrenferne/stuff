@@ -10,7 +10,10 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsValid : InternalState
     {
         public IsValid()
-            : base(nameof(IsValid))
+            : base(nameof(IsValid),
+                  nameof(CheckIsValid),
+                  nameof(ValidateContract),
+                  nameof(CheckIsNew))
         { }
     }
 }

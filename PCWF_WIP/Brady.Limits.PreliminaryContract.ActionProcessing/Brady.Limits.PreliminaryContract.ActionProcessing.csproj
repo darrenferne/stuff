@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Brady.Limits.PreliminaryContract.Domain\Brady.Limits.PreliminaryContract.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Requests\External\" />
-  </ItemGroup>
-
 </Project>

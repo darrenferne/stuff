@@ -10,7 +10,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsMaterialChange : InternalState
     {
         public IsMaterialChange()
-            : base(nameof(IsMaterialChange))
+            : base(nameof(IsMaterialChange),
+                  nameof(CheckIsMaterialChange),
+                  nameof(CheckIsPendingApproval))
         { }
     }
 }

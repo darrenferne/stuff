@@ -12,12 +12,15 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public ContractProcessingPayload(Contract contract, Guid? trackingReference = null)
         {
-            Object = contract;
+            Contract = contract;
             TrackingReference = trackingReference ?? Guid.NewGuid();
         }
+
+        public Contract Contract { get; }
+
         public Type ObjectType { get; } = typeof(Contract);
 
-        public object Object { get; }
+        public object Object { get => Contract; }
 
         public Guid TrackingReference { get; }
     }

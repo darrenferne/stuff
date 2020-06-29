@@ -7,11 +7,14 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 {
     class TestStatePersistence : IPreliminaryContractStatePersistence
     {
+        private readonly Func<IActionRequest, (string, object)> _getInitialState;
         private readonly Dictionary<Guid, IActionProcessingState> _stateStore;
-        public TestStatePersistence()
+        public TestStatePersistence(Func<IActionRequest, (string, object)> getInitialState)
         {
+            _getInitialState = getInitialState;
             _stateStore = new Dictionary<Guid, IActionProcessingState>();
         }
+
         public IActionProcessingState GetCurrentState(IActionRequest request)
         {
             if (_stateStore.ContainsKey(request.Payload.TrackingReference))
@@ -22,7 +25,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 
         public IActionProcessingState GetInitialState(IActionRequest request)
         {
-            return new ActionProcessingState("IsNew");
+            (string current, object external) = _getInitialState(request);
+
+            return new ActionProcessingState(current, external);
         }
 
         public void SetCurrentState(IActionRequest request, IActionProcessingState newState)

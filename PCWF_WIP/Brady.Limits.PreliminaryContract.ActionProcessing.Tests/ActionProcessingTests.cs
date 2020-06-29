@@ -31,9 +31,19 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         public void Initialise()
         {
             _kernel = new StandardKernel();
+
+            var mockValdation = new Mock<IPreliminaryContractValidation>();
+            mockValdation
+                .Setup(pcv => pcv.ValidateContract(It.IsAny<Contract>()))
+                .Returns((true, default(string[])));
+
+            _kernel.Bind<IPreliminaryContractValidation>().ToMethod(_ => mockValdation.Object);
+
             _responseObserver = new TestResponseObserver();
             _requestPersistence = new TestRequestPersistence();
-            _statePersistence = new TestStatePersistence();
+            _statePersistence = new TestStatePersistence(r => {
+                return ("IsNew", new ContractState(true));
+            });
 
             _kernel.Bind<IPreliminaryContractStatePersistence>().ToConstant(_statePersistence);
         }
@@ -69,7 +79,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var contract = new Contract();
             var request = ProcessContractRequest.New(contract);
 
-            processor.ProcessAction(request);
+            var response = processor.ProcessAction(request);
             
             AwaitAssert(() => {
                 Assert.IsTrue(_responseObserver.Responses.Any(r => r.Request == request && r.StateChange.NewState.StateName == "AvailableForApproval"));

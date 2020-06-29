@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ValidateContract : CheckIsValid<ValidateContractRequest>, IExternalAction
+    public class SubmitContract : AllowedAction<SubmitContractRequest>, IExternalAction
     {
-        public ValidateContract(IPreliminaryContractValidation validation)
-            : base(validation)
+        public SubmitContract()
+            : base()
         { }
+
+        public override IActionProcessingStateChange OnInvoke(SubmitContractRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

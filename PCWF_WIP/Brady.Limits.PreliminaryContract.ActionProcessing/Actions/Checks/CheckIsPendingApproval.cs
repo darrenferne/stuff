@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsOnHold : AllowedAction<CheckIsOnHoldRequest>
+    internal class CheckIsPendingApproval : AllowedAction<CheckIsPendingApprovalRequest>
     {
-        public CheckIsOnHold()
-            : base(nameof(CheckIsOnHold))
+        public CheckIsPendingApproval()
+            : base(nameof(CheckIsPendingApproval))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CheckIsOnHoldRequest request)
+        public override IActionProcessingStateChange OnInvoke(CheckIsPendingApprovalRequest request)
         {
             var contract = request.Payload as Contract;
             var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsOnHold.HasValue)
+            if (!contractState.IsPendingApproval.HasValue)
             {
-                //TODO - Check if OnHold;
-                contractState = contractState.Clone().WithIsOnHold();
+                //TODO - Check if inflight;
+                contractState = contractState.Clone().WithIsPendingApproval();
             }
 
-            var newProcessingState = contractProcessingState.WithIsOnHold();
+            var newProcessingState = contractProcessingState.WithIsPendingApproval();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }
