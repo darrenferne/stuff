@@ -15,18 +15,18 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
     public class ContractState: IEquatable<ContractState>
     {
-        public ContractState(bool? isNew = null, bool? isValid = null, bool? isInflight = null, bool? isOnHold = null, bool? isMaterialChange = null)
+        public ContractState(bool? isNew = null, bool? isValid = null, bool? isInflight = null, bool? isAvailable = null, bool? isMaterialChange = null)
         {
             IsNew = isNew;
             IsValid = isValid;
             IsPendingApproval = IsPendingApproval;
-            IsOnHold = isOnHold;
+            IsAvailable = isAvailable;
             IsMaterialChange = isMaterialChange;
         }
         public bool? IsNew { get; internal set; }
         public bool? IsValid { get; internal set; }
         public bool? IsPendingApproval { get; internal set; }
-        public bool? IsOnHold { get; internal set; }
+        public bool? IsAvailable { get; internal set; }
         public bool? IsMaterialChange { get; internal set; }
 
         public bool Equals(ContractState other)
@@ -34,7 +34,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             return IsNew.GetValueOrDefault() == other.IsNew.GetValueOrDefault() &&
                 IsValid.GetValueOrDefault() == other.IsValid.GetValueOrDefault() &&
                 IsPendingApproval.GetValueOrDefault() == other.IsPendingApproval.GetValueOrDefault() &&
-                IsOnHold.GetValueOrDefault() == other.IsOnHold.GetValueOrDefault() &&
+                IsAvailable.GetValueOrDefault() == other.IsAvailable.GetValueOrDefault() &&
                 IsMaterialChange.GetValueOrDefault() == other.IsMaterialChange.GetValueOrDefault();
         }
     }

@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsValid : CheckIsValid<ActionRequest<ContractProcessingPayload>>
-    {
-        public CheckIsValid(IPreliminaryContractValidation validation)
-            : base(validation)
-        { }
-    }
+    //internal class CheckIsValid : CheckIsValid<ActionRequest<ContractProcessingPayload>>
+    //{
+    //    public CheckIsValid(IPreliminaryContractValidation validation)
+    //        : base(validation)
+    //    { }
+    //}
 
-    public abstract class CheckIsValid<TRequest> : AllowedAction<TRequest>
-        where TRequest : ActionRequest<ContractProcessingPayload>
+    //public abstract class CheckIsValid<TRequest> : AllowedAction<TRequest>
+    //    where TRequest : ActionRequest<ContractProcessingPayload>
+    public class CheckIsValid : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         IPreliminaryContractValidation _validation;
 
@@ -26,20 +27,24 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             _validation = validation;
         }
 
-        public override IActionProcessingStateChange OnInvoke(TRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contract = request.Payload as Contract;
-            var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var contractPayload = request.Payload as ContractProcessingPayload;
+            var currentProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var currentContractState = currentProcessingState.ContractState;
 
-            var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsValid.HasValue)
+            var newProcessingState = currentProcessingState; 
+            if (!currentContractState.IsValid.HasValue)
             {
-                var result = _validation.ValidateContract(request.Payload.Object as Contract);
-                contractState = contractState.Clone().WithIsValid(result.IsValid);
+                var result = _validation.ValidateContract(contractPayload.Contract);
+                var newContractState = currentContractState.Clone().WithIsValid(result.IsValid);
+                //update the external state
+                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
             }
 
-            var newProcessingState = contractProcessingState.WithIsValid();
-
+            //update the public state
+            newProcessingState = newProcessingState.WithIsValid();
+            
             return new SuccessStateChange(request.Payload, newProcessingState);
         }
     }

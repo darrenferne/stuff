@@ -1,4 +1,5 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
+using Brady.Limits.PreliminaryContract.Domain.Enums;
 using Brady.Limits.PreliminaryContract.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,30 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class TakeContractOffHold : AllowedAction<TakeContractOffHoldRequest>, IExternalAction
+    public class TakeContractOffHold : AllowedAction<ActionRequest<ContractProcessingPayload>>, IExternalAction
     {
         public TakeContractOffHold()
             : base()
         { }
 
-        public override IActionProcessingStateChange OnInvoke(TakeContractOffHoldRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            throw new NotImplementedException();
+            var contractPayload = request.Payload as ContractProcessingPayload;
+            var currentProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var currentContractState = currentProcessingState.ContractState;
+
+            var newProcessingState = currentProcessingState;
+            if (!currentContractState.IsAvailable.GetValueOrDefault())
+            {
+                var newContractState = currentContractState.Clone().WithIsAvailable(true);
+                //update the external state
+                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
+            }
+
+            //update the public state
+            newProcessingState = newProcessingState.WithCurrentState(nameof(ContractStatus.AvailableForApproval));
+
+            return new SuccessStateChange(request.Payload, newProcessingState);
         }
     }
 }

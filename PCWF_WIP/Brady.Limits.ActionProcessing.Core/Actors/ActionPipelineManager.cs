@@ -192,7 +192,6 @@ namespace Brady.Limits.ActionProcessing.Core
             {
                 context.CompletionSource.TrySetResult(response);
             }
-
         }
         
         private void SetCompletion(IActionResponse response)
@@ -215,12 +214,16 @@ namespace Brady.Limits.ActionProcessing.Core
         {
             if (!(response is null) && !(_requirements.ActionResponseObserver is null))
             {
-                //Only publish responses to externally visible actions 
-                var actionName = (response.Request as IAllowedAction).Name;
-                var actionType = _requirements.PipelineConfiguration.ActionTypes[actionName];
-
-                if (typeof(IExternalAction).IsAssignableFrom(actionType))
-                    _requirements.ActionResponseObserver.OnNext(response);
+                var actionRequest = response.Request as IActionRequest;
+                if (!(actionRequest is null))
+                {
+                    var actionName = actionRequest.ActionName;
+                    var actionType = _requirements.PipelineConfiguration.ActionTypes[actionName];
+                    
+                    //Only publish responses to externally visible actions 
+                    if (typeof(IExternalAction).IsAssignableFrom(actionType))
+                        _requirements.ActionResponseObserver.OnNext(response);
+                }
             }
         }
 
@@ -255,6 +258,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void OnUnhandledRequest(IActionRequest request)
         {
+            //TODO - This doesn't report invalid actions. It just assumes it's an invalid state 
             SetRejected(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state.");
         }
 

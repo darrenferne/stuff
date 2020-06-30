@@ -57,7 +57,7 @@ namespace Brady.Limits.ActionProcessing.Core
             else
             {
                 var payloadProperty = RequestType.GetProperty(nameof(IActionRequest.Payload), BindingFlags.Public | BindingFlags.Instance);
-                if (payloadType.IsAssignableFrom(payloadProperty.PropertyType))
+                if (payloadProperty.PropertyType.IsAssignableFrom(payloadType))
                     return ConstructRequest(RequestType, payload);
 
                 throw new ActionProcessorException($"The request payload type is incompatible with the given action request descriptor '{RequestType.Name}'.");

@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    [DebuggerDisplay("Action:{ActionName}, State:{Context.CurrentState.StateName}, PayloadType{PayloadType.Name}, Payload: {Payload}")]
+    [DebuggerDisplay("Action:{ActionName}, State:{Context.CurrentState?.StateName}, RequestType:{RequestType.Name}, PayloadType:{PayloadType.Name}")]
     public class ActionRequest<TPayload> : Request, IRequestWithState, IRequestWithContext
         where TPayload : IActionRequestPayload
     {
@@ -12,6 +12,7 @@ namespace Brady.Limits.ActionProcessing.Core
         public ActionRequest(Guid requestId, string actionName, TPayload payload)
             : base(requestId, actionName)
         {
+            RequestType = this.GetType();
             ActionName = actionName;
             Payload = payload;
         }
@@ -19,7 +20,7 @@ namespace Brady.Limits.ActionProcessing.Core
         public ActionRequest(string actionName, TPayload payload)
             : this(Guid.NewGuid(), actionName, payload)
         { }
-
+        public Type RequestType { get; }
         public string ActionName { get; }
         public IActionRequestContext Context { get; private set; }
         //public IActionProcessingState CurrentState { get; protected set; }

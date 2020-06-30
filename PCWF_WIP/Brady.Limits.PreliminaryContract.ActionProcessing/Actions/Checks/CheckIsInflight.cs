@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsInflight : AllowedAction<CheckIsInflightRequest>
+    internal class CheckIsInflight : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         public CheckIsInflight()
             : base(nameof(CheckIsInflight))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CheckIsInflightRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contract = request.Payload as Contract;
+            var contractPayload = request.Payload as ContractProcessingPayload;
             var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;

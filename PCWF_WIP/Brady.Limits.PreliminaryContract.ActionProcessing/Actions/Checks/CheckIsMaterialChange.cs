@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsMaterialChange : AllowedAction<CheckIsMaterialChangeRequest>
+    internal class CheckIsMaterialChange : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         public CheckIsMaterialChange()
             : base(nameof(CheckIsMaterialChange))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CheckIsMaterialChangeRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contract = request.Payload as Contract;
+            var contractPayload = request.Payload as ContractProcessingPayload;
             var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;

@@ -14,13 +14,13 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
     public class ActionProcessingTests : TestKit
     {
 
-#if DEBUG
-        TimeSpan assertTimeout = TimeSpan.FromHours(1);
-        TimeSpan assertInterval = TimeSpan.FromMinutes(1);
-#else
+//#if DEBUG
+//        TimeSpan assertTimeout = TimeSpan.FromHours(1);
+//        TimeSpan assertInterval = TimeSpan.FromMinutes(1);
+//#else
         TimeSpan assertTimeout = TimeSpan.FromSeconds(3);
         TimeSpan assertInterval = TimeSpan.FromMilliseconds(100);
-#endif
+//#endif
 
         IKernel _kernel;
         TestResponseObserver _responseObserver;
@@ -35,14 +35,19 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var mockValdation = new Mock<IPreliminaryContractValidation>();
             mockValdation
                 .Setup(pcv => pcv.ValidateContract(It.IsAny<Contract>()))
-                .Returns((true, default(string[])));
+                .Returns<Contract>((c) => {
+                    if (c.ContractValue.GetValueOrDefault() < 0)
+                        return (false, new string[] { "'Contract Value' must be greater than zero."});
+                    else
+                        return (true, new string[] { });
+                });
 
             _kernel.Bind<IPreliminaryContractValidation>().ToMethod(_ => mockValdation.Object);
 
             _responseObserver = new TestResponseObserver();
             _requestPersistence = new TestRequestPersistence();
             _statePersistence = new TestStatePersistence(r => {
-                return ("IsNew", new ContractState(true));
+                return ("IsDraft", new ContractState(true));
             });
 
             _kernel.Bind<IPreliminaryContractStatePersistence>().ToConstant(_statePersistence);
@@ -73,16 +78,46 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         }
 
         [TestMethod]
-        public void Calling_process_action_with_a_process_contract_request_and_a_new_contract_should_succeed()
+        public void Calling_process_action_with_a_process_contract_request_and_a_new_invalid_contract_should_progress_the_trade_to_not_valid()
+        {
+            var processor = GetProcessor(true);
+            var contract = new Contract() { ContractValue = -1 };
+            var request = ProcessContractRequest.New(contract);
+
+            var response = processor.ProcessAction(request).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == "IsNotValid"));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_contract_request_and_a_new_valid_contract_should_progress_the_trade_to_pending_approval()
         {
             var processor = GetProcessor(true);
             var contract = new Contract();
             var request = ProcessContractRequest.New(contract);
 
-            var response = processor.ProcessAction(request);
+            var response = processor.ProcessAction(request).Result;
             
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => r.Request == request && r.StateChange.NewState.StateName == "AvailableForApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == nameof(InFlight)));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_contract_request_and_a_new_on_hold_contract_should_progress_the_trade_to_hold_from_approval()
+        {
+            var processor = GetProcessor(true);
+            var contract = new Contract() { GroupHeader = new ContractHeader { HoldFromApproval = true} };
+            var request = ProcessContractRequest.New(contract);
+
+            var response = processor.ProcessAction(request).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == nameof(HoldFromApproval)));
             },
             assertTimeout, assertInterval);
         }

@@ -11,7 +11,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     public class PreliminaryContractActionPipelineConfiguration : ActionPipelineConfiguration
     {
         public PreliminaryContractActionPipelineConfiguration(IKernel kernel)
-            : base(new ActionFactory(kernel), "preliminarycontractactionpipeline", 
+            : base(new ActionFactory(kernel), "preliminarycontractactionpipeline",
+                  new IsDraft(), 
                   new IsNew(),
                   new IsNotNew(),
                   new IsValid(),
@@ -25,7 +26,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
                   new IsPendingApproval(),
                   new IsRejected(),
                   new IsApproved(),
-                  new IsCancelled())
+                  new IsCancelled(),
+                  new AvailableForApproval(),
+                  new HoldFromApproval())
         { }
     }
 }

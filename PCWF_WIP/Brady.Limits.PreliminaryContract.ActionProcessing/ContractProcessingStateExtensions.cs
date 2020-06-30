@@ -9,7 +9,7 @@
                 IsPendingApproval = state.IsPendingApproval,
                 IsMaterialChange = state.IsMaterialChange,
                 IsNew = state.IsNew,
-                IsOnHold = state.IsOnHold,
+                IsAvailable = state.IsAvailable,
                 IsValid = state.IsValid
             };
         }
@@ -39,10 +39,10 @@
             newState.IsValid = isValid;
             return newState;
         }
-        public static ContractState WithIsOnHold(this ContractState state, bool isOnHold = true)
+        public static ContractState WithIsAvailable(this ContractState state, bool isOnHold = true)
         {
             var newState = state.Clone();
-            newState.IsOnHold = isOnHold;
+            newState.IsAvailable = isOnHold;
             return newState;
         }
 
@@ -53,7 +53,7 @@
                 newContractState is null ? state.ContractState.Clone() : newContractState);
         }
 
-        public static ContractProcessingState WithIsPendingApproval(this ContractProcessingState state, bool? isPendingApproval = true)
+        public static ContractProcessingState WithIsPendingApproval(this ContractProcessingState state, bool? isPendingApproval = null)
         {
             var contractState = isPendingApproval.HasValue ? state.ContractState.Clone().WithIsPendingApproval(isPendingApproval.Value) : state.ContractState.Clone();
             var currentState = contractState.IsPendingApproval.GetValueOrDefault() ? nameof(IsPendingApproval) : nameof(IsNotPendingApproval);
@@ -61,14 +61,14 @@
             return state.Clone(currentState, contractState);
         }
 
-        public static ContractProcessingState WithIsMaterialChange(this ContractProcessingState state, bool? isMaterialChange = true)
+        public static ContractProcessingState WithIsMaterialChange(this ContractProcessingState state, bool? isMaterialChange = null)
         {
             var contractState = isMaterialChange.HasValue ? state.ContractState.Clone().WithIsMaterialChange(isMaterialChange.Value) : state.ContractState.Clone();
             var currentState = contractState.IsMaterialChange.GetValueOrDefault() ? nameof(IsMaterialChange) : nameof(IsNotMaterialChange);
 
             return state.Clone(currentState, contractState);
         }
-        public static ContractProcessingState WithIsNew(this ContractProcessingState state, bool? isNew = true)
+        public static ContractProcessingState WithIsNew(this ContractProcessingState state, bool? isNew = null)
         {
             var contractState = isNew.HasValue ? state.ContractState.Clone().WithIsNew(isNew.Value) : state.ContractState.Clone();
             var currentState = contractState.IsNew.GetValueOrDefault() ? nameof(IsNew) : nameof(IsNotNew);
@@ -76,18 +76,25 @@
             return state.Clone(currentState, contractState);
         }
                
-        public static ContractProcessingState WithIsValid (this ContractProcessingState state, bool? isValid = true)
+        public static ContractProcessingState WithIsValid (this ContractProcessingState state, bool? isValid = null)
         {
             var contractState = isValid.HasValue ? state.ContractState.Clone().WithIsValid(isValid.Value) : state.ContractState.Clone();
-            var currentState = contractState.IsValid.GetValueOrDefault() ? nameof(isValid) : nameof(IsNotValid);
+            var currentState = contractState.IsValid.GetValueOrDefault() ? nameof(IsValid) : nameof(IsNotValid);
 
             return state.Clone(currentState, contractState);
         }
-        public static ContractProcessingState WithIsOnHold(this ContractProcessingState state, bool? isOnHold = true)
+        public static ContractProcessingState WithIsAvailable(this ContractProcessingState state, bool? isOnHold = null)
         {
-            var contractState = isOnHold.HasValue ? state.ContractState.Clone().WithIsOnHold(isOnHold.Value) : state.ContractState.Clone();
-            var currentState = contractState.IsOnHold.GetValueOrDefault() ? nameof(IsAvailable) : nameof(IsNotAvailable);
+            var contractState = isOnHold.HasValue ? state.ContractState.Clone().WithIsAvailable(isOnHold.Value) : state.ContractState.Clone();
+            var currentState = contractState.IsAvailable.GetValueOrDefault() ? nameof(IsAvailable) : nameof(IsNotAvailable);
 
+            return state.Clone(currentState, contractState);
+        }
+
+        public static ContractProcessingState WithCurrentState(this ContractProcessingState state, string currentState)
+        {
+            var contractState = state.ContractState.Clone();
+            
             return state.Clone(currentState, contractState);
         }
     }

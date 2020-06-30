@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class CancelContract : AllowedAction<CancelContractRequest>, IExternalAction
+    public class CancelContract : AllowedAction<ActionRequest<ContractProcessingPayload>>, IExternalAction
     {
         public CancelContract()
             : base()
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CancelContractRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
             throw new NotImplementedException();
         }

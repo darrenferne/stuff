@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class RejectContract : AllowedAction<RejectContractRequest>, IExternalAction
+    public class RejectContract : AllowedAction<ActionRequest<ContractProcessingPayload>>, IExternalAction
     {
         public RejectContract()
             : base()
         { }
 
-        public override IActionProcessingStateChange OnInvoke(RejectContractRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
             throw new NotImplementedException();
         }

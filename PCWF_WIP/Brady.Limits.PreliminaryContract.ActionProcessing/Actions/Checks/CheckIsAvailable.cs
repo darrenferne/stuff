@@ -8,25 +8,29 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsAvailable : AllowedAction<CheckIsAvailableRequest>
+    internal class CheckIsAvailable : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         public CheckIsAvailable()
             : base(nameof(CheckIsAvailable))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CheckIsAvailableRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contract = request.Payload as Contract;
-            var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var contractPayload = request.Payload as ContractProcessingPayload;
+            var currentProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var currentContractState = currentProcessingState.ContractState;
 
-            var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsOnHold.HasValue)
+            var newProcessingState = currentProcessingState;
+            if (!currentContractState.IsAvailable.HasValue)
             {
-                //TODO - Check if OnHold;
-                contractState = contractState.Clone().WithIsOnHold();
+                var onHold = contractPayload.Contract.GroupHeader.HoldFromApproval;
+                var newContractState = currentContractState.Clone().WithIsAvailable(!onHold);
+                //update the external state
+                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
             }
 
-            var newProcessingState = contractProcessingState.WithIsOnHold();
+            //update the public state
+            newProcessingState = newProcessingState.WithIsAvailable();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

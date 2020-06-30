@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsSaved : InternalState
+    public class HoldFromApproval : ExternalState
     {
-        public IsSaved()
-            : base(nameof(IsSaved),
-                  nameof(CheckIsValid),
-                  nameof(ValidateContract))
+        public HoldFromApproval()
+            : base(nameof(HoldFromApproval),
+                  nameof(TakeContractOffHold))
         { }
     }
 }

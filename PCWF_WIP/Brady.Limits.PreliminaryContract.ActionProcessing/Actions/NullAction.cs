@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class NullAction : AllowedAction<NullActionRequest>
+    public class NullAction : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         public NullAction()
             : base()
         { }
 
-        public override IActionProcessingStateChange OnInvoke(NullActionRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
             throw new NotImplementedException();
         }

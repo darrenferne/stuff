@@ -27,7 +27,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         {
             (string current, object external) = _getInitialState(request);
 
-            return new ActionProcessingState(current, external);
+            return new ContractProcessingState(current, external);
         }
 
         public void SetCurrentState(IActionRequest request, IActionProcessingState newState)

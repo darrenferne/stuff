@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ValidateContract : CheckIsValid<ValidateContractRequest>, IExternalAction
+    public class ValidateContract : CheckIsValid, IExternalAction//<ActionRequest<ContractProcessingPayload>>, IExternalAction
     {
         public ValidateContract(IPreliminaryContractValidation validation)
             : base(validation)

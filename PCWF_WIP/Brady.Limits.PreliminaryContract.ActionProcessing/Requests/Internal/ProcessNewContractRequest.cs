@@ -12,7 +12,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public ProcessNewContractRequest(ContractProcessingPayload payload)
             : base(nameof(CheckIsAvailable), payload, 
-                  new GateDescriptor(nameof(IsAvailable), new ActionRequestDescriptor(typeof(SubmitContractRequest))),
+                  new GateDescriptor(nameof(IsAvailable), new ActionRequestDescriptor(typeof(AutoSubmitContractRequest))),
                   new GateDescriptor(nameof(IsNotAvailable), new ActionRequestDescriptor(typeof(PutContractOnHoldRequest))))
         { }
 

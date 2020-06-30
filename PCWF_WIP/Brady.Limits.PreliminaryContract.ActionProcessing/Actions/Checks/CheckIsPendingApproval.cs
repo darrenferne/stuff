@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsPendingApproval : AllowedAction<CheckIsPendingApprovalRequest>
+    internal class CheckIsPendingApproval : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
         public CheckIsPendingApproval()
             : base(nameof(CheckIsPendingApproval))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(CheckIsPendingApprovalRequest request)
+        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contract = request.Payload as Contract;
+            var contractPayload = request.Payload as ContractProcessingPayload;
             var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
 
             var contractState = contractProcessingState.ContractState;
