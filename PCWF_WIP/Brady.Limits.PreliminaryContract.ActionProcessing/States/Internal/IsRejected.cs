@@ -10,7 +10,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsRejected : InternalState
     {
         public IsRejected()
-            : base(nameof(IsRejected))
+            : base(nameof(IsRejected),
+                  nameof(NoAction))
         { }
     }
 }

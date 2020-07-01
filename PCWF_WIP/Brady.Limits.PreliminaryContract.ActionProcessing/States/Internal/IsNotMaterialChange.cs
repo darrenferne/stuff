@@ -13,7 +13,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             : base(nameof(IsNotMaterialChange),
                   nameof(CheckIsMaterialChange),
                   nameof(CheckIsPendingApproval),
-                  nameof(CheckIsAvailable))
+                  nameof(CheckIsAvailable),
+                  nameof(NoAction))
         { }
     }
 }

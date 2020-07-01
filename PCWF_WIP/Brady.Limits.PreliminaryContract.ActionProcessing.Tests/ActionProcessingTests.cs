@@ -1,5 +1,6 @@
 using Akka.TestKit.VsTest;
 using Brady.Limits.ActionProcessing.Core;
+using Brady.Limits.PreliminaryContract.Domain.Enums;
 using Brady.Limits.PreliminaryContract.Domain.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -47,7 +48,12 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             _responseObserver = new TestResponseObserver();
             _requestPersistence = new TestRequestPersistence();
             _statePersistence = new TestStatePersistence(r => {
-                return ("IsDraft", new ContractState(true));
+
+                var contract = r.Payload.Object as Contract;
+                var isNew = contract.Id == 0;
+                var isPendingApproval = contract.ContractStatus == ContractStatus.InFlight;
+
+                return ("IsDraft", new ContractState(isNew, isPendingApproval: isPendingApproval));
             });
 
             _kernel.Bind<IPreliminaryContractStatePersistence>().ToConstant(_statePersistence);
@@ -93,7 +99,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         }
 
         [TestMethod]
-        public void Calling_process_action_with_a_process_contract_request_and_a_new_valid_contract_should_progress_the_trade_to_pending_approval()
+        public void Calling_process_action_with_a_process_contract_request_and_a_new_valid_contract_should_progress_the_trade_to_inflightddd()
         {
             var processor = GetProcessor(true);
             var contract = new Contract();
@@ -118,6 +124,37 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 
             AwaitAssert(() => {
                 Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == nameof(HoldFromApproval)));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_contract_request_and_an_updated_contract_that_is_not_in_flight_should_progress_the_trade_to_in_flight()
+        {
+            var processor = GetProcessor(true);
+            var contract = new Contract() { Id = 1 };
+            var request = ProcessContractRequest.New(contract);
+
+            var response = processor.ProcessAction(request).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == nameof(InFlight)));
+            },
+            assertTimeout, assertInterval);
+        }
+
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_contract_request_and_an_updated_contract_that_is_already_in_flight_should_leave_the_trade_in_flight()
+        {
+            var processor = GetProcessor(true);
+            var contract = new Contract() { Id = 1, ContractStatus = ContractStatus.InFlight };
+            var request = ProcessContractRequest.New(contract);
+
+            var response = processor.ProcessAction(request).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.StateChange.NewState.StateName == "IsPendingApproval"));
             },
             assertTimeout, assertInterval);
         }

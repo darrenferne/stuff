@@ -12,7 +12,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public IsNotPendingApproval()
             : base(nameof(IsNotPendingApproval),
                   nameof(CheckIsPendingApproval),
-                  nameof(CheckIsAvailable))
+                  nameof(CheckIsAvailable),
+                  nameof(NoAction))
         { }
     }
 }

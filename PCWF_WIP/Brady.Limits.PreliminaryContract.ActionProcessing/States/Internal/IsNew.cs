@@ -12,7 +12,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public IsNew()
             : base(nameof(IsNew),
                   nameof(CheckIsNew),
-                  nameof(CheckIsAvailable))
+                  nameof(CheckIsAvailable),
+                  nameof(NoAction))
         { }
     }
 }

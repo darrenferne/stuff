@@ -10,7 +10,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsApproved : InternalState
     {
         public IsApproved()
-            : base(nameof(IsApproved))
+            : base(nameof(IsApproved),
+                  nameof(NoAction))
         { }
     }
 }

@@ -10,7 +10,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     internal class IsNotInflight : InternalState
     {
         public IsNotInflight()
-            : base(nameof(IsNotInflight))
+            : base(nameof(IsNotInflight),
+                  nameof(NoAction))
         { }
     }
 }

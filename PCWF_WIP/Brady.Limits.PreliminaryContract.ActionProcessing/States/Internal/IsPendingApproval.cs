@@ -14,7 +14,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
                   nameof(CheckIsPendingApproval),
                   nameof(ApproveContract),
                   nameof(CancelContract),
-                  nameof(RejectContract))
+                  nameof(RejectContract),
+                  nameof(NoAction))
         { }
     }
 }

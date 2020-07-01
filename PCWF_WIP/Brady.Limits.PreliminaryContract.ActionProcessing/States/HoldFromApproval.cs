@@ -11,7 +11,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public HoldFromApproval()
             : base(nameof(HoldFromApproval),
-                  nameof(TakeContractOffHold))
+                  nameof(TakeContractOffHold),
+                  nameof(NoAction))
         { }
     }
 }

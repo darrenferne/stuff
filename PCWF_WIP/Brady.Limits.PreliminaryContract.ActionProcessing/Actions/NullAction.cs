@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class NullAction : AllowedAction<ActionRequest<ContractProcessingPayload>>
+    public class NoAction : AllowedAction<ActionRequest<ContractProcessingPayload>>
     {
-        public NullAction()
+        public NoAction()
             : base()
         { }
 
         public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            throw new NotImplementedException();
+            return new SuccessStateChange(request.Payload, request.Context.CurrentState);
         }
     }
 }

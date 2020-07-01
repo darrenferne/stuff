@@ -13,7 +13,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             : base(nameof(IsAvailable),
                   nameof(CheckIsAvailable),
                   nameof(SubmitContract),
-                  nameof(TakeContractOffHold))
+                  nameof(TakeContractOffHold),
+                  nameof(NoAction))
         { }
     }
 }

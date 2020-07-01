@@ -13,7 +13,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             : base(nameof(IsNotValid),
                   nameof(CheckIsValid),
                   nameof(ValidateContract),
-                  nameof(FailureNotification))
+                  nameof(FailureNotification),
+                  nameof(NoAction))
         { }
     }
 }

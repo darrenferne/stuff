@@ -12,7 +12,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public AvailableForApproval()
             : base(nameof(AvailableForApproval),
                   nameof(SubmitContract),
-                  nameof(PutContractOnHold))
+                  nameof(PutContractOnHold),
+                  nameof(NoAction))
         { }
     }
 }

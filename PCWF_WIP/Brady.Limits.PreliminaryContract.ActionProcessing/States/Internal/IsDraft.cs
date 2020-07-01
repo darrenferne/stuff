@@ -12,7 +12,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public IsDraft()
             : base(nameof(IsDraft),
                   nameof(CheckIsValid),
-                  nameof(ValidateContract))
+                  nameof(ValidateContract),
+                  nameof(NoAction))
         { }
     }
 }

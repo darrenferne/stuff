@@ -11,7 +11,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public IsCancelled()
             : base(nameof(IsCancelled),
-                  nameof(SubmitContract))
+                  nameof(SubmitContract),
+                  nameof(NoAction))
         { }
     }
 }

@@ -16,7 +16,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
                     nameof(CheckIsNew),
                     nameof(CheckIsAvailable),
                     nameof(CheckIsValid),
-                    nameof(ValidateContract))
+                    nameof(ValidateContract),
+                    nameof(NoAction))
         { }
     }
 }

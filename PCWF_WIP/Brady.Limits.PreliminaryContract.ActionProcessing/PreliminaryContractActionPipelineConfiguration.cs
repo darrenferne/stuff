@@ -24,6 +24,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
                   new IsMaterialChange(),
                   new IsNotMaterialChange(),
                   new IsPendingApproval(),
+                  new IsNotPendingApproval(),
                   new IsRejected(),
                   new IsApproved(),
                   new IsCancelled(),

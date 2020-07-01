@@ -12,7 +12,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         public IsNotAvailable()
             : base(nameof(IsNotAvailable),
                     nameof(CheckIsAvailable),
-                    nameof(PutContractOnHold))
+                    nameof(PutContractOnHold),
+                    nameof(NoAction))
         { }
     }
 }

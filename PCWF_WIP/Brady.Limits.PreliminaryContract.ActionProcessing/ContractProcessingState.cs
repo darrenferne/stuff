@@ -15,11 +15,11 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
     public class ContractState: IEquatable<ContractState>
     {
-        public ContractState(bool? isNew = null, bool? isValid = null, bool? isInflight = null, bool? isAvailable = null, bool? isMaterialChange = null)
+        public ContractState(bool? isNew = null, bool? isValid = null, bool? isPendingApproval = null, bool? isAvailable = null, bool? isMaterialChange = null)
         {
             IsNew = isNew;
             IsValid = isValid;
-            IsPendingApproval = IsPendingApproval;
+            IsPendingApproval = isPendingApproval;
             IsAvailable = isAvailable;
             IsMaterialChange = isMaterialChange;
         }
