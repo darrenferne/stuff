@@ -22,8 +22,13 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             var contractState = contractProcessingState.ContractState;
             if (!contractState.IsMaterialChange.HasValue)
             {
+                var isTakeOffHold = !(contractPayload.Contract?.GroupHeader?.HoldFromApproval ?? false) &&
+                                     (contractPayload.PreviousVersion?.GroupHeader?.HoldFromApproval ?? false);
+                
                 //TODO - Check for material change;
-                contractState = contractState.Clone().WithIsMaterialChange();
+                var isMaterialChange = false;
+
+                contractState = contractState.Clone().WithIsMaterialChange(isTakeOffHold || isMaterialChange);
             }
 
             var newProcessingState = contractProcessingState.WithIsMaterialChange();

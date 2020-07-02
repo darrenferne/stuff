@@ -18,5 +18,6 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
         public static ProcessContractRequest New(ContractProcessingPayload payload) => new ProcessContractRequest(payload);
         public static ProcessContractRequest New(Contract contract, Guid? trackingReference = null) => new ProcessContractRequest(new ContractProcessingPayload(contract, trackingReference));
+        public static ProcessContractRequest New(Contract currentContract, Contract previousVersion, Guid trackingReference) => new ProcessContractRequest(new ContractProcessingPayload(currentContract, previousVersion, trackingReference));
     }
 }
