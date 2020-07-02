@@ -18,7 +18,10 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         public IActionProcessingState GetCurrentState(IActionRequest request)
         {
             if (_stateStore.ContainsKey(request.Payload.TrackingReference))
-                return _stateStore[request.Payload.TrackingReference];
+            {
+                var state = _stateStore[request.Payload.TrackingReference] as ContractProcessingState;
+                return state.WithIsNew(false); 
+            }
             else
                 return null;
         }

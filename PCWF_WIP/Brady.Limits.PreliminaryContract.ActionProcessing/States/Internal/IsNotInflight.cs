@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsNotInflight : InternalState
+    internal class IsNotInflight : IsCheckState
     {
         public IsNotInflight()
-            : base(nameof(IsNotInflight),
-                  nameof(NoAction))
+            : base(nameof(IsNotInflight))
         { }
     }
 }

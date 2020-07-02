@@ -14,24 +14,33 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             : base(nameof(CheckIsMaterialChange))
         { }
 
-        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
+        public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
             var contractPayload = request.Payload as ContractProcessingPayload;
-            var contractProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var currentProcessingState = request.Context.CurrentState as ContractProcessingState;
+            var currentContractState = currentProcessingState.ContractState;
 
-            var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsMaterialChange.HasValue)
+            var newProcessingState = currentProcessingState;
+            if (!currentContractState.IsMaterialChange.HasValue)
             {
                 var isTakeOffHold = !(contractPayload.Contract?.GroupHeader?.HoldFromApproval ?? false) &&
                                      (contractPayload.PreviousVersion?.GroupHeader?.HoldFromApproval ?? false);
-                
+
                 //TODO - Check for material change;
                 var isMaterialChange = false;
 
-                contractState = contractState.Clone().WithIsMaterialChange(isTakeOffHold || isMaterialChange);
+                var newContractState = currentContractState.WithIsMaterialChange(isTakeOffHold || isMaterialChange);
+                
+                //A material change could affect availability so reset the is available flag
+                if (newContractState.IsAvailable.HasValue)
+                    newContractState = newContractState.WithIsAvailable(null);
+
+                //update the external state
+                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
             }
 
-            var newProcessingState = contractProcessingState.WithIsMaterialChange();
+            //update the public state
+            newProcessingState = newProcessingState.WithIsMaterialChange();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

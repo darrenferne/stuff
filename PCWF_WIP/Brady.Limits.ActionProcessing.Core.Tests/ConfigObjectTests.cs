@@ -17,9 +17,9 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
                 : base(name)
             { }
 
-            public override IActionProcessingStateChange OnInvoke(ActionRequest<IntegerPayload> request)
+            public override IActionResult OnInvoke(ActionRequest<IntegerPayload> request)
             {
-                return new StateChange(IntegerPayload.Add(request.Payload as IntegerPayload, 1), TestState.New("OneMore"), "Happy Path");
+                return new StateChangeResult(IntegerPayload.Add(request.Payload as IntegerPayload, 1), TestState.New("OneMore"), "Happy Path");
             }
         }
 
@@ -49,7 +49,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             var currentPayload = IntegerPayload.New(1);
             var expectedState = TestState.New("OneMore");
             var expectedValue = 2;
-            var stateChange = action.Invoke(new ActionRequest<IntegerPayload>("TestAction", currentPayload));
+            var stateChange = action.Invoke(new ActionRequest<IntegerPayload>("TestAction", currentPayload)).GetStateChange();
 
             Assert.AreEqual(expectedValue, stateChange.NewPayload.Object);
             Assert.AreEqual(expectedState.StateName, stateChange.NewState.StateName);

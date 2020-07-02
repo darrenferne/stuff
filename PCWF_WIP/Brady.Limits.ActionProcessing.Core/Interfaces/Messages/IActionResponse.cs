@@ -2,6 +2,6 @@
 {
     public interface IActionResponse : IResponse
     {
-        IActionProcessingStateChange StateChange { get; }
+        IActionResult Result { get; }
     }
 }

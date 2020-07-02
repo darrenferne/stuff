@@ -74,9 +74,14 @@ namespace Brady.Limits.ActionProcessing.Core
             //TODO add error handling and logging
 
             var canHandle = _requirements.PipelineConfiguration.ActionTypes.ContainsKey(request.ActionName);
-
-            if (!(request.Context.CurrentState is null))
-                canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.Context.CurrentState.StateName);
+            if (canHandle)
+            {
+                if (!typeof(IStateCheckAction).IsAssignableFrom(request.RequestType) && 
+                    !(request.Context.CurrentState is null))
+                { 
+                    canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.Context.CurrentState.StateName);
+                }
+            }
 
             return canHandle;
         }
@@ -95,7 +100,8 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private bool UpdateState(IActionRequest request, IActionResponse response)
         {
-            var newState = response.StateChange.NewState;
+            var stateChange = response.Result as IActionProcessingStateChange;
+            var newState = stateChange.NewState;
 
             if (!(request is null) &&
                 request is IRequestWithState &&
@@ -163,11 +169,12 @@ namespace Brady.Limits.ActionProcessing.Core
             {
                 var actionRequest = response.Request as IActionRequest;
                 var continuationRequest = response.Request as IContinuationRequest;
-                var nextRequestDescriptor = continuationRequest.NextRequest(response.StateChange.NewState);
+                var stateChange = response.Result as IActionProcessingStateChange;
+                var nextRequestDescriptor = continuationRequest.NextRequest(stateChange.NewState);
 
                 if (!(nextRequestDescriptor is null))
                 {
-                    var nextRequest = nextRequestDescriptor.ToRequest(actionRequest.PayloadType, response.StateChange.NewPayload);
+                    var nextRequest = nextRequestDescriptor.ToRequest(actionRequest.PayloadType, stateChange.NewPayload);
                     if (nextRequest is IRequestWithContext && response.Request is IActionRequest)
                         (nextRequest as IRequestWithContext).InitialiseContext((response.Request as IActionRequest).Context);
 
@@ -199,7 +206,8 @@ namespace Brady.Limits.ActionProcessing.Core
             if (response.Request is IActionRequest)
             {
                 var request = response.Request as IActionRequest;
-                var completionResponse = new ActionResponse(request.Context.OriginatingRequest, response.StateChange);
+                var stateChange = response.Result as IActionProcessingStateChange;
+                var completionResponse = new ActionResponse(request.Context.OriginatingRequest, stateChange);
 
                 if (!(request.Context.CompletionSource is null))
                 {
@@ -274,7 +282,8 @@ namespace Brady.Limits.ActionProcessing.Core
             var updateStateRequest = response.Request as UpdateStateRequest;
             var originalRequest = updateStateRequest.ForRequest as IRequestWithState;
             var originalRequestResponse = updateStateRequest.ForRequestResponse;
-            var newState = originalRequestResponse.StateChange.NewState;
+            var stateChange = originalRequestResponse.Result as IActionProcessingStateChange;
+            var newState = stateChange.NewState;
 
             originalRequest.SetState(newState);
             

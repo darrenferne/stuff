@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public class StateChange : IActionProcessingStateChange
+    public class StateChangeResult : ActionResult, IActionProcessingStateChange
     {
-        public StateChange(IActionRequestPayload newPayload, IActionProcessingState newState, string message)
+        public StateChangeResult(IActionRequestPayload newPayload, IActionProcessingState newState, string message)
             : this(newPayload, newState, Enumerable.Repeat(message, 1))
         { }
 
-        public StateChange(IActionRequestPayload newPayload, IActionProcessingState newState, IEnumerable<string> messages = null)
+        public StateChangeResult(IActionRequestPayload newPayload, IActionProcessingState newState, IEnumerable<string> messages = null)
         {
             NewPayload = newPayload;
             NewState = newState;

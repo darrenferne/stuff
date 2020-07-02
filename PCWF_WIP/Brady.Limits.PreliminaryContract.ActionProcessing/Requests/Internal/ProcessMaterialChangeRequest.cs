@@ -11,9 +11,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     public class ProcessMaterialChangeRequest : GatedActionRequest<ContractProcessingPayload>
     {
         public ProcessMaterialChangeRequest(ContractProcessingPayload payload)
-            : base(nameof(CheckIsInflight), payload,
-                  new GateDescriptor(nameof(IsInflight), new ActionRequestDescriptor(typeof(ResubmitContractRequest))),
-                  new GateDescriptor(nameof(IsNotInflight), new ActionRequestDescriptor(typeof(ProcessNewContractRequest))))
+            : base(nameof(CheckIsPendingApproval), payload,
+                  new GateDescriptor(nameof(IsPendingApproval), new ActionRequestDescriptor(typeof(ResubmitContractRequest))),
+                  new GateDescriptor(nameof(IsNotPendingApproval), new ActionRequestDescriptor(typeof(ProcessNewContractRequest))))
         { }
 
         public static ProcessMaterialChangeRequest New(ContractProcessingPayload payload) => new ProcessMaterialChangeRequest(payload);

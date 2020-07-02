@@ -4,6 +4,6 @@
     {
         string Name { get; }
 
-        IActionProcessingStateChange Invoke(IActionRequest request);
+        IActionResult Invoke(IActionRequest request);
     }
 }

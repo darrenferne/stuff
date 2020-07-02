@@ -2,7 +2,7 @@
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public class FailureStateChange : StateChange
+    public class FailureStateChange : StateChangeResult
     {
         public FailureStateChange(IActionRequestPayload newPayload, IActionProcessingState newState, string message = null)
             : base(newPayload, newState, message)

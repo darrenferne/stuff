@@ -15,17 +15,19 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
     public class ContractState: IEquatable<ContractState>
     {
-        public ContractState(bool? isNew = null, bool? isValid = null, bool? isPendingApproval = null, bool? isAvailable = null, bool? isMaterialChange = null)
+        public ContractState(bool? isNew = null, bool? isValid = null, bool? isPendingApproval = null, bool? isAvailable = null, bool? isMaterialChange = null, bool? isPendingResubmit = null)
         {
             IsNew = isNew;
             IsValid = isValid;
             IsPendingApproval = isPendingApproval;
             IsAvailable = isAvailable;
             IsMaterialChange = isMaterialChange;
+            IsPendingResubmit = IsPendingResubmit;
         }
         public bool? IsNew { get; internal set; }
         public bool? IsValid { get; internal set; }
         public bool? IsPendingApproval { get; internal set; }
+        public bool? IsPendingResubmit { get; internal set; }
         public bool? IsAvailable { get; internal set; }
         public bool? IsMaterialChange { get; internal set; }
 
@@ -35,7 +37,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
                 IsValid.GetValueOrDefault() == other.IsValid.GetValueOrDefault() &&
                 IsPendingApproval.GetValueOrDefault() == other.IsPendingApproval.GetValueOrDefault() &&
                 IsAvailable.GetValueOrDefault() == other.IsAvailable.GetValueOrDefault() &&
-                IsMaterialChange.GetValueOrDefault() == other.IsMaterialChange.GetValueOrDefault();
+                IsMaterialChange.GetValueOrDefault() == other.IsMaterialChange.GetValueOrDefault() &&
+                IsPendingResubmit.GetValueOrDefault() == other.IsPendingResubmit.GetValueOrDefault();
         }
     }
 }

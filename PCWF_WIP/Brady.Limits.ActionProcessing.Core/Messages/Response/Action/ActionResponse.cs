@@ -2,13 +2,13 @@
 {
     public class ActionResponse : Response, IActionResponse
     {
-        public ActionResponse(IActionRequest request, IActionProcessingStateChange stateChange)
+        public ActionResponse(IActionRequest request, IActionResult result)
             : base(request)
         {
             ResponseName = GetType().Name;
-            StateChange = stateChange;
+            Result = result;
         }
 
-        public IActionProcessingStateChange StateChange { get; }
+        public IActionResult Result { get; }
     }
 }

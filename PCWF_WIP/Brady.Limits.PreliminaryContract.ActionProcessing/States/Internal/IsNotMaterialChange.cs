@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsNotMaterialChange : InternalState
+    internal class IsNotMaterialChange : IsCheckState
     {
         public IsNotMaterialChange()
-            : base(nameof(IsNotMaterialChange),
-                  nameof(CheckIsMaterialChange),
-                  nameof(CheckIsPendingApproval),
-                  nameof(CheckIsAvailable),
-                  nameof(NoAction))
+            : base(nameof(IsNotMaterialChange))
         { }
     }
 }

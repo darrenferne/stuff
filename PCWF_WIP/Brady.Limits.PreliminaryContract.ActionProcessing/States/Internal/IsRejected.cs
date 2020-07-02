@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsRejected : InternalState
+    internal class IsRejected : IsCheckState
     {
         public IsRejected()
-            : base(nameof(IsRejected),
-                  nameof(NoAction))
+            : base(nameof(IsRejected))
         { }
     }
 }

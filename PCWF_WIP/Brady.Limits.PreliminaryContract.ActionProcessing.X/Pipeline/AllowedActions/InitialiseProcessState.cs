@@ -21,10 +21,10 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             {
                 contractState = _statePersistence.SaveState(new ContractState());
 
-                return new StateChange(request.Payload, ContractProcessingState.New(nameof(IsNew), contractState).WithIsNew(true));
+                return new StateChangeResult(request.Payload, ContractProcessingState.New(nameof(IsNew), contractState).WithIsNew(true));
             }
             else
-                return new StateChange(request.Payload, ContractProcessingState.New(nameof(IsNotNew), contractState).WithIsNew(false));
+                return new StateChangeResult(request.Payload, ContractProcessingState.New(nameof(IsNotNew), contractState).WithIsNew(false));
         }
     }
 }

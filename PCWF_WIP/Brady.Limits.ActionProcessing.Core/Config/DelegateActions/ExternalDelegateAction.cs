@@ -27,7 +27,7 @@ namespace Brady.Limits.ActionProcessing.Core
                 return _canInvoke(request);
         }
 
-        public override IActionProcessingStateChange OnInvoke(ActionRequest<TPayload> request)
+        public override IActionResult OnInvoke(ActionRequest<TPayload> request)
         {
             return _onInvoke.Invoke(request);
         }

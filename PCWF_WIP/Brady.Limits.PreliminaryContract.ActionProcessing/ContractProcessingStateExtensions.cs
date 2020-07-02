@@ -10,39 +10,50 @@
                 IsMaterialChange = state.IsMaterialChange,
                 IsNew = state.IsNew,
                 IsAvailable = state.IsAvailable,
-                IsValid = state.IsValid
+                IsValid = state.IsValid,
+                IsPendingResubmit = state.IsPendingResubmit
             };
         }
 
-        public static ContractState WithIsPendingApproval(this ContractState state, bool isPendingApproval = true)
+        public static ContractState WithIsPendingApproval(this ContractState state, bool? isPendingApproval = true)
         {
             var newState = state.Clone();
             newState.IsPendingApproval = isPendingApproval;
             return newState;
         }
-        public static ContractState WithIsMaterialChange(this ContractState state, bool isMaterialChange = true)
+
+        public static ContractState WithIsPendingResubmit(this ContractState state, bool? isPendingResubmit = true)
+        {
+            var newState = state.Clone();
+            newState.IsPendingResubmit = isPendingResubmit;
+            return newState;
+        }
+
+        public static ContractState WithIsMaterialChange(this ContractState state, bool? isMaterialChange = true)
         {
             var newState = state.Clone();
             newState.IsMaterialChange = isMaterialChange;
             return newState;
         }
-        public static ContractState WithIsNew(this ContractState state, bool isNew = true)
+
+        public static ContractState WithIsNew(this ContractState state, bool? isNew = true)
         {
             var newState = state.Clone();
             newState.IsNew = isNew;
             return newState;
         }
 
-        public static ContractState WithIsValid(this ContractState state, bool isValid = true)
+        public static ContractState WithIsValid(this ContractState state, bool? isValid = true)
         {
             var newState = state.Clone();
             newState.IsValid = isValid;
             return newState;
         }
-        public static ContractState WithIsAvailable(this ContractState state, bool isOnHold = true)
+
+        public static ContractState WithIsAvailable(this ContractState state, bool? isAvailable = true)
         {
             var newState = state.Clone();
-            newState.IsAvailable = isOnHold;
+            newState.IsAvailable = isAvailable;
             return newState;
         }
 
@@ -57,6 +68,14 @@
         {
             var contractState = isPendingApproval.HasValue ? state.ContractState.Clone().WithIsPendingApproval(isPendingApproval.Value) : state.ContractState.Clone();
             var currentState = contractState.IsPendingApproval.GetValueOrDefault() ? nameof(IsPendingApproval) : nameof(IsNotPendingApproval);
+
+            return state.Clone(currentState, contractState);
+        }
+
+        public static ContractProcessingState WithIsPendingResubmit(this ContractProcessingState state, bool? isPendingResubmit = null)
+        {
+            var contractState = isPendingResubmit.HasValue ? state.ContractState.Clone().WithIsPendingApproval(isPendingResubmit.Value) : state.ContractState.Clone();
+            var currentState = contractState.IsPendingResubmit.GetValueOrDefault() ? nameof(IsPendingResubmit) : nameof(IsNotPendingResubmit);
 
             return state.Clone(currentState, contractState);
         }

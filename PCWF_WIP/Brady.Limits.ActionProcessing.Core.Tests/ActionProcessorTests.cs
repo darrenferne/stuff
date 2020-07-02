@@ -160,8 +160,8 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             var response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(0))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(1, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Level1", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(1, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Level1", response.GetStateChange().NewState.StateName);
 
             Assert.AreEqual(1, (_requirements.RequestPersistence as TestRequestPersistence).SaveCount);
             Assert.AreEqual(1, (_requirements.RequestPersistence as TestRequestPersistence).DeleteCount);
@@ -176,8 +176,8 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             var response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(0, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(1, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Level1", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(1, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Level1", response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(1, trackingReference))).Result;
 
@@ -186,19 +186,19 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(1, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(2, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Level2", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(2, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Level2", response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(((IActionRequest)response.Request).Context.CurrentState.StateName, ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(((IActionRequest)response.Request).Context.CurrentState.StateName, response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(3, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Level3", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(3, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Level3", response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(1, trackingReference))).Result;
 
@@ -207,20 +207,20 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelDown", IntegerPayload.New(3, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(2, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Level2", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(2, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Level2", response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("BrucieBonus", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(4, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Complete", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(4, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Complete", response.GetStateChange().NewState.StateName);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("BackToStart", IntegerPayload.New(3, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(0, ((ActionResponse)response).StateChange.NewPayload.Object);
-            Assert.AreEqual("Start", ((ActionResponse)response).StateChange.NewState.StateName);
+            Assert.AreEqual(0, response.GetStateChange().NewPayload.Object);
+            Assert.AreEqual("Start", response.GetStateChange().NewState.StateName);
         }
 
         [TestMethod]

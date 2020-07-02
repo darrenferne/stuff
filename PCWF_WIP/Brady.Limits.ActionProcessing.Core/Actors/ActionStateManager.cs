@@ -41,7 +41,8 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public void OnUpdateStateRequest(UpdateStateRequest request)
         {
-           _requirements.StatePersistence.SetCurrentState(request.ForRequest, request.ForRequestResponse.StateChange.NewState);
+            var stateChange = request.ForRequestResponse.Result as IActionProcessingStateChange;
+           _requirements.StatePersistence.SetCurrentState(request.ForRequest, stateChange.NewState);
             
             Sender.Tell(UpdateStateResponse.New(request, request.ForRequest));
         }

@@ -2,7 +2,7 @@
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public abstract class AllowedAction<TRequest> : AllowedAction<TRequest, ActionResponse>
+    public abstract class AllowedAction<TRequest> : AllowedAction<TRequest, IActionResult>
         where TRequest : class, IActionRequest
     {
         public AllowedAction()
@@ -13,9 +13,9 @@ namespace Brady.Limits.ActionProcessing.Core
         { }
     }
 
-    public abstract class AllowedAction<TRequest, TResponse> : IAllowedAction
+    public abstract class AllowedAction<TRequest, TResult> : IAllowedAction
         where TRequest : class, IActionRequest
-        where TResponse : class, IActionResponse
+        where TResult : class, IActionResult
     {
         public AllowedAction()
         {
@@ -32,14 +32,14 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public virtual bool CanInvoke(TRequest request) => true;
 
-        public abstract IActionProcessingStateChange OnInvoke(TRequest request);
+        public abstract TResult OnInvoke(TRequest request);
 
-        public virtual IActionProcessingStateChange OnError(TRequest request, Exception ex)
+        public virtual IActionResult OnError(TRequest request, Exception ex)
         {
             return new FailureStateChange(request.Payload, request.Context.CurrentState, FormatError(ex.Message));
         }
 
-        IActionProcessingStateChange IAllowedAction.Invoke(IActionRequest request)
+        IActionResult IAllowedAction.Invoke(IActionRequest request)
         {
             try
             {

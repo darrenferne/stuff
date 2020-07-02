@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsInflight : IsCheckState
+    internal class IsPendingResubmit : IsCheckState
     {
-        public IsInflight()
-            : base(nameof(IsInflight),
-                    nameof(ValidateContract))
+        public IsPendingResubmit()
+            : base(nameof(IsPendingResubmit),
+                  nameof(CancelContract))
         { }
     }
 }

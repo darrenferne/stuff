@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsCancelled : InternalState
+    internal class IsCancelled : IsCheckState
     {
         public IsCancelled()
             : base(nameof(IsCancelled),
-                  nameof(SubmitContract),
-                  nameof(NoAction))
+                  nameof(SubmitContract))
         { }
     }
 }

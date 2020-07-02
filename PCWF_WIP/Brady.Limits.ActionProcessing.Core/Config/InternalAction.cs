@@ -2,8 +2,9 @@
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public abstract class InternalAction<TRequest> : AllowedAction<TRequest, ActionResponse>, IInternalAction
+    public abstract class InternalAction<TRequest, TResult> : AllowedAction<TRequest, TResult>, IInternalAction
         where TRequest : class, IActionRequest
+        where TResult : class, IActionResult
     {
         public InternalAction()
             : base()

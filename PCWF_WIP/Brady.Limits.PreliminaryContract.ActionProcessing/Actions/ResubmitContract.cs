@@ -1,4 +1,5 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
+using Brady.Limits.PreliminaryContract.Domain.Enums;
 using Brady.Limits.PreliminaryContract.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsAvailable : AllowedAction<ActionRequest<ContractProcessingPayload>>
+    public class ResubmitContract : AllowedAction<ActionRequest<ContractProcessingPayload>>, IExternalAction
     {
-        public CheckIsAvailable()
-            : base(nameof(CheckIsAvailable))
+        public ResubmitContract()
+            : base()
         { }
 
         public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
@@ -21,16 +22,16 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             var currentContractState = currentProcessingState.ContractState;
 
             var newProcessingState = currentProcessingState;
-            if (!currentContractState.IsAvailable.HasValue)
+            if (currentContractState.IsPendingApproval.GetValueOrDefault())
             {
-                var onHold = contractPayload.Contract.GroupHeader.HoldFromApproval;
-                var newContractState = currentContractState.Clone().WithIsAvailable(!onHold);
+                var newContractState = currentContractState.WithIsPendingResubmit(true);
+
                 //update the external state
                 newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
             }
 
             //update the public state
-            newProcessingState = newProcessingState.WithIsAvailable();
+            newProcessingState = newProcessingState.WithIsPendingResubmit();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

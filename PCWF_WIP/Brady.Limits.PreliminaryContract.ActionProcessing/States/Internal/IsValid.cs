@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsValid : InternalState
+    internal class IsValid : IsCheckState
     {
         public IsValid()
             : base(nameof(IsValid),
-                  nameof(CheckIsValid),
-                  nameof(ValidateContract),
-                  nameof(CheckIsNew),
-                  nameof(NoAction))
+                  nameof(ValidateContract))
         { }
     }
 }

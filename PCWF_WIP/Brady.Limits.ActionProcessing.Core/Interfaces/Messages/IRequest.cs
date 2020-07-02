@@ -6,5 +6,6 @@ namespace Brady.Limits.ActionProcessing.Core
     {
         Guid RequestId { get; }
         string RequestName { get; }
+        Type RequestType { get; }
     }
 }

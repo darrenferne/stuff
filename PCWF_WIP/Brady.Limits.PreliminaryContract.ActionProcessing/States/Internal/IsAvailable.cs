@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsAvailable : InternalState
+    internal class IsAvailable : IsCheckState
     {
         public IsAvailable()
             : base(nameof(IsAvailable),
-                  nameof(CheckIsAvailable),
                   nameof(SubmitContract),
-                  nameof(TakeContractOffHold),
-                  nameof(NoAction))
+                  nameof(TakeContractOffHold))
         { }
     }
 }

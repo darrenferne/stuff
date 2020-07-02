@@ -8,8 +8,10 @@ namespace Brady.Limits.ActionProcessing.Core
         {
             RequestId = requestId;
             RequestName = name;
+            RequestType = this.GetType();
+
         }
-        
+        public Type RequestType{ get; }
         public Guid RequestId { get; }
         public string RequestName { get; }
     }

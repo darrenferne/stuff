@@ -15,7 +15,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             : base()
         { }
 
-        public override IActionProcessingStateChange OnInvoke(ActionRequest<ContractProcessingPayload> request)
+        public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
             var contractPayload = request.Payload as ContractProcessingPayload;
             var currentProcessingState = request.Context.CurrentState as ContractProcessingState;
@@ -30,7 +30,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             }
 
             //update the public state
-            newProcessingState = newProcessingState.WithCurrentState(nameof(ContractStatus.InFlight));
+            newProcessingState = newProcessingState.WithIsPendingApproval();
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

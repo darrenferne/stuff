@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsNotNew : InternalState
+    internal class IsNotNew : IsCheckState
     {
         public IsNotNew()
-            : base(nameof(IsNotNew),
-                  nameof(CheckIsNew),
-                  nameof(CheckIsMaterialChange),
-                  nameof(CheckIsPendingApproval),
-                  nameof(CheckIsAvailable),
-                  nameof(NoAction))
+            : base(nameof(IsNotNew))
         { }
     }
 }
