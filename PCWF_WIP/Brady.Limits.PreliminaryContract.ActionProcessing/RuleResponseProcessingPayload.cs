@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class WorkflowProcessingPayload : IActionRequestPayload
+    public class RuleResponseProcessingPayload : IActionRequestPayload
     {
-        public WorkflowProcessingPayload(Contract contract, Guid trackingReference)
+        public RuleResponseProcessingPayload(RuleResponse ruleResponse, Guid trackingReference)
         {
-            Contract = contract;
+            RuleResponse = ruleResponse;
             TrackingReference = trackingReference;
         }
 
-        public Contract Contract { get; }
+        public RuleResponse RuleResponse { get; }
 
-        public Type ObjectType { get; } = typeof(Contract);
+        public Type ObjectType { get; } = typeof(RuleResponse);
 
-        public object Object { get => Contract; }
+        public object Object { get => RuleResponse; }
 
         public Guid TrackingReference { get; }
     }
