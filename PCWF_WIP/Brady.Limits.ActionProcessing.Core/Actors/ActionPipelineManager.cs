@@ -77,9 +77,9 @@ namespace Brady.Limits.ActionProcessing.Core
             if (canHandle)
             {
                 if (!typeof(IStateCheckAction).IsAssignableFrom(request.RequestType) && 
-                    !(request.Context.CurrentState is null))
+                    !(request.Context.ProcessingState is null))
                 { 
-                    canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.Context.CurrentState.StateName);
+                    canHandle = canHandle && _requirements.PipelineConfiguration.AllowedStates.ContainsKey(request.Context.ProcessingState.CurrentState);
                 }
             }
 
@@ -105,7 +105,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
             if (!(request is null) &&
                 request is IRequestWithState &&
-                request.Context.CurrentState != newState)
+                request.Context.ProcessingState != newState)
             {
                 _stateManager.Tell(UpdateStateRequest.New(request, response));
                 return true;
@@ -128,7 +128,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         private void ProcessAction(IActionRequest request)
         {
-            var currentStateName = request.Context.CurrentState.StateName;
+            var currentStateName = request.Context.ProcessingState.CurrentState;
             if (!string.IsNullOrEmpty(currentStateName))
             {
                 if (_requirements.PipelineConfiguration.AllowedStates.ContainsKey(currentStateName))
@@ -240,7 +240,7 @@ namespace Brady.Limits.ActionProcessing.Core
             //TODO add error handling and logging
             SavePendingRequest(request);
 
-            if (request.Context.CurrentState is null)
+            if (request.Context.ProcessingState is null)
             {
                 RestoreState(request);
             }
@@ -267,7 +267,7 @@ namespace Brady.Limits.ActionProcessing.Core
         private void OnUnhandledRequest(IActionRequest request)
         {
             //TODO - This doesn't report invalid actions. It just assumes it's an invalid state 
-            SetRejected(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state.");
+            SetRejected(request, $"Request Rejected. The specified current state '{request.Context.ProcessingState.CurrentState}' is not a known state.");
         }
 
         private void OnUnhandledResponse(UnhandledResponse response)

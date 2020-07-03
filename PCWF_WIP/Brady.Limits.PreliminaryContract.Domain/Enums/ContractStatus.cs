@@ -2,6 +2,7 @@
 {
     public enum ContractStatus
     {
+        Draft,
         HoldFromApproval,
         AvailableForApproval,
         InFlight

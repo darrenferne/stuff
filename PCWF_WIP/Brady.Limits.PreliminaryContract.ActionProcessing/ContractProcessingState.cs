@@ -1,4 +1,5 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
+using Brady.Limits.PreliminaryContract.Domain.Enums;
 using System;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
@@ -15,8 +16,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
     public class ContractState: IEquatable<ContractState>
     {
-        public ContractState(bool? isNew = null, bool? isValid = null, bool? isPendingApproval = null, bool? isAvailable = null, bool? isMaterialChange = null, bool? isPendingResubmit = null)
+        public ContractState(ContractStatus contractStatus, bool? isNew = null, bool? isValid = null, bool? isPendingApproval = null, bool? isAvailable = null, bool? isMaterialChange = null, bool? isPendingResubmit = null)
         {
+            ContractStatus = ContractStatus;
             IsNew = isNew;
             IsValid = isValid;
             IsPendingApproval = isPendingApproval;
@@ -24,6 +26,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             IsMaterialChange = isMaterialChange;
             IsPendingResubmit = IsPendingResubmit;
         }
+        public ContractStatus ContractStatus { get; set; }
         public bool? IsNew { get; internal set; }
         public bool? IsValid { get; internal set; }
         public bool? IsPendingApproval { get; internal set; }
@@ -33,7 +36,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
         public bool Equals(ContractState other)
         {
-            return IsNew.GetValueOrDefault() == other.IsNew.GetValueOrDefault() &&
+            return ContractStatus == other.ContractStatus &&
+                IsNew.GetValueOrDefault() == other.IsNew.GetValueOrDefault() &&
                 IsValid.GetValueOrDefault() == other.IsValid.GetValueOrDefault() &&
                 IsPendingApproval.GetValueOrDefault() == other.IsPendingApproval.GetValueOrDefault() &&
                 IsAvailable.GetValueOrDefault() == other.IsAvailable.GetValueOrDefault() &&

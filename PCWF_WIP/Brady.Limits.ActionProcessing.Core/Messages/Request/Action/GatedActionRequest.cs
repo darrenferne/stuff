@@ -31,7 +31,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public ActionRequestDescriptor NextRequest(IActionProcessingState state)
         {
-            return Gates.ContainsKey(state.StateName) ? Gates[state.StateName] : null;
+            return Gates.ContainsKey(state.CurrentState) ? Gates[state.CurrentState] : null;
         }
     }
 }

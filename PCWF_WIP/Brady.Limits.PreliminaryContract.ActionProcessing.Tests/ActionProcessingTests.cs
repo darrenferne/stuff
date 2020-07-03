@@ -53,7 +53,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
                 var isNew = contract.Id == 0;
                 var isPendingApproval = contract.ContractStatus == ContractStatus.InFlight;
 
-                return ("IsDraft", new ContractState(isNew, isPendingApproval: isPendingApproval));
+                return ("IsDraft", new ContractState(contract.ContractStatus, isNew: isNew, isPendingApproval: isPendingApproval));
             });
 
             _kernel.Bind<IPreliminaryContractStatePersistence>().ToConstant(_statePersistence);
@@ -93,7 +93,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsNotValid"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsNotValid"));
             },
             assertTimeout, assertInterval);
         }
@@ -108,7 +108,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var response = processor.ProcessAction(request).Result;
             
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsPendingApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
             },
             assertTimeout, assertInterval);
         }
@@ -123,7 +123,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsNotAvailable"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsNotAvailable"));
             },
             assertTimeout, assertInterval);
         }
@@ -138,7 +138,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsPendingApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
             },
             assertTimeout, assertInterval);
         }
@@ -154,7 +154,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             var response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsPendingApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
             },
             assertTimeout, assertInterval);
         }
@@ -175,7 +175,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsPendingApproval"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
             },
             assertTimeout, assertInterval);
         }
@@ -196,7 +196,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             response = processor.ProcessAction(request).Result;
 
             AwaitAssert(() => {
-                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.StateName == "IsPendingResubmit"));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingResubmit"));
             },
             assertTimeout, assertInterval);
         }

@@ -7,7 +7,7 @@ namespace Brady.Limits.ActionProcessing.Core
 {
     public interface IActionRequestContext
     {
-        IActionProcessingState CurrentState { get; }
+        IActionProcessingState ProcessingState { get; }
         IActionProcessorUser User { get; }
         IActionRequest OriginatingRequest { get; }
         IActorRef OriginatingActor { get; }

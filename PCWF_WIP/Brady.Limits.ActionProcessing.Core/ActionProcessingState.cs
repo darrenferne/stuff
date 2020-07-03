@@ -4,10 +4,10 @@
     {
         public ActionProcessingState(string currentState, object externalState = null)
         {
-            StateName = currentState;
+            CurrentState = currentState;
             ExtendedState = externalState;
         }
-        public string StateName { get; }
+        public string CurrentState { get; }
 
         public object ExtendedState { get; }
 
@@ -16,7 +16,7 @@
             return
                 !(other is null) 
                 &&
-                (string.IsNullOrEmpty(StateName) && string.IsNullOrEmpty(other.StateName) || (StateName?.Equals(other.StateName) ?? false))
+                (string.IsNullOrEmpty(CurrentState) && string.IsNullOrEmpty(other.CurrentState) || (CurrentState?.Equals(other.CurrentState) ?? false))
                 &&
                 (ExtendedState is null && other.ExtendedState is null || (ExtendedState?.Equals(other.ExtendedState) ?? false));
         }

@@ -75,7 +75,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
         public void OnUnhandledRequest(IActionRequest request)
         {
-            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state: '{request.Context.CurrentState.StateName}'."));
+            Sender.Tell(UnhandledResponse.New(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state: '{request.Context.ProcessingState.CurrentState}'."));
         }
     }
 }

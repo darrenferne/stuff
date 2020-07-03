@@ -4,7 +4,7 @@ namespace Brady.Limits.ActionProcessing.Core
 {
     public interface IActionProcessingState : IEquatable<IActionProcessingState>
     {
-        string StateName { get; }
+        string CurrentState { get; }
         object ExtendedState { get; }
     }
 }

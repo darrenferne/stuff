@@ -32,11 +32,11 @@ namespace Brady.Limits.ActionProcessing.Core
             User = user;
             OriginatingRequest = originatingRequest;
             OriginatingActor = originatingActor;
-            CurrentState = currentState;
+            ProcessingState = currentState;
             CompletionSource = completionSource;
         }
 
-        public IActionProcessingState CurrentState { get; }
+        public IActionProcessingState ProcessingState { get; }
         public IActionProcessorUser User { get; }
         public IActionRequest OriginatingRequest { get; }
         public IActorRef OriginatingActor { get; }

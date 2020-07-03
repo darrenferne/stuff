@@ -31,7 +31,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
                 IActionProcessingStateChange LevelDown(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, -1), TestState.New((r.Payload as IntegerPayload).Value > 1 ? $"Level{(r.Payload as IntegerPayload).Value - 1}" : "Start"));
                 IActionProcessingStateChange BrucieBonus(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, 2), TestState.New((r.Payload as IntegerPayload).Value < 2 ? $"Level{(r.Payload as IntegerPayload).Value + 2}" : "Complete"));
                 IActionProcessingStateChange BackToStart(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.New(0, r.Payload.TrackingReference), TestState.New("Start"));
-                IActionProcessingStateChange SideQuest(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(r.Payload, r.Context.CurrentState);
+                IActionProcessingStateChange SideQuest(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(r.Payload, r.Context.ProcessingState);
                 IActionProcessingStateChange ToggleUpDown(ActionRequest<IntegerPayload> r) => LastState = (Toggle ? LevelUp(r) : LevelDown(r));
 
                 PipelineConfiguration = new ActionPipelineConfiguration(
@@ -161,7 +161,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(1, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Level1", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Level1", response.GetStateChange().NewState.CurrentState);
 
             Assert.AreEqual(1, (_requirements.RequestPersistence as TestRequestPersistence).SaveCount);
             Assert.AreEqual(1, (_requirements.RequestPersistence as TestRequestPersistence).DeleteCount);
@@ -177,7 +177,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(1, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Level1", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Level1", response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(1, trackingReference))).Result;
 
@@ -187,18 +187,18 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(2, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Level2", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Level2", response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
-            Assert.AreEqual(((IActionRequest)response.Request).Context.CurrentState.StateName, response.GetStateChange().NewState.StateName);
+            Assert.AreEqual(((IActionRequest)response.Request).Context.ProcessingState.CurrentState, response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(3, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Level3", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Level3", response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("SideQuest", IntegerPayload.New(1, trackingReference))).Result;
 
@@ -208,19 +208,19 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(2, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Level2", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Level2", response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("BrucieBonus", IntegerPayload.New(2, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(4, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Complete", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Complete", response.GetStateChange().NewState.CurrentState);
 
             response = processor.ProcessAction<ActionRequest<IntegerPayload>>(new ActionRequest<IntegerPayload>("BackToStart", IntegerPayload.New(3, trackingReference))).Result;
 
             Assert.AreEqual(typeof(ActionResponse), response.GetType());
             Assert.AreEqual(0, response.GetStateChange().NewPayload.Object);
-            Assert.AreEqual("Start", response.GetStateChange().NewState.StateName);
+            Assert.AreEqual("Start", response.GetStateChange().NewState.CurrentState);
         }
 
         [TestMethod]
@@ -237,7 +237,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             AwaitAssert(() =>
             {
-                Assert.AreEqual("Complete", _requirements.LastState.NewState.StateName);
+                Assert.AreEqual("Complete", _requirements.LastState.NewState.CurrentState);
                 Assert.AreEqual(4, _requirements.LastState.NewPayload.Object);
             },
             TimeSpan.FromSeconds(3));
@@ -259,7 +259,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             AwaitAssert(() =>
             {
-                Assert.AreEqual("Level2", _requirements.LastState.NewState.StateName);
+                Assert.AreEqual("Level2", _requirements.LastState.NewState.CurrentState);
                 Assert.AreEqual(2, _requirements.LastState.NewPayload.Object);
             },
             TimeSpan.FromSeconds(3));
@@ -274,7 +274,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
 
             AwaitAssert(() =>
             {
-                Assert.AreEqual("Start", _requirements.LastState.NewState.StateName);
+                Assert.AreEqual("Start", _requirements.LastState.NewState.CurrentState);
                 Assert.AreEqual(0, _requirements.LastState.NewPayload.Object);
             },
             TimeSpan.FromSeconds(3));

@@ -72,17 +72,17 @@ namespace Brady.Limits.ActionProcessing.Core
         private bool ValidateStateAndAction(IActionRequest request)
         {
             var allowedStates = _requirements.PipelineConfiguration.AllowedStates;
-            var currentState = request.Context.CurrentState?.StateName;
+            var currentState = request.Context.ProcessingState?.CurrentState;
 
             if (!allowedStates.ContainsKey(currentState) || !typeof(IExternalState).IsAssignableFrom(allowedStates[currentState].GetType()))
             {
-                SetRejected(request, $"Request Rejected. The specified current state '{request.Context.CurrentState.StateName}' is not a known state.");
+                SetRejected(request, $"Request Rejected. The specified current state '{request.Context.ProcessingState.CurrentState}' is not a known state.");
                 return false;
             }
 
             if (!allowedStates[currentState].AllowedActions.ContainsKey(request.ActionName))
             {
-                SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{request.Context.CurrentState.StateName}'.");
+                SetRejected(request, $"Request Rejected. The requested action '{request.ActionName}' is not valid for the current state '{request.Context.ProcessingState.CurrentState}'.");
                 return false;
             }
 
@@ -110,7 +110,7 @@ namespace Brady.Limits.ActionProcessing.Core
 
             if (_state == ActionProcessorState.Started)
             {
-                var canProcess = request.Context.CurrentState is null ?
+                var canProcess = request.Context.ProcessingState is null ?
                                     ValidateAction(request) :
                                     ValidateStateAndAction(request);
 

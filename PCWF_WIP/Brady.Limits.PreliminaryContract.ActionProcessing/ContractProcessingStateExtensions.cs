@@ -1,20 +1,28 @@
-﻿namespace Brady.Limits.PreliminaryContract.ActionProcessing
+﻿using Brady.Limits.PreliminaryContract.Domain.Enums;
+
+namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
     public static class ContractProcessingStateExtensions
     {
         public static ContractState Clone(this ContractState state)
         {
-            return new ContractState
-            {
-                IsPendingApproval = state.IsPendingApproval,
-                IsMaterialChange = state.IsMaterialChange,
-                IsNew = state.IsNew,
-                IsAvailable = state.IsAvailable,
-                IsValid = state.IsValid,
-                IsPendingResubmit = state.IsPendingResubmit
-            };
+            return new ContractState(
+                state.ContractStatus,
+                state.IsNew,
+                state.IsValid,
+                state.IsPendingApproval,
+                state.IsAvailable,
+                state.IsMaterialChange,
+                state.IsPendingResubmit
+            );
         }
 
+        public static ContractState WithContractStatus(this ContractState state, ContractStatus contractStatus)
+        {
+            var newState = state.Clone();
+            newState.ContractStatus = contractStatus;
+            return newState;
+        }
         public static ContractState WithIsPendingApproval(this ContractState state, bool? isPendingApproval = true)
         {
             var newState = state.Clone();
@@ -60,7 +68,7 @@
         public static ContractProcessingState Clone(this ContractProcessingState state, string newCurrentState = null, ContractState newContractState = null)
         {
             return new ContractProcessingState(
-                string.IsNullOrEmpty(newCurrentState) ? state.StateName : newCurrentState,
+                string.IsNullOrEmpty(newCurrentState) ? state.CurrentState : newCurrentState,
                 newContractState is null ? state.ContractState.Clone() : newContractState);
         }
 
@@ -110,11 +118,11 @@
             return state.Clone(currentState, contractState);
         }
 
-        public static ContractProcessingState WithCurrentState(this ContractProcessingState state, string currentState)
+        public static ContractProcessingState WithContractStatus(this ContractProcessingState state, ContractStatus contractStatus)
         {
-            var contractState = state.ContractState.Clone();
+            var contractState = state.ContractState.WithContractStatus(contractStatus);
             
-            return state.Clone(currentState, contractState);
+            return state.Clone(newContractState: contractState);
         }
     }
 }

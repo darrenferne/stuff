@@ -16,7 +16,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
         public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            return new SuccessStateChange(request.Payload, request.Context.CurrentState);
+            return new SuccessStateChange(request.Payload, request.Context.ProcessingState);
         }
     }
 }

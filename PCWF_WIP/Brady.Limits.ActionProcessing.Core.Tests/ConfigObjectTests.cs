@@ -52,7 +52,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
             var stateChange = action.Invoke(new ActionRequest<IntegerPayload>("TestAction", currentPayload)).GetStateChange();
 
             Assert.AreEqual(expectedValue, stateChange.NewPayload.Object);
-            Assert.AreEqual(expectedState.StateName, stateChange.NewState.StateName);
+            Assert.AreEqual(expectedState.CurrentState, stateChange.NewState.CurrentState);
             Assert.AreEqual(1, stateChange.Messages.Count());
             Assert.AreEqual("Happy Path", stateChange.Messages.First());
         }
