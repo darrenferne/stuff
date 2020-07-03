@@ -11,6 +11,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     {
         public IsPendingApproval()
             : base(nameof(IsPendingApproval),
+                  nameof(ResubmitContract),
                   nameof(ApproveContract),
                   nameof(CancelContract),
                   nameof(RejectContract))

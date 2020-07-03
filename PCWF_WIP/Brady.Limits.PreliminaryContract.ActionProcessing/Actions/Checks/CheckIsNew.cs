@@ -19,14 +19,15 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             var contractPayload = request.Payload as ContractProcessingPayload;
             var contractProcessingState = request.Context.ProcessingState as ContractProcessingState;
 
-            var contractState = contractProcessingState.ContractState;
-            if (!contractState.IsNew.HasValue)
+            var newProcessingState = contractProcessingState;
+            if (!newProcessingState.ContractState.IsNew.HasValue)
             {
                 //TODO - Check if new;
-                contractState = contractState.Clone().WithIsNew();
+                var isNew = false;
+                newProcessingState = newProcessingState.Clone(s => s.SetIsNew(isNew));
             }
 
-            var newProcessingState = contractProcessingState.WithIsNew();
+            newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsNew());
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

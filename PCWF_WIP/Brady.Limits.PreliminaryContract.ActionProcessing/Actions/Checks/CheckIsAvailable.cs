@@ -24,13 +24,13 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             if (!currentContractState.IsAvailable.HasValue)
             {
                 var onHold = contractPayload.Contract.GroupHeader.HoldFromApproval;
-                var newContractState = currentContractState.Clone().WithIsAvailable(!onHold);
+                
                 //update the external state
-                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
+                newProcessingState = newProcessingState.Clone(s => s.SetIsAvailable(!onHold));
             }
 
             //update the public state
-            newProcessingState = newProcessingState.WithIsAvailable();
+            newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsAvailable());
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

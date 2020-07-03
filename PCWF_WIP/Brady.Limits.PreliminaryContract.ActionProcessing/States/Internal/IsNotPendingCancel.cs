@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class IsPendingResubmit : IsCheckState
+    internal class IsNotPendingCancel : IsCheckState
     {
-        public IsPendingResubmit()
-            : base(nameof(IsPendingResubmit))
+        public IsNotPendingCancel()
+            : base(nameof(IsNotPendingCancel))
         { }
     }
 }

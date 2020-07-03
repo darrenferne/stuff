@@ -22,15 +22,18 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             var currentContractState = currentProcessingState.ContractState;
 
             var newProcessingState = currentProcessingState;
+            var newContractState = currentContractState;
+
             if (!currentContractState.IsAvailable.GetValueOrDefault())
             {
-                var newContractState = currentContractState.Clone().WithIsAvailable(true);
-                //update the external state
-                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
+                //update the extended state
+                newProcessingState = newProcessingState.Clone(s => s.SetIsAvailable(true));
             }
 
-            //update the public state
-            newProcessingState = newProcessingState.WithContractStatus(ContractStatus.AvailableForApproval);
+            //set the current state
+            newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsAvailable()
+                                                               .And()
+                                                               .SetContractStatus(ContractStatus.AvailableForApproval));
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

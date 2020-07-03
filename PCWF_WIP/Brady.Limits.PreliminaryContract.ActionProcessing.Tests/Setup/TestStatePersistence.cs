@@ -20,7 +20,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             if (_stateStore.ContainsKey(request.Payload.TrackingReference))
             {
                 var state = _stateStore[request.Payload.TrackingReference] as ContractProcessingState;
-                return state.WithIsNew(false); 
+                return state.Clone(s => s.SetIsNew(false)); 
             }
             else
                 return null;

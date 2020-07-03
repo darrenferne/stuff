@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ResubmitContractRequest : ContinuationActionRequest<ContractProcessingPayload>
+    public class ResubmitContractRequest : ActionRequest<ContractProcessingPayload>
     {
         public ResubmitContractRequest(ContractProcessingPayload payload)
-            : base(nameof(CancelContract), payload, 
-                  new ActionRequestDescriptor(typeof(SubmitContractRequest)))
+            : base(nameof(ResubmitContract), payload)
         { }
 
         public static ResubmitContractRequest New(ContractProcessingPayload payload) => new ResubmitContractRequest(payload);

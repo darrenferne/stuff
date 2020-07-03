@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ResubmitContract : AllowedAction<ActionRequest<ContractProcessingPayload>>, IExternalAction
+    public class ResubmitContract : CancelContract
     {
         public ResubmitContract()
             : base()
@@ -17,21 +17,22 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
         public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
         {
-            var contractPayload = request.Payload as ContractProcessingPayload;
-            var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
-            var currentContractState = currentProcessingState.ContractState;
+            var cancelResult = base.OnInvoke(request);
 
-            var newProcessingState = currentProcessingState;
-            if (currentContractState.IsPendingApproval.GetValueOrDefault())
+            if (!(cancelResult is SuccessStateChange))
+                return cancelResult;
+
+            var newProcessingState = (cancelResult as SuccessStateChange).NewState as ContractProcessingState;
+            if (!newProcessingState.ContractState.IsPendingResubmit.GetValueOrDefault())
             {
-                var newContractState = currentContractState.WithIsPendingResubmit(true);
-
                 //update the external state
-                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
+                newProcessingState = newProcessingState.Clone(s => s.SetIsPendingResubmit(true));
             }
 
             //update the public state
-            newProcessingState = newProcessingState.WithIsPendingResubmit();
+            newProcessingState = newProcessingState.Clone(s =>  s.SetCurrentFromIsPendingResubmit()
+                                                                .And()
+                                                                .SetContractStatus(ContractStatus.InFlight));
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }

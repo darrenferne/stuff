@@ -145,7 +145,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 
 
         [TestMethod]
-        public void Calling_process_action_with_a_process_contract_request_and_an_updated_contract_that_is_already_in_flight_should_leave_the_trade_pending_approval()
+        public void Calling_process_action_with_a_process_contract_request_and_an_updated_contract_that_is_already_in_flight_and_has_no_material_changes_should_leave_the_trade_pending_approval()
         {
             var processor = GetProcessor(true);
             var contract = new Contract() { Id = 1, ContractStatus = ContractStatus.InFlight };

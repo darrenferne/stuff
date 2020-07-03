@@ -19,18 +19,18 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
         {
             var contractPayload = request.Payload as ContractProcessingPayload;
             var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
-            var currentContractState = currentProcessingState.ContractState;
-
+            
             var newProcessingState = currentProcessingState;
-            if (currentContractState.IsAvailable.GetValueOrDefault())
+            if (newProcessingState.ContractState.IsAvailable.GetValueOrDefault())
             {
-                var newContractState = currentContractState.Clone().WithIsAvailable(false);
                 //update the external state
-                newProcessingState = currentProcessingState.Clone(newContractState: newContractState);
+                newProcessingState = newProcessingState.Clone(s => s.SetIsAvailable(false));
             }
 
             //update the public state
-            newProcessingState = newProcessingState.WithContractStatus(ContractStatus.HoldFromApproval);
+            newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsAvailable()
+                                                                .And()
+                                                                .SetContractStatus(ContractStatus.HoldFromApproval));
 
             return new SuccessStateChange(request.Payload, newProcessingState);
         }
