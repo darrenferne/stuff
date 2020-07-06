@@ -6,6 +6,7 @@ namespace Brady.Limits.PreliminaryContract.Domain.Models
 {
     public class WorkflowResponse
     {
+        public Guid RuleTrackingReference { get; set; }
         public Guid ActionId { get; set; }
         public string ActionState { get; set; }
         public List<string> Comments { get; set; }

@@ -5,6 +5,9 @@
         Draft,
         HoldFromApproval,
         AvailableForApproval,
-        InFlight
+        InFlight,
+        Approved,
+        Rejected,
+        Cancelled
     }
 }

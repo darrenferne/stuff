@@ -16,7 +16,23 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
         public override IActionResult OnInvoke(ActionRequest<WorkflowResponseProcessingPayload> request)
         {
-            throw new NotImplementedException();
+            var workflowResponsePayload = request.Payload as WorkflowResponseProcessingPayload;
+            var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
+
+            var newProcessingState = currentProcessingState;
+
+            if (newProcessingState.ContractState.IsPendingApproval.GetValueOrDefault())
+            {
+                if (workflowResponsePayload.WorkflowResponse)
+                {
+                    //update the external state
+                    newProcessingState = newProcessingState.Clone(s => s.SetIsPendingApproval(false)
+                                                                        .And()
+                                                                        .SetContractStatus(ContractStatus.Approved));
+                }
+            }
+
+            return new SuccessStateChange(request.Payload, newProcessingState);
         }
     }
 }
