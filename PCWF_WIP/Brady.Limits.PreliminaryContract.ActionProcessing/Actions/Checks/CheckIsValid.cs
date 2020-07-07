@@ -1,14 +1,8 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    //internal class CheckIsValid : CheckIsValid<ActionRequest<ContractProcessingPayload>>
+    //internal class CheckIsValid : CheckIsValid<ActionRequest<IContractProcessingPayload>>
     //{
     //    public CheckIsValid(IPreliminaryContractValidation validation)
     //        : base(validation)
@@ -16,8 +10,8 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
     //}
 
     //public abstract class CheckIsValid<TRequest> : AllowedAction<TRequest>
-    //    where TRequest : ActionRequest<ContractProcessingPayload>
-    public class CheckIsValid : AllowedAction<ActionRequest<ContractProcessingPayload>>
+    //    where TRequest : ActionRequest<IContractProcessingPayload>
+    public class CheckIsValid : AllowedAction<IContractProcessingPayload>
     {
         IPreliminaryContractValidation _validation;
 
@@ -27,9 +21,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
             _validation = validation;
         }
 
-        public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<IContractProcessingPayload> request)
         {
-            var contractPayload = request.Payload as ContractProcessingPayload;
+            var contractPayload = request.Payload as IContractProcessingPayload;
             var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
             
             var newProcessingState = currentProcessingState; 

@@ -1,19 +1,13 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class TakeContractOffHoldRequest : ActionRequest<ContractProcessingPayload>
+    public class TakeContractOffHoldRequest : ActionRequest<IContractProcessingPayload>
     {
-        public TakeContractOffHoldRequest(ContractProcessingPayload payload)
+        public TakeContractOffHoldRequest(IContractProcessingPayload payload)
             : base(nameof(TakeContractOffHold), payload)
         { }
 
-        public static TakeContractOffHoldRequest New(ContractProcessingPayload payload) => new TakeContractOffHoldRequest(payload);
+        public static TakeContractOffHoldRequest New(IContractProcessingPayload payload) => new TakeContractOffHoldRequest(payload);
     }
 }

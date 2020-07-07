@@ -27,6 +27,7 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
         TestResponseObserver _responseObserver;
         TestRequestPersistence _requestPersistence;
         TestStatePersistence _statePersistence;
+        TestContractPersistence _contractPersistence;
 
         [TestInitialize]
         public void Initialise()
@@ -57,6 +58,9 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
             });
 
             _kernel.Bind<IPreliminaryContractStatePersistence>().ToConstant(_statePersistence);
+
+            _contractPersistence = new TestContractPersistence();
+            _kernel.Bind<IPreliminaryContractPersistence>().ToConstant(_contractPersistence);
         }
 
         private IActionProcessor GetProcessor(bool start = true, bool withRecovery = false)
@@ -197,6 +201,237 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing.Tests
 
             AwaitAssert(() => {
                 Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == request && r.GetStateChange().NewState.CurrentState == "IsPendingResubmit"));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_rule_response_request_for_an_in_flight_contract_with_no_triggered_actions_should_progress_the_trade_to_approved()
+        {
+            var processor = GetProcessor(true);
+            var currentContract = new Contract();
+            var contractRequest = ProcessContractRequest.New(currentContract);
+            var trackingRefernence = contractRequest.Payload.TrackingReference;
+
+            var processResponse = processor.ProcessAction(contractRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsNotNull(_contractPersistence.GetContractTrackingReference(trackingRefernence));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var ruleResponse = new RuleResponse {
+                TriggeredActions = new List<TriggeredAction>()
+            };
+            var ruleRequest = ProcessRuleResponseRequest.New(currentContract, ruleResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(ruleRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsNotPendingResubmit"));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_rule_response_request_for_an_in_flight_contract_with_some_triggered_actions_should_leave_the_contract_pending_approval()
+        {
+            var processor = GetProcessor(true);
+            var currentContract = new Contract();
+            var contractRequest = ProcessContractRequest.New(currentContract);
+            var trackingRefernence = contractRequest.Payload.TrackingReference;
+
+            var processResponse = processor.ProcessAction(contractRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsNotNull(_contractPersistence.GetContractTrackingReference(trackingRefernence));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var ruleResponse = new RuleResponse
+            {
+                TriggeredActions = new List<TriggeredAction>() {
+                    new TriggeredAction { ActionReference = Guid.NewGuid()},
+                    new TriggeredAction { ActionReference = Guid.NewGuid()}
+                }
+            };
+            var ruleRequest = ProcessRuleResponseRequest.New(currentContract, ruleResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(ruleRequest).Result;
+
+            AwaitAssert(() => {
+                var contractTracking = _contractPersistence.GetContractTrackingReference(trackingRefernence);
+                Assert.IsNotNull(contractTracking);
+                Assert.AreEqual(2, contractTracking.Actions.Count);
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_workflow_response_request_for_an_in_flight_contract_with_triggered_actions_should_leave_the_contract_pending_approval_unless_all_actions_are_approved()
+        {
+            var processor = GetProcessor(true);
+            var currentContract = new Contract();
+            var contractRequest = ProcessContractRequest.New(currentContract);
+            var trackingRefernence = contractRequest.Payload.TrackingReference;
+
+            var processResponse = processor.ProcessAction(contractRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsNotNull(_contractPersistence.GetContractTrackingReference(trackingRefernence));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var ruleResponse = new RuleResponse
+            {
+                TriggeredActions = new List<TriggeredAction>() {
+                    new TriggeredAction { ActionReference = Guid.NewGuid()},
+                    new TriggeredAction { ActionReference = Guid.NewGuid()}
+                }
+            };
+            var ruleRequest = ProcessRuleResponseRequest.New(currentContract, ruleResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(ruleRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == ruleRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var workflowResponse = new WorkflowResponse
+            {
+                ActionReference = ruleResponse.TriggeredActions.First().ActionReference,
+                ActionState = Domain.ActionState.Approved
+            };
+            var workflowRequest = ProcessWorkflowResponseRequest.New(currentContract, workflowResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(workflowRequest).Result;
+        }
+
+        [TestMethod]
+        public void Calling_process_action_with_a_process_workflow_response_request_for_an_in_flight_contract_with_triggered_actions_should_progress_the_contract_pending_to_approved_when_all_actions_are_approved()
+        {
+            var processor = GetProcessor(true);
+            var currentContract = new Contract();
+            var contractRequest = ProcessContractRequest.New(currentContract);
+            var trackingRefernence = contractRequest.Payload.TrackingReference;
+
+            var processResponse = processor.ProcessAction(contractRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsNotNull(_contractPersistence.GetContractTrackingReference(trackingRefernence));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var ruleResponse = new RuleResponse
+            {
+                TriggeredActions = new List<TriggeredAction>() {
+                    new TriggeredAction { ActionReference = Guid.NewGuid()},
+                    new TriggeredAction { ActionReference = Guid.NewGuid()}
+                }
+            };
+            var ruleRequest = ProcessRuleResponseRequest.New(currentContract, ruleResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(ruleRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == ruleRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var workflowResponse = new WorkflowResponse
+            {
+                ActionReference = ruleResponse.TriggeredActions.First().ActionReference,
+                ActionState = Domain.ActionState.Approved
+            };
+            var workflowRequest = ProcessWorkflowResponseRequest.New(currentContract, workflowResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(workflowRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == workflowRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            workflowResponse = new WorkflowResponse
+            {
+                ActionReference = ruleResponse.TriggeredActions.Last().ActionReference,
+                ActionState = Domain.ActionState.Approved
+            };
+            workflowRequest = ProcessWorkflowResponseRequest.New(currentContract, workflowResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(workflowRequest).Result;
+
+            AwaitAssert(() => {
+
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == workflowRequest && r.GetStateChange().NewState.CurrentState == "IsNotPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+        }
+        [TestMethod]
+        public void Calling_process_action_with_a_process_workflow_response_request_for_an_in_flight_contract_with_triggered_actions_should_progress_the_contract_pending_to_rejected_when_any_action_is_rejected()
+        {
+            var processor = GetProcessor(true);
+            var currentContract = new Contract();
+            var contractRequest = ProcessContractRequest.New(currentContract);
+            var trackingRefernence = contractRequest.Payload.TrackingReference;
+
+            var processResponse = processor.ProcessAction(contractRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsNotNull(_contractPersistence.GetContractTrackingReference(trackingRefernence));
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == contractRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var ruleResponse = new RuleResponse
+            {
+                TriggeredActions = new List<TriggeredAction>() {
+                    new TriggeredAction { ActionReference = Guid.NewGuid()},
+                    new TriggeredAction { ActionReference = Guid.NewGuid()}
+                }
+            };
+            var ruleRequest = ProcessRuleResponseRequest.New(currentContract, ruleResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(ruleRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == ruleRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            var workflowResponse = new WorkflowResponse
+            {
+                ActionReference = ruleResponse.TriggeredActions.First().ActionReference,
+                ActionState = Domain.ActionState.Approved
+            };
+            var workflowRequest = ProcessWorkflowResponseRequest.New(currentContract, workflowResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(workflowRequest).Result;
+
+            AwaitAssert(() => {
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == workflowRequest && r.GetStateChange().NewState.CurrentState == "IsPendingApproval"));
+            },
+            assertTimeout, assertInterval);
+
+            workflowResponse = new WorkflowResponse
+            {
+                ActionReference = ruleResponse.TriggeredActions.Last().ActionReference,
+                ActionState = Domain.ActionState.Rejected
+            };
+            workflowRequest = ProcessWorkflowResponseRequest.New(currentContract, workflowResponse, trackingRefernence);
+
+            processResponse = processor.ProcessAction(workflowRequest).Result;
+
+            AwaitAssert(() => {
+                var contractState = processResponse.GetNewState<ContractProcessingState>().ContractState;
+                Assert.AreEqual(ContractStatus.Rejected, contractState.ContractStatus);
+                Assert.IsTrue(_responseObserver.Responses.Any(r => (r.Request as IActionRequest)?.Context.OriginatingRequest == workflowRequest && r.GetStateChange().NewState.CurrentState == "IsNotPendingApproval"));
             },
             assertTimeout, assertInterval);
         }

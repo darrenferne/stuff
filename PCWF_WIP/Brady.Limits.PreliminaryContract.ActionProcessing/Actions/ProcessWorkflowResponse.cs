@@ -1,35 +1,57 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
+using Brady.Limits.PreliminaryContract.Domain.Enums;
 using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ProcessWorkflowResponse : AllowedAction<ActionRequest<WorkflowResponseProcessingPayload>>, IExternalAction
+    public class ProcessWorkflowResponse : AllowedAction<WorkflowResponseProcessingPayload>, IExternalAction
     {
-        public ProcessWorkflowResponse()
+        IPreliminaryContractPersistence _persistence;
+        public ProcessWorkflowResponse(IPreliminaryContractPersistence persistence)
             : base()
-        { }
+        {
+            _persistence = persistence;
+        }
 
-        public override IActionResult OnInvoke(ActionRequest<WorkflowResponseProcessingPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<WorkflowResponseProcessingPayload> request)
         {
             var workflowResponsePayload = request.Payload as WorkflowResponseProcessingPayload;
-            var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
+            var workflowAction = workflowResponsePayload.WorkflowResponse;
 
+            var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
             var newProcessingState = currentProcessingState;
 
             if (newProcessingState.ContractState.IsPendingApproval.GetValueOrDefault())
             {
-                if (workflowResponsePayload.WorkflowResponse)
+                var trackingReference = workflowResponsePayload.TrackingReference;
+                var contractTracking = _persistence.GetContractTrackingReference(trackingReference);
+                var actionTracking = contractTracking.Actions.SingleOrDefault(a => a.ActionReference == workflowAction.ActionReference);
+
+                actionTracking.State = workflowAction.ActionState.ToActionTrackingState();
+
+                var newContractStatus = contractTracking.Actions.Any(a => a.State == ActionTrackingState.Rejected) ? ContractStatus.Rejected :
+                                        contractTracking.Actions.All(a => a.State == ActionTrackingState.Approved) ? ContractStatus.Approved :
+                                        ContractStatus.InFlight;
+
+                if (newContractStatus == ContractStatus.Approved || newContractStatus == ContractStatus.Rejected)
+                    contractTracking.State = ContractTrackingState.ActionsComplete;
+                else
+                    contractTracking.State = ContractTrackingState.ActionsPending;
+
+                var result = _persistence.UpdateContractTrackingReference(contractTracking);
+                if (result.IsSaved)
                 {
-                    //update the external state
-                    newProcessingState = newProcessingState.Clone(s => s.SetIsPendingApproval(false)
-                                                                        .And()
-                                                                        .SetContractStatus(ContractStatus.Approved));
+                    if (contractTracking.State != ContractTrackingState.ActionsPending)
+                    {
+                        //update the external state
+                        newProcessingState = newProcessingState.Clone(s => s.SetIsPendingApproval(false)
+                                                                            .And()
+                                                                            .SetContractStatus(newContractStatus));
+                    }
                 }
+
+                newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsPendingApproval());
             }
 
             return new SuccessStateChange(request.Payload, newProcessingState);

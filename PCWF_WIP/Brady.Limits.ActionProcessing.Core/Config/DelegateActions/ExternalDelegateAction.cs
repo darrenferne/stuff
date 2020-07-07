@@ -3,13 +3,13 @@
 namespace Brady.Limits.ActionProcessing.Core
 {
 
-    public class ExternalDelegateAction<TPayload> : AllowedAction<ActionRequest<TPayload>>, IExternalAction
-        where TPayload : IActionRequestPayload
+    public class ExternalDelegateAction<TPayload> : AllowedAction<TPayload>, IExternalAction
+        where TPayload : class, IActionRequestPayload
     {
-        Func<ActionRequest<TPayload>, IActionProcessingStateChange> _onInvoke;
-        Func<ActionRequest<TPayload>, bool> _canInvoke;
+        Func<IActionRequest<TPayload>, IActionProcessingStateChange> _onInvoke;
+        Func<IActionRequest<TPayload>, bool> _canInvoke;
 
-        public ExternalDelegateAction(string name, Func<ActionRequest<TPayload>, IActionProcessingStateChange> onInvoke, Func<ActionRequest<TPayload>, bool> canInvoke = null)
+        public ExternalDelegateAction(string name, Func<IActionRequest<TPayload>, IActionProcessingStateChange> onInvoke, Func<IActionRequest<TPayload>, bool> canInvoke = null)
             : base(name)
         {
             if (onInvoke is null)
@@ -19,7 +19,7 @@ namespace Brady.Limits.ActionProcessing.Core
             _canInvoke = canInvoke;
         }
 
-        public override bool CanInvoke(ActionRequest<TPayload> request)
+        public override bool CanInvoke(IActionRequest<TPayload> request)
         {
             if (_canInvoke is null)
                 return base.CanInvoke(request);
@@ -27,7 +27,7 @@ namespace Brady.Limits.ActionProcessing.Core
                 return _canInvoke(request);
         }
 
-        public override IActionResult OnInvoke(ActionRequest<TPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<TPayload> request)
         {
             return _onInvoke.Invoke(request);
         }

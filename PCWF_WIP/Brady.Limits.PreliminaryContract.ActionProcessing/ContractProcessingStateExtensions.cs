@@ -1,6 +1,4 @@
-﻿using Brady.Limits.PreliminaryContract.Domain.Enums;
-
-namespace Brady.Limits.PreliminaryContract.ActionProcessing
+﻿namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
     public static class ContractProcessingStateExtensions
     {

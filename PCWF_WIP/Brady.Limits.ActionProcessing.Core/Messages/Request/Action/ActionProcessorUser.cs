@@ -1,9 +1,4 @@
-﻿using Akka.Actor;
-using System;
-using System.Security.Principal;
-using System.Threading.Tasks;
-
-namespace Brady.Limits.ActionProcessing.Core
+﻿namespace Brady.Limits.ActionProcessing.Core
 {
     public class ActionProcessorUser : IActionProcessorUser
     {

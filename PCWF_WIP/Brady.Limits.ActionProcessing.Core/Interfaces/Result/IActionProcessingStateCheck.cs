@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Brady.Limits.ActionProcessing.Core
+﻿namespace Brady.Limits.ActionProcessing.Core
 {
     public interface IActionProcessingStateCheck : IActionResult
     {

@@ -2,8 +2,8 @@
 
 namespace Brady.Limits.ActionProcessing.Core
 {
-    public abstract class AllowedAction<TRequest> : AllowedAction<TRequest, IActionResult>
-        where TRequest : class, IActionRequest
+    public abstract class AllowedAction<TPayload> : AllowedAction<IActionRequest<TPayload>, IActionResult>
+        where TPayload : class, IActionRequestPayload
     {
         public AllowedAction()
             : base()

@@ -1,19 +1,13 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsMaterialChangeRequest : ActionRequest<ContractProcessingPayload>
+    internal class CheckIsMaterialChangeRequest : ActionRequest<IContractProcessingPayload>
     {
-        public CheckIsMaterialChangeRequest(ContractProcessingPayload payload)
+        public CheckIsMaterialChangeRequest(IContractProcessingPayload payload)
             : base(nameof(CheckIsMaterialChange), payload)
         { }
 
-        public static CheckIsMaterialChangeRequest New(ContractProcessingPayload payload) => new CheckIsMaterialChangeRequest(payload);
+        public static CheckIsMaterialChangeRequest New(IContractProcessingPayload payload) => new CheckIsMaterialChangeRequest(payload);
     }
 }

@@ -1,22 +1,16 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsNew : AllowedAction<ActionRequest<ContractProcessingPayload>>
+    internal class CheckIsNew : AllowedAction<IContractProcessingPayload>
     {
         public CheckIsNew()
             : base(nameof(CheckIsNew))
         { }
 
-        public override IActionResult OnInvoke(ActionRequest<ContractProcessingPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<IContractProcessingPayload> request)
         {
-            var contractPayload = request.Payload as ContractProcessingPayload;
+            var contractPayload = request.Payload as IContractProcessingPayload;
             var contractProcessingState = request.Context.ProcessingState as ContractProcessingState;
 
             var newProcessingState = contractProcessingState;

@@ -1,19 +1,13 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    internal class CheckIsPendingApprovalRequest : ActionRequest<ContractProcessingPayload>
+    internal class CheckIsPendingApprovalRequest : ActionRequest<IContractProcessingPayload>
     {
-        public CheckIsPendingApprovalRequest(ContractProcessingPayload payload)
+        public CheckIsPendingApprovalRequest(IContractProcessingPayload payload)
             : base(nameof(CheckIsPendingApproval), payload)
         { }
 
-        public static CheckIsPendingApprovalRequest New(ContractProcessingPayload payload) => new CheckIsPendingApprovalRequest(payload);
+        public static CheckIsPendingApprovalRequest New(IContractProcessingPayload payload) => new CheckIsPendingApprovalRequest(payload);
     }
 }

@@ -7,7 +7,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
     [TestClass]
     public class ConfigObjectTests
     {
-        class TestAction : AllowedAction<ActionRequest<IntegerPayload>>
+        class TestAction : AllowedAction<IntegerPayload>
         {
             public TestAction()
                 : base()
@@ -17,7 +17,7 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
                 : base(name)
             { }
 
-            public override IActionResult OnInvoke(ActionRequest<IntegerPayload> request)
+            public override IActionResult OnInvoke(IActionRequest<IntegerPayload> request)
             {
                 return new StateChangeResult(IntegerPayload.Add(request.Payload as IntegerPayload, 1), TestState.New("OneMore"), "Happy Path");
             }

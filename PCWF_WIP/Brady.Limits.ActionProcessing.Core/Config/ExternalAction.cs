@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace Brady.Limits.ActionProcessing.Core
+﻿namespace Brady.Limits.ActionProcessing.Core
 {
     public abstract class ExternalAction<TRequest, TResult> : AllowedAction<TRequest, TResult>, IExternalAction
         where TRequest : class, IActionRequest

@@ -1,21 +1,20 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
 using Brady.Limits.PreliminaryContract.Domain.Enums;
 using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ProcessRuleResponse : AllowedAction<ActionRequest<RuleResponseProcessingPayload>>, IExternalAction
+    public class ProcessRuleResponse : AllowedAction<RuleResponseProcessingPayload>, IExternalAction
     {
-        public ProcessRuleResponse()
+        IPreliminaryContractPersistence _persistence;
+        public ProcessRuleResponse(IPreliminaryContractPersistence persistence)
             : base()
-        { }
+        {
+            _persistence = persistence;
+        }
 
-        public override IActionResult OnInvoke(ActionRequest<RuleResponseProcessingPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<RuleResponseProcessingPayload> request)
         {
             var ruleResponsePayload = request.Payload as RuleResponseProcessingPayload;
             var currentProcessingState = request.Context.ProcessingState as ContractProcessingState;
@@ -24,12 +23,30 @@ namespace Brady.Limits.PreliminaryContract.ActionProcessing
 
             if (newProcessingState.ContractState.IsPendingApproval.GetValueOrDefault())
             {
-                if (ruleResponsePayload.RuleResponse.TriggeredActions.Count == 0)
+                var contractTracking = _persistence.GetContractTrackingReference(ruleResponsePayload.TrackingReference);
+                if (!(contractTracking is null))
                 {
-                    //update the external state
-                    newProcessingState = newProcessingState.Clone(s => s.SetIsPendingApproval(false)
-                                                                        .And()
-                                                                        .SetContractStatus(ContractStatus.Approved));
+                    contractTracking.State = ruleResponsePayload.RuleResponse.TriggeredActions.Count == 0 ? ContractTrackingState.NoActions : ContractTrackingState.ActionsPending;
+                    contractTracking.Actions = ruleResponsePayload.RuleResponse.TriggeredActions.Select(ta => new ActionTrackingReference
+                    {
+                        State = ActionTrackingState.Pending,
+                        ActionReference = ta.ActionReference
+                    })
+                    .ToList();
+
+                    var result = _persistence.UpdateContractTrackingReference(contractTracking);
+                    if (result.IsSaved)
+                    {
+                        if (ruleResponsePayload.RuleResponse.TriggeredActions.Count == 0)
+                        {
+                            //update the external state
+                            newProcessingState = newProcessingState.Clone(s => s.SetIsPendingApproval(false)
+                                                                                .And()
+                                                                                .SetContractStatus(ContractStatus.Approved));
+                        }
+                    }
+
+                    newProcessingState = newProcessingState.Clone(s => s.SetCurrentFromIsPendingApproval());
                 }
             }
 

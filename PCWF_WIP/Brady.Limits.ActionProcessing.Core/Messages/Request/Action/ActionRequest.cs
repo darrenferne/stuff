@@ -4,11 +4,11 @@ using System.Diagnostics;
 namespace Brady.Limits.ActionProcessing.Core
 {
     [DebuggerDisplay("Action:{ActionName}, State:{Context.CurrentState?.StateName}, RequestType:{RequestType.Name}, PayloadType:{PayloadType.Name}")]
-    public class ActionRequest<TPayload> : Request, IRequestWithState, IRequestWithContext
+    public class ActionRequest<TPayload> : Request, IActionRequest<TPayload>, IRequestWithState, IRequestWithContext
         where TPayload : IActionRequestPayload
     {
         protected bool _isRecoveryRequest;
-        
+
         public ActionRequest(Guid requestId, string actionName, TPayload payload)
             : base(requestId, actionName)
         {
@@ -22,9 +22,11 @@ namespace Brady.Limits.ActionProcessing.Core
         public string ActionName { get; }
         public IActionRequestContext Context { get; private set; }
         //public IActionProcessingState CurrentState { get; protected set; }
-        public IActionRequestPayload Payload { get; protected set; }
+        public TPayload Payload { get; protected set; }
         public Type PayloadType { get; } = typeof(TPayload);
-        
+
+        IActionRequestPayload IActionRequest.Payload => Payload;
+
         bool IRecoverableRequest.IsRecoveryRequest 
         {
             get => _isRecoveryRequest;

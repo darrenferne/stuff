@@ -1,9 +1,7 @@
 ﻿using Akka.TestKit.VsTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Ninject;
 using System;
-using System.Collections.Generic;
 
 namespace Brady.Limits.ActionProcessing.Core.Tests
 {

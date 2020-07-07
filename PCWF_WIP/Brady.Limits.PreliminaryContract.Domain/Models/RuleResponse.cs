@@ -1,5 +1,4 @@
-﻿using Brady.Limits.PreliminaryContract.Domain.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Brady.Limits.PreliminaryContract.Domain.Models
 {

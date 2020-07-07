@@ -1,8 +1,6 @@
 using Akka.TestKit.VsTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
-using System.Collections.Generic;
 
 namespace Brady.Limits.ActionProcessing.Core.Tests
 {
@@ -27,12 +25,12 @@ namespace Brady.Limits.ActionProcessing.Core.Tests
                     new ActionRequest<IntegerPayload>("LevelUp", IntegerPayload.New(2))
                 ); 
 
-                IActionProcessingStateChange LevelUp(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, 1), TestState.New((r.Payload as IntegerPayload).Value < 3 ? $"Level{(r.Payload as IntegerPayload).Value + 1}" : "Complete"));
-                IActionProcessingStateChange LevelDown(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, -1), TestState.New((r.Payload as IntegerPayload).Value > 1 ? $"Level{(r.Payload as IntegerPayload).Value - 1}" : "Start"));
-                IActionProcessingStateChange BrucieBonus(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, 2), TestState.New((r.Payload as IntegerPayload).Value < 2 ? $"Level{(r.Payload as IntegerPayload).Value + 2}" : "Complete"));
-                IActionProcessingStateChange BackToStart(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.New(0, r.Payload.TrackingReference), TestState.New("Start"));
-                IActionProcessingStateChange SideQuest(ActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(r.Payload, r.Context.ProcessingState);
-                IActionProcessingStateChange ToggleUpDown(ActionRequest<IntegerPayload> r) => LastState = (Toggle ? LevelUp(r) : LevelDown(r));
+                IActionProcessingStateChange LevelUp(IActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, 1), TestState.New((r.Payload as IntegerPayload).Value < 3 ? $"Level{(r.Payload as IntegerPayload).Value + 1}" : "Complete"));
+                IActionProcessingStateChange LevelDown(IActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, -1), TestState.New((r.Payload as IntegerPayload).Value > 1 ? $"Level{(r.Payload as IntegerPayload).Value - 1}" : "Start"));
+                IActionProcessingStateChange BrucieBonus(IActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.Add(r.Payload as IntegerPayload, 2), TestState.New((r.Payload as IntegerPayload).Value < 2 ? $"Level{(r.Payload as IntegerPayload).Value + 2}" : "Complete"));
+                IActionProcessingStateChange BackToStart(IActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(IntegerPayload.New(0, r.Payload.TrackingReference), TestState.New("Start"));
+                IActionProcessingStateChange SideQuest(IActionRequest<IntegerPayload> r) => LastState = new SuccessStateChange(r.Payload, r.Context.ProcessingState);
+                IActionProcessingStateChange ToggleUpDown(IActionRequest<IntegerPayload> r) => LastState = (Toggle ? LevelUp(r) : LevelDown(r));
 
                 PipelineConfiguration = new ActionPipelineConfiguration(
                     "TestPipeline", 

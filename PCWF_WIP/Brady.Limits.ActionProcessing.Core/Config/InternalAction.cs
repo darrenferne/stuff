@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Brady.Limits.ActionProcessing.Core
+﻿namespace Brady.Limits.ActionProcessing.Core
 {
     public abstract class InternalAction<TRequest, TResult> : AllowedAction<TRequest, TResult>, IInternalAction
         where TRequest : class, IActionRequest

@@ -1,14 +1,13 @@
-﻿using Brady.Limits.PreliminaryContract.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Brady.Limits.PreliminaryContract.Domain.Models
 {
     public class WorkflowResponse
     {
-        public Guid RuleTrackingReference { get; set; }
+        public Guid ActionReference { get; set; }
         public Guid ActionId { get; set; }
-        public string ActionState { get; set; }
+        public ActionState ActionState { get; set; }
         public List<string> Comments { get; set; }
     }
 }

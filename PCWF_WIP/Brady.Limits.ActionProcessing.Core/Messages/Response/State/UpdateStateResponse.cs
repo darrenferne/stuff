@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Brady.Limits.ActionProcessing.Core
+﻿namespace Brady.Limits.ActionProcessing.Core
 {
     public class UpdateStateResponse : Response
     {

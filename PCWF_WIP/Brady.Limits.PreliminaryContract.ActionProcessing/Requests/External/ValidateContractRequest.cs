@@ -1,19 +1,13 @@
 ﻿using Brady.Limits.ActionProcessing.Core;
-using Brady.Limits.PreliminaryContract.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Brady.Limits.PreliminaryContract.ActionProcessing
 {
-    public class ValidateContractRequest : ActionRequest<ContractProcessingPayload>
+    public class ValidateContractRequest : ActionRequest<IContractProcessingPayload>
     {
-        public ValidateContractRequest(ContractProcessingPayload payload)
+        public ValidateContractRequest(IContractProcessingPayload payload)
             : base(nameof(ValidateContract), payload)
         { }
 
-        public static ValidateContractRequest New(ContractProcessingPayload payload) => new ValidateContractRequest(payload);
+        public static ValidateContractRequest New(IContractProcessingPayload payload) => new ValidateContractRequest(payload);
     }
 }

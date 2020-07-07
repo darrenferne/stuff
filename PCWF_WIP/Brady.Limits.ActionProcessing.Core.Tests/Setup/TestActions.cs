@@ -1,13 +1,13 @@
 ﻿namespace Brady.Limits.ActionProcessing.Core.Tests
 {
-    public class Add : AllowedAction<ActionRequest<IntegerPayload>>, IExternalAction
+    public class Add : AllowedAction<IntegerPayload>, IExternalAction
     {
         public Add(TestActionIoC injected)
         {
             Injected = injected;
         }
         public TestActionIoC Injected { get; }
-        public override IActionResult OnInvoke(ActionRequest<IntegerPayload> request)
+        public override IActionResult OnInvoke(IActionRequest<IntegerPayload> request)
         {
             var payload = request.Payload as IntegerPayload;
             var newPayload = IntegerPayload.New(payload.Value + 1);
